@@ -1,0 +1,69 @@
+{
+  "id": "HP-2026-004",
+  "title": "Forgotten Grains of Ancient India: Millets in Vedic Cuisine and Sustainable Living",
+  "subtitle": "Reclaiming Ragi, Jowar, Bajra, and Foxtail millet from Ayurvedic texts for modern regenerative gastronomy.",
+  "topic": "Ancient Indian Millets & Vedic Cuisine",
+  "category": "Cuisine",
+  "subcategory": "Ancient Culinary Roots",
+  "content_type": "Featured Article",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-3",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "Medium",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-08-21",
+  "deadline": "2026-08-24",
+  "publishing_date": "2026-09-01",
+  "published_url": "https://heritagepulse.org/cuisine/hp-2026-004-forgotten-grains-of-ancient-india-millet",
+  "short_description": "Ayurvedic classifications of Siri Dhanya millets and their role in healing diets, drought-resistant farming, and heritage recipes.",
+  "body": "\n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Ancient Grains of Wisdom</h2><p rtrvr-ls=\"0~hs,5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Long before wheat and polished white rice dominated the Indian subcontinental diet, millets—known in classical Sanskrit texts as <em rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Trinadhanya</em>—formed the bedrock of nourishment from the Indus Valley Civilization through the Vedic era test.</p>\n              ",
+  "tags": [
+    "Millets",
+    "VedicCuisine",
+    "AyurvedicDiet",
+    "AncientGrains",
+    "SustainableFood"
+  ],
+  "seo_title": "Ancient Indian Millets & Vedic Nutrition | Heritage Pulse",
+  "seo_description": "Explore the culinary history and health secrets of millets documented in Charaka Samhita and Vedic literature.",
+  "keywords": "ancient Indian grains, millets Vedic cuisine, Ragi Jowar history, Ayurvedic food philosophy",
+  "featured_image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "",
+  "reference_links": "https://millets.res.in",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "ICAR Indian Institute of Millets Research",
+      "url": "https://millets.res.in"
+    }
+  ],
+  "notes": "Final approved by Dr. Tejaswini Ma'am. Gowthami will publish in the morning slot.",
+  "images": [
+    {
+      "id": "img-004-1",
+      "file_url": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=80",
+      "filename": "heritage-millets-harvest.jpg",
+      "caption": "Earthen pots displaying heirloom varieties of millets in a rural kitchen.",
+      "credit": "Photo: Sasanka / Heritage Pulse",
+      "alt_text": "Clay bowls filled with different grains and millets",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-21T10:00:00Z",
+  "updated_at": "2026-09-01T06:27:30.417Z",
+  "checklist": {
+    "article_checked": true,
+    "images_checked": true,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": true,
+    "mobile_preview_checked": true,
+    "desktop_preview_checked": true,
+    "website_published": true
+  }
+}

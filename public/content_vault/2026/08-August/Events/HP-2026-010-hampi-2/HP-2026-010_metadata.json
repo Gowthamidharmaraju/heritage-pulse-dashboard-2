@@ -1,0 +1,77 @@
+{
+  "id": "HP-2026-010",
+  "title": "hampi 2",
+  "subtitle": "",
+  "topic": "hampi 2",
+  "category": "Events",
+  "subcategory": "General",
+  "content_type": "Daily News",
+  "frequency": "Weekly",
+  "writer_id": "usr-admin-1",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "WRITING",
+  "progress": 25,
+  "start_date": "2026-08-24",
+  "deadline": "2026-08-27",
+  "work_start_time": "2026-08-29T09:30",
+  "work_end_time": "2026-08-30T18:00",
+  "publishing_date": "2026-08-28",
+  "published_url": "",
+  "short_description": "hello",
+  "body": "\n                <div style=\"margin: 0px 14.3906px 0px 28.7969px; width: 436.797px; float: left; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\"><p style=\"margin: 0px 0px 15px; text-align: justify;\"><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.</p><div><br></div></div><div style=\"margin: 0px 28.7969px 0px 14.3906px; width: 436.797px; float: right; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px;\"></div>\n                <p></p>\n              \n              ",
+  "tags": [
+    "hi"
+  ],
+  "seo_title": "hampi 2 | Heritage Pulse",
+  "seo_description": "hello",
+  "keywords": "",
+  "featured_image": "/uploads/1787996726714-573341565.png",
+  "video_url": "",
+  "reference_links": "hiiii",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Primary Reference Source",
+      "url": "hiiii"
+    }
+  ],
+  "notes": "",
+  "images": [
+    {
+      "id": "img-1787996726733",
+      "file_url": "/uploads/1787996726714-573341565.png",
+      "filename": "ChatGPT Image Aug 19, 2026, 04_58_49 PM.png",
+      "caption": "ChatGPT Image Aug 19, 2026, 04_58_49 PM at Heritage Pulse",
+      "credit": "Pavitra / Heritage Pulse Bureau",
+      "alt_text": "",
+      "is_featured": true,
+      "sort_order": 1
+    },
+    {
+      "id": "img-1787996730130",
+      "file_url": "/uploads/1787996730125-617229228.jpg",
+      "filename": "16493989941991688525.jpg",
+      "caption": "16493989941991688525 at Heritage Pulse",
+      "credit": "Pavitra / Heritage Pulse Bureau",
+      "alt_text": "",
+      "is_featured": false,
+      "sort_order": 2
+    }
+  ],
+  "created_at": "2026-08-29T09:43:06.317Z",
+  "updated_at": "2026-08-29T10:26:35.412Z",
+  "checklist": {
+    "article_checked": false,
+    "images_checked": false,
+    "featured_image_selected": false,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": false,
+    "mobile_preview_checked": false,
+    "desktop_preview_checked": false,
+    "website_published": false
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "HP-2026-008",
+  "title": "Temple Jewellery of South India: The Craft of Nadaswaram Gold & Uncut Rubies",
+  "subtitle": "Unlocking the royal embellishments originally crafted to adorn divine idols in Chola and Pandya shrines.",
+  "topic": "Temple Jewellery of South India",
+  "category": "Jewellery",
+  "subcategory": "Heritage Craftsmanship",
+  "content_type": "Special Feature",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-1",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "WRITER_SUBMITTED",
+  "progress": 60,
+  "start_date": "2026-08-22",
+  "deadline": "2026-08-29",
+  "publishing_date": "2026-08-30",
+  "published_url": "",
+  "short_description": "How goldsmiths in Vadasery, Nagercoil create Vanki armlets, Kasu Malas, and Jimikkis using pure silver gilded with 24k gold leaf.",
+  "body": "<h2>Adorning the Divine</h2><p>Temple jewellery originated during the reigns of the Chola and Pandya monarchs, who endowed temple treasuries with precious ornaments.</p>",
+  "tags": [
+    "TempleJewellery",
+    "KasuMala",
+    "VadaseryGold",
+    "IndianGoldsmiths",
+    "CholaJewellery"
+  ],
+  "seo_title": "Temple Jewellery: The Art of Vadasery Gold Ornaments | Heritage Pulse",
+  "seo_description": "Discover the heritage of Vadasery temple jewellery with uncut Burmese rubies and 24k gold casing.",
+  "keywords": "temple jewellery South India, Kasu Mala, Vadasery gold, Bharatanatyam ornaments",
+  "featured_image": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "",
+  "reference_links": "https://ipindia.gov.in/gi.htm",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Geographical Indications (GI) Registry of India",
+      "url": "https://ipindia.gov.in"
+    }
+  ],
+  "notes": "5 high-res studio photographs uploaded. Pavitra finalizing the manuscript.",
+  "images": [
+    {
+      "id": "img-008-1",
+      "file_url": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80",
+      "filename": "kasu-mala-gold-closeup.jpg",
+      "caption": "Antique 22-carat gold Kasu Mala featuring Goddess Lakshmi coins.",
+      "credit": "Studio Photo / Heritage Pulse Jewellery Bureau",
+      "alt_text": "Intricate traditional gold coin necklace with ruby embellishments",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-22T16:00:00Z",
+  "updated_at": "2026-09-01T06:32:41.828Z",
+  "checklist": {
+    "article_checked": false,
+    "images_checked": true,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": false,
+    "mobile_preview_checked": false,
+    "desktop_preview_checked": false,
+    "website_published": false
+  },
+  "editor_rating": 5,
+  "editor_rated_by": "Dr. Tejaswini Ma'am",
+  "editor_rated_at": "2026-09-01T06:32:18.557Z"
+}

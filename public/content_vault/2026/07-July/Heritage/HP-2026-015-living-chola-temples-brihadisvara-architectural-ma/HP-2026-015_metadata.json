@@ -1,0 +1,46 @@
+{
+  "id": "HP-2026-015",
+  "title": "Living Chola Temples: Brihadisvara Architectural Marvels",
+  "subtitle": "The monolithic granite vimana standing without mortar for a thousand years",
+  "topic": "Living Chola Temples: Brihadisvara Architectural Marvels",
+  "category": "Heritage",
+  "subcategory": "Dravidian Architecture",
+  "content_type": "Masterpiece Feature",
+  "frequency": "Monthly",
+  "writer_id": "usr-writer-1",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-07-10",
+  "deadline": "2026-07-16",
+  "publishing_date": "2026-07-18",
+  "published_url": "https://heritagepulse.org/read/hp-2026-015",
+  "short_description": "Architectural study of the Brihadisvara Temple at Thanjavur.",
+  "body": "<h1>Living Chola Temples: Brihadisvara Architectural Marvels</h1><p>Built by Raja Raja Chola I between 1003 and 1010 CE, the Brihadisvara Temple at Thanjavur represents the zenith of Dravidian temple architecture.</p><h2>The Granite Marvel</h2><p>The entire superstructure rises over 66 meters, topped by an 80-tonne monolithic cupola that was raised via a six-kilometer inclined earth ramp.</p>",
+  "tags": [
+    "CholaDynasty",
+    "Brihadisvara",
+    "GraniteTemple",
+    "UNESCO"
+  ],
+  "seo_title": "Living Chola Temples: Brihadisvara Marvels | Heritage Pulse",
+  "seo_description": "Exploration of the architectural engineering of the Thanjavur Big Temple.",
+  "featured_image": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+  "images": [
+    {
+      "id": "img-chola-1",
+      "filename": "brihadisvara_vimana_tower.jpg",
+      "file_url": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+      "caption": "Soaring 216-foot vimana of the Great Chola Temple",
+      "credit": "Heritage Pulse Photo Archives",
+      "is_featured": true
+    }
+  ],
+  "created_at": "2026-07-10T09:00:00Z",
+  "created_by": "usr-admin-1",
+  "created_by_name": "Jitendra",
+  "created_by_role": "Super Admin"
+}

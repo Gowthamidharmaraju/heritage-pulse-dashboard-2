@@ -1,0 +1,46 @@
+{
+  "id": "HP-2026-016",
+  "title": "Madhubani Mithila Folk Murals: Ancient Natural Pigments",
+  "subtitle": "How traditional women artisans extract soot, turmeric, and indigo for sacred ritual walls",
+  "topic": "Madhubani Mithila Folk Murals: Ancient Natural Pigments",
+  "category": "Art",
+  "subcategory": "Folk Painting",
+  "content_type": "Heritage Dossier",
+  "frequency": "Bi-Weekly",
+  "writer_id": "usr-writer-2",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "Medium",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-07-20",
+  "deadline": "2026-07-26",
+  "publishing_date": "2026-07-28",
+  "published_url": "https://heritagepulse.org/read/hp-2026-016",
+  "short_description": "Deep dive into the ritual art form practiced in the Mithila region of Bihar.",
+  "body": "<h1>Madhubani Mithila Folk Murals</h1><p>Traditionally practiced on mud walls during auspicious ceremonies, Madhubani painting uses fingers, twigs, and matchsticks with natural mineral dyes.</p>",
+  "tags": [
+    "Madhubani",
+    "MithilaArt",
+    "NaturalDyes",
+    "FolkHeritage"
+  ],
+  "seo_title": "Madhubani Folk Murals & Organic Pigments | Heritage Pulse",
+  "seo_description": "Study of traditional Mithila painting techniques and natural color extraction.",
+  "featured_image": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80",
+  "images": [
+    {
+      "id": "img-madhu-1",
+      "filename": "mithila_kohbar_mural.jpg",
+      "file_url": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80",
+      "caption": "Kohbar sacred marriage chamber wall painting",
+      "credit": "Mithila Artisans Collective",
+      "is_featured": true
+    }
+  ],
+  "created_at": "2026-07-20T10:00:00Z",
+  "created_by": "usr-writer-2",
+  "created_by_name": "Nikitha",
+  "created_by_role": "Writer"
+}

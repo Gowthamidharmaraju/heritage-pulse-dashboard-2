@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heritage Pulse — Content Operations & Editorial Workflow Dashboard</title>
+  <meta name="description" content="Professional editorial workflow, daily work tracker and content operations platform for Heritage Pulse">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="theme-dark">
+  <!-- SVG COLOR MATRIX FILTER: Converts white logo letters to black while preserving gold icon & TEJ text -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <filter id="logo-light-filter">
+      <feColorMatrix type="matrix" values="
+        1  0 -0.90  0  0
+        0  1 -0.85  0  0
+        0  0  0.16  0  0
+        0  0  0     1  0
+      "/>
+    </filter>
+  </svg>
+
+  <!-- DEDICATED LOGIN CONTAINER -->
+  <div id="login-view-container" class="hidden"></div>
+
+  <div id="app" class="app-layout">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="app-header">
+      <div class="header-left">
+        <button id="sidebar-toggle" class="btn-icon sidebar-toggle" title="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="brand" onclick="app.navigateTo('dashboard')">
+          <img src="/images/logo.png" alt="Heritage Pulse Logo" class="brand-logo-img">
+        </div>
+      </div>
+
+      <!-- GLOBAL SEARCH BAR -->
+      <div class="header-search">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="global-search-input" placeholder="Search topics, content ID, writers, editors, categories..." autocomplete="off">
+        <div id="search-quick-results" class="search-dropdown hidden"></div>
+      </div>
+
+      <!-- HEADER RIGHT CONTROLS -->
+      <div class="header-right">
+        <!-- Live Realtime Sync Status Indicator with Blinking Red Dot -->
+        <div class="realtime-status-pill" id="realtime-status-indicator" title="Realtime data synchronization active">
+          <span class="live-pulse-dot red-live-dot"></span>
+          <span class="sync-status-text">LIVE SYNC</span>
+        </div>
+
+        <!-- Quick Action Create Button -->
+        <button class="btn btn-primary btn-sm header-create-btn" onclick="app.openCreateModal()" title="New Topic">
+          <i class="fa-solid fa-plus"></i>
+          <span class="hide-mobile">New Topic</span>
+        </button>
+
+        <!-- LIGHT / DARK MODE TOGGLE BUTTON -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="app.toggleTheme()" title="Switch Light / Dark Theme">
+          <i class="fa-solid fa-sun" id="theme-toggle-icon"></i>
+        </button>        <!-- Role Switcher Quick Bar -->
+        <div class="role-switcher-dropdown">
+          <button class="role-pill-btn" id="role-pill-trigger" title="Switch Active Perspective">
+            <span class="role-badge-indicator" id="current-role-badge">Super Admin</span>
+            <span class="user-display-name hide-on-tablet" id="current-user-name">Jitendra</span>
+            <i class="fa-solid fa-chevron-down role-caret hide-on-small-tablet"></i>
+          </button>
+          <div class="role-menu hidden" id="role-menu-dropdown">
+            <div class="role-menu-header">Switch Active Perspective</div>
+            
+            <div class="role-menu-item" onclick="app.switchUser('usr-admin-1')">
+              <span class="avatar-sm">J</span>
+              <div>
+                <strong>Jitendra</strong>
+                <small>Super Admin &amp; Head of Operations</small>
+              </div>
+            </div>
+            
+            <div class="role-menu-item" onclick="app.switchUser('usr-editor-1')">
+              <span class="avatar-sm bg-indigo">TM</span>
+              <div>
+                <strong>Dr. Tejaswini Ma'am</strong>
+                <small>Chief Editor &amp; Co-Admin</small>
+              </div>
+            </div>
+
+            <div class="role-menu-item" onclick="app.switchUser('usr-writer-1')">
+              <span class="avatar-sm bg-purple">P</span>
+              <div>
+                <strong>Pavitra</strong>
+                <small>Senior Writer (Heritage & Culture)</small>
+              </div>
+            </div>
+
+            <div class="role-menu-item" onclick="app.switchUser('usr-writer-2')">
+              <span class="avatar-sm bg-blue">N</span>
+              <div>
+                <strong>Nikitha</strong>
+                <small>Writer (Arts, Music, Events)</small>
+              </div>
+            </div>
+
+            <div class="role-menu-item" onclick="app.switchUser('usr-writer-3')">
+              <span class="avatar-sm bg-amber">S</span>
+              <div>
+                <strong>Sasanka</strong>
+                <small>Writer (Cuisine, Yoga, Lifestyle)</small>
+              </div>
+            </div>
+
+            <div class="role-menu-item" onclick="app.switchUser('usr-publisher-1')">
+              <span class="avatar-sm bg-green">G</span>
+              <div>
+                <strong>Gowthami</strong>
+                <small>Publisher & Digital Web Ops</small>
+              </div>
+            </div>
+
+            <div class="role-menu-divider" style="border-top:1px solid var(--border-color);margin:6px 0;"></div>
+            <div class="role-menu-item" onclick="app.logout()" style="color:#ef4444;">
+              <span class="avatar-sm" style="background:rgba(239,68,68,0.18);color:#ef4444;"><i class="fa-solid fa-right-from-bracket"></i></span>
+              <div>
+                <strong>Sign Out</strong>
+                <small>Exit session & Return to Login</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Bell -->
+        <div class="notification-wrapper">
+          <button class="btn-icon" id="notif-btn" title="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notif-badge" id="notif-count">2</span>
+          </button>
+          <div class="notif-dropdown hidden" id="notif-dropdown">
+            <div class="notif-header">
+              <span>Notifications & Workflow Alerts</span>
+              <button class="btn-text btn-xs" onclick="app.markAllNotificationsRead()">Mark all read</button>
+            </div>
+            <div class="notif-list" id="notif-list-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK KICKOFF HEADER BUTTON -->
+        <button class="header-kickoff-btn hide-on-tablet" onclick="app.openCreateModal()" title="Quick Topic Assignment (Instant Kickoff)">
+          <i class="fa-solid fa-bolt-lightning text-saffron"></i>
+          <span>Quick Kickoff</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-body">
+      
+      <!-- SIDEBAR NAVIGATION -->
+      <aside class="app-sidebar" id="app-sidebar">
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">MAIN OPERATIONS</div>
+          <a href="#dashboard" class="nav-link active" data-view="dashboard" data-tooltip="Dashboard">
+            <i class="fa-solid fa-chart-pie nav-icon"></i>
+            <span>Dashboard</span>
+            <span class="nav-badge" id="sidebar-tasks-count">9</span>
+          </a>
+          <a href="#my-work" class="nav-link" data-view="my-work" data-tooltip="My Work">
+            <i class="fa-solid fa-briefcase nav-icon"></i>
+            <span>My Work</span>
+            <span class="nav-badge bg-saffron" id="sidebar-mywork-count">3</span>
+          </a>
+          <!-- GOOGLE DRIVE STYLE FOLDERS DATA VAULT -->
+          <a href="#folders" class="nav-link" data-view="folders" id="sidebar-folders-link" data-tooltip="Folders Data Vault">
+            <i class="fa-solid fa-folder-tree nav-icon text-saffron"></i>
+            <span>Folders Data</span>
+            <span class="nav-badge bg-saffron">Drive</span>
+          </a>
+          <a href="#tracker" class="nav-link" data-view="tracker" data-tooltip="Daily Work Tracker">
+            <i class="fa-solid fa-list-check nav-icon"></i>
+            <span>Daily Work Tracker</span>
+          </a>
+          <a href="#kanban" class="nav-link" data-view="kanban" data-tooltip="Kanban Workflow">
+            <i class="fa-solid fa-table-columns nav-icon"></i>
+            <span>Kanban Workflow</span>
+          </a>
+          <a href="#calendar" class="nav-link" data-view="calendar" data-tooltip="Content Calendar">
+            <i class="fa-regular fa-calendar-days nav-icon"></i>
+            <span>Content Calendar</span>
+          </a>
+          <!-- RECYCLE BIN (TRASH VAULT) -->
+          <a href="#trash" class="nav-link" data-view="trash" id="sidebar-trash-link" data-tooltip="Recycle Bin">
+            <i class="fa-solid fa-trash-can nav-icon text-crimson-light"></i>
+            <span>Recycle Bin</span>
+            <span class="nav-badge" style="background: rgba(239, 68, 68, 0.18); color: #f87171;" id="sidebar-trash-count">0</span>
+          </a>
+
+          <div class="nav-section-title">EDITORIAL QUEUES</div>
+          <a href="#all-content" class="nav-link" data-view="all-content" data-tooltip="All Content Items">
+            <i class="fa-solid fa-newspaper nav-icon"></i>
+            <span>All Content Items</span>
+          </a>
+          <!-- WRITER SUBMISSIONS QUEUE -->
+          <a href="#writer-submissions" class="nav-link" data-view="writer-submissions" id="sidebar-submissions-link" data-tooltip="Writer Submissions (60%)">
+            <i class="fa-solid fa-paper-plane nav-icon text-teal-bright"></i>
+            <span>Writer Submissions (60%)</span>
+            <span class="nav-badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;" id="sidebar-submissions-count">2</span>
+          </a>
+          <a href="#reviews" class="nav-link" data-view="reviews" data-tooltip="Editor Reviews (Dr. Tejaswini Ma'am)">
+            <i class="fa-solid fa-spell-check nav-icon"></i>
+            <span>Editor Reviews (Dr. Tejaswini Ma'am)</span>
+            <span class="nav-badge bg-indigo" id="sidebar-reviews-count">2</span>
+          </a>
+          <a href="#final-approvals" class="nav-link" data-view="final-approvals" data-tooltip="Final Approvals">
+            <i class="fa-solid fa-stamp nav-icon"></i>
+            <span>Final Approvals</span>
+            <span class="nav-badge bg-purple" id="sidebar-approvals-count">1</span>
+          </a>
+          <a href="#publishing" class="nav-link" data-view="publishing" data-tooltip="Publishing Hub (Gowthami)">
+            <i class="fa-solid fa-globe nav-icon"></i>
+            <span>Publishing Hub (Gowthami)</span>
+            <span class="nav-badge bg-green" id="sidebar-ready-count">1</span>
+          </a>
+
+          <!-- MANAGEMENT SECTION (ADMIN ONLY) -->
+          <div id="admin-management-nav-section">
+            <div class="nav-section-title" id="admin-management-title">MANAGEMENT &amp; INTEL</div>
+            <a href="#workload" class="nav-link" data-view="workload" id="admin-workload-link" data-tooltip="Team Workload">
+              <i class="fa-solid fa-users-viewfinder nav-icon"></i>
+              <span>Team Workload</span>
+            </a>
+            <a href="#analytics" class="nav-link" data-view="analytics" id="admin-analytics-link" data-tooltip="Analytics &amp; Reports">
+              <i class="fa-solid fa-chart-line nav-icon"></i>
+              <span>Analytics &amp; Reports</span>
+            </a>
+            <a href="#categories" class="nav-link" data-view="categories" id="admin-categories-link" data-tooltip="Categories (17)">
+              <i class="fa-solid fa-tags nav-icon"></i>
+              <span>Categories (17)</span>
+            </a>
+            <a href="#users" class="nav-link" data-view="users" id="admin-users-link" data-tooltip="Team &amp; Permissions">
+              <i class="fa-solid fa-user-gear nav-icon"></i>
+              <span>Team &amp; Permissions</span>
+            </a>
+          </div>
+
+          <!-- ADMIN INTELLIGENCE (Only Admin + Dr. Tejaswini) -->
+          <div id="admin-intel-nav-section" style="display:none;">
+            <div class="nav-section-title" style="color:#a855f7;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-robot" style="font-size:0.65rem;"></i> ADMIN INTELLIGENCE
+            </div>
+            <a href="#ai-monitor" class="nav-link" data-view="ai-monitor" style="border-left:2px solid #7c3aed;">
+              <i class="fa-solid fa-magnifying-glass-chart nav-icon" style="color:#a855f7;"></i>
+              <span>AI Content Monitor</span>
+              <span class="nav-badge" style="background:linear-gradient(135deg,#7c3aed,#a855f7);font-size:0.58rem;padding:1px 5px;">NEW</span>
+            </a>
+            <a href="#ai-monitor" class="nav-link" data-view="ai-monitor" onclick="setTimeout(()=>AiMonitorView.showTab('notif'),200)" style="border-left:2px solid #7c3aed;">
+              <i class="fa-solid fa-bell-slash nav-icon" style="color:#a855f7;"></i>
+              <span>Notification Settings</span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- SIDEBAR FOOTER -->
+        <div class="sidebar-footer">
+          <div class="active-profile-card">
+            <div class="avatar" id="sidebar-user-avatar">J</div>
+            <div class="profile-info">
+              <div class="profile-name" id="sidebar-user-name">Jitendra</div>
+              <div class="profile-role" id="sidebar-user-role">Admin &amp; Head of Ops</div>
+            </div>
+          </div>
+          <button id="sidebar-reset-demo-btn" class="btn btn-xs btn-outline-light w-100 mt-2" onclick="app.resetSeedData()" title="Reset to default demo data (Admin only)">
+            <i class="fa-solid fa-rotate-left"></i> Reset Demo Data
+          </button>
+        </div>
+      </aside>
+
+      <!-- DYNAMIC CONTENT VIEW AREA -->
+      <main class="main-content" id="main-content-view">
+        <div class="view-loading">
+        <div class="spinner"></div>
+          <p>Loading Heritage Pulse Editorial Dashboard...</p>
+        </div>
+      </main>
+    </div>
+  </div>  <!-- QUICK TOPIC ASSIGNMENT (INSTANT KICKOFF) POPUP MODAL -->
+  <div id="create-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-header" style="padding: 16px 24px;">
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 2px;">
+            <div class="modal-badge-kickoff" style="margin: 0; white-space: nowrap;">
+              <i class="fa-solid fa-bolt-lightning"></i> INSTANT KICKOFF
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: 1.22rem; font-weight: 800; color: var(--text-primary); margin: 0; white-space: nowrap;">
+              Quick Topic Assignment & Workflow Kickoff
+            </h3>
+          </div>
+          <p style="font-size: 0.78rem; color: var(--text-dim); margin: 3px 0 0 0;">
+            Admin Fast-Track: Assign writer, reviewer, priority, and immediately jump straight into writing and editing.
+          </p>
+        </div>
+        <button class="modal-close" onclick="app.closeCreateModal()">&times;</button>
+      </div>
+
+      <form id="create-content-form" onsubmit="app.handleCreateContent(event)">
+        <div class="modal-body">
+          
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Topic / Headline Title <span class="required">*</span></label>
+              <input type="text" name="topic" id="new-topic-input" class="form-control" placeholder="e.g. Traditional Temple Architecture of Andhra Pradesh" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category <span class="required">*</span></label>
+              <select name="category" id="new-category-select" class="form-control" required>
+                <!-- Filled dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">Content Type</label>
+              <select name="content_type" id="new-content-type-select" class="form-control">
+                <option value="Featured Article" selected>Featured Article (Long-form)</option>
+                <option value="Daily News">Daily News</option>
+                <option value="Event">Event Coverage</option>
+                <option value="Photo Story">Photo Story / Essay</option>
+                <option value="Heritage Story">Heritage Deep Dive</option>
+                <option value="Culture Story">Living Culture Story</option>
+                <option value="Book Review">Book & Literature Review</option>
+                <option value="Traditional Games">Traditional Games & Folk Sports</option>
+                <option value="Interview">Living Legend Interview</option>
+                <option value="Special Feature">Special Feature</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Priority Level</label>
+              <select name="priority" id="new-priority-select" class="form-control">
+                <option value="Urgent">🚨 Urgent / Breaking</option>
+                <option value="High" selected>⚡ High Priority</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Publishing Frequency</label>
+              <select name="frequency" class="form-control">
+                <option value="Daily" selected>Daily Edition</option>
+                <option value="Weekly">Weekly Edition</option>
+                <option value="Ongoing">Ongoing Special Feature</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ASSIGNMENTS SECTION: WRITER + REVIEWER + FINAL APPROVER (DR. TEJASWINI MA'AM) -->
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">1. Assigned Writer <span class="required">*</span></label>
+              <select name="writer_id" id="new-writer-select" class="form-control" required>
+                <!-- Filled dynamically (Pavitra, Nikitha, Sasanka) -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">2. Editorial Reviewer <span class="required">*</span></label>
+              <select name="editor_id" id="new-editor-select" class="form-control" required>
+                <!-- Filled dynamically (Dr. Tejaswini Ma'am) -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" title="3. Final Approver (Dr. Tejaswini Ma'am)">3. Final Approver (Dr. Tejaswini) <span class="required">*</span></label>
+              <select name="final_approver_id" id="new-approver-select" class="form-control" required>
+                <!-- Filled dynamically (Dr. Tejaswini Ma'am / Jitendra) -->
+              </select>
+            </div>
+          </div>
+
+          <!-- WORK START & WORK END TIMINGS (CRITICAL TIMING SLA REQUIREMENT) -->
+          <div class="form-grid-2" style="background: rgba(245, 158, 11, 0.08); padding: 12px; border-radius: var(--radius-md); border: 1px solid rgba(245, 158, 11, 0.2); margin-bottom: 14px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" style="color: var(--saffron-dark); font-weight: 700;">
+                <i class="fa-regular fa-clock"></i> Work Start Date & Time <span class="required">*</span>
+              </label>
+              <input type="datetime-local" name="work_start_time" id="new-start-time-input" class="form-control" value="2026-08-24T09:30" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" style="color: #ef4444; font-weight: 700;">
+                <i class="fa-solid fa-hourglass-end"></i> Work End Target Time / Deadline <span class="required">*</span>
+              </label>
+              <input type="datetime-local" name="work_end_time" id="new-end-time-input" class="form-control" value="2026-08-24T18:00" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Submission Deadline Date</label>
+              <input type="date" name="deadline" id="new-deadline-input" class="form-control" value="2026-08-27">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target Publishing Date (Gowthami)</label>
+              <input type="date" name="publishing_date" id="new-publishing-date-input" class="form-control" value="2026-08-28">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Editorial Brief / Field Guidelines for Writer</label>
+            <textarea name="short_description" id="new-brief-input" class="form-control" rows="2" placeholder="Provide assignment guidelines, expected word length (e.g. 1000 words), field interview focus, or historical references..."></textarea>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Tags (comma separated)</label>
+              <input type="text" name="tags" id="new-tags-input" class="form-control" placeholder="Heritage, Architecture, AndhraPradesh, Dravidian">
+            </div>
+            <div class="form-group">
+              <label class="form-label">News Source Links / Primary References</label>
+              <input type="text" name="reference_links" id="new-ref-links-input" class="form-control" placeholder="https://asi.nic.in, PTI News, Archaeological Survey...">
+            </div>
+          </div>
+
+          <!-- INSTANT KICKOFF ACTION STRATEGY -->
+          <div style="margin-top: 10px;">
+            <label class="form-label" style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-dim);">Kickoff Routing Action</label>
+            <div class="kickoff-stage-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+              <label class="kickoff-stage-card selected" id="stage-card-jump" onclick="app.selectKickoffRouting('jump')">
+                <input type="radio" name="kickoff_action" value="jump" checked>
+                <div>
+                  <strong style="font-size: 0.85rem; color: var(--saffron-dark);">🚀 Assign &amp; Jump to Editor (25%)</strong>
+                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">
+                    Instantly opens the 3-column workspace to start writing.
+                  </div>
+                </div>
+              </label>
+              <label class="kickoff-stage-card" id="stage-card-submit" onclick="app.selectKickoffRouting('submit')">
+                <input type="radio" name="kickoff_action" value="submit">
+                <div>
+                  <strong style="font-size: 0.85rem; color: #60a5fa;">🚀 Create &amp; Submit to Editor (60%)</strong>
+                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">
+                    Sets to Writer Submitted for Dr. Tejaswini Ma'am review.
+                  </div>
+                </div>
+              </label>
+              <label class="kickoff-stage-card" id="stage-card-queue" onclick="app.selectKickoffRouting('queue')">
+                <input type="radio" name="kickoff_action" value="queue">
+                <div>
+                  <strong style="font-size: 0.85rem; color: var(--text-primary);">📋 Assign to Queue (10%)</strong>
+                  <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">
+                    Sends task notification to writer's daily queue.
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <button type="button" class="btn btn-outline-light" onclick="app.closeCreateModal()">Cancel</button>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="submit" class="kickoff-submit-btn" id="kickoff-submit-button">
+              <i class="fa-solid fa-bolt-lightning"></i>
+              <span>Kick Off Topic Assignment →</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- WRITER NEW TASK INSTANT KICKOFF POPUP MODAL -->
+  <div id="writer-kickoff-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-md writer-kickoff-card">
+      <div class="writer-kickoff-banner">
+        <div class="kickoff-icon-circle">
+          <i class="fa-solid fa-sparkles text-saffron"></i>
+        </div>
+        <div class="modal-badge-kickoff" style="margin-bottom: 6px;">
+          <i class="fa-solid fa-bolt-lightning"></i> NEW ASSIGNMENT KICKOFF
+        </div>
+        <h3 style="font-family: var(--font-display); font-size: 1.45rem; color: var(--text-primary); margin-bottom: 4px;" id="writer-kickoff-greeting">
+          New Story Assigned to You!
+        </h3>
+        <p style="font-size: 0.8rem; color: var(--text-secondary);" id="writer-kickoff-sub">
+          Admin Jitendra has assigned you a priority heritage story for editorial coverage.
+        </p>
+      </div>
+
+      <div class="modal-body" style="padding: 20px;">
+        
+        <!-- Task Summary Box -->
+        <div class="writer-kickoff-task-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-family: monospace; font-weight: 800; font-size: 0.82rem; color: var(--saffron);" id="writer-kickoff-id">
+                HP-2026-004
+              </span>
+              <span class="cat-badge" id="writer-kickoff-cat" style="font-size: 0.72rem; padding: 2px 8px;">
+                Art
+              </span>
+            </div>
+            <span id="writer-kickoff-priority">
+              <span class="status-pill status-urgent">URGENT</span>
+            </span>
+          </div>
+
+          <h4 style="font-family: var(--font-display); font-size: 1.15rem; color: var(--text-primary); margin-bottom: 10px; line-height: 1.4;" id="writer-kickoff-title">
+            Traditional Temple Architecture of Andhra Pradesh
+          </h4>
+
+          <div style="font-size: 0.82rem; color: var(--text-secondary); background: rgba(0,0,0,0.2); padding: 12px; border-radius: 6px; margin-bottom: 14px; border-left: 3px solid var(--saffron);" id="writer-kickoff-brief">
+            Assignment guidelines and editorial brief will appear here.
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.76rem; color: var(--text-dim);">
+            <div>📅 <strong>Deadline:</strong> <span id="writer-kickoff-deadline">Aug 27, 2026</span></div>
+            <div>🧐 <strong>Reviewer:</strong> <span id="writer-kickoff-editor">Dr. Tejaswini Ma'am</span></div>
+            <div>🌐 <strong>Publisher:</strong> <span id="writer-kickoff-publisher">Gowthami</span></div>
+            <div>📊 <strong>Status:</strong> <span id="writer-kickoff-status" class="badge" style="background: rgba(99,102,241,0.2); color: var(--indigo-bright);">Assigned (10%)</span></div>
+          </div>
+        </div>
+
+        <!-- Action Buttons with Writer Submitted Button -->
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 18px;">
+          <!-- 1. Accept & Start Writing (25%) -->
+          <button type="button" class="kickoff-submit-btn w-100" id="writer-kickoff-start-btn" onclick="app.acceptWriterKickoff()">
+            <i class="fa-solid fa-pen-nib"></i>
+            <span>Accept &amp; Start Writing Now (25%) →</span>
+          </button>
+          
+          <!-- 2. Writer Submitted Direct Button (60%) -->
+          <button type="button" class="btn btn-primary btn-sm w-100" id="writer-kickoff-submit-btn" onclick="app.submitWriterKickoffDirect()" style="background: #2563eb; border: 1px solid #3b82f6; font-weight: 700; padding: 10px; font-size: 0.85rem;">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Writer: Complete &amp; Submit to Dr. Tejaswini Ma'am (60%)</span>
+          </button>
+
+          <button type="button" class="btn btn-outline-light btn-sm w-100" onclick="app.closeWriterKickoffModal()">
+            View Later in My Tasks
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE WEBSITE READER PREVIEW MODAL -->
+  <div id="reader-preview-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-xl reader-modal">
+      <div class="modal-header reader-preview-bar">
+        <div class="preview-brand-tag">
+          <img src="/images/logo.png" alt="Logo" style="height: 24px; object-fit: contain; margin-right: 8px;">
+          <span>Heritage Pulse Live Website Reader Preview</span>
+          <span class="badge badge-success" style="background: #10b981; color: #000; padding: 2px 8px; border-radius: 12px; font-weight: 700; font-size: 0.72rem;">Live CDN Preview</span>
+        </div>
+        <div class="preview-actions">
+          <button class="btn btn-xs btn-outline-light" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Print
+          </button>
+          <button class="modal-close" onclick="app.closeReaderModal()">&times;</button>
+        </div>
+      </div>
+      <div class="reader-modal-body" id="reader-preview-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION COMPARISON MODAL -->
+  <div id="version-diff-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-clock-rotate-left text-indigo"></i>
+          <h3>Editorial Version History & Snapshot Comparison</h3>
+        </div>
+        <button class="modal-close" onclick="document.getElementById('version-diff-modal').classList.add('hidden')">&times;</button>
+      </div>
+      <div class="modal-body" id="version-modal-body">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY REPORT PRINT MODAL -->
+  <div id="daily-report-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-file-contract text-saffron"></i>
+          <h3>August 24, 2026 — Daily Editorial Operations Report</h3>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-xs btn-primary" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Print / Save PDF
+          </button>
+          <button class="modal-close" onclick="document.getElementById('daily-report-modal').classList.add('hidden')">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body" id="daily-report-content">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TODAY MY TASKS & URGENT QUEUE POPUP MODAL -->
+  <div id="today-tasks-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-list-check text-saffron"></i>
+          <div>
+            <h3 id="today-tasks-modal-title">Today My Assigned Tasks & Urgent Queue</h3>
+            <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">
+              Prioritized editorial tasks for today (Aug 24, 2026) — Most urgent on top
+            </p>
+          </div>
+        </div>
+        <button class="modal-close" onclick="app.closeTodayTasksModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Filter Tabs -->
+        <div class="today-tasks-filter-bar">
+          <button class="today-filter-tab active" data-filter="all" onclick="app.filterTodayTasksModal('all', this)">
+            🔥 All Active Tasks (<span id="today-modal-count-all">0</span>)
+          </button>
+          <button class="today-filter-tab" data-filter="urgent" onclick="app.filterTodayTasksModal('urgent', this)">
+            🚨 Urgent & Overdue (<span id="today-modal-count-urgent">0</span>)
+          </button>
+          <button class="today-filter-tab" data-filter="writing" onclick="app.filterTodayTasksModal('writing', this)">
+            ✍️ Writing In-Flight (<span id="today-modal-count-writing">0</span>)
+          </button>
+          <button class="today-filter-tab" data-filter="review" onclick="app.filterTodayTasksModal('review', this)">
+            🧐 In Review / Approvals (<span id="today-modal-count-review">0</span>)
+          </button>
+        </div>
+
+        <!-- Tasks List Container -->
+        <div id="today-tasks-modal-list" style="max-height: 480px; overflow-y: auto; padding-right: 4px;">
+          <!-- Dynamically populated -->
+        </div>
+
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.78rem; color: var(--text-dim);">
+          💡 Click any task to immediately jump into its editorial workspace.
+        </span>
+        <button type="button" class="btn btn-outline-light btn-sm" onclick="app.closeTodayTasksModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPROVED CONTENT & MEDIA DISTRIBUTION PACKAGE MODAL (BIG POPUP) -->
+  <div id="approved-package-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-xl">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="badge" style="background: #16a34a; color: #fff; font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px;">
+              <i class="fa-solid fa-stamp"></i> FINAL APPROVAL COMPLETE
+            </span>
+            <span style="font-family: monospace; font-size: 0.9rem; font-weight: 700; color: var(--border-focus);" id="pkg-modal-id">
+              HP-2026-001
+            </span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; color: var(--text-primary); margin-top: 4px;" id="pkg-modal-title">
+            Approved Content & Media Distribution Package
+          </h3>
+        </div>
+        <button class="modal-close" onclick="app.closeApprovedPackageModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 24px;">
+        <!-- Dynamically populated via app.renderApprovedPackageModal(item) -->
+        <div id="pkg-modal-content">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-outline-light btn-sm" onclick="app.closeApprovedPackageModal()">Close</button>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-outline-light btn-sm" onclick="app.copyArticleText('markdown')">
+            <i class="fa-brands fa-markdown"></i> Copy Markdown
+          </button>
+          <button type="button" class="btn btn-outline-light btn-sm" onclick="app.copyArticleText('html')">
+            <i class="fa-solid fa-code"></i> Copy HTML
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="app.copyArticleText('text')">
+            <i class="fa-solid fa-copy"></i> 1-Click Copy Full Article Text
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI EDITORIAL STUDIO MODAL (GEMINI, CHATGPT & CLAUDE) -->
+  <div id="ai-assistant-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-xl">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="badge" style="background: #2563eb; color: #fff; font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px;">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> AI CONTENT ASSISTANT
+            </span>
+            <span id="ai-modal-model-badge" class="badge" style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); color: var(--text-secondary); font-weight: 600; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px;">
+              Gemini 1.5, GPT-4o & Claude 3.5 Sonnet
+            </span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.25rem; color: var(--text-primary); margin-top: 4px;" id="ai-modal-title">
+            AI Content Check & Editorial Enhancement Studio
+          </h3>
+        </div>
+        <button class="modal-close" onclick="ContentDetailView.closeAiAssistantModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 24px;">
+        <div id="ai-modal-body-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-outline-light btn-sm" onclick="ContentDetailView.closeAiAssistantModal()">Close</button>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="ai-modal-action-buttons">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI GRAMMAR & SPELL CHECK PLUGIN MODAL -->
+  <div id="ai-grammar-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="badge" style="background: #16a34a; color: #fff; font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px;">
+              <i class="fa-solid fa-spell-check"></i> AI GRAMMAR PLUGIN
+            </span>
+            <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">
+              Linguistic & Cultural Terminology Checker
+            </span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.2rem; color: var(--text-primary); margin-top: 4px;">
+            Article Grammar, Spelling & Style Audit
+          </h3>
+        </div>
+        <button class="modal-close" onclick="ContentDetailView.closeAiGrammarModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 24px;">
+        <div id="ai-grammar-body-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-outline-light btn-sm" onclick="ContentDetailView.closeAiGrammarModal()">Close</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="ContentDetailView.applyAllGrammarFixes()" style="font-weight: 600;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 1-Click Apply All Fixes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAMMARLY PRO ASSISTANT (REPETITION, SPELLINGS & GRAMMAR) -->
+  <div id="grammarly-assistant-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-xl">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="badge" style="background: #16a34a; color: #fff; font-weight: 700; font-size: 0.76rem; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 5px;">
+              <i class="fa-solid fa-circle-check"></i> GRAMMARLY PRO
+            </span>
+            <span class="badge" style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); color: var(--text-secondary); font-weight: 600; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px;">
+              Repetition · Spelling · Grammar · Clarity
+            </span>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.28rem; color: var(--text-primary); margin-top: 4px;">
+            Grammarly Real-Time Editorial & Repetition Audit
+          </h3>
+        </div>
+        <button class="modal-close" onclick="ContentDetailView.closeGrammarlyModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 24px;">
+        <div id="grammarly-modal-body-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-outline-light btn-sm" onclick="ContentDetailView.closeGrammarlyModal()">Close</button>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="ContentDetailView.highlightGrammarlyInEditor()">
+            <i class="fa-solid fa-highlighter text-saffron"></i> In-Editor Underlines
+          </button>
+          <button type="button" class="btn btn-success btn-sm" onclick="ContentDetailView.applyAllGrammarlyFixes()" style="font-weight: 800; background: #10b981; border: none; color: #000;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> 1-Click Accept All Grammarly Fixes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKFLOW TRANSITION CIRCULAR PROGRESS POPUP MODAL -->
+  <div id="workflow-progress-modal" class="modal-overlay hidden" style="z-index: 11000;">
+    <div class="modal-card modal-sm text-center sync-modal-card">
+      <div class="sync-animation-container">
+        <svg class="sync-progress-ring" width="140" height="140" viewBox="0 0 140 140">
+          <circle class="sync-ring-bg" cx="70" cy="70" r="58"></circle>
+          <circle class="sync-ring-progress" id="wf-ring-progress" cx="70" cy="70" r="58"></circle>
+        </svg>
+        <div class="sync-ring-center">
+          <div id="wf-icon-box" class="sync-icon-spin">
+            <i class="fa-solid fa-bolt text-saffron"></i>
+          </div>
+          <div id="wf-percent-text" class="sync-percent-text">0%</div>
+        </div>
+      </div>
+
+      <h3 id="wf-modal-title" class="sync-modal-title mt-3">Advancing Workflow</h3>
+      <p id="wf-modal-status" class="sync-modal-status">Updating editorial status and logging SLA timestamps...</p>
+
+      <div class="sync-steps-indicator" id="wf-steps-indicator" style="gap: 4px;">
+        <div class="sync-step-pill" id="wf-step-1">10% Assign</div>
+        <div class="sync-step-pill" id="wf-step-2">25% Writing</div>
+        <div class="sync-step-pill" id="wf-step-3">50% Imgs</div>
+        <div class="sync-step-pill" id="wf-step-4">60% Submit</div>
+        <div class="sync-step-pill" id="wf-step-5">70% Review</div>
+        <div class="sync-step-pill" id="wf-step-6">90% Approval</div>
+        <div class="sync-step-pill" id="wf-step-7">95% Ready</div>
+        <div class="sync-step-pill" id="wf-step-8">100% Live</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10-SECOND TIME-BOMB FILE/FOLDER DELETION MODAL WITH SOUND & CANCEL -->
+  <div id="delete-timebomb-modal" class="modal-overlay hidden" style="z-index: 12000;">
+    <div class="modal-card timebomb-modal-card">
+      <div class="timebomb-top-header">
+        <div class="timebomb-icon-glow">
+          <i class="fa-solid fa-bomb fa-bounce" style="color: #ef4444; font-size: 2.3rem;"></i>
+        </div>
+        <h3 class="timebomb-title">Moving Folder to Recycle Bin</h3>
+        <p class="timebomb-desc">
+          Countdown initiated! Deletion will automatically finalize in <strong>10 seconds</strong>.
+        </p>
+      </div>
+
+      <!-- COUNTDOWN TIMER DISPLAY -->
+      <div class="timebomb-counter-section">
+        <div class="timebomb-digits-circle">
+          <span id="timebomb-seconds-left">10</span>
+          <span class="timebomb-sec-label">SEC</span>
+        </div>
+        <!-- Laser Fuse Bar -->
+        <div class="timebomb-fuse-track">
+          <div id="timebomb-fuse-progress" class="timebomb-fuse-bar"></div>
+        </div>
+      </div>
+
+      <!-- TARGET FOLDER / FILE DETAILS -->
+      <div class="timebomb-target-box">
+        <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: #ef4444; margin-bottom: 3px; display: flex; align-items: center; gap: 5px;">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span>Folder Targeted for Removal</span>
+        </div>
+        <div id="timebomb-target-title" style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">
+          Folder Name
+        </div>
+        <div id="timebomb-target-id" style="font-size: 0.75rem; color: var(--text-dim); font-family: monospace; margin-top: 2px;">
+          ID: HP-2026-001
+        </div>
+      </div>
+
+      <!-- TIMEBOMB ACTIONS: CANCEL DELETION & DELETE NOW -->
+      <div class="timebomb-actions-row">
+        <button id="timebomb-cancel-btn" class="btn btn-timebomb-cancel" onclick="app.cancelDeleteCountdown()">
+          <i class="fa-solid fa-shield-heart"></i> Cancel Deletion (Keep Safe)
+        </button>
+        <button id="timebomb-confirm-btn" class="btn btn-timebomb-delete" onclick="app.executeDeleteNow()">
+          <i class="fa-solid fa-trash-can"></i> Delete Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESTRICTED RECYCLE BIN ADMIN NOTICE MODAL -->
+  <div id="restricted-trash-modal" class="modal-overlay hidden" style="z-index: 12000;">
+    <div class="modal-card restricted-modal-card">
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div class="restricted-shield-glow">
+          <i class="fa-solid fa-shield-halved" style="color: #ef4444; font-size: 2.6rem;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-primary); margin: 12px 0 6px;">
+          Admin Access Restricted
+        </h3>
+        <p style="font-size: 0.82rem; color: var(--text-dim); margin: 0 auto; max-width: 360px; line-height: 1.45;">
+          Direct access to the <strong>Recycle Bin Vault &amp; Trashed Folders</strong> requires Super Admin authorization. Please contact your administrator for assistance.
+        </p>
+      </div>
+
+      <div class="restricted-contact-box">
+        <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 800; color: var(--saffron-dark); margin-bottom: 8px;">
+          <i class="fa-solid fa-user-shield"></i> Designated System Administrator
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="restricted-admin-avatar">J</div>
+            <div>
+              <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">Jitendra</div>
+              <div style="font-size: 0.74rem; color: var(--text-dim);">Super Admin &amp; Operations Head</div>
+            </div>
+          </div>
+          <button class="btn btn-xs btn-outline-light" onclick="app.contactAdminNotice()" style="padding: 4px 10px;">
+            <i class="fa-solid fa-envelope"></i> Contact Admin
+          </button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px;">
+        <button class="btn btn-secondary btn-sm" onclick="app.closeRestrictedModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="/js/views/dashboard.js?v=36"></script>
+  <script src="/js/views/tracker.js?v=36"></script>
+  <script src="/js/views/kanban.js?v=36"></script>
+  <script src="/js/views/contentDetail.js?v=36"></script>
+  <script src="/js/views/workload.js?v=36"></script>
+  <script src="/js/views/calendar.js?v=36"></script>
+  <script src="/js/views/analytics.js?v=36"></script>
+  <script src="/js/views/admin.js?v=36"></script>
+  <script src="/js/views/aiMonitor.js?v=36"></script>
+  <script src="/js/views/foldersView.js?v=36"></script>
+  <script src="/js/views/loginView.js?v=36"></script>
+  <script src="/js/app.js?v=36"></script>
+</body>
+</html>

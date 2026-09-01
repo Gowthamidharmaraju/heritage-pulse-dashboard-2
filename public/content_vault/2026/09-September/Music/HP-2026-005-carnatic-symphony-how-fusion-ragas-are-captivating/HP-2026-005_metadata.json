@@ -1,0 +1,135 @@
+{
+  "id": "HP-2026-005",
+  "title": "Carnatic Symphony: How Fusion Ragas Are Captivating Gen-Z Audiences",
+  "subtitle": "Veena meets modular synthesizer: Contemporary youth are revitalizing classical gamakas through experimental fusion.",
+  "topic": "Carnatic Classical Meets Fusion Electronica",
+  "category": "Music",
+  "subcategory": "Classical & Fusion",
+  "content_type": "Culture Story",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-2",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "Medium",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-08-22",
+  "deadline": "2026-08-27",
+  "publishing_date": "2026-09-01",
+  "published_url": "https://heritagepulse.org/music/hp-2026-005-carnatic-symphony-how-fusion-ragas-are-c",
+  "short_description": "New-age musicians in Chennai, Bengaluru and Hyderabad are blending 72 Melakarta ragas with lo-fi beats, ambient soundscapes, and jazz basslines.",
+  "body": "\n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Modern Gamaka</h2><p rtrvr-ls=\"0~hs,5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">In underground music news and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up live-string electric violins, digital synthesizers, and konnakol voice processors.</p>\n              ",
+  "tags": [
+    "CarnaticMusic",
+    "FusionRagas",
+    "IndianClassical",
+    "IndieMusic",
+    "Melakarta"
+  ],
+  "seo_title": "Carnatic Fusion Music: How Indian Ragas Reached Gen-Z | Heritage Pulse",
+  "seo_description": "Discover the new generation of musicians innovating Carnatic classical ragas with electronic production.",
+  "keywords": "Carnatic fusion, modern ragas, electronic veena, konnakol modern music",
+  "featured_image": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "https://www.youtube.com/watch?v=fusion_demo",
+  "reference_links": "https://musicacademymadras.in",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "The Music Academy Madras Research Journal",
+      "url": "https://musicacademymadras.in"
+    }
+  ],
+  "notes": "Submitted by Nikitha on Aug 24 for review by Dr. Tejaswini Ma'am.",
+  "images": [
+    {
+      "id": "img-005-1",
+      "file_url": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
+      "filename": "veena-modern-stage.jpg",
+      "caption": "Electric Saraswati Veena performance illuminated under stage lighting.",
+      "credit": "Photo by Nikitha",
+      "alt_text": "Musician playing classical Indian stringed instrument with modern lighting",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-22T14:00:00Z",
+  "updated_at": "2026-09-01T09:32:18.349Z",
+  "checklist": {
+    "article_checked": false,
+    "images_checked": true,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": false,
+    "mobile_preview_checked": false,
+    "desktop_preview_checked": false,
+    "website_published": true
+  },
+  "editor_heart": false,
+  "editor_rated_by": "Jitendra",
+  "editor_rated_at": "2026-09-01T04:16:48.201Z",
+  "permissions": {
+    "link_access": "restricted",
+    "share_token": "hp-share-qkai2lzh",
+    "shared_users": [
+      {
+        "user_id": "usr-admin-1",
+        "access": "editor"
+      },
+      {
+        "user_id": "usr-writer-1",
+        "access": "viewer"
+      },
+      {
+        "user_id": "usr-writer-2",
+        "access": "viewer"
+      },
+      {
+        "user_id": "usr-writer-3",
+        "access": "viewer"
+      },
+      {
+        "user_id": "usr-editor-1",
+        "access": "editor"
+      },
+      {
+        "user_id": "usr-publisher-1",
+        "access": "editor"
+      },
+      {
+        "user_id": "usr-1788237386091",
+        "access": "viewer"
+      },
+      {
+        "user_id": "usr-1788237493238",
+        "access": "editor"
+      },
+      {
+        "user_id": "usr-1788237556722",
+        "access": "editor"
+      },
+      {
+        "user_id": "usr-1788237968983",
+        "access": "viewer"
+      },
+      {
+        "user_id": "usr-1788239947569",
+        "access": "viewer"
+      },
+      {
+        "user_id": "usr-1788240318576",
+        "access": "editor"
+      },
+      {
+        "user_id": "usr-1788251820174",
+        "access": "editor"
+      },
+      {
+        "user_id": "usr-1788251924181",
+        "access": "viewer"
+      }
+    ],
+    "updated_at": "2026-09-01T09:32:18.349Z"
+  }
+}
