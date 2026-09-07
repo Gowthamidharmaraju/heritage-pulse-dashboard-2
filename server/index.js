@@ -63,14 +63,23 @@ global.detectedWaGroups = new Map();
 
 global.waClient.on('message_create', async (msg) => {
   try {
-    const chat = await msg.getChat();
-    if (chat && chat.isGroup) {
-      const groupId = chat.id._serialized;
-      const groupName = chat.name;
+    const fromGroup = (msg && msg.from && msg.from.endsWith('@g.us')) ? msg.from : null;
+    const toGroup = (msg && msg.to && msg.to.endsWith('@g.us')) ? msg.to : null;
+    const groupId = fromGroup || toGroup;
+
+    if (groupId) {
+      let groupName = global.detectedWaGroups.get(groupId) || 'WhatsApp Group';
+      try {
+        const chat = await msg.getChat();
+        if (chat && chat.name) groupName = chat.name;
+      } catch (e) {}
+
       global.detectedWaGroups.set(groupId, groupName);
-      console.log(`\n📢 [WhatsApp Group Detected] Name: "${groupName}" | Group ID: "${groupId}"\n`);
+      console.log(`\n📢 [WhatsApp Group Detected!] Name: "${groupName}" | Group ID: "${groupId}"\n`);
     }
-  } catch (e) {}
+  } catch (e) {
+    console.error('[WA Message Create Listener Error]', e);
+  }
 });
 
 // Get List of WhatsApp Groups for Automated Group Notifications
