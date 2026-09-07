@@ -1,4 +1,23 @@
 const db = require('./db');
+const os = require('os');
+
+function getClickableDashboardUrl() {
+  let networkIp = '127.0.0.1';
+  try {
+    const nets = os.networkInterfaces();
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]) {
+        if ((net.family === 'IPv4' || net.family === 4) && !net.internal) {
+          networkIp = net.address;
+          break;
+        }
+      }
+    }
+  } catch (e) {}
+  const configured = process.env.DASHBOARD_URL || `http://${networkIp}:3000`;
+  return configured.replace(/localhost|127\.0\.0\.1/g, networkIp);
+}
+
 let notificationService;
 try {
   notificationService = require('./notificationService');
@@ -105,7 +124,7 @@ class WorkflowEngine {
 
     // Helper: build WhatsApp message text
     const buildWAText = (title, contentTitle, stageLabel, byUser, comment) => {
-      const baseUrl = process.env.DASHBOARD_URL || 'http://localhost:3000';
+      const baseUrl = getClickableDashboardUrl();
       const reviewUrl = `${baseUrl}/#content-detail?id=${contentId}`;
 
       if (targetStatus === 'WRITER_SUBMITTED') {

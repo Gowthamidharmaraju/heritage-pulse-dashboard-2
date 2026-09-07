@@ -1,4 +1,22 @@
 const nodemailer = require('nodemailer');
+const os = require('os');
+
+function getClickableDashboardUrl() {
+  let networkIp = '127.0.0.1';
+  try {
+    const nets = os.networkInterfaces();
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]) {
+        if ((net.family === 'IPv4' || net.family === 4) && !net.internal) {
+          networkIp = net.address;
+          break;
+        }
+      }
+    }
+  } catch (e) {}
+  const configured = process.env.DASHBOARD_URL || `http://${networkIp}:3000`;
+  return configured.replace(/localhost|127\.0\.0\.1/g, networkIp);
+}
 
 /**
  * Real Email & WhatsApp Dispatch Service
@@ -127,7 +145,7 @@ const notificationService = {
     // 2. Send WhatsApp
     let waResult = { success: false };
     if (recipientPhone) {
-      const baseUrl = process.env.DASHBOARD_URL || 'http://localhost:3000';
+      const baseUrl = getClickableDashboardUrl();
       const reviewUrl = `${baseUrl}/#content-detail?id=${contentId}`;
       const waBody = `⏳ *Waiting for your approval*\n\n📄 *Article Title:* ${contentTitle}\n✍️ *Submitted By:* ${byUser}\n\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
       waResult = await this.sendWhatsApp({
