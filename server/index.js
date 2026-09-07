@@ -58,6 +58,23 @@ app.get('/api/wa-status', (req, res) => {
   });
 });
 
+// Get List of WhatsApp Groups for Automated Group Notifications
+app.get('/api/wa-groups', async (req, res) => {
+  if (!global.waClientReady || !global.waClient) {
+    return res.status(400).json({ error: 'WhatsApp client is not connected yet.' });
+  }
+  try {
+    const chats = await global.waClient.getChats();
+    const groups = chats.filter(c => c.isGroup).map(g => ({
+      id: g.id._serialized,
+      name: g.name
+    }));
+    res.json(groups);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // QR Code Authentication Page for WhatsApp
 app.get('/qr', (req, res) => {
   if (global.waClientReady) {

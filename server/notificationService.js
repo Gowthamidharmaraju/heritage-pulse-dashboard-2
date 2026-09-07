@@ -58,13 +58,14 @@ const notificationService = {
    * Send Real Silent WhatsApp Notification via Server (Zero Redirects)
    */
   async sendWhatsApp({ to, body }) {
-    const formattedPhone = to.replace(/[^0-9]/g, '');
-
-    // Check whatsapp-web.js authenticated LocalAuth client (QR Code session)
     if (global.waClientReady && global.waClient) {
       try {
-        const chatId = `${formattedPhone}@c.us`;
-        console.log(`[Notification Service] Sending silent background WhatsApp via whatsapp-web.js LocalAuth to ${chatId}...`);
+        const envGroup = process.env.WHATSAPP_GROUP_ID;
+        const chatId = envGroup && envGroup.includes('@g.us')
+          ? envGroup
+          : (to && to.includes('@g.us') ? to : `${(to || '').replace(/[^0-9]/g, '')}@c.us`);
+
+        console.log(`[Notification Service] Sending silent background WhatsApp via whatsapp-web.js to ${chatId}...`);
         await global.waClient.sendMessage(chatId, body);
         console.log(`[Notification Service] Silent WhatsApp sent via whatsapp-web.js to ${chatId}!`);
         return { success: true, method: 'whatsapp-web.js' };
