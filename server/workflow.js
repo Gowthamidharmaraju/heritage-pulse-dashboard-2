@@ -138,12 +138,16 @@ class WorkflowEngine {
       const subCatStr = content.subcategory ? ` (${content.subcategory})` : '';
       const pubDate = content.publishing_date ? content.publishing_date : 'N/A';
 
+      const nowObj = new Date();
+      const actionDateTime = nowObj.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + nowObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
       if (targetStatus === 'WRITER_SUBMITTED') {
         let msg = `⏳ *Waiting for Editorial Review*\n\n`;
         msg += `📄 *Title:* ${contentTitle}\n`;
         msg += `🆔 *Content ID:* ${contentId}\n`;
         msg += `🏷️ *Category:* ${catStr}${subCatStr}\n`;
         msg += `📅 *Target Publishing Date:* ${pubDate}\n`;
+        msg += `🕒 *Submission Time:* ${actionDateTime}\n`;
         msg += `✍️ *Submitted By:* ${byUser}\n`;
         if (comment) msg += `💬 *Note:* ${comment}\n`;
         msg += `\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
@@ -156,6 +160,7 @@ class WorkflowEngine {
         msg += `🆔 *Content ID:* ${contentId}\n`;
         msg += `🏷️ *Category:* ${catStr}${subCatStr}\n`;
         msg += `📆 *Publishing Date:* ${pubDate}\n`;
+        msg += `🕒 *Published Time:* ${actionDateTime}\n`;
         msg += `👤 *Published By:* ${byUser}\n`;
         if (content.published_url) msg += `🌐 *Live URL:* ${content.published_url}\n`;
         msg += `\n🔗 *Click to Open Dashboard:*\n${reviewUrl}`;
@@ -167,6 +172,7 @@ class WorkflowEngine {
       msg += `🆔 *Content ID:* ${contentId}\n`;
       msg += `🏷️ *Category:* ${catStr}${subCatStr}\n`;
       msg += `📅 *Publishing Date:* ${pubDate}\n`;
+      msg += `🕒 *Action Time:* ${actionDateTime}\n`;
       msg += `🔄 *Stage:* ${stageLabel}\n`;
       msg += `👤 *By:* ${byUser}\n`;
       if (comment) msg += `💬 *Note:* ${comment}\n`;

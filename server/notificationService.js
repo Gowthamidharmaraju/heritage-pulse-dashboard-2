@@ -126,6 +126,9 @@ const notificationService = {
     const pubDateLabel = publishingDate || 'N/A';
     const reviewUrl = getClickableDashboardUrl(contentId);
 
+    const nowObj = new Date();
+    const actionTimeLabel = nowObj.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + nowObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
     const emailResult = await this.sendEmail({
       to: recipientEmail,
       subject,
@@ -141,6 +144,7 @@ const notificationService = {
             <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Content ID:</strong> ${contentId}</p>
             <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Category:</strong> ${catLabel}${subCatLabel}</p>
             <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>${isPublished ? 'Publishing Date' : 'Target Publishing Date'}:</strong> ${pubDateLabel}</p>
+            <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Action Date &amp; Time:</strong> ${actionTimeLabel}</p>
             <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Status Stage:</strong> ${stageLabel}</p>
             <p style="margin: 0; color: #94a3b8;"><strong>Action By:</strong> ${byUser}</p>
           </div>
