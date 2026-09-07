@@ -490,10 +490,18 @@ class App {
         TrackerView.render(container, { status: 'READY_TO_PUBLISH' });
         break;
       case 'workload':
-        WorkloadView.render(container);
+        if (!this.currentUser || this.currentUser.role === 'Writer') {
+          container.innerHTML = `<div class="card-panel" style="text-align:center;padding:40px;"><i class="fa-solid fa-lock" style="font-size:3rem;color:#ef4444;margin-bottom:16px;"></i><h3 style="color:var(--text-primary);">Access Restricted</h3><p style="color:var(--text-dim);">Team Workload view is restricted to Editors and Management.</p></div>`;
+        } else {
+          WorkloadView.render(container);
+        }
         break;
       case 'analytics':
-        AnalyticsView.render(container);
+        if (!this.currentUser || this.currentUser.role === 'Writer') {
+          container.innerHTML = `<div class="card-panel" style="text-align:center;padding:40px;"><i class="fa-solid fa-lock" style="font-size:3rem;color:#ef4444;margin-bottom:16px;"></i><h3 style="color:var(--text-primary);">Access Restricted</h3><p style="color:var(--text-dim);">Analytics & Reports are restricted to Editors and Administrators.</p></div>`;
+        } else {
+          AnalyticsView.render(container);
+        }
         break;
       case 'folders':
       case 'drive':
@@ -504,7 +512,11 @@ class App {
         FoldersView.render(container, { trash: true });
         break;
       case 'categories':
-        AdminView.render(container, { tab: 'categories' });
+        if (!this.currentUser || this.currentUser.role === 'Writer') {
+          container.innerHTML = `<div class="card-panel" style="text-align:center;padding:40px;"><i class="fa-solid fa-lock" style="font-size:3rem;color:#ef4444;margin-bottom:16px;"></i><h3 style="color:var(--text-primary);">Access Restricted</h3><p style="color:var(--text-dim);">Category taxonomy management is restricted to Editors and Administrators.</p></div>`;
+        } else {
+          AdminView.render(container, { tab: 'categories' });
+        }
         break;
       case 'users':
         if (this.isAdmin()) {
@@ -619,9 +631,62 @@ class App {
   }
 
   updateSidebarForRole() {
+    if (!this.currentUser) return;
+    const role = (this.currentUser.role || '').toLowerCase();
+    const isWriter = role === 'writer';
+    const isPublisher = role === 'publisher';
+    const isAdmin = this.isAdmin();
+    const isEditor = role.includes('editor') || this.currentUser.id === 'usr-editor-1';
+    const isAdminOrEditor = isAdmin || isEditor;
+    const isAdminOrTejaswini = this.isAdminOrTejaswini();
+
+    // 1. Management & Intel Section (Workload, Analytics, Categories, Team & Permissions)
+    const adminMgmtSection = document.getElementById('admin-management-nav-section');
+    if (adminMgmtSection) {
+      adminMgmtSection.style.display = (isAdminOrEditor || isPublisher) ? 'block' : 'none';
+    }
+
+    // Team & Permissions link specifically for Super Admin
+    const adminUsersLink = document.getElementById('admin-users-link');
+    if (adminUsersLink) {
+      adminUsersLink.style.display = isAdmin ? 'flex' : 'none';
+    }
+
+    // 2. Admin Intelligence Section (AI Content Monitor, Notification Settings)
     const adminIntel = document.getElementById('admin-intel-nav-section');
     if (adminIntel) {
-      adminIntel.style.display = this.isAdminOrTejaswini() ? 'block' : 'none';
+      adminIntel.style.display = isAdminOrTejaswini ? 'block' : 'none';
+    }
+
+    // 3. Editorial Queues for Writers vs Editors/Publishers
+    const reviewsLink = document.getElementById('sidebar-reviews-link');
+    const approvalsLink = document.getElementById('sidebar-approvals-link');
+    const publishingLink = document.getElementById('sidebar-publishing-link');
+    const trashLink = document.getElementById('sidebar-trash-link');
+
+    if (reviewsLink) {
+      reviewsLink.style.display = isWriter ? 'none' : 'flex';
+    }
+    if (approvalsLink) {
+      approvalsLink.style.display = isWriter ? 'none' : 'flex';
+    }
+    if (publishingLink) {
+      publishingLink.style.display = isWriter ? 'none' : 'flex';
+    }
+    if (trashLink) {
+      trashLink.style.display = isWriter ? 'none' : 'flex';
+    }
+
+    // 4. Sidebar Reset Demo Data Button (Admin only)
+    const resetDemoBtn = document.getElementById('sidebar-reset-demo-btn');
+    if (resetDemoBtn) {
+      resetDemoBtn.style.display = isAdmin ? 'block' : 'none';
+    }
+
+    // 5. Header System Settings Gear Icon (Admin & Tejaswini only)
+    const gearBtn = document.querySelector('button[onclick="app.navigateTo(\'ai-monitor\')"]');
+    if (gearBtn) {
+      gearBtn.style.display = isAdminOrTejaswini ? 'inline-flex' : 'none';
     }
   }
 
