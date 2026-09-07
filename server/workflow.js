@@ -131,20 +131,42 @@ class WorkflowEngine {
       targetStatus === 'EDITOR_APPROVED' ? '👍' :
       targetStatus === 'READY_TO_PUBLISH' ? '🚀' : '📋';
 
-    // Helper: build WhatsApp message text
+    // Helper: build WhatsApp message text dynamically from content API data
     const buildWAText = (title, contentTitle, stageLabel, byUser, comment) => {
       const reviewUrl = getClickableDashboardUrl(contentId);
+      const catStr = content.category || 'General';
+      const subCatStr = content.subcategory ? ` (${content.subcategory})` : '';
+      const pubDate = content.publishing_date ? content.publishing_date : 'N/A';
 
       if (targetStatus === 'WRITER_SUBMITTED') {
-        let msg = `⏳ *Waiting for your approval*\n\n`;
-        msg += `📄 *Article Title:* ${contentTitle}\n`;
+        let msg = `⏳ *Waiting for Editorial Review*\n\n`;
+        msg += `📄 *Title:* ${contentTitle}\n`;
+        msg += `🆔 *Content ID:* ${contentId}\n`;
+        msg += `🏷️ *Category:* ${catStr}${subCatStr}\n`;
+        msg += `📅 *Target Publishing Date:* ${pubDate}\n`;
         msg += `✍️ *Submitted By:* ${byUser}\n`;
         if (comment) msg += `💬 *Note:* ${comment}\n`;
         msg += `\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
         return encodeURIComponent(msg);
       }
+
+      if (targetStatus === 'PUBLISHED') {
+        let msg = `🎉 *Article Published Live!*\n\n`;
+        msg += `📄 *Title:* ${contentTitle}\n`;
+        msg += `🆔 *Content ID:* ${contentId}\n`;
+        msg += `🏷️ *Category:* ${catStr}${subCatStr}\n`;
+        msg += `📆 *Publishing Date:* ${pubDate}\n`;
+        msg += `👤 *Published By:* ${byUser}\n`;
+        if (content.published_url) msg += `🌐 *Live URL:* ${content.published_url}\n`;
+        msg += `\n🔗 *Click to Open Dashboard:*\n${reviewUrl}`;
+        return encodeURIComponent(msg);
+      }
+
       let msg = `${emoji} *Heritage Pulse — Workflow Update*\n`;
       msg += `📄 *Article:* ${contentTitle}\n`;
+      msg += `🆔 *Content ID:* ${contentId}\n`;
+      msg += `🏷️ *Category:* ${catStr}${subCatStr}\n`;
+      msg += `📅 *Publishing Date:* ${pubDate}\n`;
       msg += `🔄 *Stage:* ${stageLabel}\n`;
       msg += `👤 *By:* ${byUser}\n`;
       if (comment) msg += `💬 *Note:* ${comment}\n`;
@@ -231,9 +253,14 @@ class WorkflowEngine {
             text: emailTextRaw,
             contentTitle: content.title,
             contentId,
+            category: content.category,
+            subcategory: content.subcategory,
+            publishingDate: content.publishing_date,
+            publishedUrl: content.published_url,
             stageLabel,
             byUser: user.name,
-            byUserEmail: user.email
+            byUserEmail: user.email,
+            waBodyText: decodeURIComponent(waText)
           }).catch(err => console.error('[Notification Dispatch Background Error]', err));
         }
       }

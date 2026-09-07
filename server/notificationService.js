@@ -109,17 +109,22 @@ const notificationService = {
   /**
    * Dispatch both Email and WhatsApp for Workflow Transitions
    */
-  async dispatchWorkflowNotification({ recipientEmail, recipientPhone, subject, text, contentTitle, contentId, stageLabel, byUser, byUserEmail }) {
+  async dispatchWorkflowNotification({ recipientEmail, recipientPhone, subject, text, contentTitle, contentId, stageLabel, byUser, byUserEmail, category, subcategory, publishingDate, publishedUrl, waBodyText }) {
     console.log(`[Notification Service] Dispatching real notifications for '${contentTitle}' (${stageLabel})...`);
 
     // 1. Send Email
     const isPublished = stageLabel.includes('Published') || stageLabel === 'Published (100% Complete)';
     const isSubmitted = stageLabel.includes('Submitted') || stageLabel === 'Submitted to Editor';
     
-    const bannerTitle = isPublished ? '🎉 Article Successfully Published Live!' : isSubmitted ? '⏳ Waiting for Your Approval' : `📌 Workflow Update: ${stageLabel}`;
+    const bannerTitle = isPublished ? '🎉 Article Successfully Published Live!' : isSubmitted ? '⏳ Waiting for Editorial Review' : `📌 Workflow Update: ${stageLabel}`;
     const bannerColor = isPublished ? '#10b981' : isSubmitted ? '#f59e0b' : '#3b82f6';
     const subText = isPublished ? 'The following article has been published live on <strong>Heritage Pulse</strong>:' : 'An article workflow update has occurred on <strong>Heritage Pulse</strong>:';
     const btnText = isPublished ? 'View Live Published Story &rarr;' : 'Review &amp; Approve Article &rarr;';
+
+    const catLabel = category || 'General';
+    const subCatLabel = subcategory ? ` &rarr; ${subcategory}` : '';
+    const pubDateLabel = publishingDate || 'N/A';
+    const reviewUrl = getClickableDashboardUrl(contentId);
 
     const emailResult = await this.sendEmail({
       to: recipientEmail,
@@ -131,15 +136,19 @@ const notificationService = {
           <h2 style="color: ${bannerColor}; margin-top: 0;">${bannerTitle}</h2>
           <p style="font-size: 1rem; color: #cbd5e1;">${subText}</p>
           
-          <div style="background-color: #1e293b; padding: 16px; border-radius: 8px; border-left: 4px solid ${bannerColor}; margin: 20px 0;">
-            <p style="margin: 0 0 8px 0; font-size: 1.1rem; color: #ffffff;"><strong>Title:</strong> ${contentTitle}</p>
+          <div style="background-color: #1e293b; padding: 18px; border-radius: 8px; border-left: 4px solid ${bannerColor}; margin: 20px 0;">
+            <p style="margin: 0 0 10px 0; font-size: 1.1rem; color: #ffffff;"><strong>Title:</strong> ${contentTitle}</p>
             <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Content ID:</strong> ${contentId}</p>
-            <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Status:</strong> ${stageLabel}</p>
+            <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Category:</strong> ${catLabel}${subCatLabel}</p>
+            <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>${isPublished ? 'Publishing Date' : 'Target Publishing Date'}:</strong> ${pubDateLabel}</p>
+            <p style="margin: 0 0 8px 0; color: #94a3b8;"><strong>Status Stage:</strong> ${stageLabel}</p>
             <p style="margin: 0; color: #94a3b8;"><strong>Action By:</strong> ${byUser}</p>
           </div>
 
+          ${publishedUrl ? `<p style="margin: 16px 0;"><a href="${publishedUrl}" style="background-color: #10b981; color: #000000; font-weight: bold; text-decoration: none; padding: 10px 18px; border-radius: 6px; display: inline-block;" target="_blank">🌐 View Live Published Web Story &rarr;</a></p>` : ''}
+
           <div style="margin-top: 24px;">
-            <a href="${process.env.DASHBOARD_URL || 'http://localhost:3000'}/#content-detail?id=${contentId}" 
+            <a href="${reviewUrl}" 
                style="background-color: ${bannerColor}; color: #000000; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 6px; display: inline-block;">
                ${btnText}
             </a>
@@ -154,8 +163,7 @@ const notificationService = {
     // 2. Send WhatsApp
     let waResult = { success: false };
     if (recipientPhone) {
-      const reviewUrl = getClickableDashboardUrl(contentId);
-      const waBody = `⏳ *Waiting for your approval*\n\n📄 *Article Title:* ${contentTitle}\n✍️ *Submitted By:* ${byUser}\n\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
+      const waBody = waBodyText || `⏳ *Waiting for Editorial Review*\n\n📄 *Title:* ${contentTitle}\n🆔 *Content ID:* ${contentId}\n🏷️ *Category:* ${catLabel}${subCatLabel}\n📅 *Publishing Date:* ${pubDateLabel}\n✍️ *Submitted By:* ${byUser}\n\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
       waResult = await this.sendWhatsApp({
         to: recipientPhone,
         body: waBody
