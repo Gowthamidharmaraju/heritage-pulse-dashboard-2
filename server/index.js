@@ -58,23 +58,49 @@ app.get('/api/wa-status', (req, res) => {
   });
 });
 
+// Track detected WhatsApp Groups automatically via live messages
+global.detectedWaGroups = new Map();
+
+global.waClient.on('message_create', async (msg) => {
+  try {
+    const chat = await msg.getChat();
+    if (chat && chat.isGroup) {
+      const groupId = chat.id._serialized;
+      const groupName = chat.name;
+      global.detectedWaGroups.set(groupId, groupName);
+      console.log(`\n📢 [WhatsApp Group Detected] Name: "${groupName}" | Group ID: "${groupId}"\n`);
+    }
+  } catch (e) {}
+});
+
 // Get List of WhatsApp Groups for Automated Group Notifications
 app.get('/api/wa-groups', async (req, res) => {
   if (!global.waClientReady || !global.waClient) {
     return res.status(400).json({ error: 'WhatsApp client is not connected yet.' });
   }
+
+  const groupList = Array.from(global.detectedWaGroups.entries()).map(([id, name]) => ({ id, name }));
+  if (groupList.length > 0) {
+    return res.json(groupList);
+  }
+
+  // Fallback: try getChats
   try {
     const chats = await global.waClient.getChats();
     const groups = chats.filter(c => c.isGroup).map(g => ({
       id: g.id._serialized,
       name: g.name
     }));
-    res.json(groups);
+    if (groups.length > 0) return res.json(groups);
   } catch (err) {
-    console.error('[WA Groups API Error]', err);
-    const errMsg = (err && err.message) ? err.message : String(err);
-    res.status(500).json({ error: errMsg, hint: 'WhatsApp chat sync may be in progress. Please wait 10 seconds and refresh.' });
+    // suppress internal getChats error
   }
+
+  res.json({
+    status: 'Waiting for Group Activity',
+    instruction: 'Send any message in your WhatsApp group on your phone, then refresh this page to see the Group ID!',
+    detectedGroups: []
+  });
 });
 
 // QR Code Authentication Page for WhatsApp
