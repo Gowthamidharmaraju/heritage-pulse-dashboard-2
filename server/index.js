@@ -71,7 +71,9 @@ app.get('/api/wa-groups', async (req, res) => {
     }));
     res.json(groups);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('[WA Groups API Error]', err);
+    const errMsg = (err && err.message) ? err.message : String(err);
+    res.status(500).json({ error: errMsg, hint: 'WhatsApp chat sync may be in progress. Please wait 10 seconds and refresh.' });
   }
 });
 
