@@ -127,7 +127,9 @@ const notificationService = {
     // 2. Send WhatsApp
     let waResult = { success: false };
     if (recipientPhone) {
-      const waBody = `⏳ *Waiting for your approval*\n\n📄 *Article Title:* ${contentTitle}\n✍️ *Submitted By:* ${byUser}\n\n🔗 *Review Link:* ${process.env.DASHBOARD_URL || 'http://localhost:3000'}/#content-detail?id=${contentId}`;
+      const baseUrl = process.env.DASHBOARD_URL || 'http://localhost:3000';
+      const reviewUrl = `${baseUrl}/#content-detail?id=${contentId}`;
+      const waBody = `⏳ *Waiting for your approval*\n\n📄 *Article Title:* ${contentTitle}\n✍️ *Submitted By:* ${byUser}\n\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
       waResult = await this.sendWhatsApp({
         to: recipientPhone,
         body: waBody

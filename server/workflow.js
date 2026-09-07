@@ -105,12 +105,15 @@ class WorkflowEngine {
 
     // Helper: build WhatsApp message text
     const buildWAText = (title, contentTitle, stageLabel, byUser, comment) => {
+      const baseUrl = process.env.DASHBOARD_URL || 'http://localhost:3000';
+      const reviewUrl = `${baseUrl}/#content-detail?id=${contentId}`;
+
       if (targetStatus === 'WRITER_SUBMITTED') {
         let msg = `⏳ *Waiting for your approval*\n\n`;
         msg += `📄 *Article Title:* ${contentTitle}\n`;
         msg += `✍️ *Submitted By:* ${byUser}\n`;
         if (comment) msg += `💬 *Note:* ${comment}\n`;
-        msg += `\n🔗 *Review Link:* http://localhost:3000/#content-detail?id=${contentId}`;
+        msg += `\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
         return encodeURIComponent(msg);
       }
       let msg = `${emoji} *Heritage Pulse — Workflow Update*\n`;
@@ -118,7 +121,7 @@ class WorkflowEngine {
       msg += `🔄 *Stage:* ${stageLabel}\n`;
       msg += `👤 *By:* ${byUser}\n`;
       if (comment) msg += `💬 *Note:* ${comment}\n`;
-      msg += `\n_Dashboard: http://localhost:3000/#content-detail?id=${contentId}_`;
+      msg += `\n🔗 *Click to Open Article:*\n${reviewUrl}`;
       return encodeURIComponent(msg);
     };
 
