@@ -867,6 +867,12 @@ app.all('/api/*', (req, res) => {
   res.status(404).json({ error: `API endpoint not found: ${req.method} ${req.originalUrl}` });
 });
 
+// Clean 1-Click Redirect Route for WhatsApp & Email Links
+app.get('/review/:id', (req, res) => {
+  const contentId = req.params.id;
+  res.redirect(`/#content-detail?id=${encodeURIComponent(contentId)}`);
+});
+
 // Fallback for SPA routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
@@ -879,29 +885,47 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Internal Server Error' });
 });
 
-// Start Server
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`====================================================`);
-  console.log(` Heritage Pulse Editorial Operations Dashboard `);
-  const os = require('os');
-  let networkIp = '127.0.0.1';
-  const nets = os.networkInterfaces();
-  for (const name of Object.keys(nets)) {
-    for (const net of nets[name]) {
-      if (net.family === 'IPv4' && !net.internal) networkIp = net.address;
+// Start Server (Tries Port 80 for clean URLs without :port, falls back to 3000 if occupied)
+const DEFAULT_PORT = process.env.PORT || 80;
+
+function startServer(portToTry) {
+  const server = app.listen(portToTry, '0.0.0.0', () => {
+    global.activePort = portToTry;
+    console.log(`====================================================`);
+    console.log(` Heritage Pulse Editorial Operations Dashboard `);
+    const os = require('os');
+    let networkIp = '127.0.0.1';
+    const nets = os.networkInterfaces();
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]) {
+        if ((net.family === 'IPv4' || net.family === 4) && !net.internal) networkIp = net.address;
+      }
     }
-  }
-  console.log(` Local:   http://localhost:${PORT}`);
-  console.log(` Network: http://${networkIp}:${PORT}`);
-  console.log(` Date context: August 24, 2026`);
-  console.log(`====================================================`);
-  
-  // Initial sync of disk folders vault
-  try {
-    const raw = db.load();
-    const result = folders.syncPhysicalDiskVault(raw.content || []);
-    console.log(`[Content Vault] Synchronized ${result.count} article folders to disk.`);
-  } catch (e) {
-    console.warn('[Content Vault] Initial sync notice:', e.message);
-  }
-});
+    const portSuffix = portToTry == 80 ? '' : `:${portToTry}`;
+    console.log(` Local:   http://localhost${portSuffix}`);
+    console.log(` Network: http://${networkIp}${portSuffix}`);
+    console.log(`====================================================`);
+    
+    try {
+      const raw = db.load();
+      const result = folders.syncPhysicalDiskVault(raw.content || []);
+      console.log(`[Content Vault] Synchronized ${result.count} article folders to disk.`);
+    } catch (e) {
+      console.warn('[Content Vault] Initial sync notice:', e.message);
+    }
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE' && portToTry == 80) {
+      console.log('⚠️ Port 80 in use, running server on Port 3000...');
+      startServer(3000);
+    } else if (err.code === 'EADDRINUSE' && portToTry == 3000) {
+      console.log('⚠️ Port 3000 in use, running server on Port 3001...');
+      startServer(3001);
+    } else {
+      console.error('[Server Start Error]', err);
+    }
+  });
+}
+
+startServer(DEFAULT_PORT);

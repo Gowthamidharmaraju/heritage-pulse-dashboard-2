@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const os = require('os');
 
-function getClickableDashboardUrl() {
+function getClickableDashboardUrl(contentId) {
   let networkIp = '127.0.0.1';
   try {
     const nets = os.networkInterfaces();
@@ -14,8 +14,17 @@ function getClickableDashboardUrl() {
       }
     }
   } catch (e) {}
-  const configured = process.env.DASHBOARD_URL || `http://${networkIp}:3000`;
-  return configured.replace(/localhost|127\.0\.0\.1/g, networkIp);
+
+  const port = global.activePort || process.env.PORT || 80;
+  const portSuffix = (port == 80) ? '' : `:${port}`;
+  const baseUrl = process.env.DASHBOARD_URL
+    ? process.env.DASHBOARD_URL.replace(/localhost|127\.0\.0\.1/g, networkIp)
+    : `http://${networkIp}${portSuffix}`;
+
+  if (contentId) {
+    return `${baseUrl}/review/${contentId}`;
+  }
+  return baseUrl;
 }
 
 /**
@@ -145,8 +154,7 @@ const notificationService = {
     // 2. Send WhatsApp
     let waResult = { success: false };
     if (recipientPhone) {
-      const baseUrl = getClickableDashboardUrl();
-      const reviewUrl = `${baseUrl}/#content-detail?id=${contentId}`;
+      const reviewUrl = getClickableDashboardUrl(contentId);
       const waBody = `⏳ *Waiting for your approval*\n\n📄 *Article Title:* ${contentTitle}\n✍️ *Submitted By:* ${byUser}\n\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
       waResult = await this.sendWhatsApp({
         to: recipientPhone,
