@@ -202,7 +202,8 @@ class WorkflowEngine {
             contentTitle: content.title,
             contentId,
             stageLabel,
-            byUser: user.name
+            byUser: user.name,
+            byUserEmail: user.email
           }).catch(err => console.error('[Notification Dispatch Background Error]', err));
         }
       }

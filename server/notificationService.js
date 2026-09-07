@@ -28,7 +28,7 @@ const notificationService = {
   /**
    * Send Real Email Notification
    */
-  async sendEmail({ to, subject, text, html }) {
+  async sendEmail({ to, subject, text, html, replyTo }) {
     try {
       const transporter = this.getTransporter();
       if (!transporter) {
@@ -42,6 +42,7 @@ const notificationService = {
         to,
         subject,
         text,
+        replyTo: replyTo || undefined,
         html: html || `<p style="font-family: sans-serif; line-height: 1.6;">${text.replace(/\n/g, '<br>')}</p>`
       });
 
@@ -80,7 +81,7 @@ const notificationService = {
   /**
    * Dispatch both Email and WhatsApp for Workflow Transitions
    */
-  async dispatchWorkflowNotification({ recipientEmail, recipientPhone, subject, text, contentTitle, contentId, stageLabel, byUser }) {
+  async dispatchWorkflowNotification({ recipientEmail, recipientPhone, subject, text, contentTitle, contentId, stageLabel, byUser, byUserEmail }) {
     console.log(`[Notification Service] Dispatching real notifications for '${contentTitle}' (${stageLabel})...`);
 
     // 1. Send Email
@@ -96,6 +97,7 @@ const notificationService = {
       to: recipientEmail,
       subject,
       text,
+      replyTo: byUserEmail,
       html: `
         <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #0f172a; color: #f8fafc; padding: 24px; border-radius: 12px; max-width: 600px;">
           <h2 style="color: ${bannerColor}; margin-top: 0;">${bannerTitle}</h2>
