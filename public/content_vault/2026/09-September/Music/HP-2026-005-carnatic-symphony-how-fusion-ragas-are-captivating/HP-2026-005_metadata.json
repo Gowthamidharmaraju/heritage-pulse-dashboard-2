@@ -16,10 +16,10 @@
   "progress": 100,
   "start_date": "2026-08-22",
   "deadline": "2026-08-27",
-  "publishing_date": "2026-09-01",
+  "publishing_date": "2026-09-07",
   "published_url": "https://heritagepulse.org/music/hp-2026-005-carnatic-symphony-how-fusion-ragas-are-c",
   "short_description": "New-age musicians in Chennai, Bengaluru and Hyderabad are blending 72 Melakarta ragas with lo-fi beats, ambient soundscapes, and jazz basslines.",
-  "body": "\n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Modern Gamaka</h2><p rtrvr-ls=\"0~hs,5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">In underground music news and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up live-string electric violins, digital synthesizers, and konnakol voice processors.</p>\n              ",
+  "body": "\n                \n                \n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs,49~hs\" rtrvr-ro=\"42\">The Modern Gamaka</h2><p>In underground music dens and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up five-string electric violins, digital synthesizers, and konnakol voice processors.</p>\n              \n              \n              ",
   "tags": [
     "CarnaticMusic",
     "FusionRagas",
@@ -54,7 +54,7 @@
     }
   ],
   "created_at": "2026-08-22T14:00:00Z",
-  "updated_at": "2026-09-01T09:32:18.349Z",
+  "updated_at": "2026-09-07T04:12:48.291Z",
   "checklist": {
     "article_checked": false,
     "images_checked": true,
@@ -65,71 +65,5 @@
     "mobile_preview_checked": false,
     "desktop_preview_checked": false,
     "website_published": true
-  },
-  "editor_heart": false,
-  "editor_rated_by": "Jitendra",
-  "editor_rated_at": "2026-09-01T04:16:48.201Z",
-  "permissions": {
-    "link_access": "restricted",
-    "share_token": "hp-share-qkai2lzh",
-    "shared_users": [
-      {
-        "user_id": "usr-admin-1",
-        "access": "editor"
-      },
-      {
-        "user_id": "usr-writer-1",
-        "access": "viewer"
-      },
-      {
-        "user_id": "usr-writer-2",
-        "access": "viewer"
-      },
-      {
-        "user_id": "usr-writer-3",
-        "access": "viewer"
-      },
-      {
-        "user_id": "usr-editor-1",
-        "access": "editor"
-      },
-      {
-        "user_id": "usr-publisher-1",
-        "access": "editor"
-      },
-      {
-        "user_id": "usr-1788237386091",
-        "access": "viewer"
-      },
-      {
-        "user_id": "usr-1788237493238",
-        "access": "editor"
-      },
-      {
-        "user_id": "usr-1788237556722",
-        "access": "editor"
-      },
-      {
-        "user_id": "usr-1788237968983",
-        "access": "viewer"
-      },
-      {
-        "user_id": "usr-1788239947569",
-        "access": "viewer"
-      },
-      {
-        "user_id": "usr-1788240318576",
-        "access": "editor"
-      },
-      {
-        "user_id": "usr-1788251820174",
-        "access": "editor"
-      },
-      {
-        "user_id": "usr-1788251924181",
-        "access": "viewer"
-      }
-    ],
-    "updated_at": "2026-09-01T09:32:18.349Z"
   }
 }

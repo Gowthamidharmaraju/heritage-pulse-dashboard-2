@@ -1,4 +1,10 @@
 const db = require('./db');
+let notificationService;
+try {
+  notificationService = require('./notificationService');
+} catch (e) {
+  console.warn('[Workflow] NotificationService load warning:', e.message);
+}
 
 const STAGES = {
   TOPIC_CREATED: { code: 'TOPIC_CREATED', label: 'Topic Created', progress: 0, color: '#64748b' },
@@ -99,37 +105,61 @@ class WorkflowEngine {
 
     // Helper: build WhatsApp message text
     const buildWAText = (title, contentTitle, stageLabel, byUser, comment) => {
+      if (targetStatus === 'WRITER_SUBMITTED') {
+        let msg = `⏳ *Waiting for your approval*\n\n`;
+        msg += `📄 *Article Title:* ${contentTitle}\n`;
+        msg += `✍️ *Submitted By:* ${byUser}\n`;
+        if (comment) msg += `💬 *Note:* ${comment}\n`;
+        msg += `\n🔗 *Review Link:* http://localhost:3000/#content-detail?id=${contentId}`;
+        return encodeURIComponent(msg);
+      }
       let msg = `${emoji} *Heritage Pulse — Workflow Update*\n`;
       msg += `📄 *Article:* ${contentTitle}\n`;
       msg += `🔄 *Stage:* ${stageLabel}\n`;
       msg += `👤 *By:* ${byUser}\n`;
       if (comment) msg += `💬 *Note:* ${comment}\n`;
-      msg += `\n_Dashboard: http://localhost:3000_`;
+      msg += `\n_Dashboard: http://localhost:3000/#content-detail?id=${contentId}_`;
       return encodeURIComponent(msg);
     };
 
     // Helper: build email subject + body
     const buildEmailBody = (contentTitle, stageLabel, byUser, contentId, comment) => {
-      const subject = encodeURIComponent(`[Heritage Pulse] ${emoji} Stage Update: ${contentTitle} → ${stageLabel}`);
-      let body = `Hello,\n\nA workflow stage update has occurred on Heritage Pulse Editorial Dashboard.\n\n`;
-      body += `Article: ${contentTitle}\nContent ID: ${contentId}\nNew Stage: ${stageLabel}\nMoved by: ${byUser}\n`;
-      if (comment) body += `Editor Note: ${comment}\n`;
-      body += `\nPlease log in to review: http://localhost:3000/#content-detail?id=${contentId}\n\nRegards,\nHeritage Pulse Editorial System`;
+      let body = `Hello Dr. Tejaswini Ma'am,\n\n`;
+      if (targetStatus === 'WRITER_SUBMITTED') {
+        body += `An article has been completed by ${byUser} and is waiting for your review and approval.\n\n`;
+        body += `Article Title: ${contentTitle}\n`;
+        body += `Content ID: ${contentId}\n`;
+        body += `Status: ⏳ Waiting for Editor Review\n`;
+        if (comment) body += `Writer Note: ${comment}\n`;
+        body += `\nPlease log in to review and approve: http://localhost:3000/#content-detail?id=${contentId}\n\nRegards,\nHeritage Pulse Editorial System`;
+      } else {
+        body += `A workflow stage update has occurred on Heritage Pulse Editorial Dashboard.\n\n`;
+        body += `Article: ${contentTitle}\nContent ID: ${contentId}\nNew Stage: ${stageLabel}\nMoved by: ${byUser}\n`;
+        if (comment) body += `Editor Note: ${comment}\n`;
+        body += `\nPlease log in to review: http://localhost:3000/#content-detail?id=${contentId}\n\nRegards,\nHeritage Pulse Editorial System`;
+      }
       return encodeURIComponent(body);
     };
 
-    // Load notification settings
+    // Load notification settings (.env override prioritized)
     const settings = rawData.notificationSettings || {};
-    const adminEmail = settings.adminEmail || 'jitendra@heritagepulse.org';
-    const tejaswiniEmail = settings.tejaswiniEmail || 'tejaswini@heritagepulse.org';
-    const adminPhone = settings.adminPhone || '';
-    const tejaswiniPhone = settings.tejaswiniPhone || '';
+    const adminEmail = process.env.ADMIN_EMAIL || settings.adminEmail || 'jitendra@heritagepulse.org';
+    const tejaswiniEmail = process.env.TEJASWINI_EMAIL || settings.tejaswiniEmail || 'tejaswini@heritagepulse.org';
+    const adminPhone = process.env.ADMIN_WHATSAPP || settings.adminPhone || '';
+    const tejaswiniPhone = process.env.TEJASWINI_WHATSAPP || settings.tejaswiniPhone || '';
 
     // === NOTIFY ADMIN + DR. TEJASWINI ON EVERY STAGE TRANSITION ===
     const adminNotifIds = ['usr-admin-1', 'usr-editor-1'];
     const waText = buildWAText(null, content.title, stageLabel, user.name, options.comment);
-    const emailSubj = encodeURIComponent(`[Heritage Pulse] ${emoji} ${content.title} → ${stageLabel}`);
+    const emailSubjRaw = targetStatus === 'WRITER_SUBMITTED'
+      ? `[Heritage Pulse] ⏳ Waiting for your approval: ${content.title}`
+      : `[Heritage Pulse] ${emoji} ${content.title} → ${stageLabel}`;
+    const emailSubj = encodeURIComponent(emailSubjRaw);
     const emailBody = buildEmailBody(content.title, stageLabel, user.name, contentId, options.comment);
+    const emailTextRaw = decodeURIComponent(emailBody);
+
+    const dispatchedPhones = new Set();
+    const dispatchedEmails = new Set();
 
     adminNotifIds.forEach((uid, idx) => {
       const targetUser = rawData.users.find(u => u.id === uid);
@@ -152,6 +182,30 @@ class WorkflowEngine {
         read: false,
         created_at: now
       });
+
+      // Dispatch Real Automated Email & WhatsApp Notifications (Deduplicated & Filtered)
+      const isActionableStage = ['WRITER_SUBMITTED', 'CHANGES_REQUIRED', 'PUBLISHED'].includes(targetStatus);
+      if (notificationService && isActionableStage) {
+        const cleanPhone = recipPhone ? recipPhone.replace(/[^0-9]/g, '') : null;
+        const phoneToDispatch = (cleanPhone && !dispatchedPhones.has(cleanPhone)) ? recipPhone : null;
+        const emailToDispatch = (recipEmail && !dispatchedEmails.has(recipEmail)) ? recipEmail : null;
+
+        if (phoneToDispatch) dispatchedPhones.add(cleanPhone);
+        if (emailToDispatch) dispatchedEmails.add(recipEmail);
+
+        if (phoneToDispatch || emailToDispatch) {
+          notificationService.dispatchWorkflowNotification({
+            recipientEmail: emailToDispatch,
+            recipientPhone: phoneToDispatch,
+            subject: emailSubjRaw,
+            text: emailTextRaw,
+            contentTitle: content.title,
+            contentId,
+            stageLabel,
+            byUser: user.name
+          }).catch(err => console.error('[Notification Dispatch Background Error]', err));
+        }
+      }
     });
 
     // === EXISTING ROLE-SPECIFIC NOTIFICATIONS (writer/editor/approver) ===

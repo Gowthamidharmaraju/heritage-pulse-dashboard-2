@@ -144,9 +144,14 @@ const CalendarView = {
             <label><i class="fa-solid fa-tags"></i> Category:</label>
             <select class="form-control form-control-sm" id="manual-cat-select" onchange="CalendarView.setFilterCategory(this.value)">
               <option value="">🏷️ All Categories</option>
-              ${categories.map(c => `
-                <option value="${c.name}" ${this.filterCategory === c.name ? 'selected' : ''}>${c.name}</option>
-              `).join('')}
+              ${(() => {
+                const phase1Names = ['News', 'Events', 'Featured', 'Books', 'Games'];
+                const phase1Cats = categories.filter(c => phase1Names.includes(c.name));
+                const list = phase1Cats.length ? phase1Cats : categories;
+                return list.map(c => `
+                  <option value="${c.name}" ${this.filterCategory === c.name ? 'selected' : ''}>${c.name}</option>
+                `).join('');
+              })()}
             </select>
           </div>
 
@@ -442,7 +447,7 @@ const CalendarView = {
           <div class="cal-cell-tasks">
             ${dayTasks.slice(0, 3).map(t => {
               const col = t.status === 'PUBLISHED' ? '#10b981' : (t.status === 'EDITOR_REVIEW' || t.status === 'FINAL_REVIEW') ? '#6366f1' : t.is_overdue ? '#ef4444' : '#f59e0b';
-              return `<div class="cal-task-chip" style="border-left-color:${col};" onclick="event.stopPropagation();app.navigateTo('content-detail',{id:'${t.id}'})" title="${t.title}">${t.title}</div>`;
+              return `<div class="cal-task-chip" style="border-left: 4px solid ${col} !important;" onclick="event.stopPropagation();app.navigateTo('content-detail',{id:'${t.id}'})" title="${t.title}"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${col};margin-right:5px;flex-shrink:0;"></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;">${t.title}</span></div>`;
             }).join('')}
             ${dayTasks.length > 3 ? `<div style="font-size:0.65rem;color:var(--text-dim);font-weight:700;margin-top:2px;">+${dayTasks.length - 3} more</div>` : ''}
           </div>

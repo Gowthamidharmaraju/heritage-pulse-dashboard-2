@@ -4,13 +4,13 @@ title: "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilip
 category: "Culture"
 content_type: "Heritage Story"
 priority: "High"
-status: "PUBLISHED"
+status: "WRITER_SUBMITTED"
 writer: "Staff"
 editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-17"
 deadline: "2026-08-23"
-publishing_date: "2026-08-31"
-published_url: "https://heritagepulse.org/culture/hp-2026-006-kalamkari-textile-art-hand-painted-stori"
+publishing_date: "2026-08-26"
+published_url: ""
 tags: ["Kalamkari","IndianHandlooms","SrikalahastiArt","NaturalDyes","CraftRevival"]
 seo_title: "Kalamkari Textile Art: 23-Step Hand-Painted Heritage | Heritage Pulse"
 seo_description: "Explore the authentic natural dyeing and pen-painting craft of Kalamkari in Andhra Pradesh."
@@ -23,22 +23,14 @@ vault_folder: "HP-2026-006"
 
 
 
-**Category:** Culture | **Author:** Staff Writer | **Status:** PUBLISHED
+**Category:** Culture | **Author:** Staff Writer | **Status:** WRITER_SUBMITTED
 
 ---
 
 ## Article Content
 
 
-                
-                
-                ## The Pen That Weaves Myths
-
-Literally translating to 'pen work' (*kalam* = pen, *kari* = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.
-
-
-              
-              
+                The Pen That Weaves MythsLiterally translating to 'pen work' (*kalam* = pen, *kari* = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.lopmplm
               
 
 ---
@@ -51,4 +43,4 @@ Literally translating to 'pen work' (*kalam* = pen, *kari* = craftsmanship), Kal
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/1/2026, 3:19:23 PM*
+*Heritage Pulse Editorial Vault — Generated on 9/4/2026, 2:41:01 PM*

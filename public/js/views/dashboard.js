@@ -32,13 +32,18 @@ const DashboardView = {
       const monthlyFiveStarCount = contentList.filter(i => i.editor_rating === 5).length;
       const monthlyCompletedEditing = contentList.filter(i => (i.editor_rating >= 4) && (i.status === 'PUBLISHED' || i.status === 'READY_TO_PUBLISH' || i.status === 'FINAL_REVIEW' || i.status === 'EDITOR_APPROVED' || i.progress >= 80)).length;
       const monthlyHeartCount = contentList.filter(i => i.editor_heart).length;
-      const allPublished = contentList.filter(i => i.status === 'PUBLISHED' || i.progress >= 100);
+      // Filter real published articles from GET /api/content API response
+      const allPublished = contentList
+        .filter(i => i.status === 'PUBLISHED' || i.progress >= 100)
+        .sort((a, b) => new Date(b.updated_at || b.publishing_date || 0) - new Date(a.updated_at || a.publishing_date || 0));
+
       const defaultPublishedSeed = [
         {
           id: "HP-2026-017",
           title: "Crafting of Chennapatnam Toys: Lacquerware Woodcraft of Karnataka",
           short_description: "Centuries-old GI-tagged ivory-wood craft turned on traditional lathes and polished with organic vegetable dyes.",
           category: "Heritage",
+          subcategory: "Heritage Craftsmanship",
           writer: { name: "Pavitra" },
           publishing_date: "2026-08-24",
           updated_at: "2026-08-30T18:47:17.750Z",
@@ -50,6 +55,7 @@ const DashboardView = {
           title: "All India Sufi & Bhakti Poetry Summit 2026 Announced for Hyderabad",
           short_description: "Grand cultural congregation bringing together 200+ mystic poets, qawwali maestros, and interfaith spiritual scholars.",
           category: "Events",
+          subcategory: "Festivals & Summits",
           writer: { name: "Nikitha" },
           publishing_date: "2026-08-24",
           updated_at: "2026-08-24T17:30:00.000Z",
@@ -61,6 +67,7 @@ const DashboardView = {
           title: "The Living Legacy of Tanjore Gold-Leaf Paintings: Sacred Artistry of Thanjavur",
           short_description: "Classical South Indian painting style characterized by rich, vivid colors, 22-karat gold foil relief work, and semi-precious stones.",
           category: "Art",
+          subcategory: "Classical Paintings",
           writer: { name: "Pavitra" },
           publishing_date: "2026-08-24",
           updated_at: "2026-08-24T16:15:00.000Z",
@@ -72,6 +79,7 @@ const DashboardView = {
           title: "Kuchipudi Heritage: From Sacred Bhagavata Mela to Global Classical Stage",
           short_description: "Centuries-old classical dance-drama originating in Andhra Pradesh combining energetic footwork, natya, and expressive abhinaya.",
           category: "Dance",
+          subcategory: "Classical Dance",
           writer: { name: "Sasanka" },
           publishing_date: "2026-08-24",
           updated_at: "2026-08-24T15:45:00.000Z",
@@ -83,6 +91,7 @@ const DashboardView = {
           title: "Forgotten Grains of Ancient India: Millets in Vedic Cuisine and Sustainable Living",
           short_description: "Rediscovering the nutritional powerhouses of Vedic culinary traditions, climate-resilient organic grains, and sacred offerings.",
           category: "Cuisine",
+          subcategory: "Ancient Culinary Roots",
           writer: { name: "Sasanka" },
           publishing_date: "2026-08-24",
           updated_at: "2026-08-24T14:20:00.000Z",
@@ -91,7 +100,7 @@ const DashboardView = {
         }
       ];
 
-      // Merge and guarantee at least 5 posts
+      // Dynamic List: prioritize real GET API published items, fallback to seed if empty
       const recentPublishedList = [];
       const seenIds = new Set();
       allPublished.forEach(p => {
@@ -101,7 +110,7 @@ const DashboardView = {
         }
       });
       defaultPublishedSeed.forEach(p => {
-        if (!seenIds.has(p.id) && recentPublishedList.length < 5) {
+        if (!seenIds.has(p.id)) {
           seenIds.add(p.id);
           recentPublishedList.push(p);
         }
@@ -289,6 +298,8 @@ const DashboardView = {
         writer: { name: "Pavitra" }
       };
 
+      const currentUser = app.currentUser || { name: 'User', role: 'Staff' };
+
       container.innerHTML = `
         <!-- 🍱 FRAMER-STYLE COLORFUL MATTE BENTO HERO GRID (12 TILES) -->
         <div class="framer-bento-wrapper">
@@ -302,10 +313,10 @@ const DashboardView = {
                   <div style="flex: 1; min-width: 0;">
                     <div class="fb-tag fb-greeting-tag" style="margin-bottom: 2px;">
                       <i class="fa-solid fa-crown text-saffron"></i>
-                      <span>${app.currentUser.role} PERSPECTIVE</span>
+                      <span>${currentUser.role} PERSPECTIVE</span>
                     </div>
                     <h1 class="fb-greeting-title" style="margin: 0;">
-                      ${greetingTime}, ${app.currentUser.name} —
+                      ${greetingTime}, ${currentUser.name} —
                     </h1>
                   </div>
 
@@ -713,7 +724,7 @@ const DashboardView = {
                   <!-- Logged-in User Creator Badge -->
                   <div class="fb-logged-creator-badge" title="Logged-in Topic Creator">
                     <span class="bento-pulse-dot" style="background: #10b981; width: 6px; height: 6px;"></span>
-                    <span>Creating as: <strong>${app.currentUser.name}</strong> (${app.currentUser.role})</span>
+                    <span>Creating as: <strong>${app.currentUser ? app.currentUser.name : 'User'}</strong> (${app.currentUser ? app.currentUser.role : 'Staff'})</span>
                   </div>
                 </div>
                 <div class="fb-ops-title">
@@ -900,6 +911,7 @@ const DashboardView = {
                           <span class="cat-badge" style="background: rgba(255,255,255,0.06); border-left: 3px solid ${app.getCategoryColor(item.category)};">
                             ${item.category}
                           </span>
+                          ${item.subcategory ? `<div style="font-size: 0.68rem; color: var(--text-dim); margin-top: 3px; font-weight: 600;">🏷️ ${item.subcategory}</div>` : ''}
                         </td>
                         <td>
                           ${(() => {
@@ -980,7 +992,12 @@ const DashboardView = {
                 <div>
                   <label class="form-label" style="font-size: 0.72rem;">Category</label>
                   <select name="quick_category" class="form-control" required>
-                    ${categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('')}
+                    ${(() => {
+                      const phase1Names = ['News', 'Events', 'Featured', 'Books', 'Games'];
+                      const phase1Cats = categories.filter(c => phase1Names.includes(c.name));
+                      const list = phase1Cats.length ? phase1Cats : categories;
+                      return list.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+                    })()}
                   </select>
                 </div>
                 <div>

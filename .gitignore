@@ -1,4 +1,3 @@
-@"
 node_modules/
 bin/
 __MACOSX/
@@ -8,4 +7,5 @@ __MACOSX/
 !.env.example
 dist/
 build/
-"@ | Out-File -Encoding utf8 .gitignore
+.wwebjs_auth/
+.wwebjs_cache/

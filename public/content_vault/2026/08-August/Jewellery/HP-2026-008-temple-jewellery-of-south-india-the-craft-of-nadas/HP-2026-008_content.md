@@ -4,7 +4,7 @@ title: "Temple Jewellery of South India: The Craft of Nadaswaram Gold & Uncut Ru
 category: "Jewellery"
 content_type: "Special Feature"
 priority: "High"
-status: "WRITER_SUBMITTED"
+status: "IMAGES_UPLOADED"
 writer: "Staff"
 editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-22"
@@ -23,7 +23,7 @@ vault_folder: "HP-2026-008"
 
 
 
-**Category:** Jewellery | **Author:** Staff Writer | **Status:** WRITER_SUBMITTED
+**Category:** Jewellery | **Author:** Staff Writer | **Status:** IMAGES_UPLOADED
 
 ---
 
@@ -45,4 +45,4 @@ Temple jewellery originated during the reigns of the Chola and Pandya monarchs, 
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/1/2026, 3:19:23 PM*
+*Heritage Pulse Editorial Vault — Generated on 9/4/2026, 2:41:01 PM*

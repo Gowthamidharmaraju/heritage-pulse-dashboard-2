@@ -29,7 +29,7 @@
     <tr>
       <td><strong>Writer:</strong> Staff Writer</td>
       <td><strong>Reviewer:</strong> Dr. Tejaswini Ma'am</td>
-      <td><strong>Status:</strong> READY_TO_PUBLISH</td>
+      <td><strong>Status:</strong> WRITER_SUBMITTED</td>
     </tr>
     <tr>
       <td><strong>Publishing Date:</strong> 2026-08-28</td>
@@ -40,9 +40,7 @@
 
   <h2>Article Content</h2>
   <div class="article-content">
-    
-                <h2 rtrvr-ls="5~hs,6~hs,8~hs,9~hs" rtrvr-ro="42">The Modern Gamaka</h2><p rtrvr-ls="0~hs,5~hs,6~hs,8~hs,9~hs" rtrvr-ro="42">In underground music news and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up live-string electric violins, digital synthesizers, and konnakol voice processors.</p>
-              
+    <h2>The Modern Gamaka</h2><p>In underground music dens and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up five-string electric violins, digital synthesizers, and konnakol voice processors.</p>
   </div>
 
   <h2>Attached Media Assets (1)</h2>
@@ -58,7 +56,7 @@
   <h2>Reference Sources & Links</h2><ul><li><a href="https://musicacademymadras.in">The Music Academy Madras Research Journal</a></li><li>Reference: <a href="https://musicacademymadras.in">https://musicacademymadras.in</a></li><li>Video Source: <a href="https://www.youtube.com/watch?v=fusion_demo">https://www.youtube.com/watch?v=fusion_demo</a></li></ul>
 
   <div class="footer">
-    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-005 · Generated on 9/1/2026, 11:38:02 AM</p>
+    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-005 · Generated on 9/4/2026, 2:41:01 PM</p>
   </div>
 </body>
 </html>

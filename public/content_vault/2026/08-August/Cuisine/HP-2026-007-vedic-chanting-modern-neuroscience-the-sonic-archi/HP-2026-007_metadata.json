@@ -1,0 +1,69 @@
+{
+  "id": "HP-2026-007",
+  "title": "Vedic Chanting & Modern Neuroscience: The Sonic Architecture of Pranayama",
+  "subtitle": "How ancient Sanskrit phonetics, resonance frequencies, and breath control alter neural plasticity.",
+  "topic": "Vedic Chanting and Neuroscience",
+  "category": "Cuisine",
+  "subcategory": "Food Fusion",
+  "content_type": "Featured Article",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-3",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "Medium",
+  "status": "WRITER_SUBMITTED",
+  "progress": 60,
+  "start_date": "2026-08-23",
+  "deadline": "2026-08-28",
+  "publishing_date": "2026-08-29",
+  "published_url": "",
+  "short_description": "Cross-referencing UNESCO Intangible Cultural Heritage of Vedic Chanting with contemporary fMRI brain mapping studies.",
+  "body": "\n                <br>                <blockquote rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\"><u style=\"font-style: normal;\"><b></b></u></blockquote><blockquote rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Resonance of Consciousness</blockquote><blockquote rtrvr-ls=\"5~hs,8~hs\" rtrvr-ro=\"42\"><u style=\"font-style: normal;\"><b>In 2003, UNESCO proclaimed the tradition of Vedic Chanting as a Masterpiece of the Oral and Intangible Heritage of Humanity.</b></u></blockquote><blockquote rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\"><u style=\"font-style: normal;\"><b></b></u></blockquote><br>              \n              ",
+  "tags": [
+    "Yoga",
+    "VedicChanting",
+    "Neuroscience",
+    "Pranayama",
+    "SoundHealing"
+  ],
+  "seo_title": "Vedic Chanting & Brain Science: Ancient Sanskrit & fMRI Studies | Heritage Pulse",
+  "seo_description": "Scientific analysis of how Sanskrit chanting alters vagal tone and brainwave synchronization.",
+  "keywords": "Vedic chanting neuroscience, Sanskrit pronunciation brain, pranayama vagal nerve",
+  "featured_image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "",
+  "reference_links": "https://ich.unesco.org/en/RL/tradition-of-vedic-chanting-00062",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "UNESCO Intangible Cultural Heritage Dossier",
+      "url": "https://ich.unesco.org"
+    }
+  ],
+  "notes": "Writing in progress by Sasanka.",
+  "images": [
+    {
+      "id": "img-007-1",
+      "file_url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+      "filename": "vedic-recitation-gurukul.jpg",
+      "caption": "Students practicing breath synchronized Vedic recitation at sunrise.",
+      "credit": "Heritage Pulse Photo Collection / Sasanka",
+      "alt_text": "Silhouetted figures meditating and practicing pranayama at sunrise",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-23T10:00:00Z",
+  "updated_at": "2026-09-02T04:57:10.652Z",
+  "checklist": {
+    "article_checked": false,
+    "images_checked": false,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": false,
+    "mobile_preview_checked": false,
+    "desktop_preview_checked": false,
+    "website_published": false
+  }
+}

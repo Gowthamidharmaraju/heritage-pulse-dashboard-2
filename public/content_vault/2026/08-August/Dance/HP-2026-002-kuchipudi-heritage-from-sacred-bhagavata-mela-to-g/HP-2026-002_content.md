@@ -4,13 +4,13 @@ title: "Kuchipudi Heritage: From Sacred Bhagavata Mela to Global Classical Stage
 category: "Dance"
 content_type: "Featured Article"
 priority: "High"
-status: "PUBLISHED"
+status: "FINAL_REVIEW"
 writer: "Staff"
 editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-19"
 deadline: "2026-08-26"
-publishing_date: "2026-08-30"
-published_url: "https://heritagepulse.org/dance/hp-2026-002-kuchipudi-heritage-from-sacred-bhagavata"
+publishing_date: "2026-08-26"
+published_url: ""
 tags: ["Kuchipudi","IndianClassicalDance","BhagavataMela","NatyaShastra","AndhraCulture"]
 seo_title: "Kuchipudi Heritage: History, Tarangam & Masters | Heritage Pulse"
 seo_description: "Read the story of Kuchipudi dance from village Bhagavata Mela origins to modern solo mastery by legendary gurus."
@@ -23,15 +23,13 @@ vault_folder: "HP-2026-002"
 
 
 
-**Category:** Dance | **Author:** Staff Writer | **Status:** PUBLISHED
+**Category:** Dance | **Author:** Staff Writer | **Status:** FINAL_REVIEW
 
 ---
 
 ## Article Content
 
-
-                
-                ## The Rhythm of Devotion and Drama
+## The Rhythm of Devotion and Drama
 
 Originating in the verdant village of Kuchelapuram (now Kuchipudi) in the Krishna district of Andhra Pradesh, Kuchipudi is unique among classical Indian dances for its seamless blending of pure dance (*Nritta*), expressive mime (*Nritya*), and theatrical dialogue (*Natya*).
 
@@ -42,8 +40,6 @@ In the 14th century, the mystic ascetic Siddhendra Yogi codified the dance-drama
 > "When the dancer balances upon the rim of a brass plate while holding a water pot upon her head in Tarangam, gravity yields to artistic discipline."
 
 
-              
-              
 
 ---
 
@@ -55,4 +51,4 @@ In the 14th century, the mystic ascetic Siddhendra Yogi codified the dance-drama
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/1/2026, 3:19:23 PM*
+*Heritage Pulse Editorial Vault — Generated on 9/4/2026, 2:41:01 PM*

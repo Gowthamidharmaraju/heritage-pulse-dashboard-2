@@ -1,0 +1,357 @@
+{
+  "info": {
+    "_postman_id": "hp-dashboard-api-collection-2026",
+    "name": "Heritage Pulse Dashboard API Collection",
+    "description": "Complete Postman API Collection for testing Heritage Pulse Editorial Operations Dashboard backend endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "contentId",
+      "value": "HP-2026-001",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Sign Up / Register New Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ananya Sharma\",\n  \"email\": \"ananya@heritagepulse.org\",\n  \"password\": \"secret123\",\n  \"role\": \"Writer\",\n  \"title\": \"Heritage & Cultural Craft Writer\",\n  \"phone\": \"+91 98765 43210\",\n  \"assignedCategories\": [\"Textiles\", \"Art\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "description": "Create a new user account (Writer, Editor, or Publisher)."
+          }
+        },
+        {
+          "name": "Login (Admin / Editor / Writer)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jitendra@heritagepulse.org\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Authenticate user and retrieve JWT token."
+          }
+        },
+        {
+          "name": "Get Current User Profile (/me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Categories & Taxonomy",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categories"]
+            },
+            "description": "Returns list of all primary categories with nested subcategories."
+          }
+        },
+        {
+          "name": "Get Subcategories Mapping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/subcategories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "subcategories"]
+            },
+            "description": "Returns category to subcategory mapping dictionary."
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Content & Article Operations",
+      "item": [
+        {
+          "name": "Get All Articles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/content",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Article Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/content/{{contentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content", "{{contentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create New Kickoff Article",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"Traditional Kalamkari Weaving Lineages of Andhra\",\n  \"title\": \"Traditional Kalamkari Weaving Lineages of Andhra\",\n  \"category\": \"Textiles\",\n  \"subcategory\": \"Kalamkari & Batik\",\n  \"content_type\": \"Featured Article\",\n  \"priority\": \"High\",\n  \"frequency\": \"Weekly\",\n  \"writer_id\": \"usr-writer-1\",\n  \"editor_id\": \"usr-editor-1\",\n  \"final_approver_id\": \"usr-editor-1\",\n  \"publisher_id\": \"usr-publisher-1\",\n  \"deadline\": \"2026-09-10\",\n  \"publishing_date\": \"2026-09-12\",\n  \"short_description\": \"An exploration of natural vegetable dye block prints in Srikalahasti.\",\n  \"tags\": [\"Kalamkari\", \"Handloom\", \"Textiles\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/content",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content"]
+            }
+          }
+        },
+        {
+          "name": "Update Article Metadata / Subcategory",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"Textiles\",\n  \"subcategory\": \"Fashion Fusion\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/content/{{contentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content", "{{contentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Raise Edit Request (Writer -> Editor)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Need to add updated historical source reference and refresh images.\",\n  \"user_id\": \"usr-writer-1\",\n  \"user_name\": \"Pavitra\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/content/{{contentId}}/request-edit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content", "{{contentId}}", "request-edit"]
+            }
+          }
+        },
+        {
+          "name": "Resolve Edit Request (Approve / Decline)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"approve\",\n  \"editor_name\": \"Dr. Tejaswini Ma'am\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/content/{{contentId}}/resolve-edit-request",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content", "{{contentId}}", "resolve-edit-request"]
+            }
+          }
+        },
+        {
+          "name": "Transition Workflow Stage (Kanban / Editor)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"WRITER_SUBMITTED\",\n  \"comment\": \"Completed article draft and attached 3 high-res imagery assets.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/content/{{contentId}}/workflow",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content", "{{contentId}}", "workflow"]
+            },
+            "description": "Transition article through Kanban workflow stages (WRITING -> WRITER_SUBMITTED -> IN_REVIEW -> READY_TO_PUBLISH -> PUBLISHED)."
+          }
+        },
+        {
+          "name": "Attach Image Asset to Article",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_url\": \"/uploads/1788255227785-891818141.jpeg\",\n  \"filename\": \"kuchipudi_tarangam_brass_plate.jpg\",\n  \"caption\": \"Dancer performing Tarangam balancing on the rim of a brass plate.\",\n  \"credit\": \"Heritage Pulse Bureau\",\n  \"alt_text\": \"Kuchipudi dancer balancing on brass plate\",\n  \"is_featured\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/content/{{contentId}}/images",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "content", "{{contentId}}", "images"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Vault & Drive Folders Operations",
+      "item": [
+        {
+          "name": "Get Article Disk Vault Folder Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/folders/{{contentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "folders", "{{contentId}}"]
+            },
+            "description": "Retrieve disk folder file list (.md, .doc, .json, images) for an article."
+          }
+        },
+        {
+          "name": "Download Complete Article Vault (.zip)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/folders/{{contentId}}/download-zip",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "folders", "{{contentId}}", "download-zip"]
+            },
+            "description": "Download bundled .zip archive containing Word doc, Markdown file, metadata JSON, and all image assets."
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Users & Notifications",
+      "item": [
+        {
+          "name": "Get All Workspace Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get System Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notifications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notifications"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Analytics & Metrics",
+      "item": [
+        {
+          "name": "Get Analytics Overview KPIs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/analytics/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analytics", "overview"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

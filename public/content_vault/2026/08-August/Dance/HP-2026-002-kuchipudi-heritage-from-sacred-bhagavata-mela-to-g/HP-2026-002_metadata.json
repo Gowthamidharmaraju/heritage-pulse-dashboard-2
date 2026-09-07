@@ -12,14 +12,14 @@
   "final_approver_id": "usr-editor-1",
   "publisher_id": "usr-publisher-1",
   "priority": "High",
-  "status": "PUBLISHED",
-  "progress": 100,
+  "status": "FINAL_REVIEW",
+  "progress": 90,
   "start_date": "2026-08-19",
   "deadline": "2026-08-26",
-  "publishing_date": "2026-08-30",
-  "published_url": "https://heritagepulse.org/dance/hp-2026-002-kuchipudi-heritage-from-sacred-bhagavata",
+  "publishing_date": "2026-08-26",
+  "published_url": "",
   "short_description": "Tracing Kuchipudi from its roots in Kuchelapuram village by Siddhendra Yogi to contemporary global auditoriums.",
-  "body": "\n                \n                <h2>The Rhythm of Devotion and Drama</h2><p>Originating in the verdant village of Kuchelapuram (now Kuchipudi) in the Krishna district of Andhra Pradesh, Kuchipudi is unique among classical Indian dances for its seamless blending of pure dance (<em>Nritta</em>), expressive mime (<em>Nritya</em>), and theatrical dialogue (<em>Natya</em>).</p><h3>The Vision of Siddhendra Yogi</h3><p>In the 14th century, the mystic ascetic Siddhendra Yogi codified the dance-drama form into the sacred <strong>Bhama Kalapam</strong>.</p><blockquote>\"When the dancer balances upon the rim of a brass plate while holding a water pot upon her head in Tarangam, gravity yields to artistic discipline.\"</blockquote>\n              \n              ",
+  "body": "<h2>The Rhythm of Devotion and Drama</h2><p>Originating in the verdant village of Kuchelapuram (now Kuchipudi) in the Krishna district of Andhra Pradesh, Kuchipudi is unique among classical Indian dances for its seamless blending of pure dance (<em>Nritta</em>), expressive mime (<em>Nritya</em>), and theatrical dialogue (<em>Natya</em>).</p><h3>The Vision of Siddhendra Yogi</h3><p>In the 14th century, the mystic ascetic Siddhendra Yogi codified the dance-drama form into the sacred <strong>Bhama Kalapam</strong>.</p><blockquote>\"When the dancer balances upon the rim of a brass plate while holding a water pot upon her head in Tarangam, gravity yields to artistic discipline.\"</blockquote>",
   "tags": [
     "Kuchipudi",
     "IndianClassicalDance",
@@ -59,7 +59,7 @@
     }
   ],
   "created_at": "2026-08-19T09:00:00Z",
-  "updated_at": "2026-08-30T20:34:56.814Z",
+  "updated_at": "2026-08-24T15:10:00Z",
   "checklist": {
     "article_checked": true,
     "images_checked": true,
@@ -69,6 +69,6 @@
     "seo_completed": true,
     "mobile_preview_checked": true,
     "desktop_preview_checked": true,
-    "website_published": true
+    "website_published": false
   }
 }

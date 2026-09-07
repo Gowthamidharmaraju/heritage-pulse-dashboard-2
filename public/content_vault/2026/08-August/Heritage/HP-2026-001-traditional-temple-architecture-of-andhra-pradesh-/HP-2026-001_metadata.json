@@ -19,7 +19,7 @@
   "publishing_date": "2026-08-26",
   "published_url": "",
   "short_description": "A deep dive into the stone marvels of Andhra Pradesh, highlighting architectural ingenuity from the Kakatiya to Vijayanagara empires.",
-  "body": "<h2>The Majesty of Deccan Stone</h2><p>The temple architecture of Andhra Pradesh represents a magnificent meeting of <strong>Dravidian</strong>, <em>Chalukyan</em>, and Vijayanagara idioms. Standing before the single-stone Nandi at Lepakshi or gazing upon the floating pillar of Veerabhadra Temple, one is struck by the unique mastery of medieval Indian stone masons.</p><h3>1. The Hanging Pillar of Lepakshi</h3><p>Built in the 16th century by the brothers Virupanna and Veeranna, the Veerabhadra temple in Lepakshi is renowned for its 70 stone pillars. Among them, one legendary pillar doesn't touch the ground completely, allowing thin cloths to pass underneath—a proof of precise load balancing and stone joinery.</p><h3>2. Srisailam: The Hilltop Citadel</h3><p>Perched on the Nallamala hills, the Bhramaramba Mallikarjuna Temple showcases massive stone prakarams (outer walls) carved with military pageantry, mythological friezes, and pastoral life scenes.</p><blockquote>\"The temple was not merely a place of worship; it was an epicenter of art, dance, community granary, and astronomical observation.\"</blockquote>",
+  "body": "<h2>The Majesty of Deccan Stone</h2><p>The temple architecture of Andhra Pradesh represents a magnificent confluence of <strong>Dravidian</strong>, <em>Chalukyan</em>, and Vijayanagara idioms. Standing before the monolithic Nandi at Lepakshi or gazing upon the floating pillar of Veerabhadra Temple, one is struck by the peerless mastery of medieval Indian stone masons.</p><h3>1. The Hanging Pillar of Lepakshi</h3><p>Built in the 16th century by the brothers Virupanna and Veeranna, the Veerabhadra temple in Lepakshi is renowned for its 70 stone pillars. Among them, one legendary pillar does not touch the ground completely, allowing thin cloths to pass underneath—a testament to precise load balancing and stone joinery.</p><h3>2. Srisailam: The Hilltop Citadel</h3><p>Perched on the Nallamala hills, the Bhramaramba Mallikarjuna Temple showcases massive stone prakarams (outer walls) carved with military pageantry, mythological friezes, and pastoral life scenes.</p><blockquote>\"The temple was not merely a place of worship; it was an epicenter of art, dance, community granary, and astronomical observation.\"</blockquote>",
   "tags": [
     "TempleArchitecture",
     "Lepakshi",
@@ -58,18 +58,18 @@
       "sort_order": 1
     },
     {
-      "id": "img-1788122336153",
-      "file_url": "/uploads/1788122336144-261883659.png",
-      "filename": "Touch Me Not Hoyasaleswara Temple.png",
-      "caption": "Touch Me Not Hoyasaleswara Temple at Heritage Pulse",
-      "credit": "Jitendra / Heritage Pulse Bureau",
-      "alt_text": "",
+      "id": "img-001-2",
+      "file_url": "https://images.unsplash.com/photo-1600100397608-f010f443818e?auto=format&fit=crop&w=1200&q=80",
+      "filename": "simhachalam-mandapa-pillars.jpg",
+      "caption": "Acoustic stone pillars and friezes at Simhachalam Temple complex.",
+      "credit": "ASI Archives",
+      "alt_text": "Intricately carved stone temple pillars",
       "is_featured": false,
-      "sort_order": 3
+      "sort_order": 2
     }
   ],
   "created_at": "2026-08-20T10:00:00Z",
-  "updated_at": "2026-09-01T07:23:32.455Z",
+  "updated_at": "2026-08-24T14:30:00Z",
   "checklist": {
     "article_checked": true,
     "images_checked": true,
@@ -80,11 +80,5 @@
     "mobile_preview_checked": false,
     "desktop_preview_checked": true,
     "website_published": false
-  },
-  "editor_rating": 5,
-  "editor_rated_by": "Dr. Tejaswini Ma'am",
-  "editor_rated_at": "2026-09-01T07:15:53.753Z",
-  "ai_score": 34,
-  "ai_analyzed_at": "2026-09-01T04:05:26.731Z",
-  "editor_heart": true
+  }
 }

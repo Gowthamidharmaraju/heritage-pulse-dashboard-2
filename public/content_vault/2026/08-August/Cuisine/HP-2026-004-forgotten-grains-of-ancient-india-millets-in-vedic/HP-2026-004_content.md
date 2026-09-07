@@ -29,9 +29,11 @@ vault_folder: "HP-2026-004"
 
 ## Article Content
 
+## The Ancient Grains of Wisdom
 
-                The Ancient Grains of WisdomLong before wheat and polished white rice dominated the Indian subcontinental diet, millets—known in classical Sanskrit texts as Trinadhanya—formed the bedrock of nourishment from the Indus Valley Civilization through the Vedic era test.
-              
+Long before wheat and polished white rice dominated the Indian subcontinental diet, millets—known in classical Sanskrit texts as *Trinadhanya*—formed the bedrock of nourishment from the Indus Valley Civilization through the Vedic era.
+
+
 
 ---
 
@@ -43,4 +45,4 @@ vault_folder: "HP-2026-004"
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/1/2026, 11:38:02 AM*
+*Heritage Pulse Editorial Vault — Generated on 9/4/2026, 2:41:01 PM*

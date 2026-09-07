@@ -1,13 +1,104 @@
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 const db = require('./db');
 const workflow = require('./workflow');
 
+// Initialize headless WhatsApp client using saved LocalAuth session
+global.waClientReady = false;
+global.waClient = new Client({
+  authStrategy: new LocalAuth(),
+  puppeteer: {
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  }
+});
+
+// Global WhatsApp QR state
+global.currentQrCodeUrl = '';
+
+global.waClient.on('qr', (qr) => {
+  console.log('\n📲 New WhatsApp QR Code Generated! Open http://localhost:3000/qr to scan!\n');
+  global.currentQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(qr)}`;
+});
+
+global.waClient.on('ready', () => {
+  global.waClientReady = true;
+  global.currentQrCodeUrl = '';
+  console.log('✅ [WhatsApp Web Client] Background session is CONNECTED & READY!');
+});
+
+global.waClient.on('auth_failure', (msg) => {
+  global.waClientReady = false;
+  console.error('❌ [WhatsApp Web Client] Auth failure:', msg);
+});
+
+global.waClient.on('disconnected', (reason) => {
+  global.waClientReady = false;
+  console.warn('⚠️ [WhatsApp Web Client] Disconnected:', reason);
+});
+
+global.waClient.initialize().catch(err => {
+  console.error('❌ [WhatsApp Web Client] Initialization error:', err.message);
+});
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// JSON Status API for Frontend WhatsApp Check & QR Modal
+app.get('/api/wa-status', (req, res) => {
+  res.json({
+    ready: !!global.waClientReady,
+    qrUrl: global.currentQrCodeUrl || ''
+  });
+});
+
+// QR Code Authentication Page for WhatsApp
+app.get('/qr', (req, res) => {
+  if (global.waClientReady) {
+    return res.send(`
+      <html>
+        <head><title>WhatsApp Connected</title></head>
+        <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff;">
+          <h1 style="color: #10b981;">✅ WhatsApp Connected &amp; Authenticated!</h1>
+          <p style="color: #cbd5e1; font-size: 1.1rem;">Automated silent WhatsApp messages are active!</p>
+        </body>
+      </html>
+    `);
+  }
+  if (!global.currentQrCodeUrl) {
+    return res.send(`
+      <html>
+        <head><title>Generating QR...</title><meta http-equiv="refresh" content="3"></head>
+        <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff;">
+          <h2>Generating WhatsApp QR Code...</h2>
+          <p>Please wait 3 seconds for the QR code to load.</p>
+        </body>
+      </html>
+    `);
+  }
+  res.send(`
+    <html>
+      <head>
+        <title>Scan WhatsApp QR Code</title>
+        <meta http-equiv="refresh" content="4">
+      </head>
+      <body style="font-family: sans-serif; text-align: center; padding: 30px; background: #0f172a; color: #fff;">
+        <h1 style="color: #f59e0b;">📲 Scan QR Code with Sender Phone (Pavitra / System)</h1>
+        <p style="color: #cbd5e1; font-size: 1.1rem;">Open WhatsApp on the <strong>Sender Phone</strong> &rarr; tap <strong>Settings / Menu</strong> &rarr; <strong>Linked Devices</strong> &rarr; <strong>Link a Device</strong> &rarr; Scan below:</p>
+        <div style="background: #fff; padding: 20px; display: inline-block; border-radius: 16px; margin: 20px 0; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+          <img src="${global.currentQrCodeUrl}" alt="WhatsApp QR Code" style="width: 320px; height: 320px; display: block;">
+        </div>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Auto-refreshes every 4 seconds until scanned.</p>
+      </body>
+    </html>
+  `);
+});
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -29,7 +120,7 @@ const storage = multer.diskStorage({
     cb(null, unique);
   }
 });
-const upload = multer({ storage, limits: { fileSize: 15 * 1024 * 1024 } });
+const upload = multer({ storage, limits: { fileSize: 500 * 1024 * 1024 } });
 
 const folders = require('./folders');
 
@@ -93,7 +184,25 @@ app.put('/api/users/:id', (req, res) => {
 
 // Categories
 app.get('/api/categories', (req, res) => {
-  res.json(dbSqlite.getAllCategories());
+  const allowed = ['News', 'Events', 'Featured', 'Books'];
+  const all = dbSqlite.getAllCategories() || [];
+  const filtered = all.filter(c => allowed.includes(c.name));
+  res.json(filtered.length ? filtered : [
+    { id: "cat-news", name: "News", slug: "news", description: "Daily national & regional cultural news and policy updates", color: "#e11d48", icon: "newspaper", active: true, subcategories: ["Editor's Picks", "Ancient Civilisations", "World Heritage", "Archaeology", "Culture", "Arts", "Fashion Fusion", "Food Fusion", "Ancient Spirituality", "Cultural Heritage"] },
+    { id: "cat-events", name: "Events", slug: "events", description: "Cultural festivals, conferences, exhibitions and summits", color: "#ea580c", icon: "calendar-event", active: true, subcategories: ["Festivals", "Heritage Walks", "Workshops", "Talks", "Exhibitions", "Performances", "Museum Events", "Virtual Events", "Conferences & Summits"] },
+    { id: "cat-featured", name: "Featured", slug: "featured", description: "In-depth editorial spotlight stories and investigative pieces", color: "#d97706", icon: "sparkles", active: true, subcategories: ["Art & Iconography", "Classical Dance", "Sacred Music", "Master Craft", "Sacred Architecture", "Handloom & Textiles", "Culinary Arts", "Yoga & Wellness", "Jewellery & Adornment", "Poetry & Verses", "Sanskrit Theatre", "Living Festivals", "World Heritage", "Literature & Epics", "Visual Chronicles", "Editorial Spotlight"] },
+    { id: "cat-books", name: "Books", slug: "books", description: "Vedic Sanskrit literature, translations, epic poems, manuscripts & book reviews", color: "#6366f1", icon: "book-open", active: true, subcategories: ["Art, Crafts & Living Heritage", "Architecture & Monuments", "History & Antiquity", "Travel & Guides", "Spiritual & Temple Traditions", "Vedic & Sanskrit Literature", "Open Access Archives", "Manuscript Digitization", "Book Reviews"] }
+  ]);
+});
+
+app.get('/api/subcategories', (req, res) => {
+  const allowed = ['News', 'Events', 'Featured', 'Books'];
+  const categories = (dbSqlite.getAllCategories() || []).filter(c => allowed.includes(c.name));
+  const map = {};
+  categories.forEach(c => {
+    map[c.name] = c.subcategories || ['General'];
+  });
+  res.json(map);
 });
 
 app.post('/api/categories', (req, res) => {
@@ -190,17 +299,25 @@ app.post('/api/content/:id/comments', (req, res) => {
   }
 });
 
-// Image Upload Endpoint
-app.post('/api/upload', upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
-  }
-  const fileUrl = `/uploads/${req.file.filename}`;
-  res.json({
-    url: fileUrl,
-    filename: req.file.originalname,
-    size: req.file.size,
-    mimetype: req.file.mimetype
+// Media & File Upload Endpoint (Images, Video, Audio up to 500MB)
+app.post('/api/upload', (req, res) => {
+  upload.single('file')(req, res, (err) => {
+    if (err) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'File size exceeds limit (500MB max allowed).' });
+      }
+      return res.status(400).json({ error: err.message || 'File upload failed' });
+    }
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    const fileUrl = `/uploads/${req.file.filename}`;
+    res.json({
+      url: fileUrl,
+      filename: req.file.originalname,
+      size: req.file.size,
+      mimetype: req.file.mimetype
+    });
   });
 });
 
@@ -459,9 +576,9 @@ app.get('/api/folders/tree', (req, res) => {
 });
 
 // Get detailed article folder info
-app.get('/api/folders/article/:id', (req, res) => {
+app.get(['/api/folders/article/:id', '/api/folders/:id'], (req, res) => {
   try {
-    const item = db.getContentById(req.params.id);
+    const item = dbSqlite.getContentById(req.params.id) || db.getContentById(req.params.id);
     if (!item) return res.status(404).json({ error: 'Article not found' });
     const info = folders.getArticleFolderInfo(item);
     const formatted = folders.formatArticleFolderItem(item, info);
@@ -483,9 +600,9 @@ app.post('/api/folders/sync', (req, res) => {
 });
 
 // Export article folder as ZIP archive (content + all images packaged)
-app.get('/api/folders/export-zip/:id', (req, res) => {
+app.get(['/api/folders/export-zip/:id', '/api/folders/:id/download-zip'], (req, res) => {
   try {
-    const item = db.getContentById(req.params.id);
+    const item = dbSqlite.getContentById(req.params.id) || db.getContentById(req.params.id);
     if (!item) return res.status(404).json({ error: 'Article not found' });
     const archive = folders.createFolderZipArchive(item);
     res.json(archive);
@@ -712,8 +829,16 @@ app.use((err, req, res, next) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`====================================================`);
   console.log(` Heritage Pulse Editorial Operations Dashboard `);
+  const os = require('os');
+  let networkIp = '127.0.0.1';
+  const nets = os.networkInterfaces();
+  for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+      if (net.family === 'IPv4' && !net.internal) networkIp = net.address;
+    }
+  }
   console.log(` Local:   http://localhost:${PORT}`);
-  console.log(` Network: http://192.168.0.157:${PORT}`);
+  console.log(` Network: http://${networkIp}:${PORT}`);
   console.log(` Date context: August 24, 2026`);
   console.log(`====================================================`);
   

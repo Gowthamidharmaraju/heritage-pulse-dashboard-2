@@ -15,7 +15,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   
   <!-- CSS Stylesheet -->
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=105">
+
+  <!-- Driver.js for Guided Tour -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
 </head>
 <body class="theme-dark">
   <!-- SVG COLOR MATRIX FILTER: Converts white logo letters to black while preserving gold icon & TEJ text -->
@@ -67,10 +70,22 @@
           <span class="hide-mobile">New Topic</span>
         </button>
 
+        <!-- GUIDED TOUR BUTTON -->
+        <button class="btn btn-outline-light btn-sm hide-mobile" onclick="app.startGuidedTour()" title="Interactive Guided Tour" style="border-color: rgba(59,130,246,0.4); color: #60a5fa; display: flex; align-items: center; gap: 6px;">
+          <i class="fa-solid fa-compass"></i>
+          <span>Guided Tour</span>
+        </button>
+
+        <!-- SYSTEM SETTINGS GEAR BUTTON -->
+        <button class="btn-icon" onclick="app.navigateTo('ai-monitor')" title="System Settings & AI Monitor">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+
         <!-- LIGHT / DARK MODE TOGGLE BUTTON -->
         <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="app.toggleTheme()" title="Switch Light / Dark Theme">
           <i class="fa-solid fa-sun" id="theme-toggle-icon"></i>
-        </button>        <!-- Role Switcher Quick Bar -->
+        </button>        
+        <!-- Role Switcher Quick Bar -->
         <div class="role-switcher-dropdown">
           <button class="role-pill-btn" id="role-pill-trigger" title="Switch Active Perspective">
             <span class="role-badge-indicator" id="current-role-badge">Super Admin</span>
@@ -317,15 +332,24 @@
       <form id="create-content-form" onsubmit="app.handleCreateContent(event)">
         <div class="modal-body">
           
-          <div class="form-grid-2">
-            <div class="form-group">
+          <div class="form-grid-3">
+            <div class="form-group" style="grid-column: span 2;">
               <label class="form-label">Topic / Headline Title <span class="required">*</span></label>
               <input type="text" name="topic" id="new-topic-input" class="form-control" placeholder="e.g. Traditional Temple Architecture of Andhra Pradesh" required>
             </div>
+          </div>
+
+          <div class="form-grid-2">
             <div class="form-group">
               <label class="form-label">Category <span class="required">*</span></label>
-              <select name="category" id="new-category-select" class="form-control" required>
+              <select name="category" id="new-category-select" class="form-control" onchange="app.handleModalCategoryChange(this.value)" required>
                 <!-- Filled dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Subcategory</label>
+              <select name="subcategory" id="new-subcategory-select" class="form-control">
+                <!-- Filled dynamically based on category -->
               </select>
             </div>
           </div>
@@ -941,17 +965,18 @@
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="toast-container"></div>
 
-  <script src="/js/views/dashboard.js?v=36"></script>
-  <script src="/js/views/tracker.js?v=36"></script>
-  <script src="/js/views/kanban.js?v=36"></script>
-  <script src="/js/views/contentDetail.js?v=36"></script>
-  <script src="/js/views/workload.js?v=36"></script>
-  <script src="/js/views/calendar.js?v=36"></script>
-  <script src="/js/views/analytics.js?v=36"></script>
-  <script src="/js/views/admin.js?v=36"></script>
-  <script src="/js/views/aiMonitor.js?v=36"></script>
-  <script src="/js/views/foldersView.js?v=36"></script>
+  <script src="/js/views/dashboard.js?v=105"></script>
+  <script src="/js/views/tracker.js?v=105"></script>
+  <script src="/js/views/kanban.js?v=105"></script>
+  <script src="/js/views/contentDetail.js?v=105"></script>
+  <script src="/js/views/workload.js?v=105"></script>
+  <script src="/js/views/calendar.js?v=105"></script>
+  <script src="/js/views/analytics.js?v=105"></script>
+  <script src="/js/views/admin.js?v=105"></script>
+  <script src="/js/views/aiMonitor.js?v=105"></script>
+  <script src="/js/views/foldersView.js?v=105"></script>
   <script src="/js/views/loginView.js?v=36"></script>
+  <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
   <script src="/js/app.js?v=36"></script>
 </body>
 </html>

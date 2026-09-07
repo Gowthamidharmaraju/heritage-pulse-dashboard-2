@@ -85,17 +85,22 @@ const TrackerView = {
 
             <!-- Category Filter -->
             <select class="filter-select" id="filter-category" onchange="TrackerView.updateFilter('category', this.value)">
-              <option value="">🏷️ All Categories (17)</option>
-              ${categories.map(c => `
-                <option value="${c.name}" ${this.activeFilters.category && this.activeFilters.category.toLowerCase() === c.name.toLowerCase() ? 'selected' : ''}>${c.name}</option>
-              `).join('')}
+              <option value="">🏷️ All Categories</option>
+              ${(() => {
+                const phase1Names = ['Events', 'News', 'Featured', 'Books', 'Games'];
+                const phase1Cats = categories.filter(c => phase1Names.includes(c.name));
+                const list = phase1Cats.length ? phase1Cats : categories;
+                return list.map(c => `
+                  <option value="${c.name}" ${this.activeFilters.category && this.activeFilters.category.toLowerCase() === c.name.toLowerCase() ? 'selected' : ''}>${c.name}</option>
+                `).join('');
+              })()}
             </select>
 
             <!-- Writer Filter -->
             <select class="filter-select" id="filter-writer" onchange="TrackerView.updateFilter('writer_id', this.value)">
-              <option value="">✍️ All Writers</option>
+              <option value="">✍️ All Writers (${writers.length})</option>
               ${writers.map(w => `
-                <option value="${w.id}" ${this.activeFilters.writer_id === w.id ? 'selected' : ''}>${w.name}</option>
+                <option value="${w.id}" ${this.activeFilters.writer_id === w.id || (app.currentUser && app.currentUser.name === w.name && this.activeFilters.writer_id === app.currentUser.id) ? 'selected' : ''}>✍️ ${w.name}</option>
               `).join('')}
             </select>
 

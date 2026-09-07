@@ -9121,6 +9121,225 @@ body.theme-light .login-page-container {
   color: var(--text-dim);
 }
 
+/* ==========================================================================
+   🌟 CIRCULAR WORKFLOW PROGRESS POPUP MODAL STYLES
+   ========================================================================== */
+.sync-modal-card {
+  max-width: 440px !important;
+  padding: 32px 24px !important;
+  background: var(--bg-card, #111827) !important;
+  border: 1px solid var(--saffron, #f59e0b) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.25) !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  animation: modalPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.sync-animation-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sync-progress-ring {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.sync-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 8;
+}
+
+.sync-ring-progress {
+  fill: none;
+  stroke: #f59e0b;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 364.42;
+  stroke-dashoffset: 364.42;
+  transition: stroke-dashoffset 0.1s linear, stroke 0.3s ease;
+}
+
+.sync-ring-progress.complete {
+  stroke: #10b981 !important;
+}
+
+.sync-ring-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.sync-icon-spin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.sync-percent-text {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--text-primary, #ffffff);
+}
+
+.sync-modal-title {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 6px;
+}
+
+.sync-modal-status {
+  font-size: 0.82rem;
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.sync-steps-indicator {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.sync-step-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-dim, #64748b);
+  transition: all 0.2s ease;
+}
+
+.sync-step-pill.active {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+
+.sync-step-pill.complete {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  color: #34d399;
+}
+
+/* ==========================================================================
+   MODERN DRIVER.JS GUIDED TOUR OVERRIDES (HERITAGE PULSE THEME)
+   ========================================================================== */
+.driver-popover {
+  background: #111827 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(245, 158, 11, 0.15) !important;
+  color: #f8fafc !important;
+  padding: 18px 22px !important;
+  max-width: 350px !important;
+  backdrop-filter: blur(12px) !important;
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+}
+
+.driver-popover-title {
+  font-family: var(--font-display, 'Outfit', sans-serif) !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  color: #f59e0b !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.01em !important;
+}
+
+.driver-popover-description {
+  font-size: 0.86rem !important;
+  line-height: 1.55 !important;
+  color: #cbd5e1 !important;
+  margin-bottom: 16px !important;
+}
+
+.driver-popover-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-top: 14px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.driver-popover-progress-text {
+  font-size: 0.76rem !important;
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+}
+
+.driver-popover-footer button {
+  background: var(--bg-card, #1e293b) !important;
+  color: #e2e8f0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-shadow: none !important;
+}
+
+.driver-popover-footer button:hover {
+  background: #334155 !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.driver-popover-navigation-btns {
+  display: flex !important;
+  gap: 6px !important;
+}
+
+.driver-popover-next-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3) !important;
+}
+
+.driver-popover-next-btn:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.45) !important;
+}
+
+.driver-popover-close-btn {
+  color: #94a3b8 !important;
+}
+
+.driver-popover-close-btn:hover {
+  color: #f8fafc !important;
+}
+
+.driver-popover-arrow {
+  border-color: #111827 !important;
+}
+
+
 
 
 

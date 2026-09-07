@@ -8,7 +8,7 @@ const FoldersView = {
   searchQuery: '',
   categoryFilter: '',
   writerFilter: '',
-  statusFilter: '',
+  statusFilter: 'PUBLISHED',
   selectedFile: null,
 
   // Calendar & Date Filtering State (Year-wise, Month-wise, Date-wise)
@@ -1279,12 +1279,12 @@ const FoldersView = {
                       <div class="image-credit"><i class="fa-solid fa-camera"></i> ${img.credit || 'Heritage Pulse'}</div>
                     </div>
                     <div class="image-card-footer" onclick="event.stopPropagation()">
-                      <button class="btn btn-xs btn-outline-light" onclick="FoldersView.previewImageModal('${img.url}', '${img.caption || img.name}', '${img.credit}')">
+                      <button class="btn btn-xs btn-outline-light" onclick="FoldersView.previewImageModal('${img.url}', '${this.escapeQuotes(img.caption || img.name)}', '${this.escapeQuotes(img.credit)}')">
                         <i class="fa-solid fa-expand text-saffron"></i> View
                       </button>
-                      <a href="${img.url}" target="_blank" download="${img.name}" class="btn btn-xs btn-secondary">
+                      <button type="button" class="btn btn-xs btn-secondary" onclick="FoldersView.downloadSingleImage('${img.url}', '${this.escapeQuotes(img.name || 'image.jpg')}')" title="Download Image">
                         <i class="fa-solid fa-download"></i>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 `).join('')}
@@ -1604,7 +1604,16 @@ const FoldersView = {
     }
   },
 
-  // ── FILE & DOCUMENT PREVIEW MODAL ──────────────────────────────────────────
+  escapeHtml(str) {
+    if (!str) return '';
+    if (typeof app !== 'undefined' && app.escapeHtml) return app.escapeHtml(str);
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  },
 
   async previewFile(articleId, fileType, fileName) {
     const modal = document.getElementById('drive-file-modal');
@@ -1743,6 +1752,26 @@ ${item.body || 'No content written yet.'}`;
     `;
 
     modal.classList.remove('hidden');
+  },
+
+  async downloadSingleImage(url, filename) {
+    try {
+      app.showToast("Downloading image file...", "info");
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = filename || 'heritage-pulse-image.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+      app.showToast("✅ Image downloaded successfully!", "success");
+    } catch (e) {
+      window.open(url, '_blank');
+      app.showToast("Opened image in new tab", "info");
+    }
   },
 
   closeFileModal() {

@@ -12,14 +12,14 @@
   "final_approver_id": "usr-editor-1",
   "publisher_id": "usr-publisher-1",
   "priority": "High",
-  "status": "PUBLISHED",
-  "progress": 100,
+  "status": "WRITER_SUBMITTED",
+  "progress": 60,
   "start_date": "2026-08-17",
   "deadline": "2026-08-23",
-  "publishing_date": "2026-08-31",
-  "published_url": "https://heritagepulse.org/culture/hp-2026-006-kalamkari-textile-art-hand-painted-stori",
+  "publishing_date": "2026-08-26",
+  "published_url": "",
   "short_description": "An investigative feature into the 23-step process of traditional Kalamkari and the socio-economic challenges faced by artisan clusters.",
-  "body": "\n                \n                \n                <h2>The Pen That Weaves Myths</h2><p>Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              \n              \n              ",
+  "body": "\n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Pen That Weaves Myths</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.lopmplm</p>\n              ",
   "tags": [
     "Kalamkari",
     "IndianHandlooms",
@@ -54,7 +54,7 @@
     }
   ],
   "created_at": "2026-08-17T11:30:00Z",
-  "updated_at": "2026-08-31T04:59:40.155Z",
+  "updated_at": "2026-09-04T07:20:00.978Z",
   "checklist": {
     "article_checked": false,
     "images_checked": false,
@@ -64,6 +64,6 @@
     "seo_completed": false,
     "mobile_preview_checked": false,
     "desktop_preview_checked": false,
-    "website_published": true
+    "website_published": false
   }
 }

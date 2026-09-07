@@ -73,6 +73,7 @@ const AdminView = {
                 <th>Slug</th>
                 <th>Theme Accent</th>
                 <th>Description</th>
+                <th>Nested Sub-Categories</th>
                 <th>Articles Count</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -81,6 +82,7 @@ const AdminView = {
             <tbody>
               ${categories.map(cat => {
                 const count = contentList.filter(c => c.category.toLowerCase() === cat.name.toLowerCase()).length;
+                const subs = Array.isArray(cat.subcategories) ? cat.subcategories : [];
                 return `
                   <tr>
                     <td style="font-weight: 700; color: var(--text-primary);">
@@ -95,13 +97,24 @@ const AdminView = {
                         <code style="font-size: 0.75rem;">${cat.color}</code>
                       </div>
                     </td>
-                    <td style="font-size: 0.8rem; color: var(--text-secondary); max-width: 300px;">${cat.description || 'Heritage Pulse editorial category'}</td>
+                    <td style="font-size: 0.8rem; color: var(--text-secondary); max-width: 220px;">${cat.description || 'Heritage Pulse editorial category'}</td>
+                    <td style="max-width: 260px;">
+                      <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                        ${subs.length ? subs.map(sub => `
+                          <span style="background: rgba(245, 158, 11, 0.12); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.25); padding: 2px 7px; border-radius: 4px; font-size: 0.7rem; font-weight: 600;">
+                            ${sub}
+                          </span>
+                        `).join('') : '<span style="font-size: 0.72rem; color: var(--text-dim); font-style: italic;">General</span>'}
+                      </div>
+                    </td>
                     <td><strong>${count}</strong> articles</td>
                     <td>
                       <span class="status-pill status-approved" style="font-size: 0.65rem;">Active</span>
                     </td>
                     <td>
-                      <button class="btn btn-xs btn-outline-light" onclick="AdminView.editCategory('${cat.id}')">Edit</button>
+                      <button class="btn btn-xs btn-outline-light" onclick="AdminView.editCategory('${cat.id}')">
+                        <i class="fa-solid fa-pen" style="font-size: 0.75rem;"></i> Edit Category &amp; Subcategories
+                      </button>
                     </td>
                   </tr>
                 `;
@@ -140,22 +153,22 @@ const AdminView = {
             <tbody>
               ${users.map(u => `
                 <tr>
-                  <td style="font-weight: 700; color: var(--text-primary);">
+                  <td>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                      <span class="avatar ${u.role === 'Writer' ? 'bg-purple' : (u.role === 'Editor' ? 'bg-indigo' : 'bg-green')}">${u.avatar}</span>
+                      <div class="user-avatar-circle" style="width: 32px; height: 32px; font-size: 0.8rem;">${u.name ? u.name[0] : 'U'}</div>
                       <div>
-                        <div>${u.name}</div>
-                        <div style="font-size: 0.7rem; color: var(--text-dim);">${u.id}</div>
+                        <div style="font-weight: 700; color: var(--text-primary); font-size: 0.85rem;">${u.name}</div>
+                        <div style="font-size: 0.7rem; color: var(--text-dim); font-family: monospace;">${u.id}</div>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <span class="status-pill ${u.role === 'Admin' ? 'status-topic' : (u.role === 'Writer' ? 'status-writing' : (u.role === 'Editor' ? 'status-review' : 'status-approved'))}">
-                      ${u.role}
+                    <span class="role-badge role-${(u.role || 'writer').toLowerCase().replace(/[^a-z]/g, '')}">
+                      • ${u.role}
                     </span>
                   </td>
-                  <td style="font-size: 0.8rem; color: var(--text-secondary);">${u.title || 'Staff'}</td>
-                  <td style="font-size: 0.8rem; font-family: monospace; color: var(--text-muted);">${u.email}</td>
+                  <td style="font-size: 0.8rem; color: var(--text-secondary);">${u.title || 'Staff Contributor'}</td>
+                  <td style="font-size: 0.78rem; font-family: monospace;">${u.email}</td>
                   <td>
                     <div style="display: flex; gap: 4px; flex-wrap: wrap;">
                       ${(u.assignedCategories || ['All']).map(c => `
@@ -184,59 +197,218 @@ const AdminView = {
     this.render(document.getElementById('main-content-view'));
   },
 
-  async promptAddCategory() {
-    const name = prompt('Enter new Category Name (e.g. "Architecture", "Living Traditions"):');
-    if (!name) return;
-    const description = prompt('Enter Category Description:') || '';
-    const color = prompt('Enter Hex Color Code (e.g. "#9333ea"):', '#9333ea') || '#9333ea';
+  currentSubcategories: [],
 
-    try {
-      await app.apiPost('/api/categories', { name, description, color });
-      app.showToast(`Category "${name}" created successfully!`, 'success');
-      this.render(document.getElementById('main-content-view'));
-    } catch (err) {
-      app.showToast(`Failed to create category: ${err.message}`, 'error');
+  renderSubcategoryPills() {
+    const container = document.getElementById('edit-cat-subcategories-pills');
+    const hiddenInput = document.getElementById('edit-cat-subcategories');
+    if (!container) return;
+
+    if (!this.currentSubcategories || this.currentSubcategories.length === 0) {
+      container.innerHTML = `<span style="font-size: 0.75rem; color: var(--text-dim); font-style: italic;">No sub-categories added yet. Use the input field above to add new subcategories.</span>`;
+      if (hiddenInput) hiddenInput.value = '';
+      return;
     }
+
+    container.innerHTML = this.currentSubcategories.map((sub, i) => `
+      <span style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.35); padding: 4px 10px; border-radius: 16px; font-size: 0.76rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+        <span>${sub}</span>
+        <i class="fa-solid fa-xmark" onclick="AdminView.removeSubcategoryPill(${i})" style="cursor: pointer; opacity: 0.75; font-size: 0.82rem;" title="Remove subcategory"></i>
+      </span>
+    `).join('');
+
+    if (hiddenInput) hiddenInput.value = this.currentSubcategories.join(',');
+  },
+
+  addSubcategoryPill() {
+    const input = document.getElementById('new-subcategory-input');
+    if (!input) return;
+    const val = input.value.trim();
+    if (!val) return;
+
+    if (!this.currentSubcategories.includes(val)) {
+      this.currentSubcategories.push(val);
+      this.renderSubcategoryPills();
+    }
+    input.value = '';
+    input.focus();
+  },
+
+  removeSubcategoryPill(index) {
+    this.currentSubcategories.splice(index, 1);
+    this.renderSubcategoryPills();
+  },
+
+  promptAddCategory() {
+    document.getElementById('category-modal-title').innerText = 'Add New Topic Category Taxonomy';
+    document.getElementById('edit-cat-id').value = '';
+    document.getElementById('edit-cat-name').value = '';
+    document.getElementById('edit-cat-color').value = '#d97706';
+    document.getElementById('edit-cat-color-picker').value = '#d97706';
+    document.getElementById('edit-cat-description').value = '';
+    
+    this.currentSubcategories = ['General'];
+    this.renderSubcategoryPills();
+
+    const modal = document.getElementById('edit-category-modal');
+    if (modal) modal.classList.remove('hidden');
   },
 
   async editCategory(catId) {
-    const categories = await app.apiGet('/api/categories');
-    const cat = categories.find(c => c.id === catId);
-    if (!cat) return;
+    try {
+      const categories = await app.apiGet('/api/categories');
+      const cat = categories.find(c => c.id === catId);
+      if (!cat) return;
 
-    const newDesc = prompt(`Update description for "${cat.name}":`, cat.description || '');
-    if (newDesc !== null) {
-      await app.apiPut(`/api/categories/${catId}`, { description: newDesc });
-      app.showToast(`Category "${cat.name}" updated.`, 'info');
-      this.render(document.getElementById('main-content-view'));
+      document.getElementById('category-modal-title').innerText = `Edit Category Taxonomy: ${cat.name}`;
+      document.getElementById('edit-cat-id').value = cat.id;
+      document.getElementById('edit-cat-name').value = cat.name || '';
+      document.getElementById('edit-cat-color').value = cat.color || '#d97706';
+      document.getElementById('edit-cat-color-picker').value = cat.color || '#d97706';
+      document.getElementById('edit-cat-description').value = cat.description || '';
+      
+      this.currentSubcategories = Array.isArray(cat.subcategories) ? [...cat.subcategories] : ['General'];
+      this.renderSubcategoryPills();
+
+      const modal = document.getElementById('edit-category-modal');
+      if (modal) modal.classList.remove('hidden');
+    } catch (err) {
+      app.showToast(`Failed to open category editor: ${err.message}`, 'error');
     }
   },
 
-  async promptAddUser() {
-    const name = prompt('Enter Staff Member Name:');
-    if (!name) return;
-    const role = prompt('Enter Role (Admin, Writer, Editor, Publisher):', 'Writer') || 'Writer';
-    const email = prompt('Enter Email:', `${name.toLowerCase().replace(/\s+/g, '.')}@heritagepulse.org`) || '';
+  closeCategoryModal() {
+    const modal = document.getElementById('edit-category-modal');
+    if (modal) modal.classList.add('hidden');
+  },
+
+  async handleSaveCategory(e) {
+    e.preventDefault();
+    const form = e.target;
+    const catId = form.id.value;
+    const name = form.name.value.trim();
+    const color = form.color.value.trim();
+    const description = form.description.value.trim();
+    const subcatsRaw = form.subcategories.value;
+    const subcategories = subcatsRaw ? subcatsRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
 
     try {
-      await app.apiPost('/api/users', { name, role, email });
-      app.showToast(`Staff member "${name}" added to Heritage Pulse team.`, 'success');
+      if (catId) {
+        await app.apiPut(`/api/categories/${catId}`, { name, color, description, subcategories });
+        app.showToast(`✨ Category "${name}" updated successfully!`, 'success');
+      } else {
+        await app.apiPost('/api/categories', { name, color, description, subcategories });
+        app.showToast(`✨ Category "${name}" created successfully!`, 'success');
+      }
+
+      this.closeCategoryModal();
       this.render(document.getElementById('main-content-view'));
     } catch (err) {
-      app.showToast(`Failed to add user: ${err.message}`, 'error');
+      app.showToast(`Failed to save category: ${err.message}`, 'error');
+    }
+  },
+
+  promptAddUser() {
+    const form = document.getElementById('add-user-form');
+    if (form) form.reset();
+    const modal = document.getElementById('add-user-modal');
+    if (modal) modal.classList.remove('hidden');
+  },
+
+  closeAddUserModal() {
+    const modal = document.getElementById('add-user-modal');
+    if (modal) modal.classList.add('hidden');
+  },
+
+  async handleSaveNewUser(e) {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const role = form.role.value;
+    const password = form.password.value;
+    const title = form.title.value.trim();
+
+    try {
+      await app.apiPost('/api/auth/register', { name, email, role, password, title });
+      this.closeAddUserModal();
+      app.showToast(`✨ Staff member "${name}" registered successfully as ${role}!`, 'success');
+      this.render(document.getElementById('main-content-view'));
+    } catch (err) {
+      app.showToast(`Failed to register staff member: ${err.message}`, 'error');
     }
   },
 
   async editUserRole(userId) {
-    const users = await app.apiGet('/api/users');
-    const user = users.find(u => u.id === userId);
-    if (!user) return;
+    try {
+      const [users, categories] = await Promise.all([
+        app.apiGet('/api/users'),
+        app.apiGet('/api/categories')
+      ]);
+      const user = users.find(u => u.id === userId);
+      if (!user) return;
 
-    const newRole = prompt(`Change role for ${user.name} (Admin, Writer, Editor, Publisher):`, user.role);
-    if (newRole && ['Admin', 'Writer', 'Editor', 'Publisher'].includes(newRole)) {
-      await app.apiPut(`/api/users/${userId}`, { role: newRole });
-      app.showToast(`Updated ${user.name}'s role to ${newRole}.`, 'success');
+      document.getElementById('edit-user-id').value = user.id;
+      document.getElementById('edit-user-name').value = user.name || '';
+      document.getElementById('edit-user-email').value = user.email || '';
+      document.getElementById('edit-user-role').value = user.role || 'Writer';
+      document.getElementById('edit-user-status').value = user.status || 'Active';
+      document.getElementById('edit-user-title').value = user.title || '';
+      document.getElementById('edit-user-phone').value = user.phone || '';
+
+      const container = document.getElementById('edit-user-categories-container');
+      if (container) {
+        const assigned = Array.isArray(user.assignedCategories) ? user.assignedCategories : ['All'];
+        const isAll = assigned.includes('All');
+        container.innerHTML = categories.map(c => `
+          <label style="font-size: 0.76rem; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; color: var(--text-primary);">
+            <input type="checkbox" name="assignedCategories" value="${c.name}" ${isAll || assigned.includes(c.name) ? 'checked' : ''} style="cursor: pointer;">
+            <span>${c.name}</span>
+          </label>
+        `).join('');
+      }
+
+      const modal = document.getElementById('edit-user-modal');
+      if (modal) modal.classList.remove('hidden');
+    } catch (err) {
+      app.showToast(`Could not open member editor: ${err.message}`, 'error');
+    }
+  },
+
+  closeEditUserModal() {
+    const modal = document.getElementById('edit-user-modal');
+    if (modal) modal.classList.add('hidden');
+  },
+
+  async handleSaveUserEdit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const userId = form.id.value;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const role = form.role.value;
+    const status = form.status.value;
+    const title = form.title.value.trim();
+    const phone = form.phone.value.trim();
+
+    const checkedCats = Array.from(form.querySelectorAll('input[name="assignedCategories"]:checked')).map(cb => cb.value);
+
+    try {
+      const updated = await app.apiPut(`/api/users/${userId}`, {
+        name,
+        email,
+        role,
+        status,
+        title,
+        phone,
+        assignedCategories: checkedCats.length ? checkedCats : ['All']
+      });
+
+      this.closeEditUserModal();
+      app.showToast(`✨ Profile & role permissions for "${updated.name}" updated successfully!`, 'success');
       this.render(document.getElementById('main-content-view'));
+    } catch (err) {
+      app.showToast(`Failed to update member role: ${err.message}`, 'error');
     }
   }
 };

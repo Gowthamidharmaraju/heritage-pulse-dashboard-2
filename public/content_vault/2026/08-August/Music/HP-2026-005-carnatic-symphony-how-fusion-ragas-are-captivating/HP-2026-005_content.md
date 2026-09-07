@@ -4,7 +4,7 @@ title: "Carnatic Symphony: How Fusion Ragas Are Captivating Gen-Z Audiences"
 category: "Music"
 content_type: "Culture Story"
 priority: "Medium"
-status: "READY_TO_PUBLISH"
+status: "WRITER_SUBMITTED"
 writer: "Staff"
 editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-22"
@@ -23,15 +23,17 @@ vault_folder: "HP-2026-005"
 
 
 
-**Category:** Music | **Author:** Staff Writer | **Status:** READY_TO_PUBLISH
+**Category:** Music | **Author:** Staff Writer | **Status:** WRITER_SUBMITTED
 
 ---
 
 ## Article Content
 
+## The Modern Gamaka
 
-                The Modern GamakaIn underground music news and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up live-string electric violins, digital synthesizers, and konnakol voice processors.
-              
+In underground music dens and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up five-string electric violins, digital synthesizers, and konnakol voice processors.
+
+
 
 ---
 
@@ -43,4 +45,4 @@ vault_folder: "HP-2026-005"
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/1/2026, 11:38:02 AM*
+*Heritage Pulse Editorial Vault — Generated on 9/4/2026, 2:41:01 PM*

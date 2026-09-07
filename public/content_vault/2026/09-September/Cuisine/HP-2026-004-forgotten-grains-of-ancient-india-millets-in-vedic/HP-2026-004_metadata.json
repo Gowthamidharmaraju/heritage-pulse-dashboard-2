@@ -16,10 +16,10 @@
   "progress": 100,
   "start_date": "2026-08-21",
   "deadline": "2026-08-24",
-  "publishing_date": "2026-09-01",
+  "publishing_date": "2026-09-04",
   "published_url": "https://heritagepulse.org/cuisine/hp-2026-004-forgotten-grains-of-ancient-india-millet",
   "short_description": "Ayurvedic classifications of Siri Dhanya millets and their role in healing diets, drought-resistant farming, and heritage recipes.",
-  "body": "\n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Ancient Grains of Wisdom</h2><p rtrvr-ls=\"0~hs,5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Long before wheat and polished white rice dominated the Indian subcontinental diet, millets—known in classical Sanskrit texts as <em rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Trinadhanya</em>—formed the bedrock of nourishment from the Indus Valley Civilization through the Vedic era test.</p>\n              ",
+  "body": "\n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\">The Ancient Grains of Wisdom</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs,49~hs\">Long before wheat and polished white rice dominated the Indian subcontinental diet, millets—known in classical Sanskrit texts as <em>Trinadhanya</em>—formed the bedrock of nourishment from the Indus Valley Civilization through the Vedic era.</p>\n              ",
   "tags": [
     "Millets",
     "VedicCuisine",
@@ -54,7 +54,7 @@
     }
   ],
   "created_at": "2026-08-21T10:00:00Z",
-  "updated_at": "2026-09-01T06:27:30.417Z",
+  "updated_at": "2026-09-04T09:54:24.906Z",
   "checklist": {
     "article_checked": true,
     "images_checked": true,

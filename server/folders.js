@@ -192,19 +192,22 @@ function formatArticleWordDocument(item) {
 </html>`;
 }
 
-// Synchronize all articles to physical disk folders
+// Synchronize published articles to physical disk folders (Only Clean Published Data)
 function syncPhysicalDiskVault(contentList) {
   if (!Array.isArray(contentList)) return { count: 0 };
   let synced = 0;
 
-  contentList.forEach(item => {
+  // Filter to keep ONLY clean, fully published final data (no incomplete drafts)
+  const publishedList = contentList.filter(item => item.status === 'PUBLISHED' || item.progress >= 100);
+
+  publishedList.forEach(item => {
     try {
       const info = getArticleFolderInfo(item);
       if (!fs.existsSync(info.absoluteDiskPath)) {
         fs.mkdirSync(info.absoluteDiskPath, { recursive: true });
       }
 
-      // 1. Write structured JSON metadata
+      // 1. Write structured clean JSON metadata
       const jsonPath = path.join(info.absoluteDiskPath, `${item.id}_metadata.json`);
       fs.writeFileSync(jsonPath, JSON.stringify(item, null, 2), 'utf8');
 
@@ -241,7 +244,7 @@ function syncPhysicalDiskVault(contentList) {
     }
   });
 
-  return { count: synced, total: contentList.length };
+  return { count: synced, total: publishedList.length };
 }
 
 // Build Google Drive hierarchical tree

@@ -123,8 +123,20 @@ const ContentDetailView = {
 
               <div class="form-group">
                 <label class="form-label" style="font-size: 0.72rem;">Category</label>
-                <select class="form-control form-control-sm" id="meta-category" onchange="ContentDetailView.updateMeta('category', this.value)">
-                  ${categories.map(c => `<option value="${c.name}" ${item.category === c.name ? 'selected' : ''}>${c.name}</option>`).join('')}
+                <select class="form-control form-control-sm" id="meta-category" onchange="ContentDetailView.onCategorySelectChange(this.value)">
+                  ${(() => {
+          const phase1Names = ['Events', 'News', 'Featured', 'Books'];
+          const filtered = categories.filter(c => phase1Names.includes(c.name));
+          const list = filtered.length ? filtered : categories;
+          return list.map(c => `<option value="${c.name}" ${item.category === c.name ? 'selected' : ''}>${c.name}</option>`).join('');
+        })()}
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" style="font-size: 0.72rem;">Sub-Category</label>
+                <select class="form-control form-control-sm" id="meta-subcategory" onchange="ContentDetailView.updateMeta('subcategory', this.value)">
+                  ${this.renderSubCategoryOptions(item.category, item.subcategory || 'General')}
                 </select>
               </div>
 
@@ -151,13 +163,53 @@ const ContentDetailView = {
                 </select>
               </div>
 
+              <div id="content-detail-books-fields" style="display: ${item.category === 'Books' ? 'block' : 'none'}; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px;">
+                <div class="form-group">
+                  <label class="form-label" style="font-size: 0.72rem;">Access / Pricing Level</label>
+                  <select class="form-control form-control-sm" id="meta-price" onchange="ContentDetailView.updateMeta('price', this.value)">
+                    <option value="Free" ${(!item.price || item.price.toLowerCase().includes('free')) ? 'selected' : ''}>🎁 Free Books (Open Access)</option>
+                    <option value="Premium" ${(item.price && !item.price.toLowerCase().includes('free')) ? 'selected' : ''}>👑 Premium Books</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-size: 0.72rem;">Language</label>
+                  <select class="form-control form-control-sm" id="meta-language" onchange="ContentDetailView.updateMeta('language', this.value)">
+                    ${['English', 'Sanskrit', 'Telugu', 'Hindi', 'Tamil', 'Kannada', 'Marathi'].map(lang => `
+                      <option value="${lang}" ${(item.language || 'English') === lang ? 'selected' : ''}>${lang}</option>
+                    `).join('')}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-size: 0.72rem;">Book Format</label>
+                  <select class="form-control form-control-sm" id="meta-format" onchange="ContentDetailView.updateMeta('format', this.value)">
+                    ${['Hardcover', 'Paperback', 'PDF'].map(fmt => `
+                      <option value="${fmt}" ${(item.format || 'PDF') === fmt ? 'selected' : ''}>${fmt}</option>
+                    `).join('')}
+                  </select>
+                </div>
+              </div>
+
               <div class="form-group">
-                <label class="form-label" style="font-size: 0.72rem;">1. Assigned Writer</label>
-                <select class="form-control form-control-sm" id="meta-writer" onchange="ContentDetailView.updateMeta('writer_id', this.value)">
-                  ${users.filter(u => u.role.includes('Writer') || u.role.includes('Admin') || u.role.includes('Super')).map(u => `
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                  <label class="form-label" style="font-size: 0.72rem; margin: 0;">1. Assigned Writer</label>
+                  <span style="font-size: 0.65rem; color: var(--saffron-dark); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                    <i class="fa-solid fa-lock"></i> Locked from Kickoff
+                  </span>
+                </div>
+                <select class="form-control form-control-sm" id="meta-writer" disabled style="cursor: not-allowed; opacity: 0.88; background: rgba(0,0,0,0.18); border-color: rgba(245,158,11,0.3);" onchange="ContentDetailView.updateMeta('writer_id', this.value)">
+                  ${users.map(u => `
                     <option value="${u.id}" ${item.writer_id === u.id ? 'selected' : ''}>${u.name} (${u.role})</option>
                   `).join('')}
                 </select>
+                ${app.isAdmin() ? `
+                  <div style="margin-top: 3px; text-align: right;">
+                    <button type="button" class="btn btn-xs" onclick="const wEl = document.getElementById('meta-writer'); wEl.disabled = !wEl.disabled; wEl.style.cursor = wEl.disabled ? 'not-allowed' : 'pointer'; wEl.style.opacity = wEl.disabled ? '0.88' : '1'; this.innerText = wEl.disabled ? '🔓 Admin Reassign' : '🔒 Lock Writer';" style="font-size: 0.62rem; padding: 1px 6px; background: rgba(255,255,255,0.06); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; cursor: pointer;">
+                      🔓 Admin Reassign
+                    </button>
+                  </div>
+                ` : ''}
               </div>
 
               <div class="form-group">
@@ -208,11 +260,12 @@ const ContentDetailView = {
                 <input type="date" class="form-control form-control-sm" id="meta-publishing-date" value="${item.publishing_date || '2026-08-25'}" onchange="ContentDetailView.updateMeta('publishing_date', this.value)" onclick="app.toggleDatePicker(this, event)" style="cursor: pointer;">
               </div>
 
+
               ${app.isAdminOrTejaswini() ? (() => {
-                const aiAnalysis = window.AiMonitorView ? AiMonitorView.analyzeAiContent((item.body || '') + ' ' + (item.title || '')) : null;
-                if (!aiAnalysis) return '';
-                const barColor = aiAnalysis.score <= 20 ? '#10b981' : aiAnalysis.score <= 45 ? '#84cc16' : aiAnalysis.score <= 65 ? '#f59e0b' : '#ef4444';
-                return `
+          const aiAnalysis = window.AiMonitorView ? AiMonitorView.analyzeAiContent((item.body || '') + ' ' + (item.title || '')) : null;
+          if (!aiAnalysis) return '';
+          const barColor = aiAnalysis.score <= 20 ? '#10b981' : aiAnalysis.score <= 45 ? '#84cc16' : aiAnalysis.score <= 65 ? '#f59e0b' : '#ef4444';
+          return `
                   <div style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(168,85,247,0.06));border:1px solid rgba(124,58,237,0.25);padding:12px;border-radius:8px;margin-bottom:10px;">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                       <span style="font-size:0.7rem;font-weight:800;color:#a855f7;text-transform:uppercase;letter-spacing:0.06em;"><i class="fa-solid fa-robot"></i> AI Score</span>
@@ -229,7 +282,7 @@ const ContentDetailView = {
                     </div>
                   </div>
                 `;
-              })() : ''}
+        })() : ''}
             </div>
 
             <!-- DR. TEJASWINI MA'AM 5-STAR RATING & HEART REACTION SUITE -->
@@ -396,12 +449,12 @@ const ContentDetailView = {
                   <i class="fa-solid fa-font text-blue"></i> <span>Color</span> <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
                 </button>
                 <div id="textcolor-palette-menu" class="color-palette-menu hidden" style="display: none;">
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#f59e0b')" style="background: #f59e0b;" title="Gold"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#ef4444')" style="background: #ef4444;" title="Crimson"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#3b82f6')" style="background: #3b82f6;" title="Blue"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#10b981')" style="background: #10b981;" title="Emerald"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#a855f7')" style="background: #a855f7;" title="Purple"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#ffffff')" style="background: #ffffff; color: #000;" title="White">A</button>
+                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#f59e0b')" style="background: #f59e0b !important;" title="Gold"></button>
+                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#ef4444')" style="background: #ef4444 !important;" title="Crimson"></button>
+                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#3b82f6')" style="background: #3b82f6 !important;" title="Blue"></button>
+                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#10b981')" style="background: #10b981 !important;" title="Emerald"></button>
+                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#a855f7')" style="background: #a855f7 !important;" title="Purple"></button>
+                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#ffffff')" style="background: #ffffff !important; color: #000 !important;" title="White">A</button>
                   <div style="grid-column: span 4; border-top: 1px solid var(--border-color); padding-top: 6px; margin-top: 4px;">
                     <button type="button" class="btn btn-xs btn-outline-light w-100" onclick="ContentDetailView.removeTextColor()" style="font-size: 0.72rem; padding: 4px;">
                       <i class="fa-solid fa-rotate-left"></i> Reset Color
@@ -591,6 +644,33 @@ const ContentDetailView = {
                     </div>
                   </div>
                 `).join('')}
+              </div>
+            </div>
+
+            <!-- VIDEO & AUDIO MEDIA EMBED LINK & LIVE PLAYER -->
+            <div class="content-detail-card" style="margin-top: 24px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+                <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-film text-saffron"></i> Video & Audio Media Player
+                </h3>
+                ${canEdit ? `
+                  <label class="btn btn-xs btn-primary" style="cursor: pointer; font-size: 0.72rem; padding: 4px 10px; margin: 0; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Upload Media File
+                    <input type="file" style="display: none;" accept="video/*,audio/*,.m4a,.mp3,.mp4,.webm" onchange="ContentDetailView.handleVideoFileUpload(event)">
+                  </label>
+                ` : '<span style="font-size: 0.72rem; color: var(--text-dim);">Live Player Preview</span>'}
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" style="font-size: 0.78rem; color: var(--saffron-dark); font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-video"></i> 🎥 Video / Audio Link or Uploaded URL
+                </label>
+                <input type="text" class="form-control" id="main-video-url" value="${this.escapeHtml(item.video_url || '')}" placeholder="Paste YouTube/Vimeo link, MP4/M4A URL, or click Upload Media File..." ${canEdit ? 'oninput="ContentDetailView.onVideoUrlInput(this.value)"' : 'readonly disabled style="cursor: not-allowed;"'}>
+                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 4px;">Web URLs, YouTube embeds, and uploaded video/audio files automatically render the live player preview below</div>
+              </div>
+
+              <div id="video-preview-container">
+                ${this.renderVideoPreviewHtml(item.video_url)}
               </div>
             </div>
 
@@ -976,7 +1056,7 @@ const ContentDetailView = {
             p.normalize();
             unwrapCount++;
           }
-        } catch (e) {}
+        } catch (e) { }
       });
     }
 
@@ -997,7 +1077,7 @@ const ContentDetailView = {
     // Standard remove format as backup
     try {
       document.execCommand('removeFormat', false, null);
-    } catch (e) {}
+    } catch (e) { }
 
     editor.focus();
     this.savedSelectionRange = null;
@@ -1154,37 +1234,50 @@ const ContentDetailView = {
 
     // Stage: READY_TO_PUBLISH (Publisher Gowthami / Admin)
     else if (item.status === 'READY_TO_PUBLISH') {
-      buttons += `
-        <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid #10b981; padding: 8px; border-radius: 6px; margin-bottom: 8px;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: #10b981; display: flex; align-items: center; gap: 6px;">
-            <i class="fa-solid fa-circle-check"></i> Final Approved by Dr. Tejaswini Ma'am
+      if (isPublisher || isAdmin) {
+        buttons += `
+          <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid #10b981; padding: 8px; border-radius: 6px; margin-bottom: 8px;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #10b981; display: flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-circle-check"></i> Final Approved by Dr. Tejaswini Ma'am
+            </div>
+            <div style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 2px;">
+              Digital Distribution by Publisher: <strong>Gowthami</strong>
+            </div>
           </div>
-          <div style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 2px;">
-            Digital Distribution by Publisher: <strong>Gowthami</strong>
+
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <!-- 1. Publish to Website -->
+            <button class="btn btn-success btn-sm w-100" onclick="ContentDetailView.openPublishModal('website')" style="background: #10b981; border-color: #10b981; font-weight: 700;">
+              <i class="fa-solid fa-globe"></i> Gowthami: Publish to Live Website (100%)
+            </button>
+
+            <!-- 2. Publish to Mobile App -->
+            <button class="btn btn-primary btn-sm w-100" onclick="ContentDetailView.openPublishModal('mobile_app')" style="background: #3b82f6; border-color: #3b82f6; font-weight: 700;">
+              <i class="fa-solid fa-mobile-screen-button"></i> Gowthami: Publish to Mobile App (100%)
+            </button>
+
+            <!-- 3. Dual Publish -->
+            <button class="btn btn-indigo btn-sm w-100" onclick="ContentDetailView.openPublishModal('both')" style="font-weight: 700;">
+              <i class="fa-solid fa-tower-broadcast"></i> Publish Both (Website + Mobile App)
+            </button>
           </div>
-        </div>
 
-        <div style="display: flex; flex-direction: column; gap: 6px;">
-          <!-- 1. Publish to Website -->
-          <button class="btn btn-success btn-sm w-100" onclick="ContentDetailView.openPublishModal('website')" style="background: #10b981; border-color: #10b981; font-weight: 700;">
-            <i class="fa-solid fa-globe"></i> Gowthami: Publish to Live Website (100%)
+          <button class="btn btn-outline-light btn-sm w-100 mt-2" onclick="app.openApprovedPackageModal('${item.id}')" style="border-color: #10b981; color: #10b981; font-weight: 700;">
+            <i class="fa-solid fa-copy"></i> Copy Text, Download Images &amp; Links
           </button>
-
-          <!-- 2. Publish to Mobile App -->
-          <button class="btn btn-primary btn-sm w-100" onclick="ContentDetailView.openPublishModal('mobile_app')" style="background: #3b82f6; border-color: #3b82f6; font-weight: 700;">
-            <i class="fa-solid fa-mobile-screen-button"></i> Gowthami: Publish to Mobile App (100%)
-          </button>
-
-          <!-- 3. Dual Publish -->
-          <button class="btn btn-indigo btn-sm w-100" onclick="ContentDetailView.openPublishModal('both')" style="font-weight: 700;">
-            <i class="fa-solid fa-tower-broadcast"></i> Publish Both (Website + Mobile App)
-          </button>
-        </div>
-
-        <button class="btn btn-outline-light btn-sm w-100 mt-2" onclick="app.openApprovedPackageModal('${item.id}')" style="border-color: #10b981; color: #10b981; font-weight: 700;">
-          <i class="fa-solid fa-copy"></i> Copy Text, Download Images &amp; Links
-        </button>
-      `;
+        `;
+      } else {
+        buttons += `
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; padding: 10px; border-radius: 6px; text-align: center;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #10b981;">
+              <i class="fa-solid fa-circle-check"></i> Ready for Website Publishing
+            </div>
+            <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px;">
+              Final Approved by Dr. Tejaswini Ma'am. Publishing authority reserved for <strong>Gowthami (Publisher)</strong>.
+            </div>
+          </div>
+        `;
+      }
     }
 
     // Stage: PUBLISHED (Complete File Journey & Drive Vault Location)
@@ -1195,36 +1288,36 @@ const ContentDetailView = {
       const folderPath = `Drive Vault / ${year} / ${month} / Date ${day} / ${item.category || 'Heritage'} / ${item.id}`;
 
       buttons += `
-        <div style="background: rgba(16, 185, 129, 0.12); border: 1.5px solid #10b981; padding: 12px; border-radius: 8px; text-align: left;">
+        <div class="published-box-container">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-            <div style="color: #10b981; font-weight: 800; font-size: 0.88rem; display: flex; align-items: center; gap: 6px;">
+            <div class="published-status-title">
               <i class="fa-solid fa-circle-check"></i> 100% Published &amp; Live
             </div>
-            <span class="badge" style="background: #10b981; color: #fff; font-size: 0.65rem; font-weight: 800;">LIVE</span>
+            <span class="badge badge-success-live">LIVE</span>
           </div>
 
-          ${item.published_target ? `<div style="font-size: 0.74rem; color: #34d399; font-weight: 600; margin-bottom: 4px;">Distribution Channel: ${item.published_target === 'mobile_app' ? '📱 Mobile App' : (item.published_target === 'both' ? '🌐 Website + 📱 Mobile App' : '🌐 Website')}</div>` : ''}
+          ${item.published_target ? `<div class="published-target-text">Distribution Channel: ${item.published_target === 'mobile_app' ? '📱 Mobile App' : (item.published_target === 'both' ? '🌐 Website + 📱 Mobile App' : '🌐 Website')}</div>` : ''}
           
           ${item.published_url ? `
             <div style="margin: 6px 0;">
-              <a href="/api/folders/file/${item.id}/pdf" target="_blank" style="font-size: 0.74rem; color: #10b981; word-break: break-all; text-decoration: underline; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;" title="View Clean Article Layout & Print Preview">
+              <a href="/api/folders/file/${item.id}/pdf" target="_blank" class="published-link-preview" title="View Clean Article Layout & Print Preview">
                 <i class="fa-solid fa-file-lines"></i> ${item.published_url} (Live Article Preview)
               </a>
             </div>
           ` : ''}
 
           <!-- File Journey & Folder Location -->
-          <div style="background: rgba(0,0,0,0.3); padding: 8px 10px; border-radius: 6px; margin: 8px 0; border: 1px dashed rgba(16, 185, 129, 0.3);">
-            <div style="font-size: 0.68rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">
+          <div class="file-journey-card">
+            <div class="file-journey-label">
               📁 File Journey &amp; Vault Location:
             </div>
-            <div style="font-size: 0.72rem; color: #fbbf24; font-family: monospace; font-weight: 600; word-break: break-all;">
+            <div class="file-journey-path">
               ${folderPath}
             </div>
           </div>
 
           <div style="display: flex; gap: 6px; flex-direction: column; margin-top: 8px;">
-            <button class="btn btn-sm btn-vault-open w-100" onclick="app.openArticleInVault('${item.id}')" style="background: rgba(245, 158, 11, 0.15); border: 1px solid var(--saffron); color: #fbbf24; font-weight: 700;">
+            <button class="btn btn-sm btn-vault-open w-100" onclick="app.openArticleInVault('${item.id}')">
               <i class="fa-solid fa-folder-open text-saffron"></i> Open Article Folder in Content Vault
             </button>
             <button class="btn btn-success btn-sm w-100" onclick="app.openApprovedPackageModal('${item.id}')" style="background: #10b981; border: none; font-weight: 700;">
@@ -1461,6 +1554,147 @@ const ContentDetailView = {
     app.showToast('Sources section inserted at the bottom of the article!', 'success');
   },
 
+  getSubCategoriesForCategory(catName) {
+    if (window.app && app.getSubCategoriesForCategory) {
+      return app.getSubCategoriesForCategory(catName);
+    }
+    return ['General'];
+  },
+
+  renderSubCategoryOptions(catName, selectedSub) {
+    const list = this.getSubCategoriesForCategory(catName);
+    return list.map(sub => `<option value="${sub}" ${selectedSub === sub ? 'selected' : ''}>${sub}</option>`).join('');
+  },
+
+  onCategorySelectChange(catName) {
+    this.updateMeta('category', catName);
+    const subSelect = document.getElementById('meta-subcategory');
+    if (subSelect) {
+      subSelect.innerHTML = this.renderSubCategoryOptions(catName, '');
+      const firstSub = subSelect.value || 'General';
+      this.updateMeta('subcategory', firstSub);
+    }
+    const booksContainer = document.getElementById('content-detail-books-fields');
+    if (booksContainer) {
+      booksContainer.style.display = (catName === 'Books') ? 'block' : 'none';
+    }
+  },
+
+  getYouTubeVideoId(url) {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  },
+
+  getVimeoVideoId(url) {
+    if (!url) return null;
+    const regExp = /vimeo\.com\/(?:.*#|.*\/)?([0-9]+)/;
+    const match = url.match(regExp);
+    return match ? match[1] : null;
+  },
+
+  renderVideoPreviewHtml(videoUrl) {
+    if (!videoUrl || !videoUrl.trim()) return '';
+    const cleanUrl = videoUrl.trim();
+
+    // 1. Detect local Windows / OS file paths (e.g. C:\Users\... or /Users/...)
+    if (/^[a-zA-Z]:[\\\/]/.test(cleanUrl) || /^\/(Users|home|var|tmp)[\\\/]/.test(cleanUrl)) {
+      return `
+        <div style="margin-top: 12px; padding: 14px; background: rgba(239, 68, 68, 0.12); border: 1px dashed rgba(239, 68, 68, 0.5); border-radius: 8px; font-size: 0.82rem; color: #fca5a5;">
+          <div style="font-weight: 700; font-size: 0.88rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> Local File Path Detected
+          </div>
+          Web browsers block loading local desktop file paths (<code>${this.escapeHtml(cleanUrl)}</code>) for security.
+          <div style="margin-top: 10px;">
+            <label class="btn btn-primary btn-xs" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 0.78rem;">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Upload This File to Server Now
+              <input type="file" style="display: none;" accept="video/*,audio/*" onchange="ContentDetailView.handleVideoFileUpload(event)">
+            </label>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2. YouTube
+    const ytId = this.getYouTubeVideoId(cleanUrl);
+    if (ytId) {
+      return `
+        <div style="margin-top: 12px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(245, 158, 11, 0.4); background: #000; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+          <iframe width="100%" height="340" src="https://www.youtube.com/embed/${ytId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block; width: 100%; border: none;"></iframe>
+        </div>
+      `;
+    }
+
+    // 3. Vimeo
+    const vimeoId = this.getVimeoVideoId(cleanUrl);
+    if (vimeoId) {
+      return `
+        <div style="margin-top: 12px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(245, 158, 11, 0.4); background: #000; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+          <iframe width="100%" height="340" src="https://player.vimeo.com/video/${vimeoId}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display: block; width: 100%; border: none;"></iframe>
+        </div>
+      `;
+    }
+
+    // 4. Audio files (.m4a, .mp3, .wav, .aac, .ogg)
+    if (/\.(m4a|mp3|wav|aac|ogg)(\?.*)?$/i.test(cleanUrl)) {
+      return `
+        <div style="margin-top: 12px; padding: 14px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--saffron-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-music"></i> Audio Recording Player (${cleanUrl.split('.').pop().toUpperCase()})
+          </div>
+          <audio controls src="${this.escapeHtml(cleanUrl)}" style="width: 100%; outline: none; border-radius: 6px;"></audio>
+        </div>
+      `;
+    }
+
+    // 5. Video files (.mp4, .webm, .mov or /uploads/...)
+    return `
+      <div style="margin-top: 12px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(245, 158, 11, 0.4); background: #000; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+        <video controls src="${this.escapeHtml(cleanUrl)}" style="width: 100%; max-height: 380px; display: block; border-radius: 8px;"></video>
+      </div>
+    `;
+  },
+
+  async handleVideoFileUpload(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      app.showToast('Uploading video/audio file to server...', 'info');
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      const uploadResult = await res.json();
+
+      if (uploadResult.url) {
+        const videoInput = document.getElementById('main-video-url');
+        if (videoInput) videoInput.value = uploadResult.url;
+        this.onVideoUrlInput(uploadResult.url);
+        app.showToast('Media file uploaded and ready to play!', 'success');
+      } else {
+        app.showToast('Upload failed', 'error');
+      }
+    } catch (err) {
+      app.showToast(`Upload failed: ${err.message}`, 'error');
+    }
+  },
+
+  onVideoUrlInput(val) {
+    const container = document.getElementById('video-preview-container');
+    if (container) {
+      container.innerHTML = this.renderVideoPreviewHtml(val);
+    }
+    if (this.videoAutosaveTimer) clearTimeout(this.videoAutosaveTimer);
+    this.videoAutosaveTimer = setTimeout(() => {
+      this.updateMeta('video_url', val);
+    }, 600);
+  },
+
   async updateMeta(field, value) {
     if (!this.currentItem) return;
     try {
@@ -1611,27 +1845,126 @@ const ContentDetailView = {
     const prevProgress = this.currentItem?.progress || 0;
     const targetProgress = STAGE_PERCENTAGES[targetStatus] || 50;
 
-    await app.animateWorkflowProgress({
-      prevProgress,
-      targetProgress,
-      targetStatus,
-      title: this.currentItem?.title || this.currentItem?.topic || 'Editorial Story',
-      subtitle: `Advancing workflow stage to ${targetStatus.replace(/_/g, ' ')} (${targetProgress}%)`,
-      onComplete: async () => {
-        try {
-          await this.saveArticle(false);
-          const updated = await app.apiPost(`/api/content/${this.currentItem.id}/workflow`, {
-            status: targetStatus,
-            ...options
-          });
-          this.currentItem = updated;
-          app.showToast(`Workflow updated: ${targetStatus.replace(/_/g, ' ')} (${updated.progress}%)`, 'success');
-          this.render(document.getElementById('main-content-view'), { id: this.currentItem.id });
-        } catch (err) {
-          app.showToast(`Workflow transition error: ${err.message}`, 'error');
+    const executeTransition = async () => {
+      await app.animateWorkflowProgress({
+        prevProgress,
+        targetProgress,
+        targetStatus,
+        title: this.currentItem?.title || this.currentItem?.topic || 'Editorial Story',
+        subtitle: `Advancing workflow stage to ${targetStatus.replace(/_/g, ' ')} (${targetProgress}%)`,
+        onComplete: async () => {
+          try {
+            await this.saveArticle(false);
+            const updated = await app.apiPost(`/api/content/${this.currentItem.id}/workflow`, {
+              status: targetStatus,
+              ...options
+            });
+            this.currentItem = updated;
+            app.showToast(`Workflow updated: ${targetStatus.replace(/_/g, ' ')} (${updated.progress}%)`, 'success');
+            this.render(document.getElementById('main-content-view'), { id: this.currentItem.id });
+          } catch (err) {
+            app.showToast(`Workflow transition error: ${err.message}`, 'error');
+          }
         }
+      });
+    };
+
+    // If submitting 60% work to editor, ensure WhatsApp scanner connection is active!
+    if (targetStatus === 'WRITER_SUBMITTED') {
+      try {
+        const waStatus = await app.apiGet('/api/wa-status');
+        if (!waStatus.ready) {
+          this.showWhatsAppQrModal(executeTransition);
+          return;
+        }
+      } catch (e) {
+        console.warn('Failed to fetch WA status:', e);
       }
-    });
+    }
+
+    await executeTransition();
+  },
+
+  showWhatsAppQrModal(onConnectedCallback) {
+    const existing = document.getElementById('wa-qr-connect-modal');
+    if (existing) existing.remove();
+
+    const modalHtml = `
+      <div id="wa-qr-connect-modal" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 20px;">
+        <div style="background: #1e293b; border: 1px solid #334155; border-radius: 16px; width: 100%; max-width: 440px; padding: 28px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.6); color: #f8fafc;">
+          <div style="font-size: 2.2rem; color: #f59e0b; margin-bottom: 12px;">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; color: #ffffff;">
+            Link WhatsApp for Dr. Tejaswini Ma'am Notification
+          </h3>
+          <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px; line-height: 1.5;">
+            To send an instant WhatsApp review notification to Dr. Tejaswini Ma'am (<strong>+91 91335 65544</strong>), scan the QR code below on your phone:
+          </p>
+
+          <div id="wa-modal-qr-container" style="background: #ffffff; padding: 16px; border-radius: 12px; display: inline-block; margin-bottom: 16px; width: 240px; height: 240px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+            <div style="display: flex; height: 100%; align-items: center; justify-content: center; color: #475569; font-size: 0.85rem;">
+              <i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px; color: #f59e0b;"></i> Loading QR Code...
+            </div>
+          </div>
+
+          <div id="wa-modal-status-text" style="font-size: 0.8rem; color: #f59e0b; font-weight: 600; margin-bottom: 20px;">
+            📲 Open WhatsApp &rarr; Linked Devices &rarr; Link a Device &rarr; Scan
+          </div>
+
+          <div style="display: flex; gap: 12px; justify-content: center;">
+            <button id="wa-modal-skip-btn" class="btn btn-outline-light btn-sm" style="font-size: 0.8rem;">
+              Skip WhatsApp &amp; Submit via Email Only
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    let pollInterval = null;
+
+    const updateQrCode = async () => {
+      try {
+        const res = await app.apiGet('/api/wa-status');
+        const container = document.getElementById('wa-modal-qr-container');
+        const statusTxt = document.getElementById('wa-modal-status-text');
+
+        if (res.ready) {
+          clearInterval(pollInterval);
+          if (container) {
+            container.innerHTML = `
+              <div style="display: flex; flex-direction: column; height: 100%; align-items: center; justify-content: center; color: #16a34a;">
+                <i class="fa-solid fa-circle-check" style="font-size: 3rem; margin-bottom: 8px;"></i>
+                <span style="font-weight: 700; font-size: 0.9rem;">Connected!</span>
+              </div>
+            `;
+          }
+          if (statusTxt) statusTxt.innerHTML = `✅ WhatsApp Connected! Sending notification...`;
+          setTimeout(() => {
+            const modal = document.getElementById('wa-qr-connect-modal');
+            if (modal) modal.remove();
+            onConnectedCallback();
+          }, 1200);
+          return;
+        }
+
+        if (res.qrUrl && container) {
+          container.innerHTML = `<img src="${res.qrUrl}" alt="WhatsApp QR" style="width: 100%; height: 100%; object-fit: contain; display: block;">`;
+        }
+      } catch (e) { }
+    };
+
+    updateQrCode();
+    pollInterval = setInterval(updateQrCode, 3000);
+
+    document.getElementById('wa-modal-skip-btn').onclick = () => {
+      clearInterval(pollInterval);
+      const modal = document.getElementById('wa-qr-connect-modal');
+      if (modal) modal.remove();
+      onConnectedCallback();
+    };
   },
 
   promptRequestChanges() {
@@ -1644,12 +1977,12 @@ const ContentDetailView = {
   openPublishModal(target = 'website') {
     const targetLabel = target === 'mobile_app' ? 'Mobile App' : (target === 'both' ? 'Website & Mobile App' : 'Live Website');
     const defaultUrl = `https://heritagepulse.org/${(this.currentItem.category || 'culture').toLowerCase()}/${this.currentItem.id.toLowerCase()}-${encodeURIComponent(this.currentItem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40))}`;
-    
+
     const liveUrl = prompt(`[Publisher Gowthami] Confirm ${targetLabel} publishing endpoint:`, defaultUrl);
     if (liveUrl !== null) {
       const finalUrl = liveUrl.trim() || defaultUrl;
-      this.transitionStatus('PUBLISHED', { 
-        published_url: finalUrl, 
+      this.transitionStatus('PUBLISHED', {
+        published_url: finalUrl,
         published_target: target,
         publishing_date: new Date().toISOString().split('T')[0]
       });
@@ -1728,21 +2061,32 @@ const ContentDetailView = {
 
     // 2. Editor Review Stage Lock (WRITER_SUBMITTED, EDITOR_REVIEW) for Writers
     if (['WRITER_SUBMITTED', 'EDITOR_REVIEW'].includes(item.status)) {
+      const text = encodeURIComponent(`⏳ *Waiting for your approval*\n\n📄 *Article Title:* ${item.title}\n✍️ *Submitted By:* ${user.name}\n\n🔗 *Review Link:* ${window.location.origin}/#content-detail?id=${item.id}`);
+      const waUrl = `https://wa.me/?text=${text}`;
+
       if (isWriter || (!isDrTejaswini && !isSuperAdmin)) {
         return `
-          <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid var(--saffron); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fa-solid fa-lock text-saffron" style="font-size: 1.4rem;"></i>
-              <div>
-                <strong style="color: var(--saffron-dark); font-size: 0.88rem;">🔒 Content Locked: Under Editor Review (Dr. Tejaswini Ma'am) (70%)</strong>
-                <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">
-                  Writers cannot edit content or images directly during review. Need to make changes? Raise an edit request to Dr. Tejaswini Ma'am.
+          <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid var(--saffron); border-radius: 8px; padding: 14px 18px; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-lock text-saffron" style="font-size: 1.4rem;"></i>
+                <div>
+                  <strong style="color: var(--saffron-dark); font-size: 0.88rem;">🔒 Content Locked: Under Editor Review (Dr. Tejaswini Ma'am) (70%)</strong>
+                  <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">
+                    Writers cannot edit content or images directly during review. Need to make changes? Raise an edit request to Dr. Tejaswini Ma'am.
+                  </div>
                 </div>
               </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <!-- HIDDEN: 1-Click WhatsApp Button (Uncomment style display:none to restore in future) -->
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-sm" style="display: none; background: #25D366; color: #ffffff; font-weight: 800; border: none; padding: 7px 14px; text-decoration: none; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(37,211,102,0.35);">
+                  <i class="fa-brands fa-whatsapp" style="font-size: 1.1rem;"></i> Send 1-Click WhatsApp to Dr. Tejaswini Ma'am
+                </a>
+                <button type="button" class="btn btn-sm" onclick="ContentDetailView.openRaiseEditRequestModal()" style="background: var(--saffron); color: #000; font-weight: 800; border: none; padding: 7px 14px; box-shadow: 0 2px 10px rgba(245,158,11,0.35); cursor: pointer; white-space: nowrap;">
+                  <i class="fa-solid fa-hand"></i> Raise Edit Request
+                </button>
+              </div>
             </div>
-            <button type="button" class="btn btn-sm" onclick="ContentDetailView.openRaiseEditRequestModal()" style="background: var(--saffron); color: #000; font-weight: 800; border: none; padding: 7px 14px; box-shadow: 0 2px 10px rgba(245,158,11,0.35); cursor: pointer; white-space: nowrap;">
-              <i class="fa-solid fa-hand"></i> Raise Edit Request to Dr. Tejaswini Ma'am
-            </button>
           </div>
         `;
       }
@@ -1863,7 +2207,7 @@ const ContentDetailView = {
       targetProgress: 100,
       targetStatus: 'PUBLISHED',
       title: `Rated ${stars} Stars ⭐`,
-      subtitle: `Dr. Tejaswini Ma'am awarded ${stars} Star Quality Rating to "${(this.currentItem.title||'').slice(0, 32)}..."`,
+      subtitle: `Dr. Tejaswini Ma'am awarded ${stars} Star Quality Rating to "${(this.currentItem.title || '').slice(0, 32)}..."`,
       onComplete: async () => {
         try {
           const res = await app.apiPost(`/api/content/${this.currentItem.id}/rating`, {
@@ -1889,7 +2233,7 @@ const ContentDetailView = {
         targetProgress: 100,
         targetStatus: 'PUBLISHED',
         title: 'Chief Editor Favorite ❤️',
-        subtitle: `Dr. Tejaswini Ma'am gave Heart reaction to "${(this.currentItem.title||'').slice(0, 32)}..."`,
+        subtitle: `Dr. Tejaswini Ma'am gave Heart reaction to "${(this.currentItem.title || '').slice(0, 32)}..."`,
         onComplete: async () => {
           try {
             const res = await app.apiPost(`/api/content/${this.currentItem.id}/rating`, {
@@ -2060,13 +2404,13 @@ const ContentDetailView = {
 
           <div class="gdocs-version-list" id="gdocs-version-sidebar-list">
             ${versions.map(v => {
-              const isActive = v.id === selectedVer.id;
-              const dateObj = new Date(v.created_at);
-              const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-              const dateStr = dateObj.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
-              const stageName = v.stage_label || (v.stage ? v.stage.replace(/_/g, ' ') : 'WRITING');
+      const isActive = v.id === selectedVer.id;
+      const dateObj = new Date(v.created_at);
+      const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const dateStr = dateObj.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+      const stageName = v.stage_label || (v.stage ? v.stage.replace(/_/g, ' ') : 'WRITING');
 
-              return `
+      return `
                 <div class="gdocs-version-item ${isActive ? 'active' : ''}" onclick="ContentDetailView.selectHistoryVersion('${v.id}')">
                   <div class="gdocs-version-item-time">
                     <i class="fa-regular fa-clock" style="color: ${isActive ? 'var(--saffron)' : 'var(--text-dim)'}; font-size: 0.8rem;"></i>
@@ -2083,7 +2427,7 @@ const ContentDetailView = {
                   </div>
                 </div>
               `;
-            }).join('')}
+    }).join('')}
           </div>
         </div>
 
@@ -2163,7 +2507,7 @@ const ContentDetailView = {
     document.getElementById('article-title').value = version.title || this.currentItem.title;
     document.getElementById('article-body-editor').innerHTML = this.markdownToHtml(version.body);
     document.getElementById('version-diff-modal').classList.add('hidden');
-    
+
     app.showToast(`Restored to ${version.version_label}!`, 'success');
     await this.saveArticle(true);
   },
@@ -2974,8 +3318,8 @@ const ContentDetailView = {
       const allIssues = this.analyzeGrammarlyIssues(text);
       this.currentGrammarlyIssues = allIssues;
 
-      const filteredIssues = filter === 'all' 
-        ? allIssues 
+      const filteredIssues = filter === 'all'
+        ? allIssues
         : allIssues.filter(i => i.category === filter);
 
       const repCount = allIssues.filter(i => i.category === 'repetition').length;

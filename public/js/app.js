@@ -190,6 +190,17 @@ class App {
     }
   }
 
+  isAdmin() {
+    if (!this.currentUser) return false;
+    const role = (this.currentUser.role || '').toLowerCase();
+    return role.includes('admin') || role.includes('super') || this.currentUser.id === 'usr-admin-1';
+  }
+
+  isAdminOrTejaswini() {
+    if (!this.currentUser) return false;
+    return this.isAdmin() || this.currentUser.id === 'usr-editor-1' || (this.currentUser.name || '').includes('Tejaswini');
+  }
+
   // Live Real-Time Digital Clock with Seconds Ticker
   startLiveClock() {
     if (this.clockTimer) clearInterval(this.clockTimer);
@@ -314,6 +325,7 @@ class App {
     if (rolePill && roleMenu) {
       rolePill.addEventListener('click', (e) => {
         e.stopPropagation();
+        roleMenu.style.display = '';
         roleMenu.classList.toggle('hidden');
       });
     }
@@ -492,22 +504,7 @@ class App {
         FoldersView.render(container, { trash: true });
         break;
       case 'categories':
-        if (this.isAdmin()) {
-          AdminView.render(container, { tab: 'categories' });
-        } else {
-          container.innerHTML = `
-            <div class="card-panel" style="text-align:center;padding:48px 24px;max-width:600px;margin:40px auto;">
-              <i class="fa-solid fa-shield-halved" style="font-size:3.2rem;color:var(--crimson-light);margin-bottom:16px;"></i>
-              <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text-primary);margin-bottom:8px;">Admin Clearance Required</h2>
-              <p style="color:var(--text-secondary);font-size:0.88rem;line-height:1.6;margin-bottom:20px;">
-                Category taxonomy and vocabulary management is restricted to Super Admin and Editorial Administration.
-              </p>
-              <button class="btn btn-primary btn-sm" onclick="app.navigateTo('my-work')">
-                <i class="fa-solid fa-briefcase"></i> Return to My Work
-              </button>
-            </div>
-          `;
-        }
+        AdminView.render(container, { tab: 'categories' });
         break;
       case 'users':
         if (this.isAdmin()) {
@@ -543,49 +540,58 @@ class App {
     }
   }
 
-  // Switch Active User / Role with "Welcome Back" Circular Animation
+  // Switch Active User / Role with "Welcome Back" Circular Progress Animation
   async switchUser(userId) {
-    const user = this.users.find(u => u.id === userId);
-    if (!user) return;
+    const SEED_USERS = {
+      'usr-admin-1': { id: 'usr-admin-1', name: 'Jitendra', role: 'Super Admin', avatar: 'J', title: 'Super Admin & Head of Operations' },
+      'usr-editor-1': { id: 'usr-editor-1', name: "Dr. Tejaswini Ma'am", role: 'Editor + Admin', avatar: 'TM', title: 'Chief Editor & Co-Admin — Heritage Pulse' },
+      'usr-writer-1': { id: 'usr-writer-1', name: 'Pavitra', role: 'Writer', avatar: 'P', title: 'Senior Culture & Heritage Writer' },
+      'usr-writer-2': { id: 'usr-writer-2', name: 'Nikitha', role: 'Writer', avatar: 'N', title: 'Arts, Music & Travel Reporter' },
+      'usr-writer-3': { id: 'usr-writer-3', name: 'Sasanka', role: 'Writer', avatar: 'S', title: 'Culinary & Living Traditions Writer' },
+      'usr-publisher-1': { id: 'usr-publisher-1', name: 'Gowthami', role: 'Publisher', avatar: 'G', title: 'Digital Publishing & Web Operations Manager' }
+    };
 
-    // Close role menu
+    let user = (this.users && this.users.length) ? this.users.find(u => u.id === userId) : null;
+    if (!user) user = SEED_USERS[userId] || SEED_USERS['usr-admin-1'];
+
+    // Close role menu dropdown instantly
     const menu = document.getElementById('role-menu-dropdown');
-    if (menu) menu.classList.add('hidden');
+    if (menu) {
+      menu.classList.add('hidden');
+      menu.style.display = '';
+    }
 
+    // Play Circular Workflow Progress Animation Modal
     await this.animateWorkflowProgress({
       prevProgress: 0,
       targetProgress: 100,
       targetStatus: 'PUBLISHED',
       title: `Welcome Back, ${user.name}!`,
-      subtitle: `Switching to ${user.role} perspective — Loading queues, permissions & workspace...`,
+      subtitle: `Switching to ${user.role} perspective — Syncing permissions, queues & workspace...`,
+      isRoleSwitch: true,
       onComplete: async () => {
         this.currentUser = user;
         this.updateHeaderProfile();
         this.updateSidebarForRole();
-        this.showToast(`✨ Welcome back, ${user.name} (${user.role})!`, "success");
-        this.renderCurrentView();
+        this.showToast(`✨ Switched perspective to ${user.name} (${user.role})!`, "success");
 
-        // If switched to a Writer (e.g. Pavitra), auto-check for newly assigned or pending kickoff task!
+        let defaultView = 'dashboard';
+        if (user.role === 'Writer') {
+          defaultView = 'my-work';
+        } else if (user.role === 'Publisher') {
+          defaultView = 'publishing';
+        }
+
+        this.navigateTo(defaultView, {}, true);
+
         if (user.role === 'Writer') {
           try {
             const allItems = await this.apiGet('/api/content');
-            const pendingKickoffId = sessionStorage.getItem('pending_kickoff_' + user.id);
-            
-            let targetTask = null;
-            if (pendingKickoffId) {
-              targetTask = allItems.find(i => i.id === pendingKickoffId);
-              sessionStorage.removeItem('pending_kickoff_' + user.id);
-            }
-            
-            if (!targetTask) {
-              // Find the most recent active/assigned task for this writer
-              targetTask = allItems.find(i => i.writer_id === user.id && ['TOPIC_CREATED', 'ASSIGNED', 'WRITING', 'CHANGES_REQUIRED'].includes(i.status));
-            }
-
+            const targetTask = allItems.find(i => i.writer_id === user.id && ['TOPIC_CREATED', 'ASSIGNED', 'WRITING', 'CHANGES_REQUIRED'].includes(i.status));
             if (targetTask) {
               setTimeout(() => {
                 this.showWriterKickoffPopup(targetTask);
-              }, 400);
+              }, 300);
             }
           } catch (e) {
             console.error('Kickoff check failed:', e);
@@ -610,6 +616,13 @@ class App {
 
     // Update sidebar visibility for role
     this.updateSidebarForRole();
+  }
+
+  updateSidebarForRole() {
+    const adminIntel = document.getElementById('admin-intel-nav-section');
+    if (adminIntel) {
+      adminIntel.style.display = this.isAdminOrTejaswini() ? 'block' : 'none';
+    }
   }
 
   updateNotificationBadge(notifsList) {
@@ -686,12 +699,15 @@ class App {
   // Create Modal Helpers
   populateCreateModalSelects() {
     const catSelect = document.getElementById('new-category-select');
+    const subSelect = document.getElementById('new-subcategory-select');
     const writerSelect = document.getElementById('new-writer-select');
     const editorSelect = document.getElementById('new-editor-select');
     const approverSelect = document.getElementById('new-approver-select');
 
     if (catSelect && this.categories && this.categories.length) {
       catSelect.innerHTML = this.categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+      const selectedCat = catSelect.value || this.categories[0].name;
+      this.handleModalCategoryChange(selectedCat);
     }
 
     // 1. Assigned Writers
@@ -717,6 +733,43 @@ class App {
         <option value="${tejaswini.id}" selected>${tejaswini.name} (${tejaswini.role}) — Final Authority</option>
       `;
     }
+  }
+
+  getSubCategoriesForCategory(catName) {
+    const matchedCat = (this.categories || []).find(c => (c.name || '').toLowerCase() === (catName || '').toLowerCase());
+    if (matchedCat && Array.isArray(matchedCat.subcategories) && matchedCat.subcategories.length) {
+      return matchedCat.subcategories;
+    }
+    
+    const SUBCAT_MAP = {
+      'News': ['Breaking News', "Editor's Picks", 'Press Releases', 'Policy Updates', 'Regional Alerts'],
+      'Events': ['Festivals & Summits', 'Conferences', 'Exhibitions', 'Cultural Fairs', 'Workshops'],
+      'Featured': ['Editorial Spotlight', 'Deep Dives', 'Investigative', 'Photo Essays', 'Exclusive'],
+      'Art': ['Folk Painting', 'Classical Murals', 'Contemporary Crafts', 'Traditional Sculpture', 'Living Traditions'],
+      'Dance': ['Classical Dance', 'Folk Dance', 'Temple Ritual Dance', 'Guru Spotlights', 'Performance Art'],
+      'Poetry': ['Sufi & Bhakti', 'Classical Sanskrit', 'Regional Verse', 'Modern Heritage Poetry', 'Literary Recitals'],
+      'Music': ['Classical & Fusion', 'Carnatic Symphony', 'Hindustani Vocals', 'Folk Instruments', 'Sacred Chants'],
+      'Fusion': ['Contemporary Fusion', 'Cross-Cultural Beats', 'Modern Heritage Ragas', 'Experimental Soundscapes'],
+      'Cuisine': ['Ancient Culinary Roots', 'Temple Prasadam', 'Spice Trails', 'Traditional Recipes', 'Food Fusion'],
+      'Yoga': ['Vedic Science & Wellness', 'Philosophy', 'Asana Masters', 'Meditation Roots', 'Sacred Ecology'],
+      'Jewellery': ['Heritage Craftsmanship', 'Temple Jewellery', 'Kundan & Jadau', 'Gemstone Traditions', 'Metalsmithing'],
+      'Heritage': ['Dravidian Architecture', 'UNESCO World Heritage', 'Fortresses & Palaces', 'Preservation', 'Harappan Civilization'],
+      'Culture': ['Living Rituals', 'Tribal Folklore', 'Living Heritage', 'Craft Guilds', 'Sacred Groves'],
+      'People': ['Living Legends', 'Master Artisans', 'Custodians & Scholars', 'Artisan Guilds', 'Heritage Pioneers'],
+      'Travel': ['Spiritual Trails', 'Heritage Circuits', 'Unexplored Destinations', 'Pilgrim Routes', 'Monuments Walk'],
+      'Books': ['Art, Crafts & Living Heritage', 'Vedic Literature', 'Manuscript Translations', 'Epic Poetry', 'Book Reviews'],
+      'Games': ['Traditional Board Games', 'Moksha Patam', 'Chathuranga', 'Folk Sports', 'Ancient Pastimes'],
+      'Architecture': ['Temple Architecture', 'Harappan Hydrology', 'Stepwells & Tanks', 'Chalukyan Stone Art', 'Vastu Shastra']
+    };
+
+    return SUBCAT_MAP[catName] || ['General', 'Editorial Spotlight', 'Preservation', 'Living Traditions'];
+  }
+
+  handleModalCategoryChange(catName) {
+    const subSelect = document.getElementById('new-subcategory-select');
+    if (!subSelect) return;
+    const subcategories = this.getSubCategoriesForCategory(catName);
+    subSelect.innerHTML = subcategories.map(s => `<option value="${s}">${s}</option>`).join('');
   }
 
   // 1-Click Quick Submit Writer Work (60%) with Circular Progress Animation
@@ -874,6 +927,7 @@ class App {
     }
 
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
 
     // Smooth incremental animation
     const duration = 1400; // 1.4s
@@ -913,11 +967,12 @@ class App {
             }
           }
 
-          // Smoothly close after 600ms
+          // Smoothly close after 750ms
           setTimeout(() => {
             modal.classList.add('hidden');
+            modal.style.display = 'none';
             resolve();
-          }, 600);
+          }, 750);
         }
       };
 
@@ -2050,6 +2105,175 @@ class App {
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     return res.json();
+  }
+
+  startGuidedTour() {
+    const driverInstance = window.driver ? window.driver.js.driver || window.driver.driver || window.driver : null;
+    if (!driverInstance) {
+      this.showToast('Guided Tour library loading. Please try in a second.', 'info');
+      return;
+    }
+
+    const role = (this.currentUser ? this.currentUser.role : '').toLowerCase();
+    let tourSteps = [];
+
+    if (role.includes('writer')) {
+      tourSteps = [
+        {
+          popover: {
+            title: `Welcome, ${this.currentUser.name}! (Writer Perspective)`,
+            description: 'This interactive tour shows how to manage your assigned articles and submit work for review.'
+          }
+        },
+        {
+          element: '[data-view="my-work"]',
+          popover: {
+            title: '1. My Work Queue',
+            description: 'All topics assigned to you appear here. Click any card to start writing or editing.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '.header-kickoff-btn',
+          popover: {
+            title: '2. Instant Topic Kickoff',
+            description: 'Click "Quick Kickoff" anytime to create a new article topic and assign it immediately.',
+            side: 'bottom', align: 'center'
+          }
+        },
+        {
+          element: '[data-view="writer-submissions"]',
+          popover: {
+            title: '3. Submit Work for Review (60%)',
+            description: 'When finished writing, use the "Quick Submit (60%)" button to forward your article to Dr. Tejaswini Ma\'am for Editorial Review.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '#global-search-input',
+          popover: {
+            title: '4. Quick Search',
+            description: 'Search any assigned topic, content ID, or tag across the system.',
+            side: 'bottom', align: 'center'
+          }
+        }
+      ];
+    } else if (role.includes('editor')) {
+      tourSteps = [
+        {
+          popover: {
+            title: `Welcome, ${this.currentUser.name}! (Editor Perspective)`,
+            description: 'This tour walks you through reviewing writer submissions and issuing approvals.'
+          }
+        },
+        {
+          element: '[data-view="reviews"]',
+          popover: {
+            title: '1. Editor Reviews (70%)',
+            description: 'Review articles submitted by writers. You can make inline corrections or request changes.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '[data-view="final-approvals"]',
+          popover: {
+            title: '2. Final Approvals (90%)',
+            description: 'Give final approval so completed pieces move straight to the Publishing Hub.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '.header-create-btn',
+          popover: {
+            title: '3. Assign New Topics',
+            description: 'Click "+ New Topic" to assign fresh assignments to writers.',
+            side: 'bottom', align: 'center'
+          }
+        }
+      ];
+    } else if (role.includes('publisher')) {
+      tourSteps = [
+        {
+          popover: {
+            title: `Welcome, ${this.currentUser.name}! (Publisher Perspective)`,
+            description: 'This tour highlights ready-to-publish articles and web distribution.'
+          }
+        },
+        {
+          element: '[data-view="publishing"]',
+          popover: {
+            title: '1. Publishing Hub (95%-100%)',
+            description: 'Manage articles approved by Dr. Tejaswini Ma\'am and publish them live to the site.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '[data-view="folders"]',
+          popover: {
+            title: '2. Folders Data Vault',
+            description: 'Access formatted article files (.doc), image assets, and metadata packages.',
+            side: 'right', align: 'start'
+          }
+        }
+      ];
+    } else {
+      // Super Admin / Operations Head
+      tourSteps = [
+        {
+          popover: {
+            title: `Welcome, ${this.currentUser.name}! (Super Admin & Operations)`,
+            description: 'Full system operational tour: creating tasks, tracking team progress, and reviewing workflows.'
+          }
+        },
+        {
+          element: '.header-create-btn',
+          popover: {
+            title: '1. Create & Assign New Task',
+            description: 'Click "+ New Topic" or "Quick Kickoff" to create a new task, select category, writer, and editor.',
+            side: 'bottom', align: 'center'
+          }
+        },
+        {
+          element: '[data-view="kanban"]',
+          popover: {
+            title: '2. Kanban Workflow & Progress Tracking',
+            description: 'Track articles across all 8 pipeline stages from Writer Assigned (10%) to Published (100%).',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '[data-view="writer-submissions"]',
+          popover: {
+            title: '3. Writer Submissions (60%)',
+            description: 'See articles submitted by writers awaiting editorial review.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '[data-view="categories"]',
+          popover: {
+            title: '4. Editorial Categories & Taxonomies',
+            description: 'Manage the 17 core heritage categories, color coding, and sub-taxonomies.',
+            side: 'right', align: 'start'
+          }
+        },
+        {
+          element: '#role-pill-trigger',
+          popover: {
+            title: '5. Perspective Switcher',
+            description: 'Switch roles anytime to test how Writers, Editors, and Publishers experience the app.',
+            side: 'bottom', align: 'end'
+          }
+        }
+      ];
+    }
+
+    const driverObj = driverInstance({
+      showProgress: true,
+      animate: true,
+      steps: tourSteps
+    });
+    driverObj.drive();
   }
 }
 

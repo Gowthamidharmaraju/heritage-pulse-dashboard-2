@@ -11,10 +11,10 @@ const LoginView = {
           
           <!-- BRAND HEADER -->
           <div class="login-header text-center">
-            <div class="login-logo-ring">
-              <img src="/images/logo.png" alt="Heritage Pulse Logo" class="login-brand-img">
+            <div style="margin-bottom: 12px; display: flex; justify-content: center;">
+              <img src="/images/logo.png" alt="Heritage Pulse Logo" style="height: 52px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">
             </div>
-            <h1 class="login-title">Heritage Pulse</h1>
+            <h1 class="login-title">Heritej Pulse</h1>
             <p class="login-subtitle">Content Operations & Editorial Workflow Platform</p>
           </div>
 

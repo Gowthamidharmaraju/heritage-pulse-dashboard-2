@@ -86,24 +86,10 @@ const initialData = {
   ],
 
   categories: [
-    { id: "cat-news", name: "News", slug: "news", description: "Daily national & regional cultural news and policy updates", color: "#e11d48", icon: "newspaper", active: true },
-    { id: "cat-events", name: "Events", slug: "events", description: "Cultural festivals, conferences, exhibitions and summits", color: "#ea580c", icon: "calendar-event", active: true },
-    { id: "cat-featured", name: "Featured", slug: "featured", description: "In-depth editorial spotlight stories and investigative pieces", color: "#d97706", icon: "sparkles", active: true },
-    { id: "cat-art", name: "Art", slug: "art", description: "Traditional folk paintings, classical arts and contemporary works", color: "#8b5cf6", icon: "palette", active: true },
-    { id: "cat-dance", name: "Dance", slug: "dance", description: "Classical Indian dance forms, folk traditions and gurus", color: "#ec4899", icon: "activity", active: true },
-    { id: "cat-poetry", name: "Poetry", slug: "poetry", description: "Sufi, Bhakti, classical Sanskrit and regional verse traditions", color: "#6366f1", icon: "feather", active: true },
-    { id: "cat-music", name: "Music", slug: "music", description: "Carnatic, Hindustani classical, folk instruments & ragas", color: "#3b82f6", icon: "music", active: true },
-    { id: "cat-fusion", name: "Fusion", slug: "fusion", description: "Contemporary fusion experiments combining heritage with modern beats", color: "#06b6d4", icon: "radio", active: true },
-    { id: "cat-cuisine", name: "Cuisine", slug: "cuisine", description: "Ancient culinary traditions, temple prasadam, spices & recipes", color: "#10b981", icon: "coffee", active: true },
-    { id: "cat-yoga", name: "Yoga", slug: "yoga", description: "Asanas, pranayama, meditation philosophies and wellness roots", color: "#14b8a6", icon: "sun", active: true },
-    { id: "cat-jewellery", name: "Jewellery", slug: "jewellery", description: "Temple jewellery, kundan, jadau, filigree and gemstone crafts", color: "#f59e0b", icon: "gem", active: true },
-    { id: "cat-heritage", name: "Heritage", slug: "heritage", description: "Monuments, UNESCO heritage sites, fortresses and history", color: "#b91c1c", icon: "landmark", active: true },
-    { id: "cat-culture", name: "Culture", slug: "culture", description: "Living rituals, tribal folklore, festivals and crafts", color: "#7c3aed", icon: "globe", active: true },
-    { id: "cat-people", name: "People", slug: "people", description: "Master artisans, scholars, living legends and custodians", color: "#475569", icon: "users", active: true },
-    { id: "cat-travel", name: "Travel", slug: "travel", description: "Spiritual trails, heritage circuits and unexplored destinations", color: "#0284c7", icon: "compass", active: true },
-    { id: "cat-books", name: "Books", slug: "books", description: "Vedic Sanskrit literature, translations, epic poems, manuscripts & book reviews", color: "#6366f1", icon: "book-open", active: true },
-    { id: "cat-games", name: "Games", slug: "games", description: "Ancient traditional board games, Moksha Patam, Chathuranga & folk sports", color: "#f97316", icon: "dice", active: true },
-    { id: "cat-architecture", name: "Architecture", slug: "architecture", description: "Temple architecture, stepwells, carving techniques & Vastu", color: "#9333ea", icon: "layers", active: true }
+    { id: "cat-news", name: "News", slug: "news", description: "Daily national & regional cultural news and policy updates", color: "#e11d48", icon: "newspaper", active: true, subcategories: ["Editor's Picks", "Ancient Civilisations", "World Heritage", "Archaeology", "Culture", "Arts", "Fashion Fusion", "Food Fusion", "Ancient Spirituality", "Cultural Heritage"] },
+    { id: "cat-events", name: "Events", slug: "events", description: "Cultural festivals, conferences, exhibitions and summits", color: "#ea580c", icon: "calendar-event", active: true, subcategories: ["Festivals", "Heritage Walks", "Workshops", "Talks", "Exhibitions", "Performances", "Museum Events", "Virtual Events", "Conferences & Summits"] },
+    { id: "cat-featured", name: "Featured", slug: "featured", description: "In-depth editorial spotlight stories and investigative pieces", color: "#d97706", icon: "sparkles", active: true, subcategories: ["Art & Iconography", "Classical Dance", "Sacred Music", "Master Craft", "Sacred Architecture", "Handloom & Textiles", "Culinary Arts", "Yoga & Wellness", "Jewellery & Adornment", "Poetry & Verses", "Sanskrit Theatre", "Living Festivals", "World Heritage", "Literature & Epics", "Visual Chronicles", "Editorial Spotlight"] },
+    { id: "cat-books", name: "Books", slug: "books", description: "Vedic Sanskrit literature, translations, epic poems, manuscripts & book reviews", color: "#6366f1", icon: "book-open", active: true, subcategories: ["Art, Crafts & Living Heritage", "Architecture & Monuments", "History & Antiquity", "Travel & Guides", "Spiritual & Temple Traditions", "Vedic & Sanskrit Literature", "Open Access Archives", "Manuscript Digitization", "Book Reviews"] }
   ],
 
   content: [

@@ -12,8 +12,8 @@
   "final_approver_id": "usr-editor-1",
   "publisher_id": "usr-publisher-1",
   "priority": "High",
-  "status": "WRITER_SUBMITTED",
-  "progress": 60,
+  "status": "IMAGES_UPLOADED",
+  "progress": 50,
   "start_date": "2026-08-22",
   "deadline": "2026-08-29",
   "publishing_date": "2026-08-30",
@@ -54,7 +54,7 @@
     }
   ],
   "created_at": "2026-08-22T16:00:00Z",
-  "updated_at": "2026-09-01T06:32:41.828Z",
+  "updated_at": "2026-08-24T15:45:00Z",
   "checklist": {
     "article_checked": false,
     "images_checked": true,
@@ -65,8 +65,5 @@
     "mobile_preview_checked": false,
     "desktop_preview_checked": false,
     "website_published": false
-  },
-  "editor_rating": 5,
-  "editor_rated_by": "Dr. Tejaswini Ma'am",
-  "editor_rated_at": "2026-09-01T06:32:18.557Z"
+  }
 }

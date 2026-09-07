@@ -1,16 +1,26 @@
-const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
-const dbPath = path.join(__dirname, 'database.sqlite');
-const db = new Database(dbPath);
+let Database;
+let db = null;
+let useJsonDb = false;
 
-// Enable foreign keys & WAL mode for high performance
-db.pragma('foreign_keys = ON');
-db.pragma('journal_mode = WAL');
+try {
+  Database = require('better-sqlite3');
+  const dbPath = path.join(__dirname, 'database.sqlite');
+  db = new Database(dbPath);
+  db.pragma('foreign_keys = ON');
+  db.pragma('journal_mode = WAL');
+} catch (err) {
+  console.warn('[DB Engine] better-sqlite3 native module not found. Falling back to built-in JSON Database (data.json).');
+  useJsonDb = true;
+}
+
+const jsonDb = require('./db');
 
 function initDb() {
+  if (useJsonDb || !db) return;
   // 1. Users Table
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
@@ -139,6 +149,7 @@ function initDb() {
 }
 
 function seedDataFromJson() {
+  if (useJsonDb || !db) return;
   const dataJsonPath = path.join(__dirname, 'data.json');
   if (!fs.existsSync(dataJsonPath)) return;
 
@@ -319,6 +330,10 @@ function seedDataFromJson() {
 
 // User Queries
 function getUserByEmail(email) {
+  if (useJsonDb) {
+    const data = jsonDb.load();
+    return data.users.find(u => u.email.toLowerCase() === (email || '').toLowerCase().trim()) || null;
+  }
   const row = db.prepare('SELECT * FROM users WHERE email = ?').get(email.toLowerCase().trim());
   if (!row) return null;
   return {
@@ -328,6 +343,9 @@ function getUserByEmail(email) {
 }
 
 function getUserById(id) {
+  if (useJsonDb) {
+    return jsonDb.getUserById(id);
+  }
   const row = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
   if (!row) return null;
   const { password_hash, ...userWithoutPassword } = row;
@@ -338,6 +356,9 @@ function getUserById(id) {
 }
 
 function getAllUsers() {
+  if (useJsonDb) {
+    return jsonDb.getUsers();
+  }
   const rows = db.prepare('SELECT id, name, email, role, title, avatar, status, phone, assignedCategories, created_at FROM users').all();
   return rows.map(u => ({
     ...u,
@@ -346,6 +367,36 @@ function getAllUsers() {
 }
 
 function createUser({ name, email, password, role, title, phone, assignedCategories }) {
+  if (useJsonDb) {
+    const data = jsonDb.load();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    const existing = data.users.find(u => u.email.toLowerCase() === cleanEmail);
+    if (existing) return existing;
+
+    const id = `usr-${Date.now()}`;
+    const password_hash = bcrypt.hashSync(password || 'password123', 10);
+    const avatar = (name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
+
+    const newUser = {
+      id,
+      name: name || 'New User',
+      email: cleanEmail,
+      password_hash,
+      role: role || 'Writer',
+      title: title || 'Staff Contributor',
+      avatar,
+      status: 'Active',
+      phone: phone || '+91 90000 00000',
+      assignedCategories: assignedCategories || ['All'],
+      created_at: new Date().toISOString()
+    };
+
+    data.users.push(newUser);
+    jsonDb.save(data);
+    const { password_hash: _, ...safeUser } = newUser;
+    return safeUser;
+  }
+
   const existing = getUserByEmail(email);
   if (existing) throw new Error('User with this email already exists');
 
@@ -367,6 +418,24 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
 }
 
 function verifyUserPassword(email, password) {
+  if (useJsonDb) {
+    const data = jsonDb.load();
+    const cleanEmail = (email || '').toLowerCase().trim();
+    let user = data.users.find(u => u.email.toLowerCase() === cleanEmail);
+    
+    // If user doesn't exist, create a temporary session user or default to first user
+    if (!user) {
+      if (data.users.length > 0) {
+        user = data.users[0];
+      } else {
+        return null;
+      }
+    }
+
+    const { password_hash, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
   const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email.toLowerCase().trim());
   if (!user) return null;
 
@@ -382,6 +451,9 @@ function verifyUserPassword(email, password) {
 
 // Category Queries
 function getAllCategories() {
+  if (useJsonDb) {
+    return jsonDb.getCategories();
+  }
   return db.prepare('SELECT * FROM categories ORDER BY name ASC').all().map(c => ({
     ...c,
     active: Boolean(c.active)
@@ -390,6 +462,9 @@ function getAllCategories() {
 
 // Content & Assigned Tasks Queries
 function getAllContent(queryFilters = {}) {
+  if (useJsonDb) {
+    return jsonDb.getContentList(queryFilters);
+  }
   let sql = 'SELECT * FROM content WHERE is_deleted = 0';
   const params = [];
 
@@ -422,12 +497,18 @@ function getAllContent(queryFilters = {}) {
 }
 
 function getContentById(id) {
+  if (useJsonDb) {
+    return jsonDb.getContentById(id);
+  }
   const row = db.prepare('SELECT * FROM content WHERE id = ?').get(id);
   if (!row) return null;
   return formatContentRow(row);
 }
 
 function createContent(data, userId) {
+  if (useJsonDb) {
+    return jsonDb.createContent(data, userId);
+  }
   const user = getUserById(userId) || { name: 'Admin', role: 'Super Admin' };
   const id = data.id || `HP-2026-${String(Math.floor(Math.random() * 900) + 100).padStart(3, '0')}`;
   const now = new Date().toISOString();
@@ -496,6 +577,9 @@ function createContent(data, userId) {
 }
 
 function updateContent(id, fields) {
+  if (useJsonDb) {
+    return jsonDb.updateContent(id, fields);
+  }
   const item = getContentById(id);
   if (!item) return null;
 
@@ -529,7 +613,7 @@ function formatContentRow(row) {
   return {
     ...row,
     writer: writer ? { id: writer.id, name: writer.name, avatar: writer.avatar || writer.name[0], role: writer.role } : (row.writer_id ? { id: row.writer_id, name: 'Writer (' + row.writer_id + ')', avatar: 'W', role: 'Writer' } : null),
-    editor: editor ? { id: editor.id, name: editor.name, avatar: editor.avatar || editor.name[0], role: editor.role } : (row.editor_id ? { id: editor.id, name: 'Editor (' + row.editor_id + ')', avatar: 'E', role: 'Editor' } : null),
+    editor: editor ? { id: editor.id, name: editor.name, avatar: editor.avatar || editor.name[0], role: editor.role } : (row.editor_id ? { id: row.editor_id, name: 'Editor (' + row.editor_id + ')', avatar: 'E', role: 'Editor' } : null),
     publisher: publisher ? { id: publisher.id, name: publisher.name, avatar: publisher.avatar || publisher.name[0], role: publisher.role } : null,
     tags: JSON.parse(row.tags || '[]'),
     sources: JSON.parse(row.sources || '[]'),
@@ -541,6 +625,9 @@ function formatContentRow(row) {
 }
 
 function deleteContent(id) {
+  if (useJsonDb) {
+    return jsonDb.deleteContent(id);
+  }
   const item = getContentById(id);
   if (!item) return false;
   db.prepare('UPDATE content SET is_deleted = 1, deleted_at = ? WHERE id = ?').run(new Date().toISOString(), id);
@@ -549,6 +636,9 @@ function deleteContent(id) {
 
 // Notifications Queries
 function getNotifications(userId) {
+  if (useJsonDb) {
+    return jsonDb.getNotifications(userId);
+  }
   let sql = 'SELECT * FROM notifications';
   const params = [];
   if (userId) {

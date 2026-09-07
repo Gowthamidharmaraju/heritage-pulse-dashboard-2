@@ -12,14 +12,14 @@
   "final_approver_id": "usr-editor-1",
   "publisher_id": "usr-publisher-1",
   "priority": "Medium",
-  "status": "READY_TO_PUBLISH",
-  "progress": 95,
+  "status": "WRITER_SUBMITTED",
+  "progress": 60,
   "start_date": "2026-08-22",
   "deadline": "2026-08-27",
   "publishing_date": "2026-08-28",
   "published_url": "",
   "short_description": "New-age musicians in Chennai, Bengaluru and Hyderabad are blending 72 Melakarta ragas with lo-fi beats, ambient soundscapes, and jazz basslines.",
-  "body": "\n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Modern Gamaka</h2><p rtrvr-ls=\"0~hs,5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">In underground music news and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up live-string electric violins, digital synthesizers, and konnakol voice processors.</p>\n              ",
+  "body": "<h2>The Modern Gamaka</h2><p>In underground music dens and bustling festival stages across South India, a sonic revolution is underway. Young virtuosos trained in rigorous Tyagaraja kirtis are picking up five-string electric violins, digital synthesizers, and konnakol voice processors.</p>",
   "tags": [
     "CarnaticMusic",
     "FusionRagas",
@@ -54,7 +54,7 @@
     }
   ],
   "created_at": "2026-08-22T14:00:00Z",
-  "updated_at": "2026-09-01T04:16:48.201Z",
+  "updated_at": "2026-08-24T12:00:00Z",
   "checklist": {
     "article_checked": false,
     "images_checked": true,
@@ -65,8 +65,5 @@
     "mobile_preview_checked": false,
     "desktop_preview_checked": false,
     "website_published": false
-  },
-  "editor_heart": false,
-  "editor_rated_by": "Jitendra",
-  "editor_rated_at": "2026-09-01T04:16:48.201Z"
+  }
 }
