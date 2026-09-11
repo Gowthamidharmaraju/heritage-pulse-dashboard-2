@@ -746,16 +746,16 @@
       "created_by_name": "Sasanka",
       "created_by_role": "Writer",
       "priority": "High",
-      "status": "WRITER_SUBMITTED",
-      "progress": 60,
+      "status": "PUBLISHED",
+      "progress": 100,
       "start_date": "2026-08-24",
       "deadline": "2026-08-27",
       "work_start_time": "2026-08-24T09:30",
       "work_end_time": "2026-08-24T18:00",
-      "publishing_date": "2026-08-28",
-      "published_url": "",
+      "publishing_date": "2026-09-11",
+      "published_url": "https://heritagepulse.org/news/hp-2026-023-gi-tag",
       "short_description": "",
-      "body": "hiiiiiiii<p></p>\n              ",
+      "body": "\n                \n                hiiiiiiii<p></p>\n              \n              \n              ",
       "tags": [
         "HeritagePulse"
       ],
@@ -769,7 +769,7 @@
       "notes": "",
       "images": [],
       "created_at": "2026-09-07T08:59:04.543Z",
-      "updated_at": "2026-09-07T08:59:22.662Z",
+      "updated_at": "2026-09-11T10:09:13.915Z",
       "checklist": {
         "article_checked": false,
         "images_checked": false,
@@ -779,7 +779,7 @@
         "seo_completed": false,
         "mobile_preview_checked": false,
         "desktop_preview_checked": false,
-        "website_published": false
+        "website_published": true
       }
     },
     {
@@ -2125,6 +2125,58 @@
   ],
   "workflow_history": [
     {
+      "id": "wf-1789121353915",
+      "content_id": "HP-2026-023",
+      "user_id": "usr-admin-1",
+      "user_name": "Jitendra",
+      "user_role": "Super Admin",
+      "action": "PUBLISHED",
+      "previous_status": "READY_TO_PUBLISH",
+      "new_status": "PUBLISHED",
+      "progress": 100,
+      "comment": "Moved to Published (100% Complete) by Jitendra (Super Admin).",
+      "created_at": "2026-09-11T10:09:13.915Z"
+    },
+    {
+      "id": "wf-1789121349778",
+      "content_id": "HP-2026-023",
+      "user_id": "usr-admin-1",
+      "user_name": "Jitendra",
+      "user_role": "Super Admin",
+      "action": "READY_TO_PUBLISH",
+      "previous_status": "WRITER_SUBMITTED",
+      "new_status": "READY_TO_PUBLISH",
+      "progress": 95,
+      "comment": "Moved to Ready for Website Publishing by Jitendra (Super Admin).",
+      "created_at": "2026-09-11T10:09:09.778Z"
+    },
+    {
+      "id": "wf-1789121309089",
+      "content_id": "HP-2026-028",
+      "user_id": "usr-admin-1",
+      "user_name": "Jitendra",
+      "user_role": "Super Admin",
+      "action": "MOVED_TO_TRASH",
+      "previous_status": "ASSIGNED",
+      "new_status": "TRASHED",
+      "progress": 0,
+      "comment": "Moved to Recycle Bin by Jitendra",
+      "created_at": "2026-09-11T10:08:29.089Z"
+    },
+    {
+      "id": "wf-1789121298337-1",
+      "content_id": "HP-2026-028",
+      "user_id": "usr-admin-1",
+      "user_name": "Jitendra",
+      "user_role": "Super Admin",
+      "action": "WRITER_ASSIGNED",
+      "previous_status": "NONE",
+      "new_status": "ASSIGNED",
+      "progress": 10,
+      "comment": "Topic created by Jitendra and assigned to writer.",
+      "created_at": "2026-09-11T10:08:18.337Z"
+    },
+    {
       "id": "wf-1788859633506",
       "content_id": "HP-2026-029",
       "user_id": "usr-editor-1",
@@ -3073,6 +3125,56 @@
     }
   ],
   "versions": [
+    {
+      "id": "ver-HP-2026-023-6",
+      "content_id": "HP-2026-023",
+      "version_number": 6,
+      "version_label": "Version 6 — Published (100% Complete)",
+      "author_name": "Jitendra (Super Admin)",
+      "author_avatar": "J",
+      "stage": "PUBLISHED",
+      "stage_label": "Published (100% Complete)",
+      "progress": 100,
+      "word_count": 1,
+      "title": "gi tag",
+      "body": "\n                \n                hiiiiiiii<p></p>\n              \n              \n              ",
+      "created_at": "2026-09-11T10:09:13.915Z"
+    },
+    {
+      "id": "ver-HP-2026-023-5",
+      "content_id": "HP-2026-023",
+      "version_number": 5,
+      "version_label": "Version 5 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-11T10:09:13.889Z",
+      "title": "gi tag",
+      "body": "\n                \n                hiiiiiiii<p></p>\n              \n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-023-4",
+      "content_id": "HP-2026-023",
+      "version_number": 4,
+      "version_label": "Version 4 — Ready for Website Publishing",
+      "author_name": "Jitendra (Super Admin)",
+      "author_avatar": "J",
+      "stage": "READY_TO_PUBLISH",
+      "stage_label": "Ready for Website Publishing",
+      "progress": 95,
+      "word_count": 1,
+      "title": "gi tag",
+      "body": "\n                hiiiiiiii<p></p>\n              \n              ",
+      "created_at": "2026-09-11T10:09:09.778Z"
+    },
+    {
+      "id": "ver-HP-2026-023-3",
+      "content_id": "HP-2026-023",
+      "version_number": 3,
+      "version_label": "Version 3 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-11T10:09:09.754Z",
+      "title": "gi tag",
+      "body": "\n                hiiiiiiii<p></p>\n              \n              "
+    },
     {
       "id": "ver-HP-2026-029-12",
       "content_id": "HP-2026-029",
@@ -4130,6 +4232,80 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notif-1789121353923",
+      "user_id": "all",
+      "content_id": "HP-2026-023",
+      "title": "🎉 Article Published 100%!",
+      "message": "'gi tag' is now live on Heritage Pulse by Gowthami at https://heritagepulse.org/news/hp-2026-023-gi-tag",
+      "type": "PUBLISHED",
+      "read": false,
+      "created_at": "2026-09-11T10:09:13.915Z"
+    },
+    {
+      "id": "notif-admin-1789121353923-1",
+      "user_id": "usr-editor-1",
+      "content_id": "HP-2026-023",
+      "title": "🎉 Stage Update: Published Live on Heritage Pulse",
+      "message": "'gi tag' moved to [Published Live on Heritage Pulse] by Jitendra (Super Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "PUBLISHED",
+      "stage_label": "Published Live on Heritage Pulse",
+      "by_user": "Jitendra",
+      "by_role": "Super Admin",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20gi%20tag%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-023%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-11%0A%F0%9F%95%92%20*Published%20Time%3A*%2011%20Sept%202026%2C%2003%3A39%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Jitendra%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-023-gi-tag%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.64%3A3000%2Freview%2FHP-2026-023",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20gi%20tag%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Jitendra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-11T10:09:13.915Z"
+    },
+    {
+      "id": "notif-admin-1789121353917-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-023",
+      "title": "🎉 Stage Update: Published Live on Heritage Pulse",
+      "message": "'gi tag' moved to [Published Live on Heritage Pulse] by Jitendra (Super Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "PUBLISHED",
+      "stage_label": "Published Live on Heritage Pulse",
+      "by_user": "Jitendra",
+      "by_role": "Super Admin",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20gi%20tag%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-023%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-11%0A%F0%9F%95%92%20*Published%20Time%3A*%2011%20Sept%202026%2C%2003%3A39%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Jitendra%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-023-gi-tag%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.64%3A3000%2Freview%2FHP-2026-023",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20gi%20tag%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Jitendra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-11T10:09:13.915Z"
+    },
+    {
+      "id": "notif-admin-1789121349782-1",
+      "user_id": "usr-editor-1",
+      "content_id": "HP-2026-023",
+      "title": "🚀 Stage Update: Ready for Website Publishing",
+      "message": "'gi tag' moved to [Ready for Website Publishing] by Jitendra (Super Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "READY_TO_PUBLISH",
+      "stage_label": "Ready for Website Publishing",
+      "by_user": "Jitendra",
+      "by_role": "Super Admin",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%9A%80%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20gi%20tag%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-023%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2011%20Sept%202026%2C%2003%3A39%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Ready%20for%20Website%20Publishing%0A%F0%9F%91%A4%20*By%3A*%20Jitendra%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.64%3A3000%2Freview%2FHP-2026-023",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%9A%80%20gi%20tag%20%E2%86%92%20Ready%20for%20Website%20Publishing&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0ANew%20Stage%3A%20Ready%20for%20Website%20Publishing%0AMoved%20by%3A%20Jitendra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-11T10:09:09.778Z"
+    },
+    {
+      "id": "notif-admin-1789121349782-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-023",
+      "title": "🚀 Stage Update: Ready for Website Publishing",
+      "message": "'gi tag' moved to [Ready for Website Publishing] by Jitendra (Super Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "READY_TO_PUBLISH",
+      "stage_label": "Ready for Website Publishing",
+      "by_user": "Jitendra",
+      "by_role": "Super Admin",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%9A%80%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20gi%20tag%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-023%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2011%20Sept%202026%2C%2003%3A39%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Ready%20for%20Website%20Publishing%0A%F0%9F%91%A4%20*By%3A*%20Jitendra%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.64%3A3000%2Freview%2FHP-2026-023",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%9A%80%20gi%20tag%20%E2%86%92%20Ready%20for%20Website%20Publishing&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0ANew%20Stage%3A%20Ready%20for%20Website%20Publishing%0AMoved%20by%3A%20Jitendra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-11T10:09:09.778Z"
+    },
     {
       "id": "notif-1788859633510",
       "user_id": "all",
@@ -5341,7 +5517,7 @@
       "title": "🎉 Article Published 100%!",
       "message": "'Carnatic Symphony: How Fusion Ragas Are Captivating Gen-Z Audiences' is now live on Heritage Pulse by Gowthami at https://heritagepulse.org/music/hp-2026-005-carnatic-symphony-how-fusion-ragas-are-c",
       "type": "PUBLISHED",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T04:12:48.291Z"
     },
     {
@@ -5693,6 +5869,67 @@
       "type": "APPROVAL",
       "read": false,
       "created_at": "2026-08-24T15:10:00Z"
+    }
+  ],
+  "trash": [
+    {
+      "id": "HP-2026-028",
+      "title": "hampi",
+      "subtitle": "",
+      "topic": "hampi",
+      "category": "Heritage",
+      "subcategory": "General",
+      "content_type": "Featured Article",
+      "frequency": "Weekly",
+      "writer_id": "usr-writer-1",
+      "editor_id": "usr-editor-1",
+      "final_approver_id": "usr-editor-1",
+      "publisher_id": "usr-publisher-1",
+      "created_by": "usr-admin-1",
+      "created_by_name": "Jitendra",
+      "created_by_role": "Super Admin",
+      "priority": "High",
+      "status": "ASSIGNED",
+      "progress": 10,
+      "start_date": "2026-08-24",
+      "deadline": "2026-08-27",
+      "work_start_time": "2026-08-24T09:30",
+      "work_end_time": "2026-08-24T18:00",
+      "publishing_date": "2026-08-29",
+      "published_url": "",
+      "short_description": "",
+      "body": "",
+      "tags": [
+        "HeritagePulse"
+      ],
+      "seo_title": "hampi | Heritage Pulse",
+      "seo_description": "",
+      "keywords": "",
+      "featured_image": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+      "video_url": "",
+      "reference_links": "",
+      "sources": [],
+      "notes": "",
+      "images": [],
+      "created_at": "2026-09-11T10:08:18.337Z",
+      "updated_at": "2026-09-11T10:08:18.337Z",
+      "checklist": {
+        "article_checked": false,
+        "images_checked": false,
+        "featured_image_selected": false,
+        "category_selected": true,
+        "tags_added": true,
+        "seo_completed": false,
+        "mobile_preview_checked": false,
+        "desktop_preview_checked": false,
+        "website_published": false
+      },
+      "trash_id": "trash-1789121309089-HP-2026-028",
+      "trashed_at": "2026-09-11T10:08:29.089Z",
+      "trashed_by": "usr-admin-1",
+      "original_status": "ASSIGNED",
+      "original_category": "Heritage",
+      "original_date": "2026-08-29"
     }
   ]
 }
