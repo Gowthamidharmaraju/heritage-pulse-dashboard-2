@@ -240,18 +240,34 @@ const AdminView = {
   },
 
   promptAddCategory() {
-    document.getElementById('category-modal-title').innerText = 'Add New Topic Category Taxonomy';
-    document.getElementById('edit-cat-id').value = '';
-    document.getElementById('edit-cat-name').value = '';
-    document.getElementById('edit-cat-color').value = '#d97706';
-    document.getElementById('edit-cat-color-picker').value = '#d97706';
-    document.getElementById('edit-cat-description').value = '';
+    const modalTitle = document.getElementById('category-modal-title');
+    if (modalTitle) modalTitle.innerText = 'Add New Topic Category Taxonomy';
+    
+    const catId = document.getElementById('edit-cat-id');
+    if (catId) catId.value = '';
+
+    const catName = document.getElementById('edit-cat-name');
+    if (catName) catName.value = '';
+
+    const catColor = document.getElementById('edit-cat-color');
+    if (catColor) catColor.value = '#d97706';
+
+    const catColorPicker = document.getElementById('edit-cat-color-picker');
+    if (catColorPicker) catColorPicker.value = '#d97706';
+
+    const catDesc = document.getElementById('edit-cat-description');
+    if (catDesc) catDesc.value = '';
     
     this.currentSubcategories = ['General'];
     this.renderSubcategoryPills();
 
     const modal = document.getElementById('edit-category-modal');
     if (modal) modal.classList.remove('hidden');
+  },
+
+  closeCategoryModal() {
+    const modal = document.getElementById('edit-category-modal');
+    if (modal) modal.classList.add('hidden');
   },
 
   async editCategory(catId) {

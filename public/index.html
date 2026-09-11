@@ -962,6 +962,196 @@
     </div>
   </div>
 
+  <!-- EDIT / ADD CATEGORY MODAL -->
+  <div id="edit-category-modal" class="modal-overlay hidden" style="z-index: 10500; display: flex; align-items: center; justify-content: center; position: fixed; inset: 0;">
+    <div class="modal-card" style="max-width: 520px; width: 90%; margin: auto; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-tags text-saffron"></i>
+          <h3 id="category-modal-title">Edit Topic Category Taxonomy</h3>
+        </div>
+        <button class="modal-close" onclick="AdminView.closeCategoryModal()">&times;</button>
+      </div>
+
+      <form id="edit-category-form" onsubmit="AdminView.handleSaveCategory(event)">
+        <div class="modal-body">
+          <input type="hidden" id="edit-cat-id" name="id">
+
+          <div class="form-group">
+            <label class="form-label">Category Name <span class="required">*</span></label>
+            <input type="text" id="edit-cat-name" name="name" class="form-control" placeholder="e.g. Wildlife & Ecology" required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Theme Color (Hex)</label>
+              <input type="text" id="edit-cat-color" name="color" class="form-control" value="#d97706" oninput="document.getElementById('edit-cat-color-picker').value = this.value">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Color Picker</label>
+              <input type="color" id="edit-cat-color-picker" class="form-control" value="#d97706" style="height: 38px; padding: 2px; cursor: pointer;" oninput="document.getElementById('edit-cat-color').value = this.value">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea id="edit-cat-description" name="description" class="form-control" rows="2" placeholder="Category purpose and editorial coverage scope..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nested Sub-Categories</label>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+              <input type="text" id="new-subcategory-input" class="form-control" placeholder="Add sub-category (e.g. Sanctuaries)...">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="AdminView.addSubcategoryPill()" style="white-space: nowrap;">
+                <i class="fa-solid fa-plus"></i> Add
+              </button>
+            </div>
+            <div id="edit-cat-subcategories-pills" style="display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); min-height: 44px;">
+              <!-- Dynamically populated pills -->
+            </div>
+            <input type="hidden" id="edit-cat-subcategories" name="subcategories">
+          </div>
+        </div>
+
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button type="button" class="btn btn-outline-light" onclick="AdminView.closeCategoryModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Save Category Taxonomy
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD STAFF MEMBER MODAL -->
+  <div id="add-user-modal" class="modal-overlay hidden" style="z-index: 10500; display: flex; align-items: center; justify-content: center; position: fixed; inset: 0;">
+    <div class="modal-card" style="max-width: 520px; width: 90%; margin: auto; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-user-plus text-indigo"></i>
+          <h3>Register New Editorial Staff Member</h3>
+        </div>
+        <button class="modal-close" onclick="AdminView.closeAddUserModal()">&times;</button>
+      </div>
+
+      <form id="add-user-form" onsubmit="AdminView.handleSaveNewUser(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Full Name <span class="required">*</span></label>
+            <input type="text" name="name" class="form-control" placeholder="e.g. Suresh Kumar" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address <span class="required">*</span></label>
+            <input type="email" name="email" class="form-control" placeholder="e.g. suresh@heritej.com" required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Role & Permissions <span class="required">*</span></label>
+              <select name="role" class="form-control" required>
+                <option value="Writer" selected>Writer</option>
+                <option value="Editor">Editor</option>
+                <option value="Publisher">Publisher</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Initial Password <span class="required">*</span></label>
+              <input type="password" name="password" class="form-control" value="heritage2026" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Job Title / Beat</label>
+            <input type="text" name="title" class="form-control" placeholder="e.g. Senior Heritage & Architecture Writer">
+          </div>
+        </div>
+
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button type="button" class="btn btn-outline-light" onclick="AdminView.closeAddUserModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-user-check"></i> Register Staff Member
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- EDIT STAFF MEMBER ROLE MODAL -->
+  <div id="edit-user-modal" class="modal-overlay hidden" style="z-index: 10500; display: flex; align-items: center; justify-content: center; position: fixed; inset: 0;">
+    <div class="modal-card" style="max-width: 520px; width: 90%; margin: auto; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-user-gear text-saffron"></i>
+          <h3>Edit Member Role & Assigned Categories</h3>
+        </div>
+        <button class="modal-close" onclick="AdminView.closeEditUserModal()">&times;</button>
+      </div>
+
+      <form id="edit-user-form" onsubmit="AdminView.handleSaveUserEdit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="edit-user-id" name="id">
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="required">*</span></label>
+              <input type="text" id="edit-user-name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address <span class="required">*</span></label>
+              <input type="email" id="edit-user-email" name="email" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Role & Access Level <span class="required">*</span></label>
+              <select id="edit-user-role" name="role" class="form-control" required>
+                <option value="Writer">Writer</option>
+                <option value="Editor">Editor</option>
+                <option value="Publisher">Publisher</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Account Status</label>
+              <select id="edit-user-status" name="status" class="form-control">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Job Title / Designation</label>
+              <input type="text" id="edit-user-title" name="title" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="text" id="edit-user-phone" name="phone" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Assigned Category Permissions</label>
+            <div id="edit-user-categories-container" style="display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+              <!-- Checkboxes dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button type="button" class="btn btn-outline-light" onclick="AdminView.closeEditUserModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-user-shield"></i> Save Permissions & Role
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- TOAST CONTAINER -->
   <div id="toast-container" class="toast-container"></div>
 

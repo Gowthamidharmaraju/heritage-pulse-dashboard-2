@@ -59,7 +59,7 @@
     }
   ],
   "created_at": "2026-08-19T09:00:00Z",
-  "updated_at": "2026-09-05T06:38:58.994Z",
+  "updated_at": "2026-09-10T08:53:47.824Z",
   "checklist": {
     "article_checked": true,
     "images_checked": true,
@@ -70,5 +70,9 @@
     "mobile_preview_checked": true,
     "desktop_preview_checked": true,
     "website_published": true
-  }
+  },
+  "editor_heart": false,
+  "editor_rated_by": "Dr. Tejaswini Ma'am",
+  "editor_rated_at": "2026-09-10T08:53:47.824Z",
+  "editor_rating": 1
 }

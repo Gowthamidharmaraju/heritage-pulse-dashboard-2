@@ -9,7 +9,7 @@ writer: "Staff"
 editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-21"
 deadline: "2026-08-24"
-publishing_date: "2026-09-04"
+publishing_date: "2026-09-07"
 published_url: "https://heritagepulse.org/cuisine/hp-2026-004-forgotten-grains-of-ancient-india-millet"
 tags: ["Millets","VedicCuisine","AyurvedicDiet","AncientGrains","SustainableFood"]
 seo_title: "Ancient Indian Millets & Vedic Nutrition | Heritage Pulse"
@@ -30,7 +30,11 @@ vault_folder: "HP-2026-004"
 ## Article Content
 
 
-                The Ancient Grains of WisdomLong before wheat and polished white rice dominated the Indian subcontinental diet, millets—known in classical Sanskrit texts as *Trinadhanya*—formed the bedrock of nourishment from the Indus Valley Civilization through the Vedic era.
+                ## The Ancient Grains of Wisdom
+
+Long before wheat and polished white rice dominated the Indian subcontinental diet, millets—known in classical Sanskrit texts as *Trinadhanya*—formed the bedrock of nourishment from the Indus Valley Civilization through the Vedic era.
+
+
               
 
 ---
@@ -43,4 +47,4 @@ vault_folder: "HP-2026-004"
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/5/2026, 11:27:53 AM*
+*Heritage Pulse Editorial Vault — Generated on 9/11/2026, 9:26:13 AM*
