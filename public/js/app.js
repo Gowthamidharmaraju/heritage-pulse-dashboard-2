@@ -489,6 +489,10 @@ class App {
       case 'publishing':
         TrackerView.render(container, { status: 'READY_TO_PUBLISH' });
         break;
+      case 'social-media':
+      case 'social':
+        SocialMediaView.render(container, this.viewParams);
+        break;
       case 'workload':
         if (!this.currentUser || this.currentUser.role === 'Writer') {
           container.innerHTML = `<div class="card-panel" style="text-align:center;padding:40px;"><i class="fa-solid fa-lock" style="font-size:3rem;color:#ef4444;margin-bottom:16px;"></i><h3 style="color:var(--text-primary);">Access Restricted</h3><p style="color:var(--text-dim);">Team Workload view is restricted to Editors and Management.</p></div>`;
@@ -560,7 +564,8 @@ class App {
       'usr-writer-1': { id: 'usr-writer-1', name: 'Pavitra', role: 'Writer', avatar: 'P', title: 'Senior Culture & Heritage Writer' },
       'usr-writer-2': { id: 'usr-writer-2', name: 'Nikitha', role: 'Writer', avatar: 'N', title: 'Arts, Music & Travel Reporter' },
       'usr-writer-3': { id: 'usr-writer-3', name: 'Sasanka', role: 'Writer', avatar: 'S', title: 'Culinary & Living Traditions Writer' },
-      'usr-publisher-1': { id: 'usr-publisher-1', name: 'Gowthami', role: 'Publisher', avatar: 'G', title: 'Digital Publishing & Web Operations Manager' }
+      'usr-publisher-1': { id: 'usr-publisher-1', name: 'Gowthami', role: 'Publisher', avatar: 'G', title: 'Digital Publishing & Web Operations Manager' },
+      'usr-publisher-sm': { id: 'usr-publisher-sm', name: 'Balakrishna', role: 'Social Media Ops Manager', avatar: 'B', title: 'Social Media Ops & Multi-Platform Publisher' }
     };
 
     let user = (this.users && this.users.length) ? this.users.find(u => u.id === userId) : null;

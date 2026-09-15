@@ -4,7 +4,7 @@
       xmlns="http://www.w3.org/TR/REC-html40">
 <head>
   <meta charset="utf-8">
-  <title>test event — Heritage Pulse</title>
+  <title>gi tag — Heritage Pulse</title>
   <style>
     body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.6; color: #1e293b; margin: 40px; }
     h1 { color: #d97706; font-size: 22pt; font-family: 'Times New Roman', Georgia, serif; margin-bottom: 6px; border-bottom: 2px solid #fef3c7; padding-bottom: 8px; }
@@ -17,13 +17,13 @@
   </style>
 </head>
 <body>
-  <h1>test event</h1>
+  <h1>gi tag</h1>
   
   
   <table class="meta-table">
     <tr>
-      <td><strong>Article ID:</strong> HP-2026-029</td>
-      <td><strong>Category:</strong> Events</td>
+      <td><strong>Article ID:</strong> HP-2026-023</td>
+      <td><strong>Category:</strong> News</td>
       <td><strong>Content Type:</strong> Featured Article</td>
     </tr>
     <tr>
@@ -32,7 +32,7 @@
       <td><strong>Status:</strong> PUBLISHED</td>
     </tr>
     <tr>
-      <td><strong>Publishing Date:</strong> 2026-09-08</td>
+      <td><strong>Publishing Date:</strong> 2026-09-11</td>
       <td><strong>Priority:</strong> High</td>
       <td><strong>Tags:</strong> HeritagePulse</td>
     </tr>
@@ -42,30 +42,19 @@
   <div class="article-content">
     
                 
-                
-                
-                hi&nbsp;<br><br><blockquote rtrvr-ls="5~hs,6~hs,8~hs,9~hs" rtrvr-ro="42">this is test&nbsp;</blockquote><p></p>
-              
-              
+                hiiiiiiii<p></p>
               
               
               
   </div>
 
-  <h2>Attached Media Assets (1)</h2>
-  
-    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
-      <p style="font-weight: bold; margin: 0 0 4px 0; color: #1e293b;">Image Asset 1: WhatsApp Image 2026-09-08 at 8.32.27 AM.jpeg</p>
-      <p style="margin: 0; color: #475569; font-size: 10pt;"><em>Caption:</em> WhatsApp Image 2026-09-08 at 8.32.27 AM at Heritage Pulse</p>
-      <p style="margin: 0; color: #64748b; font-size: 9pt;"><em>Credit:</em> test / Heritage Pulse Bureau</p>
-      <p style="margin: 4px 0 0 0; font-size: 9pt; color: #2563eb;">File Asset: /uploads/1788859555418-90072118.jpeg</p>
-    </div>
-  
+  <h2>Attached Media Assets (0)</h2>
+  <p>No images attached to this article.</p>
 
-  <h2>Reference Sources & Links</h2><ul><li>Live URL: <a href="https://heritagepulse.org/events/hp-2026-029-test-event">https://heritagepulse.org/events/hp-2026-029-test-event</a></li></ul>
+  <h2>Reference Sources & Links</h2><ul><li>Live URL: <a href="https://heritagepulse.org/news/hp-2026-023-gi-tag">https://heritagepulse.org/news/hp-2026-023-gi-tag</a></li></ul>
 
   <div class="footer">
-    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-029 · Generated on 9/15/2026, 10:26:55 AM</p>
+    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-023 · Generated on 9/15/2026, 10:26:55 AM</p>
   </div>
 </body>
 </html>
