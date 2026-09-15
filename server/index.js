@@ -930,8 +930,8 @@ app.get('/api/stats', (req, res) => {
   res.json(db.getAnalytics());
 });
 
-// Trigger Google Drive sync for a single article or all articles
-app.post('/api/gdrive/sync/:id?', async (req, res) => {
+// Trigger Google Drive sync for a single article or all articles (supports GET and POST)
+app.all('/api/gdrive/sync/:id?', async (req, res) => {
   try {
     const googleDriveService = require('./googleDriveService');
     const raw = db.load();
