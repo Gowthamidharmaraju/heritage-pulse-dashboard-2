@@ -719,6 +719,10 @@ const FoldersView = {
           <i class="fa-solid fa-file-pdf text-crimson-light"></i> Download / View PDF Proof
         </a>
 
+        <button class="context-menu-item" onclick="FoldersView.syncArticleToGoogleDrive('${item.id}', '${this.escapeQuotes(item.title)}')">
+          <i class="fa-brands fa-google-drive text-saffron"></i> Sync to Google Drive Cloud
+        </button>
+
         <button class="context-menu-item" onclick="FoldersView.downloadFolderZip('${item.id}')">
           <i class="fa-solid fa-file-zipper text-purple"></i> Download Full Folder ZIP
         </button>
@@ -1782,6 +1786,20 @@ ${item.body || 'No content written yet.'}`;
       const pdfBtn = document.getElementById('drive-modal-pdf-btn');
       if (docBtn) docBtn.style.display = '';
       if (pdfBtn) pdfBtn.style.display = '';
+    }
+  },
+
+  async syncArticleToGoogleDrive(articleId, title) {
+    app.showToast(`☁️ Syncing "${title || articleId}" to Google Drive...`, 'info');
+    try {
+      const res = await app.apiPost(`/api/folders/sync-drive/${articleId}`, {});
+      if (res && res.success) {
+        app.showToast(res.message || '✨ Article synced to Google Drive successfully!', 'success');
+      } else {
+        app.showToast(res.error || 'Google Drive sync failed.', 'error');
+      }
+    } catch (e) {
+      app.showToast(`Google Drive Sync Error: ${e.message}`, 'error');
     }
   },
 

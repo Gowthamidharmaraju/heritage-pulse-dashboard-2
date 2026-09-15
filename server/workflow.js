@@ -77,6 +77,14 @@ class WorkflowEngine {
       content.publishing_date = options.publishing_date || "2026-08-24";
       if (!content.checklist) content.checklist = {};
       content.checklist.website_published = true;
+
+      // Automated Google Drive Cloud Sync Trigger
+      try {
+        const driveService = require('./googleDriveService');
+        driveService.syncArticleToDrive(content).catch(e => console.error('[Google Drive Sync Error]', e));
+      } catch (e) {
+        console.warn('[Google Drive Sync Trigger Warning]', e.message);
+      }
     }
 
     if (targetStatus === 'CHANGES_REQUIRED') {

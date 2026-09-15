@@ -653,6 +653,23 @@ app.post('/api/folders/sync', (req, res) => {
   }
 });
 
+// Trigger Google Drive Cloud Sync manually for any article
+app.post('/api/folders/sync-drive/:id', async (req, res) => {
+  try {
+    const item = dbSqlite.getContentById(req.params.id) || db.getContentById(req.params.id);
+    if (!item) return res.status(404).json({ error: 'Article not found' });
+    const driveService = require('./googleDriveService');
+    const success = await driveService.syncArticleToDrive(item);
+    if (success) {
+      res.json({ success: true, message: `✨ Article "${item.title}" successfully synced to Google Drive!` });
+    } else {
+      res.status(500).json({ error: 'Google Drive sync failed. Check server log or credentials.' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Export article folder as ZIP archive (content + all images packaged)
 app.get(['/api/folders/export-zip/:id', '/api/folders/:id/download-zip'], (req, res) => {
   try {
