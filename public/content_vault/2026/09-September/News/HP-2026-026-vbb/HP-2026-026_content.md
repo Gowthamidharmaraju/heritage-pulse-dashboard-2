@@ -1,6 +1,6 @@
 ---
-id: "HP-2026-023"
-title: "gi tag"
+id: "HP-2026-026"
+title: "vbb"
 category: "News"
 content_type: "Featured Article"
 priority: "High"
@@ -9,16 +9,16 @@ writer: "Staff"
 editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-24"
 deadline: "2026-08-27"
-publishing_date: "2026-09-11"
-published_url: "https://heritagepulse.org/news/hp-2026-023-gi-tag"
+publishing_date: "2026-09-15"
+published_url: "https://heritagepulse.org/news/hp-2026-026-vbb"
 tags: ["HeritagePulse"]
-seo_title: "gi tag | Heritage Pulse"
+seo_title: "vbb | Heritage Pulse"
 seo_description: ""
-created_at: "2026-09-07T08:59:04.543Z"
-vault_folder: "HP-2026-023"
+created_at: "2026-09-07T09:11:56.108Z"
+vault_folder: "HP-2026-026"
 ---
 
-# gi tag
+# vbb
 
 
 **Category:** News | **Author:** Staff Writer | **Status:** PUBLISHED
@@ -29,9 +29,14 @@ vault_folder: "HP-2026-023"
 
 
                 
-                hiiiiiiii
+                
+                
+                
+                
 
 
+              
+              
               
               
               
