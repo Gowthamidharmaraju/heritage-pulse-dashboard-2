@@ -977,7 +977,11 @@ app.get('/api/gdrive/callback', async (req, res) => {
     const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
     const redirectUri = 'http://localhost:3000/api/gdrive/callback';
 
-    const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+    const oauth2Client = new google.auth.OAuth2({
+      clientId: clientId,
+      clientSecret: clientSecret,
+      redirectUri: redirectUri
+    });
     const { tokens } = await oauth2Client.getToken(code);
 
     if (tokens.refresh_token) {
