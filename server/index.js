@@ -943,6 +943,85 @@ app.post('/api/admin/reset-seed', (req, res) => {
   }
 });
 
+// --- GOOGLE DRIVE OAUTH 2.0 AUTHENTICATION ENDPOINTS ---
+app.get('/api/gdrive/auth', (req, res) => {
+  const { google } = require('googleapis');
+  const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+  const redirectUri = 'http://localhost:3000/api/gdrive/callback';
+
+  if (!clientId || !clientSecret) {
+    return res.status(400).send('GOOGLE_DRIVE_CLIENT_ID or GOOGLE_DRIVE_CLIENT_SECRET missing in .env file.');
+  }
+
+  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+  const authUrl = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    prompt: 'consent',
+    scope: ['https://www.googleapis.com/auth/drive']
+  });
+
+  res.redirect(authUrl);
+});
+
+app.get('/api/gdrive/callback', async (req, res) => {
+  const { google } = require('googleapis');
+  const code = req.query.code;
+
+  if (!code) {
+    return res.status(400).send('Authorization code missing in URL callback.');
+  }
+
+  try {
+    const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+    const redirectUri = 'http://localhost:3000/api/gdrive/callback';
+
+    const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+    const { tokens } = await oauth2Client.getToken(code);
+
+    if (tokens.refresh_token) {
+      // Update .env file with refresh token
+      const envPath = path.join(__dirname, '..', '.env');
+      if (fs.existsSync(envPath)) {
+        let envContent = fs.readFileSync(envPath, 'utf8');
+        if (envContent.includes('GOOGLE_DRIVE_REFRESH_TOKEN=')) {
+          envContent = envContent.replace(/GOOGLE_DRIVE_REFRESH_TOKEN=.*/g, `GOOGLE_DRIVE_REFRESH_TOKEN=${tokens.refresh_token}`);
+        } else {
+          envContent += `\nGOOGLE_DRIVE_REFRESH_TOKEN=${tokens.refresh_token}\n`;
+        }
+        fs.writeFileSync(envPath, envContent, 'utf8');
+      }
+
+      process.env.GOOGLE_DRIVE_REFRESH_TOKEN = tokens.refresh_token;
+
+      // Re-initialize Google Drive service
+      const googleDriveService = require('./googleDriveService');
+      googleDriveService.init();
+
+      return res.send(`
+        <div style="font-family: sans-serif; text-align: center; padding: 50px;">
+          <h1 style="color: #10B981;">🎉 Google Drive Authorization Successful!</h1>
+          <p style="font-size: 18px;">Your Refresh Token has been automatically saved to <code>.env</code>.</p>
+          <p style="font-size: 16px; color: #4B5563;">Published editorial content will now sync straight to your personal Google Drive folder!</p>
+          <a href="/" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background: #2563EB; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold;">Return to Dashboard</a>
+        </div>
+      `);
+    } else {
+      return res.send(`
+        <div style="font-family: sans-serif; text-align: center; padding: 50px;">
+          <h1 style="color: #F59E0B;">⚠️ Authorization Completed, but no Refresh Token was returned.</h1>
+          <p>Please revoke application access in your Google Account security settings and click Authorization link again.</p>
+          <a href="/api/gdrive/auth">Try Again</a>
+        </div>
+      `);
+    }
+  } catch (err) {
+    console.error('Error exchanging OAuth code:', err);
+    res.status(500).send(`Failed to complete authorization: ${err.message}`);
+  }
+});
+
 // Fallback 404 for unhandled API endpoints
 app.all('/api/*', (req, res) => {
   res.status(404).json({ error: `API endpoint not found: ${req.method} ${req.originalUrl}` });
