@@ -997,7 +997,9 @@ app.get('/api/gdrive/callback', async (req, res) => {
 
       // Re-initialize Google Drive service
       const googleDriveService = require('./googleDriveService');
-      googleDriveService.init();
+      if (typeof googleDriveService.init === 'function') {
+        googleDriveService.init();
+      }
 
       return res.send(`
         <div style="font-family: sans-serif; text-align: center; padding: 50px;">
