@@ -930,6 +930,33 @@ app.get('/api/stats', (req, res) => {
   res.json(db.getAnalytics());
 });
 
+// Trigger Google Drive sync for a single article or all articles
+app.post('/api/gdrive/sync/:id?', async (req, res) => {
+  try {
+    const googleDriveService = require('./googleDriveService');
+    const raw = db.load();
+
+    if (req.params.id) {
+      const item = raw.content.find(c => c.id === req.params.id);
+      if (!item) return res.status(404).json({ error: 'Article not found' });
+      await googleDriveService.syncArticleToDrive(item);
+      return res.json({ success: true, message: `Successfully synced "${item.title}" to Google Drive Vault!` });
+    } else {
+      // Sync all published articles
+      const publishedItems = raw.content.filter(c => c.status === 'PUBLISHED');
+      let count = 0;
+      for (const item of publishedItems) {
+        await googleDriveService.syncArticleToDrive(item);
+        count++;
+      }
+      return res.json({ success: true, message: `Successfully synced ${count} published articles to Google Drive Vault!` });
+    }
+  } catch (err) {
+    console.error('[Google Drive Sync API Error]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Reset Database to Original Seed Data
 app.post('/api/admin/reset-seed', (req, res) => {
   try {
