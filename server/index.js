@@ -942,14 +942,14 @@ app.post('/api/gdrive/sync/:id?', async (req, res) => {
       await googleDriveService.syncArticleToDrive(item);
       return res.json({ success: true, message: `Successfully synced "${item.title}" to Google Drive Vault!` });
     } else {
-      // Sync all published articles
-      const publishedItems = raw.content.filter(c => c.status === 'PUBLISHED');
+      // Sync all articles across all statuses
+      const allItems = raw.content || [];
       let count = 0;
-      for (const item of publishedItems) {
+      for (const item of allItems) {
         await googleDriveService.syncArticleToDrive(item);
         count++;
       }
-      return res.json({ success: true, message: `Successfully synced ${count} published articles to Google Drive Vault!` });
+      return res.json({ success: true, message: `Successfully synced ${count} articles and their images/documents to Google Drive Vault!` });
     }
   } catch (err) {
     console.error('[Google Drive Sync API Error]', err);

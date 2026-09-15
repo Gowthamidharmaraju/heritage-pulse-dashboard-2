@@ -185,6 +185,24 @@ class GoogleDriveService {
         }
       }
 
+      // 4. Scan physical disk vault for any additional uploaded files, Word docs, photos, or audio
+      if (fs.existsSync(localVaultPath)) {
+        const vaultFiles = fs.readdirSync(localVaultPath);
+        for (const f of vaultFiles) {
+          if (f.endsWith('_metadata.json') || f.endsWith('_content.md')) continue;
+          const fullFilePath = path.join(localVaultPath, f);
+          if (fs.statSync(fullFilePath).isFile()) {
+            const ext = path.extname(f).toLowerCase();
+            let mime = 'application/octet-stream';
+            if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) mime = 'image/jpeg';
+            else if (['.doc', '.docx'].includes(ext)) mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+            else if (['.pdf'].includes(ext)) mime = 'application/pdf';
+            
+            await this.uploadFile(fullFilePath, f, mime, articleFolderId);
+          }
+        }
+      }
+
       console.log(`✅ [Google Drive Sync] Successfully synced "${articleItem.title}" to Google Drive Vault!`);
       return true;
     } catch (err) {
