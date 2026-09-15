@@ -1,0 +1,78 @@
+{
+  "id": "HP-2026-002",
+  "title": "Kuchipudi Heritage: From Sacred Bhagavata Mela to Global Classical Stage",
+  "subtitle": "The extraordinary evolution of Andhra's premier dance-drama, preserving ancient Natya Shastra traditions.",
+  "topic": "Kuchipudi Heritage & Classical Evolution",
+  "category": "Dance",
+  "subcategory": "Classical Dance",
+  "content_type": "Featured Article",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-1",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-08-19",
+  "deadline": "2026-08-26",
+  "publishing_date": "2026-09-05",
+  "published_url": "https://heritagepulse.org/dance/hp-2026-002-kuchipudi-heritage-from-sacred-bhagavata",
+  "short_description": "Tracing Kuchipudi from its roots in Kuchelapuram village by Siddhendra Yogi to contemporary global auditoriums.",
+  "body": "\n                \n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Rhythm of Devotion and Drama</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Originating in the verdant village of Kuchelapuram (now Kuchipudi) in the Krishna district of Andhra Pradesh, Kuchipudi is unique among classical Indian dances for its seamless blending of pure dance (<em>Nritta</em>), expressive mime (<em>Nritya</em>), and theatrical dialogue (<em>Natya</em>).</p><h3>The Vision of Siddhendra Yogi</h3><p>In the 14th century, the mystic ascetic Siddhendra Yogi codified the dance-drama form into the sacred <strong>Bhama Kalapam</strong>.</p><blockquote>\"When the dancer balances upon the rim of a brass plate while holding a water pot upon her head in Tarangam, gravity yields to artistic discipline.\"</blockquote>\n              \n              ",
+  "tags": [
+    "Kuchipudi",
+    "IndianClassicalDance",
+    "BhagavataMela",
+    "NatyaShastra",
+    "AndhraCulture"
+  ],
+  "seo_title": "Kuchipudi Heritage: History, Tarangam & Masters | Heritage Pulse",
+  "seo_description": "Read the story of Kuchipudi dance from village Bhagavata Mela origins to modern solo mastery by legendary gurus.",
+  "keywords": "Kuchipudi dance, Siddhendra Yogi, Tarangam brass plate, Vempati Chinna Satyam, classical dance India",
+  "featured_image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "https://www.youtube.com/watch?v=example2",
+  "reference_links": "https://sangeetnatak.gov.in",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Sangeet Natak Akademi Official Archives",
+      "url": "https://sangeetnatak.gov.in"
+    },
+    {
+      "id": "src-2",
+      "name": "Kuchelapuram Natya Research Bulletin",
+      "url": "https://heritagepulse.org/kuchipudi-research"
+    }
+  ],
+  "notes": "Reviewed and approved by Dr. Tejaswini Ma'am. Cleared for Final Signoff.",
+  "images": [
+    {
+      "id": "img-002-1",
+      "file_url": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+      "filename": "kuchipudi-mudra-expression.jpg",
+      "caption": "A classical Kuchipudi exponent depicting Navarasa expressions.",
+      "credit": "Photo by Heritage Pulse / Pavitra",
+      "alt_text": "Classical Kuchipudi dancer in traditional silk costume and temple jewellery",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-19T09:00:00Z",
+  "updated_at": "2026-09-10T08:53:47.824Z",
+  "checklist": {
+    "article_checked": true,
+    "images_checked": true,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": true,
+    "mobile_preview_checked": true,
+    "desktop_preview_checked": true,
+    "website_published": true
+  },
+  "editor_heart": false,
+  "editor_rated_by": "Dr. Tejaswini Ma'am",
+  "editor_rated_at": "2026-09-10T08:53:47.824Z",
+  "editor_rating": 1
+}

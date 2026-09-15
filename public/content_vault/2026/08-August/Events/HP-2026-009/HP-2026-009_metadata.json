@@ -1,0 +1,69 @@
+{
+  "id": "HP-2026-009",
+  "title": "All India Sufi & Bhakti Poetry Summit 2026 Announced for Hyderabad",
+  "subtitle": "Over 80 scholars, poets, and musicians to gather at Golconda Fort for three days of mystic communion.",
+  "topic": "National Sufi & Bhakti Poetry Summit Announcement",
+  "category": "Events",
+  "subcategory": "Festivals & Summits",
+  "content_type": "Daily News",
+  "frequency": "Daily",
+  "writer_id": "usr-writer-2",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-08-24",
+  "deadline": "2026-08-24",
+  "publishing_date": "2026-08-24",
+  "published_url": "https://heritagepulse.org/events/all-india-sufi-bhakti-poetry-summit-hyderabad-2026",
+  "short_description": "The Ministry of Culture in collaboration with Heritage Pulse announces the inaugural Deccan Mystic Festival scheduled for November 2026.",
+  "body": "<h2>The Confluence of Mystic Voices</h2><p>HYDERABAD — The historic ramparts of Golconda Fort will echo with the ecstatic couplets of Kabir, Bulleh Shah, Mirabai, and Amir Khusrau this autumn.</p>",
+  "tags": [
+    "SufiPoetry",
+    "BhaktiMovement",
+    "HyderabadEvents",
+    "MysticPoets",
+    "GolcondaFestival"
+  ],
+  "seo_title": "All India Sufi & Bhakti Poetry Summit 2026 Announced | Heritage Pulse",
+  "seo_description": "Full schedule, dates, and registration details for the 2026 Sufi and Bhakti poetry conclave at Golconda Fort.",
+  "keywords": "Sufi Bhakti summit 2026, Hyderabad cultural events, Golconda poetry festival",
+  "featured_image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "",
+  "reference_links": "https://telanganatourism.gov.in",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Telangana Department of Language & Culture Official Press Release",
+      "url": "https://telanganatourism.gov.in"
+    }
+  ],
+  "notes": "Published by Gowthami on urgent daily news cycle.",
+  "images": [
+    {
+      "id": "img-009-1",
+      "file_url": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+      "filename": "golconda-event-venue.jpg",
+      "caption": "Golconda Fort venue illuminated for the festival announcement.",
+      "credit": "Heritage Pulse News Bureau / Nikitha",
+      "alt_text": "Illuminated historic fortress arches at dusk",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-24T08:00:00Z",
+  "updated_at": "2026-08-24T13:00:00Z",
+  "checklist": {
+    "article_checked": true,
+    "images_checked": true,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": true,
+    "mobile_preview_checked": true,
+    "desktop_preview_checked": true,
+    "website_published": true
+  }
+}

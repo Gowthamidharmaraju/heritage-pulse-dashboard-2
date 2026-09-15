@@ -1,0 +1,69 @@
+{
+  "id": "HP-2026-006",
+  "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+  "subtitle": "The ancient art of vegetable-dyed storytelling using bamboo pens, myrobalan baths, and river water washing.",
+  "topic": "Kalamkari Handcrafted Textiles",
+  "category": "Culture",
+  "subcategory": "Handlooms & Crafts",
+  "content_type": "Heritage Story",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-1",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "WRITER_SUBMITTED",
+  "progress": 60,
+  "start_date": "2026-08-17",
+  "deadline": "2026-08-23",
+  "publishing_date": "2026-08-26",
+  "published_url": "",
+  "short_description": "An investigative feature into the 23-step process of traditional Kalamkari and the socio-economic challenges faced by artisan clusters.",
+  "body": "\n                <h2>The Pen That Weaves Myths</h2><p>Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              ",
+  "tags": [
+    "Kalamkari",
+    "IndianHandlooms",
+    "SrikalahastiArt",
+    "NaturalDyes",
+    "CraftRevival"
+  ],
+  "seo_title": "Kalamkari Textile Art: 23-Step Hand-Painted Heritage | Heritage Pulse",
+  "seo_description": "Explore the authentic natural dyeing and pen-painting craft of Kalamkari in Andhra Pradesh.",
+  "keywords": "Kalamkari art, Srikalahasti textile, natural vegetable dye, bamboo kalam",
+  "featured_image": "https://images.unsplash.com/photo-1606744888344-493238955de0?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "",
+  "reference_links": "https://handlooms.nic.in",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Ministry of Textiles National Handloom Registry",
+      "url": "https://handlooms.nic.in"
+    }
+  ],
+  "notes": "EDITOR NOTE (Dr. Tejaswini Ma'am): Please expand the section on natural vegetable dye sourcing and Swarnamukhi river washing.",
+  "images": [
+    {
+      "id": "img-006-1",
+      "file_url": "https://images.unsplash.com/photo-1606744888344-493238955de0?auto=format&fit=crop&w=1200&q=80",
+      "filename": "kalamkari-artisan-drawing.jpg",
+      "caption": "Senior artisan sketching mythological figures with a sharp bamboo kalam.",
+      "credit": "Heritage Pulse Field Photo / Pavitra",
+      "alt_text": "Artisan hands drawing detailed textile designs on handwoven cloth",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-17T11:30:00Z",
+  "updated_at": "2026-09-05T06:40:16.433Z",
+  "checklist": {
+    "article_checked": false,
+    "images_checked": false,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": false,
+    "mobile_preview_checked": false,
+    "desktop_preview_checked": false,
+    "website_published": false
+  }
+}

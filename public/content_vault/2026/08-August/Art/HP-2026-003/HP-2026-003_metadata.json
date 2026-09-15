@@ -1,0 +1,69 @@
+{
+  "id": "HP-2026-003",
+  "title": "The Living Legacy of Tanjore Gold-Leaf Paintings: Sacred Artistry of Thanjavur",
+  "subtitle": "How master craftsmen combine 22-carat gold foil, Jaipur stones, and teak wood to create immortal deities.",
+  "topic": "Tanjore Gold-Leaf Paintings Legacy",
+  "category": "Art",
+  "subcategory": "Classical Paintings",
+  "content_type": "Featured Article",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-2",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-08-18",
+  "deadline": "2026-08-24",
+  "publishing_date": "2026-08-24",
+  "published_url": "https://heritagepulse.org/art/tanjore-gold-leaf-paintings-sacred-legacy",
+  "short_description": "Inside the workshops of Thanjavur where multi-generational artists create embossed, gold-leaf adorned devotional masterpieces.",
+  "body": "<h2>The Gilded Divine</h2><p>Tanjore painting (Thanjavur Oviyam) is an internationally celebrated South Indian art form characterized by rich, flat colors, compact composition, and shimmering <strong>gold foil relief work</strong>.</p><p>Published live on Heritage Pulse by Gowthami to celebrate traditional master artisans.</p>",
+  "tags": [
+    "TanjorePainting",
+    "IndianArt",
+    "ThanjavurCrafts",
+    "GoldLeaf",
+    "MarathaHeritage"
+  ],
+  "seo_title": "Tanjore Gold-Leaf Painting: History, Process & Artisans | Heritage Pulse",
+  "seo_description": "Explore the authentic 17th-century craft of Thanjavur gold leaf paintings with master artisan interviews.",
+  "keywords": "Tanjore paintings, Thanjavur art, gold foil painting, Indian traditional art, muck work gesso",
+  "featured_image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "",
+  "reference_links": "https://craftscouncilofindia.org",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Crafts Council of India Heritage Register",
+      "url": "https://craftscouncilofindia.org"
+    }
+  ],
+  "notes": "Published by Gowthami on Aug 24, 2026. 100% complete and live.",
+  "images": [
+    {
+      "id": "img-003-1",
+      "file_url": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80",
+      "filename": "tanjore-painting-crafting.jpg",
+      "caption": "Master artisan applying gold leaf over embossed gesso relief.",
+      "credit": "Heritage Pulse Special Dispatch / Nikitha",
+      "alt_text": "Artisan hands working with delicate gold foil on traditional painting",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-18T11:00:00Z",
+  "updated_at": "2026-08-24T17:30:00Z",
+  "checklist": {
+    "article_checked": true,
+    "images_checked": true,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": true,
+    "mobile_preview_checked": true,
+    "desktop_preview_checked": true,
+    "website_published": true
+  }
+}
