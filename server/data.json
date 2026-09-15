@@ -799,16 +799,16 @@
       "created_by_name": "test",
       "created_by_role": "Writer",
       "priority": "High",
-      "status": "WRITER_SUBMITTED",
-      "progress": 60,
+      "status": "PUBLISHED",
+      "progress": 100,
       "start_date": "2026-08-24",
       "deadline": "2026-08-27",
       "work_start_time": "2026-08-24T09:30",
       "work_end_time": "2026-08-24T18:00",
-      "publishing_date": "2026-08-28",
-      "published_url": "",
+      "publishing_date": "2026-09-15",
+      "published_url": "https://heritagepulse.org/news/hp-2026-022-sdvsdv",
       "short_description": "",
-      "body": "\n                \n                <p></p>\n              \n              ",
+      "body": "\n                \n                \n                \n                <p></p>\n              \n              \n              \n              ",
       "tags": [
         "HeritagePulse"
       ],
@@ -822,7 +822,7 @@
       "notes": "",
       "images": [],
       "created_at": "2026-09-07T08:58:25.993Z",
-      "updated_at": "2026-09-07T08:58:32.136Z",
+      "updated_at": "2026-09-15T10:57:08.688Z",
       "checklist": {
         "article_checked": false,
         "images_checked": false,
@@ -832,7 +832,7 @@
         "seo_completed": false,
         "mobile_preview_checked": false,
         "desktop_preview_checked": false,
-        "website_published": false
+        "website_published": true
       }
     },
     {
@@ -2125,6 +2125,32 @@
   ],
   "workflow_history": [
     {
+      "id": "wf-1789469829733",
+      "content_id": "HP-2026-022",
+      "user_id": "usr-editor-1",
+      "user_name": "Dr. Tejaswini Ma'am",
+      "user_role": "Editor + Admin",
+      "action": "PUBLISHED",
+      "previous_status": "FINAL_REVIEW",
+      "new_status": "PUBLISHED",
+      "progress": 100,
+      "comment": "Moved to Published (100% Complete) by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "created_at": "2026-09-15T10:57:08.688Z"
+    },
+    {
+      "id": "wf-1789469825004",
+      "content_id": "HP-2026-022",
+      "user_id": "usr-editor-1",
+      "user_name": "Dr. Tejaswini Ma'am",
+      "user_role": "Editor + Admin",
+      "action": "FINAL_REVIEW",
+      "previous_status": "WRITER_SUBMITTED",
+      "new_status": "FINAL_REVIEW",
+      "progress": 90,
+      "comment": "Moved to Final Approval Stage by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "created_at": "2026-09-15T10:57:05.004Z"
+    },
+    {
       "id": "wf-1789469152599",
       "content_id": "HP-2026-024",
       "user_id": "usr-editor-1",
@@ -3216,6 +3242,56 @@
     }
   ],
   "versions": [
+    {
+      "id": "ver-HP-2026-022-7",
+      "content_id": "HP-2026-022",
+      "version_number": 7,
+      "version_label": "Version 7 — Published (100% Complete)",
+      "author_name": "Dr. Tejaswini Ma'am (Editor + Admin)",
+      "author_avatar": "TM",
+      "stage": "PUBLISHED",
+      "stage_label": "Published (100% Complete)",
+      "progress": 100,
+      "word_count": 0,
+      "title": "sdvsdv",
+      "body": "\n                \n                \n                \n                <p></p>\n              \n              \n              \n              ",
+      "created_at": "2026-09-15T10:57:08.688Z"
+    },
+    {
+      "id": "ver-HP-2026-022-6",
+      "content_id": "HP-2026-022",
+      "version_number": 6,
+      "version_label": "Version 6 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-15T10:57:08.660Z",
+      "title": "sdvsdv",
+      "body": "\n                \n                \n                \n                <p></p>\n              \n              \n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-022-5",
+      "content_id": "HP-2026-022",
+      "version_number": 5,
+      "version_label": "Version 5 — Final Approval Stage",
+      "author_name": "Dr. Tejaswini Ma'am (Editor + Admin)",
+      "author_avatar": "TM",
+      "stage": "FINAL_REVIEW",
+      "stage_label": "Final Approval Stage",
+      "progress": 90,
+      "word_count": 0,
+      "title": "sdvsdv",
+      "body": "\n                \n                \n                <p></p>\n              \n              \n              ",
+      "created_at": "2026-09-15T10:57:05.004Z"
+    },
+    {
+      "id": "ver-HP-2026-022-4",
+      "content_id": "HP-2026-022",
+      "version_number": 4,
+      "version_label": "Version 4 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-15T10:57:04.981Z",
+      "title": "sdvsdv",
+      "body": "\n                \n                \n                <p></p>\n              \n              \n              "
+    },
     {
       "id": "ver-HP-2026-024-7",
       "content_id": "HP-2026-024",
@@ -4498,6 +4574,80 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notif-1789469829741",
+      "user_id": "all",
+      "content_id": "HP-2026-022",
+      "title": "🎉 Article Published 100%!",
+      "message": "'sdvsdv' is now live on Heritage Pulse by Gowthami at https://heritagepulse.org/news/hp-2026-022-sdvsdv",
+      "type": "PUBLISHED",
+      "read": false,
+      "created_at": "2026-09-15T10:57:08.688Z"
+    },
+    {
+      "id": "notif-admin-1789469829741-1",
+      "user_id": "usr-editor-1",
+      "content_id": "HP-2026-022",
+      "title": "🎉 Stage Update: Published Live on Heritage Pulse",
+      "message": "'sdvsdv' moved to [Published Live on Heritage Pulse] by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "PUBLISHED",
+      "stage_label": "Published Live on Heritage Pulse",
+      "by_user": "Dr. Tejaswini Ma'am",
+      "by_role": "Editor + Admin",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20sdvsdv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-022%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-022-sdvsdv%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-022",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20sdvsdv%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-15T10:57:08.688Z"
+    },
+    {
+      "id": "notif-admin-1789469829735-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-022",
+      "title": "🎉 Stage Update: Published Live on Heritage Pulse",
+      "message": "'sdvsdv' moved to [Published Live on Heritage Pulse] by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "PUBLISHED",
+      "stage_label": "Published Live on Heritage Pulse",
+      "by_user": "Dr. Tejaswini Ma'am",
+      "by_role": "Editor + Admin",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20sdvsdv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-022%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-022-sdvsdv%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-022",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20sdvsdv%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-15T10:57:08.688Z"
+    },
+    {
+      "id": "notif-admin-1789469825006-1",
+      "user_id": "usr-editor-1",
+      "content_id": "HP-2026-022",
+      "title": "✅ Stage Update: Final Approval Stage",
+      "message": "'sdvsdv' moved to [Final Approval Stage] by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "FINAL_REVIEW",
+      "stage_label": "Final Approval Stage",
+      "by_user": "Dr. Tejaswini Ma'am",
+      "by_role": "Editor + Admin",
+      "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20sdvsdv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-022%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-022",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20sdvsdv%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-15T10:57:05.004Z"
+    },
+    {
+      "id": "notif-admin-1789469825006-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-022",
+      "title": "✅ Stage Update: Final Approval Stage",
+      "message": "'sdvsdv' moved to [Final Approval Stage] by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "FINAL_REVIEW",
+      "stage_label": "Final Approval Stage",
+      "by_user": "Dr. Tejaswini Ma'am",
+      "by_role": "Editor + Admin",
+      "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20sdvsdv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-022%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-022",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20sdvsdv%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-15T10:57:05.004Z"
+    },
     {
       "id": "notif-1789469152607",
       "user_id": "all",

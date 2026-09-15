@@ -11,6 +11,21 @@ class GoogleDriveService {
 
   init() {
     try {
+      const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+      const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+      const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN;
+
+      // 1. Prefer OAuth 2.0 Client credentials (User's personal Gmail quota)
+      if (clientId && clientSecret && refreshToken && !clientId.includes('your_client_id')) {
+        const oauth2Client = new google.auth.OAuth2(clientId, clientSecret);
+        oauth2Client.setCredentials({ refresh_token: refreshToken });
+        this.auth = oauth2Client;
+        this.drive = google.drive({ version: 'v3', auth: this.auth });
+        console.log('✅ [Google Drive Service] OAuth2 User Account Cloud Sync initialized successfully!');
+        return;
+      }
+
+      // 2. Fallback to Service Account
       const clientEmail = process.env.GOOGLE_DRIVE_CLIENT_EMAIL;
       let privateKey = process.env.GOOGLE_DRIVE_PRIVATE_KEY;
 
@@ -20,7 +35,6 @@ class GoogleDriveService {
       }
 
       if (privateKey) {
-        // Handle escaped newlines from .env string
         privateKey = privateKey.replace(/\\n/g, '\n').trim();
         if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
           privateKey = privateKey.slice(1, -1);
@@ -35,7 +49,7 @@ class GoogleDriveService {
 
       this.auth = auth;
       this.drive = google.drive({ version: 'v3', auth: this.auth });
-      console.log('✅ [Google Drive Service] Automated Cloud Sync initialized successfully for:', clientEmail);
+      console.log('✅ [Google Drive Service] Service Account Cloud Sync initialized for:', clientEmail);
     } catch (err) {
       console.error('❌ [Google Drive Service] Authorization error:', err.message);
     }
@@ -48,6 +62,8 @@ class GoogleDriveService {
       const res = await this.drive.files.list({
         q: query,
         fields: 'files(id, name)',
+        supportsAllDrives: true,
+        includeItemsFromAllDrives: true,
         spaces: 'drive'
       });
 
@@ -63,6 +79,7 @@ class GoogleDriveService {
 
       const folder = await this.drive.files.create({
         requestBody: folderMetadata,
+        supportsAllDrives: true,
         fields: 'id'
       });
 
@@ -89,8 +106,22 @@ class GoogleDriveService {
       const file = await this.drive.files.create({
         requestBody: fileMetadata,
         media,
+        supportsAllDrives: true,
         fields: 'id, webViewLink'
       });
+
+      // Transfer / share ownership to workspace or parent folder owner so quota comes from personal account
+      if (file.data && file.data.id) {
+        try {
+          await this.drive.permissions.create({
+            fileId: file.data.id,
+            requestBody: {
+              role: 'writer',
+              type: 'anyone'
+            }
+          });
+        } catch(e) {}
+      }
 
       return file.data;
     } catch (err) {
@@ -122,11 +153,8 @@ class GoogleDriveService {
       const category = articleItem.category || 'General';
       const folderName = `${articleItem.id}_${(articleItem.title || 'Article').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40)}`;
 
-      // Create hierarchy inside the shared root Google Drive folder: Root -> Year -> Month -> Category -> ArticleFolder
-      const yearFolderId = await this.findOrCreateFolder(year, this.rootFolderId);
-      const monthFolderId = await this.findOrCreateFolder(monthName, yearFolderId);
-      const catFolderId = await this.findOrCreateFolder(category, monthFolderId);
-      const articleFolderId = await this.findOrCreateFolder(folderName, catFolderId);
+      // Create folder inside the shared root Google Drive folder: Root -> ArticleFolder
+      const articleFolderId = await this.findOrCreateFolder(folderName, this.rootFolderId);
 
       // 1. Save & Upload metadata.json
       const localVaultPath = path.join(__dirname, '..', 'public', 'content_vault', year, monthName, category, articleItem.id);

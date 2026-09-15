@@ -1,6 +1,6 @@
 ---
-id: "HP-2026-026"
-title: "vbb"
+id: "HP-2026-024"
+title: "scadcv"
 category: "News"
 content_type: "Featured Article"
 priority: "High"
@@ -10,15 +10,15 @@ editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-24"
 deadline: "2026-08-27"
 publishing_date: "2026-09-15"
-published_url: "https://heritagepulse.org/news/hp-2026-026-vbb"
+published_url: "https://heritagepulse.org/news/hp-2026-024-scadcv"
 tags: ["HeritagePulse"]
-seo_title: "vbb | Heritage Pulse"
+seo_title: "scadcv | Heritage Pulse"
 seo_description: ""
-created_at: "2026-09-07T09:11:56.108Z"
-vault_folder: "HP-2026-026"
+created_at: "2026-09-07T09:02:24.977Z"
+vault_folder: "HP-2026-024"
 ---
 
-# vbb
+# scadcv
 
 
 **Category:** News | **Author:** Staff Writer | **Status:** PUBLISHED
@@ -32,10 +32,8 @@ vault_folder: "HP-2026-026"
                 
                 
                 
-                
 
 
-              
               
               
               

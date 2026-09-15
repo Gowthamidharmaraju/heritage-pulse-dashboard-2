@@ -653,6 +653,70 @@ app.post('/api/folders/sync', (req, res) => {
   }
 });
 
+// One-click Google OAuth login to generate GOOGLE_DRIVE_REFRESH_TOKEN automatically
+app.get('/api/gdrive/auth', (req, res) => {
+  const { google } = require('googleapis');
+  const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+  const redirectUri = `${req.protocol}://${req.get('host')}/api/gdrive/callback`;
+
+  if (!clientId || !clientSecret) {
+    return res.status(400).send('Missing GOOGLE_DRIVE_CLIENT_ID or GOOGLE_DRIVE_CLIENT_SECRET in .env');
+  }
+
+  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+  const authUrl = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    prompt: 'consent',
+    scope: ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive']
+  });
+
+  res.redirect(authUrl);
+});
+
+app.get('/api/gdrive/callback', async (req, res) => {
+  const { google } = require('googleapis');
+  const code = req.query.code;
+  const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+  const redirectUri = `${req.protocol}://${req.get('host')}/api/gdrive/callback`;
+
+  try {
+    const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+    const { tokens } = await oauth2Client.getToken(code);
+    const refreshToken = tokens.refresh_token;
+
+    if (!refreshToken) {
+      return res.send('<h3>⚠️ No refresh token received. Please visit <a href="/api/gdrive/auth">/api/gdrive/auth</a> again in an incognito window to grant offline access.</h3>');
+    }
+
+    // Append / update GOOGLE_DRIVE_REFRESH_TOKEN in .env
+    const envPath = path.join(__dirname, '..', '.env');
+    let envContent = fs.readFileSync(envPath, 'utf8');
+    if (envContent.includes('GOOGLE_DRIVE_REFRESH_TOKEN=')) {
+      envContent = envContent.replace(/GOOGLE_DRIVE_REFRESH_TOKEN=.*/g, `GOOGLE_DRIVE_REFRESH_TOKEN=${refreshToken}`);
+    } else {
+      envContent += `\nGOOGLE_DRIVE_REFRESH_TOKEN=${refreshToken}\n`;
+    }
+    fs.writeFileSync(envPath, envContent, 'utf8');
+    process.env.GOOGLE_DRIVE_REFRESH_TOKEN = refreshToken;
+
+    res.send(`
+      <div style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff; min-height: 100vh;">
+        <h2 style="color: #10b981;">🎉 SUCCESS! Google Drive Account Connected!</h2>
+        <p style="color: #94a3b8;">Your Refresh Token has been automatically saved to <code>.env</code>!</p>
+        <div style="background: rgba(255,255,255,0.06); padding: 14px; border-radius: 8px; margin: 20px auto; max-width: 600px; word-break: break-all; font-family: monospace; font-size: 0.85rem; color: #f59e0b;">
+          ${refreshToken}
+        </div>
+        <p>All published articles and images will now upload directly into your personal Google Drive account quota!</p>
+        <a href="/" style="display: inline-block; padding: 10px 20px; background: #6366f1; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold; margin-top: 20px;">Return to Dashboard</a>
+      </div>
+    `);
+  } catch (err) {
+    res.status(500).send(`Error obtaining refresh token: ${err.message}`);
+  }
+});
+
 // Trigger Google Drive Cloud Sync manually for any article
 app.post('/api/folders/sync-drive/:id', async (req, res) => {
   try {
