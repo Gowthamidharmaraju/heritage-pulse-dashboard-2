@@ -176,6 +176,8 @@ class App {
         defaultView = 'my-work';
       } else if (this.currentUser.role === 'Publisher') {
         defaultView = 'publishing';
+      } else if (this.currentUser.id === 'usr-publisher-sm' || (this.currentUser.role && this.currentUser.role.includes('Social Media'))) {
+        defaultView = 'social-media';
       }
 
       const initialHash = window.location.hash ? window.location.hash.replace('#', '') : defaultView;
@@ -597,6 +599,8 @@ class App {
           defaultView = 'my-work';
         } else if (user.role === 'Publisher') {
           defaultView = 'publishing';
+        } else if (user.id === 'usr-publisher-sm' || user.role.includes('Social Media')) {
+          defaultView = 'social-media';
         }
 
         this.navigateTo(defaultView, {}, true);
