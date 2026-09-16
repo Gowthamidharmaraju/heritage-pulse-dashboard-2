@@ -752,6 +752,12 @@ app.get('/api/folders/file/:id/:type', (req, res) => {
     const item = db.getContentById(req.params.id);
     if (!item) return res.status(404).json({ error: 'Article not found' });
     
+    // Automatically trigger Google Drive cloud sync for this specific article when accessed/downloaded
+    try {
+      const googleDriveService = require('./googleDriveService');
+      googleDriveService.syncArticleToDrive(item).catch(e => console.error('[Google Drive Sync Auto-Trigger Error]', e));
+    } catch(e) {}
+
     if (req.params.type === 'json') {
       res.setHeader('Content-Type', 'application/json');
       res.setHeader('Content-Disposition', `attachment; filename="${item.id}_metadata.json"`);
