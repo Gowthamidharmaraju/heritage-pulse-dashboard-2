@@ -1792,17 +1792,56 @@ ${item.body || 'No content written yet.'}`;
     }
   },
 
+  syncAbortController: null,
+
+  async cancelGoogleDriveSync() {
+    if (this.syncAbortController) {
+      this.syncAbortController.abort();
+      this.syncAbortController = null;
+      app.showToast("🛑 Google Drive Sync stopped by user.", "warning");
+    }
+  },
+
   async syncArticleToGoogleDrive(articleId, title) {
-    app.showToast(`☁️ Syncing "${title || articleId}" to Google Drive...`, 'info');
+    if (!articleId) {
+      const confirmSync = confirm("⚠️ SYNC ALL FOLDERS TO GOOGLE DRIVE?\n\nThis will sync all articles, photos, and Word documents to your Google Drive.\n\nClick 'OK' to start Sync All, or 'Cancel' if you only want to sync single articles.");
+      if (!confirmSync) return;
+    }
+
+    this.syncAbortController = new AbortController();
+    
+    // Show Toast with Stop Button
+    const toastMessage = `
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+        <span>☁️ Syncing ${title || 'all articles'} to Google Drive...</span>
+        <button onclick="FoldersView.cancelGoogleDriveSync()" style="background: #ef4444; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.75rem;">
+          🛑 Stop Sync
+        </button>
+      </div>
+    `;
+    app.showToast(toastMessage, 'info', 10000);
+
     try {
-      const res = await app.apiPost(`/api/folders/sync-drive/${articleId}`, {});
+      const res = await fetch(`/api/folders/sync-drive/${articleId || ''}`, {
+        method: 'POST',
+        signal: this.syncAbortController.signal,
+        headers: { 'Content-Type': 'application/json' }
+      }).then(r => r.json());
+
+      this.syncAbortController = null;
+
       if (res && res.success) {
         app.showToast(res.message || '✨ Article synced to Google Drive successfully!', 'success');
       } else {
         app.showToast(res.error || 'Google Drive sync failed.', 'error');
       }
     } catch (e) {
-      app.showToast(`Google Drive Sync Error: ${e.message}`, 'error');
+      if (e.name === 'AbortError') {
+        app.showToast("🛑 Google Drive Sync process was stopped.", "warning");
+      } else {
+        app.showToast(`Google Drive Sync Error: ${e.message}`, 'error');
+      }
+      this.syncAbortController = null;
     }
   },
 
