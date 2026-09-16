@@ -599,7 +599,7 @@ const ContentDetailView = {
                     </span>
                   ` : ''}
                   <div style="background: var(--bg-card-subtle); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: var(--saffron);">
-                    Images: ${item.images ? item.images.length : 0} / 5 uploaded
+                    Images: ${item.images ? item.images.length : 0} uploaded
                   </div>
                 </div>
               </div>
