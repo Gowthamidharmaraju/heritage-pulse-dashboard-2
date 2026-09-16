@@ -121,14 +121,25 @@ ${imagesList || '_No images attached to this article yet._'}
 }
 
 function formatArticleWordDocument(item) {
-  const imagesHtml = (item.images || []).map((img, i) => `
-    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+  const baseUrl = process.env.DASHBOARD_URL || 'http://localhost:3000';
+  const imagesHtml = (item.images || []).map((img, i) => {
+    let imgSrc = '';
+    if (img.file_url) {
+      if (img.file_url.startsWith('http://') || img.file_url.startsWith('https://') || img.file_url.startsWith('data:')) {
+        imgSrc = img.file_url;
+      } else {
+        imgSrc = `${baseUrl}${img.file_url.startsWith('/') ? '' : '/'}${img.file_url}`;
+      }
+    }
+    return `
+    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; text-align: center;">
+      ${imgSrc ? `<img src="${imgSrc}" style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto 10px auto; border-radius: 4px;" alt="${img.filename || 'Photo'}"/>` : ''}
       <p style="font-weight: bold; margin: 0 0 4px 0; color: #1e293b;">Image Asset ${i+1}: ${img.filename || 'Photo'}</p>
       <p style="margin: 0; color: #475569; font-size: 10pt;"><em>Caption:</em> ${img.caption || 'Editorial Photo'}</p>
       <p style="margin: 0; color: #64748b; font-size: 9pt;"><em>Credit:</em> ${img.credit || 'Heritage Pulse Photo Bureau'}</p>
-      ${img.file_url ? `<p style="margin: 4px 0 0 0; font-size: 9pt; color: #2563eb;">File Asset: ${img.file_url}</p>` : ''}
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   const linksList = (item.sources || []).map(s => `<li><a href="${s.url}">${s.name || s.url}</a></li>`).join('') +
     (item.reference_links ? `<li>Reference: <a href="${item.reference_links}">${item.reference_links}</a></li>` : '') +
