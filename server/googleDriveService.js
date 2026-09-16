@@ -168,15 +168,19 @@ class GoogleDriveService {
       console.log(`🚀 [Google Drive Sync] Starting upload for published article "${articleItem.title}" (${articleItem.id})...`);
 
       const pubDate = articleItem.publishing_date || articleItem.updated_at || '2026-09-15';
-      const year = pubDate.split('-')[0] || '2026';
-      const monthNum = parseInt(pubDate.split('-')[1] || '09', 10);
+      const d = new Date(pubDate);
+      const year = isNaN(d.getFullYear()) ? '2026' : String(d.getFullYear());
+      const monthNum = isNaN(d.getMonth()) ? 9 : (d.getMonth() + 1);
       const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       const monthName = `${String(monthNum).padStart(2, '0')}-${months[monthNum - 1] || 'September'}`;
-      const category = articleItem.category || 'General';
+      const category = (articleItem.category || 'General').trim();
       const folderName = `${articleItem.id}_${(articleItem.title || 'Article').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40)}`;
 
-      // Create folder inside the shared root Google Drive folder: Root -> ArticleFolder
-      const articleFolderId = await this.findOrCreateFolder(folderName, this.rootFolderId);
+      // Create nested folder hierarchy in Google Drive: Root -> Year -> Month -> Category -> Article Folder
+      const yearFolderId = await this.findOrCreateFolder(year, this.rootFolderId);
+      const monthFolderId = await this.findOrCreateFolder(monthName, yearFolderId);
+      const categoryFolderId = await this.findOrCreateFolder(category, monthFolderId);
+      const articleFolderId = await this.findOrCreateFolder(folderName, categoryFolderId);
 
       // 1. Save & Upload metadata.json
       const localVaultPath = path.join(__dirname, '..', 'public', 'content_vault', year, monthName, category, articleItem.id);
