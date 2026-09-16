@@ -93,14 +93,36 @@ class GoogleDriveService {
   async uploadFile(filePath, fileName, mimeType, parentFolderId) {
     if (!this.drive || !fs.existsSync(filePath)) return null;
     try {
-      const fileMetadata = {
-        name: fileName,
-        parents: [parentFolderId]
-      };
+      // Check if file already exists in this folder to avoid duplicates
+      const query = `name = '${fileName.replace(/'/g, "\\'")}' and '${parentFolderId}' in parents and trashed = false`;
+      const searchRes = await this.drive.files.list({
+        q: query,
+        fields: 'files(id, name)',
+        supportsAllDrives: true,
+        includeItemsFromAllDrives: true,
+        spaces: 'drive'
+      });
 
       const media = {
         mimeType: mimeType || 'application/octet-stream',
         body: fs.createReadStream(filePath)
+      };
+
+      if (searchRes.data.files && searchRes.data.files.length > 0) {
+        // Update existing file instead of creating duplicate!
+        const existingFileId = searchRes.data.files[0].id;
+        const file = await this.drive.files.update({
+          fileId: existingFileId,
+          media,
+          supportsAllDrives: true,
+          fields: 'id, webViewLink'
+        });
+        return file.data;
+      }
+
+      const fileMetadata = {
+        name: fileName,
+        parents: [parentFolderId]
       };
 
       const file = await this.drive.files.create({

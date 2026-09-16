@@ -972,12 +972,17 @@ app.all('/api/folders/sync-drive/:id?', async (req, res) => {
       const allItems = raw.content || [];
       let count = 0;
       for (const item of allItems) {
+        if (req.aborted || req.destroyed) {
+          console.log('🛑 [Google Drive Sync] Backend sync cancelled because client disconnected.');
+          return;
+        }
         await googleDriveService.syncArticleToDrive(item);
         count++;
       }
       return res.json({ success: true, message: `Successfully synced ${count} articles and their images/documents to Google Drive Vault!` });
     }
   } catch (err) {
+    if (req.aborted || req.destroyed) return;
     console.error('[Google Drive Sync API Error]', err);
     res.status(500).json({ error: err.message });
   }
