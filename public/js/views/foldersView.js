@@ -190,6 +190,9 @@ const FoldersView = {
         </div>
         
         <div class="view-actions">
+          <button class="btn btn-secondary btn-sm" onclick="FoldersView.syncArticleToGoogleDrive('', 'All Articles')" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700;">
+            <i class="fa-brands fa-google-drive"></i> Sync Google Drive
+          </button>
           <button class="btn btn-secondary btn-sm" onclick="FoldersView.triggerDiskSync()" title="Synchronize database content to physical filesystem folders">
             <i class="fa-solid fa-arrows-rotate text-teal-bright"></i> Sync Disk Folders
           </button>
