@@ -328,7 +328,24 @@ const AdminView = {
     const form = document.getElementById('add-user-form');
     if (form) form.reset();
     const modal = document.getElementById('add-user-modal');
-    if (modal) modal.classList.remove('hidden');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
+    }
+  },
+
+  handleRoleSelectChange(role) {
+    const titleSelect = document.getElementById('add-user-title-select');
+    if (!titleSelect) return;
+    if (role === 'Super Admin') {
+      titleSelect.value = 'Super Admin & Head of Content Operations';
+    } else if (role === 'Editor + Admin') {
+      titleSelect.value = 'Chief Editor & Co-Admin — Heritage Pulse';
+    } else if (role === 'Publisher') {
+      titleSelect.value = 'Digital Publishing & Web Operations Manager';
+    } else {
+      titleSelect.value = 'Senior Culture & Heritage Writer';
+    }
   },
 
   closeAddUserModal() {

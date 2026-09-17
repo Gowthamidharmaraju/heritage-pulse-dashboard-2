@@ -1059,22 +1059,35 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label class="form-label">Role & Permissions <span class="required">*</span></label>
-              <select name="role" class="form-control" required>
-                <option value="Writer" selected>Writer</option>
-                <option value="Editor">Editor</option>
+              <select name="role" id="add-user-role-select" class="form-control" required onchange="AdminView.handleRoleSelectChange(this.value)">
+                <option value="Super Admin">Super Admin</option>
+                <option value="Editor + Admin">Chief Editor & Co-Admin</option>
                 <option value="Publisher">Publisher</option>
-                <option value="Admin">Admin</option>
+                <option value="Writer" selected>Writer (Contributor)</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label">Initial Password <span class="required">*</span></label>
-              <input type="password" name="password" class="form-control" value="heritage2026" required>
+              <div class="password-input-wrapper" style="position: relative; display: flex; align-items: center;">
+                <input type="password" id="add-user-password" name="password" class="form-control" placeholder="Create Password" required style="padding-right: 40px;">
+                <button type="button" class="btn-toggle-pw" onclick="LoginView.togglePasswordVisibility('add-user-password', this)" style="position: absolute; right: 10px; background: none; border: none; color: var(--text-dim); cursor: pointer; padding: 4px 8px;">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Job Title / Beat</label>
-            <input type="text" name="title" class="form-control" placeholder="e.g. Senior Heritage & Architecture Writer">
+            <label class="form-label">Job Title / Designation <span class="required">*</span></label>
+            <select name="title" id="add-user-title-select" class="form-control" required>
+              <option value="Senior Culture & Heritage Writer">Senior Culture & Heritage Writer</option>
+              <option value="Arts, Music & Travel Reporter">Arts, Music & Travel Reporter</option>
+              <option value="Culinary & Living Traditions Writer">Culinary & Living Traditions Writer</option>
+              <option value="Staff Contributor" selected>Staff Contributor</option>
+              <option value="Chief Editor & Co-Admin — Heritage Pulse">Chief Editor & Co-Admin — Heritage Pulse</option>
+              <option value="Super Admin & Head of Content Operations">Super Admin & Head of Content Operations</option>
+              <option value="Digital Publishing & Web Operations Manager">Digital Publishing & Web Operations Manager</option>
+            </select>
           </div>
         </div>
 
