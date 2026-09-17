@@ -47,4 +47,4 @@ Long before wheat and polished white rice dominated the Indian subcontinental di
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/17/2026, 3:46:27 PM*
+*Heritage Pulse Editorial Vault — Generated on 9/17/2026, 3:53:45 PM*
