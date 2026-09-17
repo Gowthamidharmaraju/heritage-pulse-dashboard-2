@@ -18,14 +18,11 @@ const LoginView = {
             <p class="login-subtitle">Content Operations & Editorial Workflow Platform</p>
           </div>
 
-          <!-- LOGIN / REGISTER TABS -->
-          <div class="login-tab-bar">
-            <button class="login-tab-btn active" id="tab-btn-login" onclick="LoginView.switchTab('login')">
-              <i class="fa-solid fa-right-to-bracket"></i> Sign In
-            </button>
-            <button class="login-tab-btn" id="tab-btn-register" onclick="LoginView.switchTab('register')">
-              <i class="fa-solid fa-user-plus"></i> New Account
-            </button>
+          <!-- SIGN IN PORTAL HEADER -->
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div style="font-size: 0.9rem; font-weight: 600; color: var(--saffron); text-transform: uppercase; letter-spacing: 1px;">
+              <i class="fa-solid fa-lock"></i> Secure Staff Login
+            </div>
           </div>
 
           <!-- ERROR / ALERT MESSAGE -->
