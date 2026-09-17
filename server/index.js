@@ -238,7 +238,7 @@ app.put('/api/users/:id', (req, res) => {
 
 app.delete('/api/users/:id', (req, res) => {
   const raw = db.load();
-  const user = raw.users.find(u => u.id === req.params.id);
+  const user = raw.users.find(u => u.id === req.params.id) || dbSqlite.getUserById(req.params.id);
   if (!user) return res.status(404).json({ error: 'User not found' });
 
   // Protect root admin account from deletion
@@ -248,6 +248,13 @@ app.delete('/api/users/:id', (req, res) => {
 
   raw.users = raw.users.filter(u => u.id !== req.params.id);
   db.save(raw);
+  
+  try {
+    dbSqlite.deleteUser(req.params.id);
+  } catch (e) {
+    console.warn('SQLite user delete warning:', e.message);
+  }
+
   res.json({ message: `User ${user.name} removed successfully.` });
 });
 

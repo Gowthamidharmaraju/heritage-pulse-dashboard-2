@@ -634,6 +634,12 @@ function deleteContent(id) {
   return true;
 }
 
+function deleteUser(id) {
+  if (useJsonDb) return true;
+  db.prepare('DELETE FROM users WHERE id = ?').run(id);
+  return true;
+}
+
 // Notifications Queries
 function getNotifications(userId) {
   if (useJsonDb) {
@@ -668,5 +674,6 @@ module.exports = {
   createContent,
   updateContent,
   deleteContent,
+  deleteUser,
   getNotifications
 };
