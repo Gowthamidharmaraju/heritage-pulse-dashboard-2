@@ -360,7 +360,11 @@ const AdminView = {
     const email = form.email.value.trim();
     const role = form.role.value;
     const password = form.password.value;
-    const title = form.title.value.trim();
+    
+    let title = 'Staff Contributor';
+    if (role === 'Super Admin') title = 'Super Admin & Head of Content Operations';
+    else if (role === 'Editor + Admin') title = 'Chief Editor & Co-Admin';
+    else if (role === 'Publisher') title = 'Digital Publishing Manager';
 
     try {
       await app.apiPost('/api/auth/register', { name, email, role, password, title });
