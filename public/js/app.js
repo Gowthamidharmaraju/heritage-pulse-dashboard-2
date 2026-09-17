@@ -180,11 +180,10 @@ class App {
         defaultView = 'social-media';
       }
 
-      const initialHash = window.location.hash ? window.location.hash.replace(/^#\/?/, '') : defaultView;
-      this.currentView = initialHash || defaultView;
-      if (!window.location.hash) {
-        window.location.hash = `#/${this.currentView}`;
-      }
+      const currentPath = window.location.pathname.replace(/^\/+|\/+$/g, '');
+      const currentHash = window.location.hash.replace(/^#\/?/, '');
+      const initialView = currentPath || currentHash || defaultView;
+      this.currentView = initialView;
       
       this.handleRoute();
       this.startLiveClock();
@@ -460,13 +459,13 @@ class App {
         DashboardView.render(container);
         break;
       case 'my-work':
-        // Filter tracker by current user
-        if (this.currentUser.role === 'Writer') {
-          TrackerView.render(container, { writer_id: this.currentUser.id });
-        } else if (this.currentUser.role.includes('Editor') || this.currentUser.id === 'usr-editor-1') {
-          TrackerView.render(container, { editor_id: this.currentUser.id });
+        // Filter tracker by current user or show all items
+        if (this.currentUser && this.currentUser.role === 'Writer') {
+          TrackerView.render(container, { writer_id: this.currentUser.id, reset: true });
+        } else if (this.currentUser && (this.currentUser.role.includes('Editor') || this.currentUser.id === 'usr-editor-1')) {
+          TrackerView.render(container, { editor_id: this.currentUser.id, reset: true });
         } else {
-          TrackerView.render(container, {});
+          TrackerView.render(container, { reset: true });
         }
         break;
       case 'tracker':
