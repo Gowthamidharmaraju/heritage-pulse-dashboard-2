@@ -167,9 +167,8 @@ class App {
       this.populateCreateModalSelects();
 
       window.removeEventListener('hashchange', this._hashHandler);
-      window.removeEventListener('popstate', this._routeHandler);
-      this._routeHandler = () => this.handleRoute();
-      window.addEventListener('popstate', this._routeHandler);
+      this._hashHandler = () => this.handleRoute();
+      window.addEventListener('hashchange', this._hashHandler);
 
       // Role-tailored default landing view upon login
       let defaultView = 'dashboard';
@@ -181,12 +180,10 @@ class App {
         defaultView = 'social-media';
       }
 
-      const currentPath = window.location.pathname.replace(/^\/+|\/+$/g, '');
-      const initialView = currentPath || defaultView;
-      this.currentView = initialView;
-      
-      if (!currentPath) {
-        history.replaceState({ view: defaultView }, '', `/${defaultView}`);
+      const initialHash = window.location.hash ? window.location.hash.replace(/^#\/?/, '') : defaultView;
+      this.currentView = initialHash || defaultView;
+      if (!window.location.hash) {
+        window.location.hash = `#/${this.currentView}`;
       }
       
       this.handleRoute();
@@ -410,27 +407,29 @@ class App {
   }
 
   handleRoute() {
-    const rawPath = window.location.pathname.replace(/^\/+|\/+$/g, '') || 'dashboard';
-    const [viewName] = rawPath.split('?');
-    const queryParams = new URLSearchParams(window.location.search);
+    const rawHash = window.location.hash.replace(/^#\/?/, '') || 'dashboard';
+    const [viewName, queryStr] = rawHash.split('?');
     const params = {};
 
-    queryParams.forEach((val, key) => {
-      params[key] = val;
-    });
+    if (queryStr) {
+      new URLSearchParams(queryStr).forEach((val, key) => {
+        params[key] = val;
+      });
+    }
 
     this.navigateTo(viewName, params, false);
   }
 
-  navigateTo(view, params = {}, updateUrl = true) {
+  navigateTo(view, params = {}, updateHash = true) {
     this.currentView = view;
     this.viewParams = params;
 
-    if (updateUrl) {
+    if (updateHash) {
       const q = new URLSearchParams(params).toString();
-      const targetPath = q ? `/${view}?${q}` : `/${view}`;
-      if (window.location.pathname + window.location.search !== targetPath) {
-        history.pushState({ view, params }, '', targetPath);
+      const targetHash = q ? `#/${view}?${q}` : `#/${view}`;
+      if (window.location.hash !== targetHash) {
+        window.location.hash = targetHash;
+        return; // hashchange listener triggers handleRoute
       }
     }
 
