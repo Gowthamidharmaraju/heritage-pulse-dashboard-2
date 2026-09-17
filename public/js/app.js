@@ -2174,14 +2174,7 @@ class App {
     this.navigateTo('folders', { articleId });
   }
 
-  async apiDelete(url) {
-    const res = await fetch(url, {
-      method: 'DELETE',
-      headers: { 'x-user-id': this.currentUser.id }
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-    return res.json();
-  }
+
 
   startGuidedTour() {
     const driverInstance = window.driver ? window.driver.js.driver || window.driver.driver || window.driver : null;
