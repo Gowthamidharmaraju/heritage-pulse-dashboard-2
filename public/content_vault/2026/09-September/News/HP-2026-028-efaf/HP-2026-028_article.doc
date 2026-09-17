@@ -4,7 +4,7 @@
       xmlns="http://www.w3.org/TR/REC-html40">
 <head>
   <meta charset="utf-8">
-  <title>rfgf — Heritage Pulse</title>
+  <title>efaf — Heritage Pulse</title>
   <style>
     body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.6; color: #1e293b; margin: 40px; }
     h1 { color: #d97706; font-size: 22pt; font-family: 'Times New Roman', Georgia, serif; margin-bottom: 6px; border-bottom: 2px solid #fef3c7; padding-bottom: 8px; }
@@ -17,12 +17,12 @@
   </style>
 </head>
 <body>
-  <h1>rfgf</h1>
+  <h1>efaf</h1>
   
   
   <table class="meta-table">
     <tr>
-      <td><strong>Article ID:</strong> HP-2026-025</td>
+      <td><strong>Article ID:</strong> HP-2026-028</td>
       <td><strong>Category:</strong> News</td>
       <td><strong>Content Type:</strong> Featured Article</td>
     </tr>
@@ -51,13 +51,20 @@
               
   </div>
 
-  <h2>Attached Media Assets (0)</h2>
-  <p>No images attached to this article.</p>
+  <h2>Attached Media Assets (1)</h2>
+  
+    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; text-align: center;">
+      <img src="http://192.168.0.63:3000/uploads/1789473466244-415891145.jpeg" style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto 10px auto; border-radius: 4px;" alt="Banner.jpg.jpeg"/>
+      <p style="font-weight: bold; margin: 0 0 4px 0; color: #1e293b;">Image Asset 1: Banner.jpg.jpeg</p>
+      <p style="margin: 0; color: #475569; font-size: 10pt;"><em>Caption:</em> Banner.jpg at Heritage Pulse</p>
+      <p style="margin: 0; color: #64748b; font-size: 9pt;"><em>Credit:</em> test / Heritage Pulse Bureau</p>
+    </div>
+  
 
-  <h2>Reference Sources & Links</h2><ul><li>Live URL: <a href="https://heritagepulse.org/news/hp-2026-025-rfgf">https://heritagepulse.org/news/hp-2026-025-rfgf</a></li></ul>
+  <h2>Reference Sources & Links</h2><ul><li>Live URL: <a href="https://heritagepulse.org/news/hp-2026-028-efaf">https://heritagepulse.org/news/hp-2026-028-efaf</a></li></ul>
 
   <div class="footer">
-    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-025 · Generated on 9/17/2026, 9:28:43 AM</p>
+    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-028 · Generated on 9/17/2026, 9:28:43 AM</p>
   </div>
 </body>
 </html>

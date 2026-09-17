@@ -1,0 +1,88 @@
+{
+  "id": "HP-2026-001",
+  "title": "Traditional Temple Architecture of Andhra Pradesh: The Dravidian & Chalukyan Marvels",
+  "subtitle": "Exploring the intricate granite carvings, gopurams, and acoustic pillars of Lepakshi, Simhachalam, and Srisailam.",
+  "topic": "Traditional Temple Architecture of Andhra Pradesh",
+  "category": "Heritage",
+  "subcategory": "Temple Architecture",
+  "content_type": "Featured Article",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-1",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-08-20",
+  "deadline": "2026-08-25",
+  "publishing_date": "2026-09-16",
+  "published_url": "https://heritagepulse.org/heritage/hp-2026-001-traditional-temple-architecture-of-andhr",
+  "short_description": "A deep dive into the stone marvels of Andhra Pradesh, highlighting architectural ingenuity from the Kakatiya to Vijayanagara empires.",
+  "body": "\n                \n                <h2 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">The Majesty of Deccan Stone</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs,49~hs\" rtrvr-ro=\"42\">The temple architecture of Andhra Pradesh represents a magnificent confluence of <strong rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Dravidian</strong>, <em rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Chalukyan</em>, and Vijayanagara idioms. Standing before the monolithic Nandi at Lepakshi or gazing upon the floating pillar of Veerabhadra Temple, one is struck by the peerless mastery of medieval Indian stone masons.</p><h3 rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">1. The Hanging Pillar of Lepakshi</h3><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Built in the 16th century by the brothers Virupanna and Veeranna, the Veerabhadra temple in Lepakshi is renowned for its 70 stone pillars. Among them, one legendary pillar does not touch the ground completely, allowing thin cloths to pass underneath—a testament to precise load balancing and stone joinery.</p><h3 rtrvr-ls=\"49~hs\" rtrvr-ro=\"42\">2. Srisailam: The Hilltop Citadel</h3><p>Perched on the Nallamala hills, the Bhramaramba Mallikarjuna Temple showcases massive stone prakarams (outer walls) carved with military pageantry, mythological friezes, and pastoral life scenes.</p><blockquote rtrvr-ls=\"49~hs\" rtrvr-ro=\"42\">\"The temple was not merely a place of worship; it was an epicenter of art, dance, community granary, and astronomical observation.\"</blockquote>\n              \n              ",
+  "tags": [
+    "TempleArchitecture",
+    "Lepakshi",
+    "AndhraHeritage",
+    "VijayanagaraArt",
+    "StoneCarving"
+  ],
+  "seo_title": "Temple Architecture of Andhra Pradesh | Heritage Pulse Editorial",
+  "seo_description": "Discover the architectural wonders of Andhra Pradesh temples, from Lepakshi's hanging pillars to Srisailam's historic prakarams.",
+  "keywords": "Andhra temple architecture, Lepakshi hanging pillar, Vijayanagara temples, Dravidian stone architecture",
+  "featured_image": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "reference_links": "https://asi.nic.in/deccan-circle-monuments",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Archaeological Survey of India (ASI) Deccan Circle",
+      "url": "https://asi.nic.in"
+    },
+    {
+      "id": "src-2",
+      "name": "Deccan Heritage Historical Monograph 2026",
+      "url": "https://heritagepulse.org/research/deccan-architecture"
+    }
+  ],
+  "notes": "Writer Pavitra needs to double check the exact construction dates of the Simhachalam outer mandapam.",
+  "images": [
+    {
+      "id": "img-001-1",
+      "file_url": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+      "filename": "lepakshi-nandi-monolith.jpg",
+      "caption": "The monolithic granite Nandi at Lepakshi, carved out of a single boulder.",
+      "credit": "Heritage Pulse Photo Bureau / Pavitra",
+      "alt_text": "Monolithic stone bull sculpture at Lepakshi temple",
+      "is_featured": true,
+      "sort_order": 1
+    },
+    {
+      "id": "img-001-2",
+      "file_url": "https://images.unsplash.com/photo-1600100397608-f010f443818e?auto=format&fit=crop&w=1200&q=80",
+      "filename": "simhachalam-mandapa-pillars.jpg",
+      "caption": "Acoustic stone pillars and friezes at Simhachalam Temple complex.",
+      "credit": "ASI Archives",
+      "alt_text": "Intricately carved stone temple pillars",
+      "is_featured": false,
+      "sort_order": 2
+    }
+  ],
+  "created_at": "2026-08-20T10:00:00Z",
+  "updated_at": "2026-09-16T11:23:19.375Z",
+  "checklist": {
+    "article_checked": true,
+    "images_checked": true,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": true,
+    "mobile_preview_checked": false,
+    "desktop_preview_checked": true,
+    "website_published": true
+  },
+  "editor_heart": true,
+  "editor_rated_by": "Dr. Tejaswini Ma'am",
+  "editor_rated_at": "2026-09-16T11:23:19.375Z",
+  "editor_rating": 5
+}

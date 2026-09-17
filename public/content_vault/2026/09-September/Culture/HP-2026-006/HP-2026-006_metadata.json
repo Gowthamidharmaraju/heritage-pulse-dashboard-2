@@ -1,0 +1,248 @@
+{
+  "id": "HP-2026-006",
+  "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+  "subtitle": "The ancient art of vegetable-dyed storytelling using bamboo pens, myrobalan baths, and river water washing.",
+  "topic": "Kalamkari Handcrafted Textiles",
+  "category": "Culture",
+  "subcategory": "Handlooms & Crafts",
+  "content_type": "Heritage Story",
+  "frequency": "Weekly",
+  "writer_id": "usr-writer-1",
+  "editor_id": "usr-editor-1",
+  "final_approver_id": "usr-editor-1",
+  "publisher_id": "usr-publisher-1",
+  "priority": "High",
+  "status": "PUBLISHED",
+  "progress": 100,
+  "start_date": "2026-08-17",
+  "deadline": "2026-08-23",
+  "publishing_date": "2026-09-16",
+  "published_url": "https://heritagepulse.org/culture/hp-2026-006-kalamkari-textile-art-hand-painted-stori",
+  "short_description": "An investigative feature into the 23-step process of traditional Kalamkari and the socio-economic challenges faced by artisan clusters.",
+  "body": "\n                \n                \n                <h2>The Pen That Weaves Myths</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              \n              \n              ",
+  "tags": [
+    "Kalamkari",
+    "IndianHandlooms",
+    "SrikalahastiArt",
+    "NaturalDyes",
+    "CraftRevival"
+  ],
+  "seo_title": "Kalamkari Textile Art: 23-Step Hand-Painted Heritage | Heritage Pulse",
+  "seo_description": "Explore the authentic natural dyeing and pen-painting craft of Kalamkari in Andhra Pradesh.",
+  "keywords": "Kalamkari art, Srikalahasti textile, natural vegetable dye, bamboo kalam",
+  "featured_image": "https://images.unsplash.com/photo-1606744888344-493238955de0?auto=format&fit=crop&w=1200&q=80",
+  "video_url": "",
+  "reference_links": "https://handlooms.nic.in",
+  "sources": [
+    {
+      "id": "src-1",
+      "name": "Ministry of Textiles National Handloom Registry",
+      "url": "https://handlooms.nic.in"
+    }
+  ],
+  "notes": "EDITOR NOTE (Dr. Tejaswini Ma'am): Please expand the section on natural vegetable dye sourcing and Swarnamukhi river washing.",
+  "images": [
+    {
+      "id": "img-006-1",
+      "file_url": "https://images.unsplash.com/photo-1606744888344-493238955de0?auto=format&fit=crop&w=1200&q=80",
+      "filename": "kalamkari-artisan-drawing.jpg",
+      "caption": "Senior artisan sketching mythological figures with a sharp bamboo kalam.",
+      "credit": "Heritage Pulse Field Photo / Pavitra",
+      "alt_text": "Artisan hands drawing detailed textile designs on handwoven cloth",
+      "is_featured": true,
+      "sort_order": 1
+    }
+  ],
+  "created_at": "2026-08-17T11:30:00Z",
+  "updated_at": "2026-09-16T10:57:54.778Z",
+  "checklist": {
+    "article_checked": false,
+    "images_checked": false,
+    "featured_image_selected": true,
+    "category_selected": true,
+    "tags_added": true,
+    "seo_completed": false,
+    "mobile_preview_checked": false,
+    "desktop_preview_checked": false,
+    "website_published": true
+  },
+  "is_overdue": false,
+  "writer": {
+    "id": "usr-writer-1",
+    "name": "Pavitra",
+    "email": "pavitra@heritagepulse.org",
+    "role": "Writer",
+    "title": "Senior Culture & Heritage Writer",
+    "avatar": "P",
+    "status": "Active",
+    "phone": "+91 98441 22334",
+    "assignedCategories": [
+      "Heritage",
+      "Culture",
+      "Dance",
+      "Jewellery"
+    ],
+    "created_at": "2026-02-01T10:00:00Z"
+  },
+  "editor": {
+    "id": "usr-editor-1",
+    "name": "Dr. Tejaswini Ma'am",
+    "email": "tejaswini@heritagepulse.org",
+    "role": "Editor + Admin",
+    "title": "Chief Editor & Co-Admin — Heritage Pulse",
+    "avatar": "TM",
+    "status": "Active",
+    "phone": "+91 99887 11223",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-15T09:30:00Z"
+  },
+  "publisher": {
+    "id": "usr-publisher-1",
+    "name": "Gowthami",
+    "email": "gowthami@heritagepulse.org",
+    "role": "Publisher",
+    "title": "Digital Publishing & Web Operations Manager",
+    "avatar": "G",
+    "status": "Active",
+    "phone": "+91 91234 66789",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-20T09:00:00Z"
+  },
+  "final_approver": {
+    "id": "usr-editor-1",
+    "name": "Dr. Tejaswini Ma'am",
+    "email": "tejaswini@heritagepulse.org",
+    "role": "Editor + Admin",
+    "title": "Chief Editor & Co-Admin — Heritage Pulse",
+    "avatar": "TM",
+    "status": "Active",
+    "phone": "+91 99887 11223",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-15T09:30:00Z"
+  },
+  "workflow_history": [
+    {
+      "id": "wf-1789556275834",
+      "content_id": "HP-2026-006",
+      "user_id": "usr-editor-1",
+      "user_name": "Dr. Tejaswini Ma'am",
+      "user_role": "Editor + Admin",
+      "action": "PUBLISHED",
+      "previous_status": "FINAL_REVIEW",
+      "new_status": "PUBLISHED",
+      "progress": 100,
+      "comment": "Moved to Published (100% Complete) by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "created_at": "2026-09-16T10:57:54.778Z"
+    },
+    {
+      "id": "wf-1789556270138",
+      "content_id": "HP-2026-006",
+      "user_id": "usr-editor-1",
+      "user_name": "Dr. Tejaswini Ma'am",
+      "user_role": "Editor + Admin",
+      "action": "FINAL_REVIEW",
+      "previous_status": "WRITER_SUBMITTED",
+      "new_status": "FINAL_REVIEW",
+      "progress": 90,
+      "comment": "Moved to Final Approval Stage by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "created_at": "2026-09-16T10:57:50.138Z"
+    },
+    {
+      "id": "wf-1788590416433",
+      "content_id": "HP-2026-006",
+      "user_id": "usr-writer-1",
+      "user_name": "Pavitra",
+      "user_role": "Writer",
+      "action": "WRITER_SUBMITTED",
+      "previous_status": "CHANGES_REQUIRED",
+      "new_status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "comment": "Moved to Submitted to Editor by Pavitra (Writer).",
+      "created_at": "2026-09-05T06:40:16.433Z"
+    }
+  ],
+  "comments": [],
+  "versions": [
+    {
+      "id": "ver-HP-2026-006-6",
+      "content_id": "HP-2026-006",
+      "version_number": 6,
+      "version_label": "Version 6 — Published (100% Complete)",
+      "author_name": "Dr. Tejaswini Ma'am (Editor + Admin)",
+      "author_avatar": "TM",
+      "stage": "PUBLISHED",
+      "stage_label": "Published (100% Complete)",
+      "progress": 100,
+      "word_count": 30,
+      "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+      "body": "\n                \n                \n                <h2>The Pen That Weaves Myths</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              \n              \n              ",
+      "created_at": "2026-09-16T10:57:54.778Z"
+    },
+    {
+      "id": "ver-HP-2026-006-5",
+      "content_id": "HP-2026-006",
+      "version_number": 5,
+      "version_label": "Version 5 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-16T10:57:54.754Z",
+      "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+      "body": "\n                \n                \n                <h2>The Pen That Weaves Myths</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              \n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-006-4",
+      "content_id": "HP-2026-006",
+      "version_number": 4,
+      "version_label": "Version 4 — Final Approval Stage",
+      "author_name": "Dr. Tejaswini Ma'am (Editor + Admin)",
+      "author_avatar": "TM",
+      "stage": "FINAL_REVIEW",
+      "stage_label": "Final Approval Stage",
+      "progress": 90,
+      "word_count": 30,
+      "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+      "body": "\n                \n                <h2>The Pen That Weaves Myths</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              \n              ",
+      "created_at": "2026-09-16T10:57:50.138Z"
+    },
+    {
+      "id": "ver-HP-2026-006-3",
+      "content_id": "HP-2026-006",
+      "version_number": 3,
+      "version_label": "Version 3 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-16T10:57:50.112Z",
+      "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+      "body": "\n                \n                <h2>The Pen That Weaves Myths</h2><p rtrvr-ls=\"5~hs,6~hs,8~hs,9~hs\" rtrvr-ro=\"42\">Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-006-2",
+      "content_id": "HP-2026-006",
+      "version_number": 2,
+      "version_label": "Version 2 — Submitted to Editor",
+      "author_name": "Pavitra (Writer)",
+      "author_avatar": "P",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "progress": 60,
+      "word_count": 30,
+      "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+      "body": "\n                <h2>The Pen That Weaves Myths</h2><p>Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              ",
+      "created_at": "2026-09-05T06:40:16.433Z"
+    },
+    {
+      "id": "ver-HP-2026-006-1",
+      "content_id": "HP-2026-006",
+      "version_number": 1,
+      "version_label": "Version 1 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-05T06:40:16.423Z",
+      "title": "Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam",
+      "body": "\n                <h2>The Pen That Weaves Myths</h2><p>Literally translating to 'pen work' (<em>kalam</em> = pen, <em>kari</em> = craftsmanship), Kalamkari in Andhra Pradesh flourishes in two distinct historic hubs: Srikalahasti and Machilipatnam.</p>\n              "
+    }
+  ]
+}

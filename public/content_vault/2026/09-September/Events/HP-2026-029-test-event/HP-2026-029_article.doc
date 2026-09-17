@@ -54,18 +54,18 @@
 
   <h2>Attached Media Assets (1)</h2>
   
-    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; text-align: center;">
+      <img src="http://192.168.0.63:3000/uploads/1788859555418-90072118.jpeg" style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto 10px auto; border-radius: 4px;" alt="WhatsApp Image 2026-09-08 at 8.32.27 AM.jpeg"/>
       <p style="font-weight: bold; margin: 0 0 4px 0; color: #1e293b;">Image Asset 1: WhatsApp Image 2026-09-08 at 8.32.27 AM.jpeg</p>
       <p style="margin: 0; color: #475569; font-size: 10pt;"><em>Caption:</em> WhatsApp Image 2026-09-08 at 8.32.27 AM at Heritage Pulse</p>
       <p style="margin: 0; color: #64748b; font-size: 9pt;"><em>Credit:</em> test / Heritage Pulse Bureau</p>
-      <p style="margin: 4px 0 0 0; font-size: 9pt; color: #2563eb;">File Asset: /uploads/1788859555418-90072118.jpeg</p>
     </div>
   
 
   <h2>Reference Sources & Links</h2><ul><li>Live URL: <a href="https://heritagepulse.org/events/hp-2026-029-test-event">https://heritagepulse.org/events/hp-2026-029-test-event</a></li></ul>
 
   <div class="footer">
-    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-029 · Generated on 9/15/2026, 5:23:25 PM</p>
+    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-029 · Generated on 9/17/2026, 9:28:43 AM</p>
   </div>
 </body>
 </html>

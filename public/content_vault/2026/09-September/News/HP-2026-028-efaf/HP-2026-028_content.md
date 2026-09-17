@@ -1,6 +1,6 @@
 ---
-id: "HP-2026-021"
-title: "test task"
+id: "HP-2026-028"
+title: "efaf"
 category: "News"
 content_type: "Featured Article"
 priority: "High"
@@ -10,15 +10,15 @@ editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-24"
 deadline: "2026-08-27"
 publishing_date: "2026-09-15"
-published_url: "https://heritagepulse.org/news/hp-2026-021-test-task"
+published_url: "https://heritagepulse.org/news/hp-2026-028-efaf"
 tags: ["HeritagePulse"]
-seo_title: "test task | Heritage Pulse"
-seo_description: ""
-created_at: "2026-09-07T08:52:10.543Z"
-vault_folder: "HP-2026-021"
+seo_title: "efaf | Heritage Pulse"
+seo_description: "xcv"
+created_at: "2026-09-15T11:57:41.235Z"
+vault_folder: "HP-2026-028"
 ---
 
-# test task
+# efaf
 
 
 **Category:** News | **Author:** Staff Writer | **Status:** PUBLISHED
@@ -29,10 +29,11 @@ vault_folder: "HP-2026-021"
 
 
                 
-                fghfghfg
+                
+                
+                
 
 
-              
               
               
               
@@ -40,9 +41,12 @@ vault_folder: "HP-2026-021"
 
 ---
 
-## Attached Media & Images (0 assets)
+## Attached Media & Images (1 assets)
 
-_No images attached to this article yet._
+
+![Banner.jpg at Heritage Pulse](/uploads/1789473466244-415891145.jpeg)
+*Caption:* Banner.jpg at Heritage Pulse | *Credit:* test / Heritage Pulse Bureau
+
 
 ---
 *Heritage Pulse Editorial Vault — Generated on 9/17/2026, 9:28:43 AM*

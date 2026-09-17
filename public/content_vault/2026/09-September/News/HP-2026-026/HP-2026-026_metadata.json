@@ -49,5 +49,260 @@
     "mobile_preview_checked": false,
     "desktop_preview_checked": false,
     "website_published": true
-  }
+  },
+  "is_overdue": false,
+  "writer": {
+    "id": "usr-admin-1",
+    "name": "Jitendra",
+    "email": "jitendra@heritagepulse.org",
+    "role": "Super Admin",
+    "title": "Super Admin & Head of Content Operations",
+    "avatar": "J",
+    "status": "Active",
+    "phone": "+91 98765 43210",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-10T09:00:00Z"
+  },
+  "editor": {
+    "id": "usr-editor-1",
+    "name": "Dr. Tejaswini Ma'am",
+    "email": "tejaswini@heritagepulse.org",
+    "role": "Editor + Admin",
+    "title": "Chief Editor & Co-Admin — Heritage Pulse",
+    "avatar": "TM",
+    "status": "Active",
+    "phone": "+91 99887 11223",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-15T09:30:00Z"
+  },
+  "publisher": {
+    "id": "usr-publisher-1",
+    "name": "Gowthami",
+    "email": "gowthami@heritagepulse.org",
+    "role": "Publisher",
+    "title": "Digital Publishing & Web Operations Manager",
+    "avatar": "G",
+    "status": "Active",
+    "phone": "+91 91234 66789",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-20T09:00:00Z"
+  },
+  "final_approver": {
+    "id": "usr-editor-1",
+    "name": "Dr. Tejaswini Ma'am",
+    "email": "tejaswini@heritagepulse.org",
+    "role": "Editor + Admin",
+    "title": "Chief Editor & Co-Admin — Heritage Pulse",
+    "avatar": "TM",
+    "status": "Active",
+    "phone": "+91 99887 11223",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-15T09:30:00Z"
+  },
+  "workflow_history": [
+    {
+      "id": "wf-1789468823018",
+      "content_id": "HP-2026-026",
+      "user_id": "usr-editor-1",
+      "user_name": "Dr. Tejaswini Ma'am",
+      "user_role": "Editor + Admin",
+      "action": "PUBLISHED",
+      "previous_status": "READY_TO_PUBLISH",
+      "new_status": "PUBLISHED",
+      "progress": 100,
+      "comment": "Moved to Published (100% Complete) by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "created_at": "2026-09-15T10:40:23.017Z"
+    },
+    {
+      "id": "wf-1789468818433",
+      "content_id": "HP-2026-026",
+      "user_id": "usr-editor-1",
+      "user_name": "Dr. Tejaswini Ma'am",
+      "user_role": "Editor + Admin",
+      "action": "READY_TO_PUBLISH",
+      "previous_status": "FINAL_REVIEW",
+      "new_status": "READY_TO_PUBLISH",
+      "progress": 95,
+      "comment": "Moved to Ready for Website Publishing by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "created_at": "2026-09-15T10:40:18.433Z"
+    },
+    {
+      "id": "wf-1789468815271",
+      "content_id": "HP-2026-026",
+      "user_id": "usr-editor-1",
+      "user_name": "Dr. Tejaswini Ma'am",
+      "user_role": "Editor + Admin",
+      "action": "FINAL_REVIEW",
+      "previous_status": "WRITER_SUBMITTED",
+      "new_status": "FINAL_REVIEW",
+      "progress": 90,
+      "comment": "Moved to Final Approval Stage by Dr. Tejaswini Ma'am (Editor + Admin).",
+      "created_at": "2026-09-15T10:40:15.271Z"
+    },
+    {
+      "id": "wf-1788779886638",
+      "content_id": "HP-2026-026",
+      "user_id": "usr-1788591826227",
+      "user_name": "test",
+      "user_role": "Writer",
+      "action": "WRITER_SUBMITTED",
+      "previous_status": "WRITING",
+      "new_status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "comment": "Moved to Submitted to Editor by test (Writer).",
+      "created_at": "2026-09-07T11:18:06.638Z"
+    },
+    {
+      "id": "wf-1788772318665",
+      "content_id": "HP-2026-026",
+      "user_id": "usr-1788591826227",
+      "user_name": "test",
+      "user_role": "Writer",
+      "action": "WRITING",
+      "previous_status": "ASSIGNED",
+      "new_status": "WRITING",
+      "progress": 25,
+      "comment": "Moved to Writing In Progress by test (Writer).",
+      "created_at": "2026-09-07T09:11:58.665Z"
+    },
+    {
+      "id": "wf-1788772316108-1",
+      "content_id": "HP-2026-026",
+      "user_id": "usr-1788591826227",
+      "user_name": "test",
+      "user_role": "Writer",
+      "action": "WRITER_ASSIGNED",
+      "previous_status": "NONE",
+      "new_status": "ASSIGNED",
+      "progress": 10,
+      "comment": "Topic created by test and assigned to writer.",
+      "created_at": "2026-09-07T09:11:56.108Z"
+    }
+  ],
+  "comments": [],
+  "versions": [
+    {
+      "id": "ver-HP-2026-026-9",
+      "content_id": "HP-2026-026",
+      "version_number": 9,
+      "version_label": "Version 9 — Published (100% Complete)",
+      "author_name": "Dr. Tejaswini Ma'am (Editor + Admin)",
+      "author_avatar": "TM",
+      "stage": "PUBLISHED",
+      "stage_label": "Published (100% Complete)",
+      "progress": 100,
+      "word_count": 0,
+      "title": "vbb",
+      "body": "\n                \n                \n                \n                \n                <p></p>\n              \n              \n              \n              \n              ",
+      "created_at": "2026-09-15T10:40:23.017Z"
+    },
+    {
+      "id": "ver-HP-2026-026-8",
+      "content_id": "HP-2026-026",
+      "version_number": 8,
+      "version_label": "Version 8 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-15T10:40:22.995Z",
+      "title": "vbb",
+      "body": "\n                \n                \n                \n                \n                <p></p>\n              \n              \n              \n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-026-7",
+      "content_id": "HP-2026-026",
+      "version_number": 7,
+      "version_label": "Version 7 — Ready for Website Publishing",
+      "author_name": "Dr. Tejaswini Ma'am (Editor + Admin)",
+      "author_avatar": "TM",
+      "stage": "READY_TO_PUBLISH",
+      "stage_label": "Ready for Website Publishing",
+      "progress": 95,
+      "word_count": 0,
+      "title": "vbb",
+      "body": "\n                \n                \n                \n                <p></p>\n              \n              \n              \n              ",
+      "created_at": "2026-09-15T10:40:18.433Z"
+    },
+    {
+      "id": "ver-HP-2026-026-6",
+      "content_id": "HP-2026-026",
+      "version_number": 6,
+      "version_label": "Version 6 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-15T10:40:18.412Z",
+      "title": "vbb",
+      "body": "\n                \n                \n                \n                <p></p>\n              \n              \n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-026-5",
+      "content_id": "HP-2026-026",
+      "version_number": 5,
+      "version_label": "Version 5 — Final Approval Stage",
+      "author_name": "Dr. Tejaswini Ma'am (Editor + Admin)",
+      "author_avatar": "TM",
+      "stage": "FINAL_REVIEW",
+      "stage_label": "Final Approval Stage",
+      "progress": 90,
+      "word_count": 0,
+      "title": "vbb",
+      "body": "\n                \n                \n                <p></p>\n              \n              \n              ",
+      "created_at": "2026-09-15T10:40:15.271Z"
+    },
+    {
+      "id": "ver-HP-2026-026-4",
+      "content_id": "HP-2026-026",
+      "version_number": 4,
+      "version_label": "Version 4 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-15T10:40:15.246Z",
+      "title": "vbb",
+      "body": "\n                \n                \n                <p></p>\n              \n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-026-3",
+      "content_id": "HP-2026-026",
+      "version_number": 3,
+      "version_label": "Version 3 — Submitted to Editor",
+      "author_name": "test (Writer)",
+      "author_avatar": "T",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "progress": 60,
+      "word_count": 0,
+      "title": "vbb",
+      "body": "\n                \n                <p></p>\n              \n              ",
+      "created_at": "2026-09-07T11:18:06.638Z"
+    },
+    {
+      "id": "ver-HP-2026-026-2",
+      "content_id": "HP-2026-026",
+      "version_number": 2,
+      "version_label": "Version 2 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-07T11:18:06.616Z",
+      "title": "vbb",
+      "body": "\n                \n                <p></p>\n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-026-1",
+      "content_id": "HP-2026-026",
+      "version_number": 1,
+      "version_label": "Version 1 — Writing In Progress",
+      "author_name": "test (Writer)",
+      "author_avatar": "T",
+      "stage": "WRITING",
+      "stage_label": "Writing In Progress",
+      "progress": 25,
+      "word_count": 0,
+      "title": "vbb",
+      "body": "\n                <p></p>\n              ",
+      "created_at": "2026-09-07T09:11:58.665Z"
+    }
+  ]
 }

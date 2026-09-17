@@ -65,5 +65,69 @@
     "mobile_preview_checked": true,
     "desktop_preview_checked": true,
     "website_published": true
-  }
+  },
+  "is_overdue": false,
+  "writer": {
+    "id": "usr-writer-2",
+    "name": "Nikitha",
+    "email": "nikitha@heritagepulse.org",
+    "role": "Writer",
+    "title": "Arts, Music & Travel Reporter",
+    "avatar": "N",
+    "status": "Active",
+    "phone": "+91 97112 55667",
+    "assignedCategories": [
+      "Art",
+      "Music",
+      "Travel",
+      "Events",
+      "Fusion"
+    ],
+    "created_at": "2026-02-15T10:00:00Z"
+  },
+  "editor": {
+    "id": "usr-editor-1",
+    "name": "Dr. Tejaswini Ma'am",
+    "email": "tejaswini@heritagepulse.org",
+    "role": "Editor + Admin",
+    "title": "Chief Editor & Co-Admin — Heritage Pulse",
+    "avatar": "TM",
+    "status": "Active",
+    "phone": "+91 99887 11223",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-15T09:30:00Z"
+  },
+  "publisher": {
+    "id": "usr-publisher-1",
+    "name": "Gowthami",
+    "email": "gowthami@heritagepulse.org",
+    "role": "Publisher",
+    "title": "Digital Publishing & Web Operations Manager",
+    "avatar": "G",
+    "status": "Active",
+    "phone": "+91 91234 66789",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-20T09:00:00Z"
+  },
+  "final_approver": {
+    "id": "usr-editor-1",
+    "name": "Dr. Tejaswini Ma'am",
+    "email": "tejaswini@heritagepulse.org",
+    "role": "Editor + Admin",
+    "title": "Chief Editor & Co-Admin — Heritage Pulse",
+    "avatar": "TM",
+    "status": "Active",
+    "phone": "+91 99887 11223",
+    "assignedCategories": [
+      "All"
+    ],
+    "created_at": "2026-01-15T09:30:00Z"
+  },
+  "workflow_history": [],
+  "comments": [],
+  "versions": []
 }

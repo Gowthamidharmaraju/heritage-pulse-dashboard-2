@@ -1,7 +1,7 @@
 # test task
 
 **Category**: News | **Status**: PUBLISHED
-**Writer**: Heritage Pulse Bureau
+**Writer**: Nikitha
 
 
                 

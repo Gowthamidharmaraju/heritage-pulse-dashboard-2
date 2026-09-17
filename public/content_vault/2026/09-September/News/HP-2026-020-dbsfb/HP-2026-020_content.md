@@ -1,6 +1,6 @@
 ---
-id: "HP-2026-021"
-title: "test task"
+id: "HP-2026-020"
+title: "dbsfb"
 category: "News"
 content_type: "Featured Article"
 priority: "High"
@@ -9,16 +9,16 @@ writer: "Staff"
 editor: "Dr. Tejaswini Ma'am"
 start_date: "2026-08-24"
 deadline: "2026-08-27"
-publishing_date: "2026-09-15"
-published_url: "https://heritagepulse.org/news/hp-2026-021-test-task"
+publishing_date: "2026-09-16"
+published_url: "https://heritagepulse.org/news/hp-2026-020-dbsfb"
 tags: ["HeritagePulse"]
-seo_title: "test task | Heritage Pulse"
+seo_title: "dbsfb | Heritage Pulse"
 seo_description: ""
-created_at: "2026-09-07T08:52:10.543Z"
-vault_folder: "HP-2026-021"
+created_at: "2026-09-07T08:48:35.020Z"
+vault_folder: "HP-2026-020"
 ---
 
-# test task
+# dbsfb
 
 
 **Category:** News | **Author:** Staff Writer | **Status:** PUBLISHED
@@ -29,10 +29,11 @@ vault_folder: "HP-2026-021"
 
 
                 
-                fghfghfg
+                
+                
+                
 
 
-              
               
               
               
