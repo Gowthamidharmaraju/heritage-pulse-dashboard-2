@@ -135,7 +135,7 @@ class App {
     this.currentUser = null;
     localStorage.removeItem('hp_auth_token');
     this.showToast("Signed out successfully.", "info");
-    window.location.hash = '';
+    history.pushState(null, '', '/');
     this.renderLoginView();
   }
 
@@ -167,8 +167,9 @@ class App {
       this.populateCreateModalSelects();
 
       window.removeEventListener('hashchange', this._hashHandler);
-      this._hashHandler = () => this.handleRoute();
-      window.addEventListener('hashchange', this._hashHandler);
+      window.removeEventListener('popstate', this._routeHandler);
+      this._routeHandler = () => this.handleRoute();
+      window.addEventListener('popstate', this._routeHandler);
 
       // Role-tailored default landing view upon login
       let defaultView = 'dashboard';
@@ -180,9 +181,14 @@ class App {
         defaultView = 'social-media';
       }
 
-      const initialHash = window.location.hash ? window.location.hash.replace('#', '') : defaultView;
-      this.currentView = initialHash || defaultView;
-      window.location.hash = `#${this.currentView}`;
+      const currentPath = window.location.pathname.replace(/^\/+|\/+$/g, '');
+      const initialView = currentPath || defaultView;
+      this.currentView = initialView;
+      
+      if (!currentPath) {
+        history.replaceState({ view: defaultView }, '', `/${defaultView}`);
+      }
+      
       this.handleRoute();
       this.startLiveClock();
       this.startRealtimeSync();
@@ -404,29 +410,27 @@ class App {
   }
 
   handleRoute() {
-    const hash = window.location.hash.slice(1) || 'dashboard';
-    const [viewName, queryStr] = hash.split('?');
+    const rawPath = window.location.pathname.replace(/^\/+|\/+$/g, '') || 'dashboard';
+    const [viewName] = rawPath.split('?');
+    const queryParams = new URLSearchParams(window.location.search);
     const params = {};
 
-    if (queryStr) {
-      new URLSearchParams(queryStr).forEach((val, key) => {
-        params[key] = val;
-      });
-    }
+    queryParams.forEach((val, key) => {
+      params[key] = val;
+    });
 
     this.navigateTo(viewName, params, false);
   }
 
-  navigateTo(view, params = {}, updateHash = true) {
+  navigateTo(view, params = {}, updateUrl = true) {
     this.currentView = view;
     this.viewParams = params;
 
-    if (updateHash) {
+    if (updateUrl) {
       const q = new URLSearchParams(params).toString();
-      const newHash = q ? `${view}?${q}` : view;
-      if (window.location.hash.slice(1) !== newHash) {
-        window.location.hash = newHash;
-        return; // hashchange event will trigger handleRoute
+      const targetPath = q ? `/${view}?${q}` : `/${view}`;
+      if (window.location.pathname + window.location.search !== targetPath) {
+        history.pushState({ view, params }, '', targetPath);
       }
     }
 
