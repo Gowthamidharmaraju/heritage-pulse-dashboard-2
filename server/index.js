@@ -236,6 +236,21 @@ app.put('/api/users/:id', (req, res) => {
   res.json(raw.users[idx]);
 });
 
+app.delete('/api/users/:id', (req, res) => {
+  const raw = db.load();
+  const user = raw.users.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+
+  // Protect root admin account from deletion
+  if (req.params.id === 'usr-admin-1') {
+    return res.status(403).json({ error: 'Cannot delete the Super Admin root account.' });
+  }
+
+  raw.users = raw.users.filter(u => u.id !== req.params.id);
+  db.save(raw);
+  res.json({ message: `User ${user.name} removed successfully.` });
+});
+
 // Categories
 app.get('/api/categories', (req, res) => {
   const allowed = ['News', 'Events', 'Featured', 'Books'];

@@ -179,8 +179,8 @@ const AdminView = {
                   <td><span class="status-pill status-approved" style="font-size: 0.65rem;">Active</span></td>
                   <td>
                     <div style="display: flex; gap: 6px;">
-                      <button class="btn btn-xs btn-outline-light" onclick="AdminView.editUserRole('${u.id}')">Edit Role</button>
-                      <button class="btn btn-xs btn-secondary" onclick="app.switchUser('${u.id}')">Switch View</button>
+                      <button class="btn btn-xs btn-outline-light" onclick="AdminView.editUserRole('${u.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
+                      ${u.id !== 'usr-admin-1' ? `<button class="btn btn-xs" style="background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3);" onclick="AdminView.deleteUser('${u.id}', '${u.name ? u.name.replace(/'/g, "\\'") : 'User'}')"><i class="fa-solid fa-trash"></i> Delete</button>` : ''}
                     </div>
                   </td>
                 </tr>
@@ -425,6 +425,20 @@ const AdminView = {
       this.render(document.getElementById('main-content-view'));
     } catch (err) {
       app.showToast(`Failed to update member role: ${err.message}`, 'error');
+    }
+  },
+
+  async deleteUser(userId, userName) {
+    if (!confirm(`Are you sure you want to permanently delete team member "${userName}"? They will no longer be able to log in.`)) {
+      return;
+    }
+
+    try {
+      await app.apiDelete(`/api/users/${userId}`);
+      app.showToast(`🗑️ Team member "${userName}" has been removed.`, 'success');
+      this.render(document.getElementById('main-content-view'));
+    } catch (err) {
+      app.showToast(`Failed to delete user: ${err.message}`, 'error');
     }
   }
 };
