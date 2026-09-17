@@ -385,13 +385,17 @@ const AdminView = {
       const user = users.find(u => u.id === userId);
       if (!user) return;
 
-      document.getElementById('edit-user-id').value = user.id;
-      document.getElementById('edit-user-name').value = user.name || '';
-      document.getElementById('edit-user-email').value = user.email || '';
-      document.getElementById('edit-user-role').value = user.role || 'Writer';
-      document.getElementById('edit-user-status').value = user.status || 'Active';
-      document.getElementById('edit-user-title').value = user.title || '';
-      document.getElementById('edit-user-phone').value = user.phone || '';
+      const elId = document.getElementById('edit-user-id');
+      const elName = document.getElementById('edit-user-name');
+      const elEmail = document.getElementById('edit-user-email');
+      const elRole = document.getElementById('edit-user-role');
+      const elStatus = document.getElementById('edit-user-status');
+
+      if (elId) elId.value = user.id;
+      if (elName) elName.value = user.name || '';
+      if (elEmail) elEmail.value = user.email || '';
+      if (elRole) elRole.value = user.role || 'Writer';
+      if (elStatus) elStatus.value = user.status || 'Active';
 
       const container = document.getElementById('edit-user-categories-container');
       if (container) {
