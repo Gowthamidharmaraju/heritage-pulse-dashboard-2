@@ -13,23 +13,19 @@ const TrackerView = {
   async render(container, params = {}) {
     if (params && params._isFilterUpdate) {
       // Keep activeFilters as explicitly chosen in dropdowns
-    } else if (params && (params.timeframe || params.writer_id || params.editor_id || params.category || params.status || params.priority || params.search || params.filter)) {
-      if (params.reset) {
-        this.activeFilters = { timeframe: 'all', writer_id: '', editor_id: '', category: '', status: '', priority: '', search: '', min_rating: '' };
-      } else {
-        this.activeFilters = {
-          timeframe: params.timeframe || 'all',
-          writer_id: params.writer_id || '',
-          editor_id: params.editor_id || '',
-          category: params.category || '',
-          status: (params.filter === 'OVERDUE' || params.status === 'OVERDUE') ? 'OVERDUE' : (params.status || ''),
-          priority: params.priority || '',
-          search: params.search || '',
-          min_rating: params.min_rating || ''
-        };
-      }
+    } else if (params && (params.writer_id || params.editor_id || params.timeframe || params.category || params.status || params.priority || params.search || params.filter)) {
+      this.activeFilters = {
+        timeframe: params.timeframe || 'all',
+        writer_id: params.writer_id || '',
+        editor_id: params.editor_id || '',
+        category: params.category || '',
+        status: (params.filter === 'OVERDUE' || params.status === 'OVERDUE') ? 'OVERDUE' : (params.status || ''),
+        priority: params.priority || '',
+        search: params.search || '',
+        min_rating: params.min_rating || ''
+      };
     } else {
-      // Fresh navigation: default to ALL content items so all stories load immediately
+      // Fresh navigation: default to ALL content items
       this.activeFilters = { timeframe: 'all', writer_id: '', editor_id: '', category: '', status: '', priority: '', search: '', min_rating: '' };
     }
 

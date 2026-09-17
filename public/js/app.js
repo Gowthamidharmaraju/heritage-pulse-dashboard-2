@@ -459,13 +459,13 @@ class App {
         DashboardView.render(container);
         break;
       case 'my-work':
-        // Filter tracker by current user or show all items
-        if (this.currentUser && this.currentUser.role === 'Writer') {
-          TrackerView.render(container, { writer_id: this.currentUser.id, reset: true });
+        // Filter tracker strictly by logged-in user
+        if (this.currentUser && (this.currentUser.role === 'Writer' || this.currentUser.role.includes('Writer'))) {
+          TrackerView.render(container, { writer_id: this.currentUser.id });
         } else if (this.currentUser && (this.currentUser.role.includes('Editor') || this.currentUser.id === 'usr-editor-1')) {
-          TrackerView.render(container, { editor_id: this.currentUser.id, reset: true });
+          TrackerView.render(container, { editor_id: this.currentUser.id });
         } else {
-          TrackerView.render(container, { reset: true });
+          TrackerView.render(container, { writer_id: this.currentUser ? this.currentUser.id : '' });
         }
         break;
       case 'tracker':
