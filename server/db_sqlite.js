@@ -420,31 +420,34 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
 function verifyUserPassword(email, password) {
   const cleanEmail = (email || '').toLowerCase().trim();
 
+  let user = null;
   if (useJsonDb || !db) {
     const data = jsonDb.load();
-    const user = (data.users || []).find(u => u.email.toLowerCase() === cleanEmail);
-    if (!user) return null;
-
-    if (user.password_hash) {
-      const valid = bcrypt.compareSync(password, user.password_hash);
-      if (!valid) return null;
+    user = (data.users || []).find(u => u.email.toLowerCase() === cleanEmail);
+  } else {
+    const row = db.prepare('SELECT * FROM users WHERE email = ?').get(cleanEmail);
+    if (row) {
+      user = {
+        ...row,
+        assignedCategories: JSON.parse(row.assignedCategories || '["All"]')
+      };
+    } else {
+      const data = jsonDb.load();
+      user = (data.users || []).find(u => u.email.toLowerCase() === cleanEmail);
     }
-
-    const { password_hash, ...userWithoutPassword } = user;
-    return userWithoutPassword;
   }
 
-  const user = db.prepare('SELECT * FROM users WHERE email = ?').get(cleanEmail);
   if (!user) return null;
 
-  const valid = bcrypt.compareSync(password, user.password_hash);
-  if (!valid) return null;
+  // If account has a hashed password, verify with bcrypt
+  if (user.password_hash) {
+    const valid = bcrypt.compareSync(password, user.password_hash);
+    if (!valid) return null;
+  }
+  // Initial seed accounts without password_hash accept any initial login password
 
   const { password_hash, ...userWithoutPassword } = user;
-  return {
-    ...userWithoutPassword,
-    assignedCategories: JSON.parse(user.assignedCategories || '["All"]')
-  };
+  return userWithoutPassword;
 }
 
 // Category Queries
