@@ -209,22 +209,20 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 app.post('/api/users', (req, res) => {
-  const raw = db.load();
-  const newUser = {
-    id: `usr-${Date.now()}`,
-    name: req.body.name || 'New Team Member',
-    email: req.body.email || `user${Date.now()}@heritagepulse.org`,
-    role: req.body.role || 'Writer',
-    title: req.body.title || 'Staff Contributor',
-    avatar: (req.body.name || 'NT').split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2),
-    status: req.body.status || 'Active',
-    phone: req.body.phone || '+91 90000 00000',
-    assignedCategories: req.body.assignedCategories || ['All'],
-    created_at: new Date().toISOString()
-  };
-  raw.users.push(newUser);
-  db.save(raw);
-  res.status(201).json(newUser);
+  try {
+    const newUser = dbSqlite.createUser({
+      name: req.body.name || 'New Team Member',
+      email: req.body.email || `user${Date.now()}@heritagepulse.org`,
+      password: req.body.password || 'password123',
+      role: req.body.role || 'Writer',
+      title: req.body.title || 'Staff Contributor',
+      phone: req.body.phone || '+91 90000 00000',
+      assignedCategories: req.body.assignedCategories || ['All']
+    });
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
 app.put('/api/users/:id', (req, res) => {
