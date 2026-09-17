@@ -328,24 +328,7 @@ const AdminView = {
     const form = document.getElementById('add-user-form');
     if (form) form.reset();
     const modal = document.getElementById('add-user-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-      modal.style.display = 'flex';
-    }
-  },
-
-  handleRoleSelectChange(role) {
-    const titleSelect = document.getElementById('add-user-title-select');
-    if (!titleSelect) return;
-    if (role === 'Super Admin') {
-      titleSelect.value = 'Super Admin & Head of Content Operations';
-    } else if (role === 'Editor + Admin') {
-      titleSelect.value = 'Chief Editor & Co-Admin — Heritage Pulse';
-    } else if (role === 'Publisher') {
-      titleSelect.value = 'Digital Publishing & Web Operations Manager';
-    } else {
-      titleSelect.value = 'Senior Culture & Heritage Writer';
-    }
+    if (modal) modal.classList.remove('hidden');
   },
 
   closeAddUserModal() {
@@ -360,11 +343,7 @@ const AdminView = {
     const email = form.email.value.trim();
     const role = form.role.value;
     const password = form.password.value;
-    
-    let title = 'Staff Contributor';
-    if (role === 'Super Admin') title = 'Super Admin & Head of Content Operations';
-    else if (role === 'Editor + Admin') title = 'Chief Editor & Co-Admin';
-    else if (role === 'Publisher') title = 'Digital Publishing Manager';
+    const title = form.title.value.trim();
 
     try {
       await app.apiPost('/api/auth/register', { name, email, role, password, title });
@@ -385,17 +364,13 @@ const AdminView = {
       const user = users.find(u => u.id === userId);
       if (!user) return;
 
-      const elId = document.getElementById('edit-user-id');
-      const elName = document.getElementById('edit-user-name');
-      const elEmail = document.getElementById('edit-user-email');
-      const elRole = document.getElementById('edit-user-role');
-      const elStatus = document.getElementById('edit-user-status');
-
-      if (elId) elId.value = user.id;
-      if (elName) elName.value = user.name || '';
-      if (elEmail) elEmail.value = user.email || '';
-      if (elRole) elRole.value = user.role || 'Writer';
-      if (elStatus) elStatus.value = user.status || 'Active';
+      document.getElementById('edit-user-id').value = user.id;
+      document.getElementById('edit-user-name').value = user.name || '';
+      document.getElementById('edit-user-email').value = user.email || '';
+      document.getElementById('edit-user-role').value = user.role || 'Writer';
+      document.getElementById('edit-user-status').value = user.status || 'Active';
+      document.getElementById('edit-user-title').value = user.title || '';
+      document.getElementById('edit-user-phone').value = user.phone || '';
 
       const container = document.getElementById('edit-user-categories-container');
       if (container) {
@@ -435,11 +410,8 @@ const AdminView = {
     const email = form.email.value.trim();
     const role = form.role.value;
     const status = form.status.value;
-    
-    let title = 'Staff Contributor';
-    if (role === 'Super Admin') title = 'Super Admin & Head of Content Operations';
-    else if (role === 'Editor + Admin') title = 'Chief Editor & Co-Admin';
-    else if (role === 'Publisher') title = 'Digital Publishing Manager';
+    const title = form.title.value.trim();
+    const phone = form.phone.value.trim();
 
     const checkedCats = Array.from(form.querySelectorAll('input[name="assignedCategories"]:checked')).map(cb => cb.value);
 
@@ -450,6 +422,7 @@ const AdminView = {
         role,
         status,
         title,
+        phone,
         assignedCategories: checkedCats.length ? checkedCats : ['All']
       });
 
