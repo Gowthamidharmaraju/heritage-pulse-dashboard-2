@@ -431,8 +431,11 @@ const AdminView = {
     const email = form.email.value.trim();
     const role = form.role.value;
     const status = form.status.value;
-    const title = form.title.value.trim();
-    const phone = form.phone.value.trim();
+    
+    let title = 'Staff Contributor';
+    if (role === 'Super Admin') title = 'Super Admin & Head of Content Operations';
+    else if (role === 'Editor + Admin') title = 'Chief Editor & Co-Admin';
+    else if (role === 'Publisher') title = 'Digital Publishing Manager';
 
     const checkedCats = Array.from(form.querySelectorAll('input[name="assignedCategories"]:checked')).map(cb => cb.value);
 
@@ -443,7 +446,6 @@ const AdminView = {
         role,
         status,
         title,
-        phone,
         assignedCategories: checkedCats.length ? checkedCats : ['All']
       });
 
