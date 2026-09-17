@@ -385,7 +385,10 @@ const AdminView = {
       }
 
       const modal = document.getElementById('edit-user-modal');
-      if (modal) modal.classList.remove('hidden');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
     } catch (err) {
       app.showToast(`Could not open member editor: ${err.message}`, 'error');
     }
@@ -393,7 +396,10 @@ const AdminView = {
 
   closeEditUserModal() {
     const modal = document.getElementById('edit-user-modal');
-    if (modal) modal.classList.add('hidden');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    }
   },
 
   async handleSaveUserEdit(e) {
