@@ -428,17 +428,35 @@ const AdminView = {
     }
   },
 
-  async deleteUser(userId, userName) {
-    if (!confirm(`Are you sure you want to permanently delete team member "${userName}"? They will no longer be able to log in.`)) {
-      return;
+  deleteUser(userId, userName) {
+    const modal = document.getElementById('delete-user-modal');
+    const nameTarget = document.getElementById('delete-user-name-target');
+    const confirmBtn = document.getElementById('confirm-delete-user-btn');
+
+    if (nameTarget) nameTarget.innerText = `Delete "${userName}"?`;
+    if (confirmBtn) {
+      confirmBtn.onclick = async () => {
+        try {
+          confirmBtn.disabled = true;
+          confirmBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Deleting...`;
+          await app.apiDelete(`/api/users/${userId}`);
+          this.closeDeleteUserModal();
+          app.showToast(`🗑️ Team member "${userName}" has been permanently deleted.`, 'success');
+          this.render(document.getElementById('main-content-view'));
+        } catch (err) {
+          app.showToast(`Failed to delete user: ${err.message}`, 'error');
+        } finally {
+          confirmBtn.disabled = false;
+          confirmBtn.innerHTML = `<i class="fa-solid fa-trash"></i> Delete Member`;
+        }
+      };
     }
 
-    try {
-      await app.apiDelete(`/api/users/${userId}`);
-      app.showToast(`🗑️ Team member "${userName}" has been removed.`, 'success');
-      this.render(document.getElementById('main-content-view'));
-    } catch (err) {
-      app.showToast(`Failed to delete user: ${err.message}`, 'error');
-    }
+    if (modal) modal.classList.remove('hidden');
+  },
+
+  closeDeleteUserModal() {
+    const modal = document.getElementById('delete-user-modal');
+    if (modal) modal.classList.add('hidden');
   }
 };
