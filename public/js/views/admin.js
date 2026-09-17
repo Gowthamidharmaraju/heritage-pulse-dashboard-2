@@ -178,9 +178,9 @@ const AdminView = {
                   </td>
                   <td><span class="status-pill status-approved" style="font-size: 0.65rem;">Active</span></td>
                   <td>
-                    <div style="display: flex; gap: 6px;">
-                      <button class="btn btn-xs btn-outline-light" onclick="AdminView.editUserRole('${u.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
-                      ${u.id !== 'usr-admin-1' ? `<button class="btn btn-xs" style="background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3);" onclick="AdminView.deleteUser('${u.id}', '${u.name ? u.name.replace(/'/g, "\\'") : 'User'}')"><i class="fa-solid fa-trash"></i> Delete</button>` : ''}
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                      <button class="btn btn-xs btn-outline-light" onclick="AdminView.editUserRole('${u.id}')" style="cursor: pointer;"><i class="fa-solid fa-pen"></i> Edit</button>
+                      ${u.id !== 'usr-admin-1' ? `<button class="btn btn-xs" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4); cursor: pointer; position: relative; z-index: 10;" onclick="AdminView.deleteUser('${u.id}', '${u.name ? u.name.replace(/'/g, "\\'") : 'User'}')"><i class="fa-solid fa-trash"></i> Delete</button>` : ''}
                     </div>
                   </td>
                 </tr>
@@ -433,6 +433,18 @@ const AdminView = {
     const nameTarget = document.getElementById('delete-user-name-target');
     const confirmBtn = document.getElementById('confirm-delete-user-btn');
 
+    if (!modal) {
+      if (confirm(`Are you sure you want to delete "${userName}"?`)) {
+        app.apiDelete(`/api/users/${userId}`)
+          .then(() => {
+            app.showToast(`🗑️ User "${userName}" removed.`, 'success');
+            this.render(document.getElementById('main-content-view'));
+          })
+          .catch(err => app.showToast(`Failed to delete user: ${err.message}`, 'error'));
+      }
+      return;
+    }
+
     if (nameTarget) nameTarget.innerText = `Delete "${userName}"?`;
     if (confirmBtn) {
       confirmBtn.onclick = async () => {
@@ -452,11 +464,15 @@ const AdminView = {
       };
     }
 
-    if (modal) modal.classList.remove('hidden');
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   },
 
   closeDeleteUserModal() {
     const modal = document.getElementById('delete-user-modal');
-    if (modal) modal.classList.add('hidden');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    }
   }
 };
