@@ -635,8 +635,18 @@ function deleteContent(id) {
 }
 
 function deleteUser(id) {
-  if (useJsonDb) return true;
+  if (useJsonDb || !db) {
+    const data = jsonDb.load();
+    data.users = (data.users || []).filter(u => u.id !== id);
+    jsonDb.save(data);
+    return true;
+  }
   db.prepare('DELETE FROM users WHERE id = ?').run(id);
+  const data = jsonDb.load();
+  if (data.users && data.users.some(u => u.id === id)) {
+    data.users = data.users.filter(u => u.id !== id);
+    jsonDb.save(data);
+  }
   return true;
 }
 
