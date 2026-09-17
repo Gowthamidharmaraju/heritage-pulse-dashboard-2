@@ -69,11 +69,9 @@ const LoginView = {
             <div class="form-group-login">
               <label for="reg-role"><i class="fa-solid fa-user-shield"></i> Department Role</label>
               <select id="reg-role" class="form-input-login">
-                <option value="Super Admin">Super Admin (Full Platform Access)</option>
+                <option value="Super Admin">Super Admin</option>
                 <option value="Editor + Admin">Chief Editor & Co-Admin</option>
-                <option value="Editor">Editor</option>
                 <option value="Publisher">Publisher</option>
-                <option value="Social Media Publisher">Social Media Publisher</option>
                 <option value="Writer" selected>Writer (Contributor)</option>
               </select>
             </div>
