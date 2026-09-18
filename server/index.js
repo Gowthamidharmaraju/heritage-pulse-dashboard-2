@@ -246,32 +246,39 @@ app.get('/api/test-drive', async (req, res) => {
   }
 });
 
-// Endpoint to quickly save Google Drive Credentials into server/.env
+// Endpoint to quickly save Google Drive Credentials (OAuth OR Service Account) into server/.env
 app.all('/api/save-drive-keys', (req, res) => {
   const clientId = req.query.client_id || req.body.client_id || req.body.GOOGLE_DRIVE_CLIENT_ID;
   const clientSecret = req.query.client_secret || req.body.client_secret || req.body.GOOGLE_DRIVE_CLIENT_SECRET;
   const refreshToken = req.query.refresh_token || req.body.refresh_token || req.body.GOOGLE_DRIVE_REFRESH_TOKEN;
+  
+  const clientEmail = req.query.client_email || req.body.client_email || req.body.GOOGLE_DRIVE_CLIENT_EMAIL;
+  const privateKey = req.query.private_key || req.body.private_key || req.body.GOOGLE_DRIVE_PRIVATE_KEY;
   const folderId = req.query.folder_id || req.body.folder_id || '1fyOaEebMIdQN1Ke2oLXhtl_tca8auuvb';
 
-  if (!clientId || !clientSecret || !refreshToken) {
+  const keysMap = {
+    GOOGLE_DRIVE_FOLDER_ID: folderId.trim()
+  };
+
+  if (clientId && clientSecret && refreshToken) {
+    keysMap.GOOGLE_DRIVE_CLIENT_ID = clientId.trim();
+    keysMap.GOOGLE_DRIVE_CLIENT_SECRET = clientSecret.trim();
+    keysMap.GOOGLE_DRIVE_REFRESH_TOKEN = refreshToken.trim();
+  } else if (clientEmail && privateKey) {
+    keysMap.GOOGLE_DRIVE_CLIENT_EMAIL = clientEmail.trim();
+    keysMap.GOOGLE_DRIVE_PRIVATE_KEY = privateKey.trim();
+  } else {
     return res.status(400).json({
-      error: 'Missing parameters. Please provide client_id, client_secret, and refresh_token.',
-      exampleUrl: 'https://dashboard.heritejindia.com/api/save-drive-keys?client_id=YOUR_ID&client_secret=YOUR_SECRET&refresh_token=YOUR_TOKEN'
+      error: 'Missing Google Drive credentials.',
+      options: {
+        oauth2: 'Provide client_id, client_secret, and refresh_token',
+        serviceAccount: 'Provide client_email and private_key'
+      }
     });
   }
 
   const envPath = path.join(__dirname, '.env');
-  let envContent = '';
-  if (fs.existsSync(envPath)) {
-    envContent = fs.readFileSync(envPath, 'utf8');
-  }
-
-  const keysMap = {
-    GOOGLE_DRIVE_CLIENT_ID: clientId.trim(),
-    GOOGLE_DRIVE_CLIENT_SECRET: clientSecret.trim(),
-    GOOGLE_DRIVE_REFRESH_TOKEN: refreshToken.trim(),
-    GOOGLE_DRIVE_FOLDER_ID: folderId.trim()
-  };
+  let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
 
   Object.entries(keysMap).forEach(([k, v]) => {
     const regex = new RegExp(`^${k}=.*$`, 'm');
@@ -285,16 +292,96 @@ app.all('/api/save-drive-keys', (req, res) => {
 
   fs.writeFileSync(envPath, envContent, 'utf8');
 
-  // Re-init Drive Service
   const driveService = require('./googleDriveService');
   driveService.init();
 
   res.json({
     success: true,
-    message: '✅ Google Drive credentials saved into .env successfully and service re-initialized!',
+    message: '✅ Google Drive credentials saved successfully!',
     savedKeys: Object.keys(keysMap),
     testUrl: 'https://dashboard.heritejindia.com/api/test-drive'
   });
+});
+
+// 1-Click Google OAuth Authorization Link Generator
+app.get('/api/auth/google-drive', (req, res) => {
+  const { google } = require('googleapis');
+  const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID || req.query.client_id;
+  const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET || req.query.client_secret;
+  const redirectUri = `${req.protocol}://${req.get('host')}/api/auth/google-drive/callback`;
+
+  if (!clientId || !clientSecret) {
+    return res.status(400).send(`
+      <html><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#fff;">
+        <h2 style="color:#ef4444;">Missing Client ID or Client Secret</h2>
+        <p>Please provide client_id and client_secret in URL parameter, or save them in .env first.</p>
+        <p>Example: <code>https://dashboard.heritejindia.com/api/auth/google-drive?client_id=YOUR_ID&client_secret=YOUR_SECRET</code></p>
+      </body></html>
+    `);
+  }
+
+  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+  const authUrl = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    prompt: 'consent',
+    scope: ['https://www.googleapis.com/auth/drive']
+  });
+
+  res.redirect(authUrl);
+});
+
+// Google OAuth Callback Handler - Automatically Captures Refresh Token & Saves to .env
+app.get('/api/auth/google-drive/callback', async (req, res) => {
+  const { google } = require('googleapis');
+  const code = req.query.code;
+  const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+  const redirectUri = `${req.protocol}://${req.get('host')}/api/auth/google-drive/callback`;
+
+  if (!code) {
+    return res.status(400).send('Authorization code missing.');
+  }
+
+  try {
+    const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+    const { tokens } = await oauth2Client.getToken(code);
+
+    if (tokens.refresh_token) {
+      const envPath = path.join(__dirname, '.env');
+      let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
+      
+      const k = 'GOOGLE_DRIVE_REFRESH_TOKEN';
+      const v = tokens.refresh_token;
+      const regex = new RegExp(`^${k}=.*$`, 'm');
+      if (regex.test(envContent)) {
+        envContent = envContent.replace(regex, `${k}=${v}`);
+      } else {
+        envContent += `\n${k}=${v}`;
+      }
+      process.env[k] = v;
+      fs.writeFileSync(envPath, envContent, 'utf8');
+
+      const driveService = require('./googleDriveService');
+      driveService.init();
+
+      return res.send(`
+        <html><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#fff;text-align:center;">
+          <h1 style="color:#10b981;">🎉 Google Drive Successfully Connected!</h1>
+          <p style="font-size:1.1rem;color:#cbd5e1;">Your refresh token was automatically captured and saved into .env!</p>
+          <a href="/api/test-drive" style="background:#3b82f6;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin-top:20px;font-weight:bold;">Test Google Drive Upload Now &rarr;</a>
+        </body></html>
+      `);
+    } else {
+      res.send(`
+        <html><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#fff;">
+          <h2 style="color:#f59e0b;">Access Token Received (No Refresh Token)</h2>
+          <p>Please revoke permissions in your Google Account security settings and re-click the login link so Google issues a fresh refresh_token.</p>
+        </body></html>
+      `);
+    }
+  } catch (err) {
+    res.status(500).send(`OAuth Error: ${err.message}`);
+  }
 });
 
 // Users
