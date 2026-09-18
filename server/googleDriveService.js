@@ -5,7 +5,7 @@ const { google } = require('googleapis');
 class GoogleDriveService {
   constructor() {
     this.drive = null;
-    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || process.env.GOOGLE_DRIVE_ROOT_FOLDER_ID || '1fyOaEebMIdQN1Ke2oLXhtl_tca8auuvb';
+    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || process.env.GOOGLE_DRIVE_ROOT_FOLDER_ID || '1Af7D3UV8nGqMiS0DfYlYPv2Np_pagiIf';
     this.init();
   }
 
@@ -14,11 +14,8 @@ class GoogleDriveService {
       require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
       require('dotenv').config({ path: path.join(__dirname, '.env') });
 
-      let clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
-      if (!clientId || clientId.includes('764086051850') || clientId.includes('your_client_id')) {
-        clientId = '292085223830-caeaae7ji312sikkuh5id2opr9sm95ke.apps.googleusercontent.com';
-      }
-      const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET || 'd-qtwZuq5_f0nB_128-4061-';
+      const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
+      const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
       const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN;
 
       // 1. Prefer OAuth 2.0 Client credentials (User's personal Gmail quota)
@@ -164,7 +161,7 @@ class GoogleDriveService {
       this.init();
     }
 
-    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || process.env.GOOGLE_DRIVE_ROOT_FOLDER_ID || this.rootFolderId || '1fyOaEebMIdQN1Ke2oLXhtl_tca8auuvb';
+    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || process.env.GOOGLE_DRIVE_ROOT_FOLDER_ID || this.rootFolderId || '1Af7D3UV8nGqMiS0DfYlYPv2Np_pagiIf';
 
     if (!this.drive || !this.rootFolderId) {
       throw new Error('Google Drive API not authenticated or missing GOOGLE_DRIVE_FOLDER_ID in .env');
