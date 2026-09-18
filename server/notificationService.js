@@ -4,7 +4,7 @@ const os = require('os');
 function getClickableDashboardUrl(contentId) {
   const baseUrl = process.env.DASHBOARD_URL || 'https://dashboard.heritejindia.com';
   if (contentId) {
-    return `${baseUrl}/#content-detail?id=${contentId}`;
+    return `${baseUrl}/#/content-detail?id=${contentId}`;
   }
   return baseUrl;
 }

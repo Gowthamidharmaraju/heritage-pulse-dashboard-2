@@ -4,7 +4,7 @@ const os = require('os');
 function getClickableDashboardUrl(contentId) {
   const baseUrl = process.env.DASHBOARD_URL || 'https://dashboard.heritejindia.com';
   if (contentId) {
-    return `${baseUrl}/#content-detail?id=${contentId}`;
+    return `${baseUrl}/#/content-detail?id=${contentId}`;
   }
   return baseUrl;
 }
@@ -181,18 +181,19 @@ class WorkflowEngine {
     // Helper: build email subject + body
     const buildEmailBody = (contentTitle, stageLabel, byUser, contentId, comment) => {
       let body = `Hello Dr. Tejaswini Ma'am,\n\n`;
+      const reviewLink = getClickableDashboardUrl(contentId);
       if (targetStatus === 'WRITER_SUBMITTED') {
         body += `An article has been completed by ${byUser} and is waiting for your review and approval.\n\n`;
         body += `Article Title: ${contentTitle}\n`;
         body += `Content ID: ${contentId}\n`;
         body += `Status: ⏳ Waiting for Editor Review\n`;
         if (comment) body += `Writer Note: ${comment}\n`;
-        body += `\nPlease log in to review and approve: http://localhost:3000/#content-detail?id=${contentId}\n\nRegards,\nHeritage Pulse Editorial System`;
+        body += `\nPlease log in to review and approve: ${reviewLink}\n\nRegards,\nHeritage Pulse Editorial System`;
       } else {
         body += `A workflow stage update has occurred on Heritage Pulse Editorial Dashboard.\n\n`;
         body += `Article: ${contentTitle}\nContent ID: ${contentId}\nNew Stage: ${stageLabel}\nMoved by: ${byUser}\n`;
         if (comment) body += `Editor Note: ${comment}\n`;
-        body += `\nPlease log in to review: http://localhost:3000/#content-detail?id=${contentId}\n\nRegards,\nHeritage Pulse Editorial System`;
+        body += `\nPlease log in to review: ${reviewLink}\n\nRegards,\nHeritage Pulse Editorial System`;
       }
       return encodeURIComponent(body);
     };
