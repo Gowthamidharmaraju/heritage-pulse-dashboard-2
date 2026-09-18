@@ -31,8 +31,8 @@ const LoginView = {
           <!-- SIGN IN FORM -->
           <form id="login-form" class="login-form" onsubmit="LoginView.handleLogin(event)">
             <div class="form-group-login">
-              <label for="login-email"><i class="fa-solid fa-user"></i> Name or Email Address</label>
-              <input type="text" id="login-email" class="form-input-login" placeholder="e.g. Pavitra or pavitra@heritagepulse.org" required autocomplete="username">
+              <label for="login-email"><i class="fa-solid fa-user"></i> Staff Name</label>
+              <input type="text" id="login-email" class="form-input-login" placeholder="e.g. Pavitra, Dr. Tejaswini, Jitendra, Nikitha..." required autocomplete="username">
             </div>
 
             <div class="form-group-login">
