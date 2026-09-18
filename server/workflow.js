@@ -257,34 +257,25 @@ class WorkflowEngine {
         created_at: now
       });
 
-      // Dispatch Real Automated Email & WhatsApp Notifications (Deduplicated & Filtered)
+      // Dispatch Real Automated Email & WhatsApp Notifications (Group + Direct)
       const isActionableStage = ['WRITER_SUBMITTED', 'CHANGES_REQUIRED', 'PUBLISHED'].includes(targetStatus);
-      if (notificationService && isActionableStage) {
-        const cleanPhone = recipPhone ? recipPhone.replace(/[^0-9]/g, '') : null;
-        const phoneToDispatch = (cleanPhone && !dispatchedPhones.has(cleanPhone)) ? recipPhone : null;
-        const emailToDispatch = (recipEmail && !dispatchedEmails.has(recipEmail)) ? recipEmail : null;
-
-        if (phoneToDispatch) dispatchedPhones.add(cleanPhone);
-        if (emailToDispatch) dispatchedEmails.add(recipEmail);
-
-        if (phoneToDispatch || emailToDispatch) {
-          notificationService.dispatchWorkflowNotification({
-            recipientEmail: emailToDispatch,
-            recipientPhone: phoneToDispatch,
-            subject: emailSubjRaw,
-            text: emailTextRaw,
-            contentTitle: content.title,
-            contentId,
-            category: content.category,
-            subcategory: content.subcategory,
-            publishingDate: content.publishing_date,
-            publishedUrl: content.published_url,
-            stageLabel,
-            byUser: user.name,
-            byUserEmail: user.email,
-            waBodyText: decodeURIComponent(waText)
-          }).catch(err => console.error('[Notification Dispatch Background Error]', err));
-        }
+      if (notificationService && isActionableStage && idx === 0) {
+        notificationService.dispatchWorkflowNotification({
+          recipientEmail: recipEmail || adminEmail,
+          recipientPhone: recipPhone || adminPhone,
+          subject: emailSubjRaw,
+          text: emailTextRaw,
+          contentTitle: content.title,
+          contentId,
+          category: content.category,
+          subcategory: content.subcategory,
+          publishingDate: content.publishing_date,
+          publishedUrl: content.published_url,
+          stageLabel,
+          byUser: user.name,
+          byUserEmail: user.email,
+          waBodyText: decodeURIComponent(waText)
+        }).catch(err => console.error('[Notification Dispatch Background Error]', err));
       }
     });
 
