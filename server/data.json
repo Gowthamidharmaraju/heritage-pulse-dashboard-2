@@ -7511,5 +7511,70 @@
       "original_category": "Heritage",
       "original_date": "2026-08-29"
     }
+  ],
+  "chat_messages": [
+    {
+      "id": "msg-101",
+      "room_id": "room-general",
+      "sender_id": "usr-admin-1",
+      "sender_name": "Jitendra",
+      "sender_role": "Super Admin",
+      "message": "Welcome team! Use this channel for general editorial discussions, shift updates, and topic coordination.",
+      "created_at": "2026-09-18T09:30:23.143Z"
+    },
+    {
+      "id": "msg-102",
+      "room_id": "room-general",
+      "sender_id": "usr-editor-1",
+      "sender_name": "Dr. Tejaswini Ma'am",
+      "sender_role": "Editor + Admin",
+      "message": "Good morning team! Please submit your drafts early today so we can review before the 4 PM publishing window.",
+      "created_at": "2026-09-18T10:00:23.144Z"
+    },
+    {
+      "id": "msg-1789728043328-625",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789641086675",
+      "sender_name": "test",
+      "sender_role": "Writer",
+      "message": "hii",
+      "created_at": "2026-09-18T10:40:43.328Z"
+    },
+    {
+      "id": "msg-1789728069155-286",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789641307499",
+      "sender_name": "Gowthami Dharmaraju",
+      "sender_role": "Editor + Admin",
+      "message": "cvnfgngn",
+      "created_at": "2026-09-18T10:41:09.155Z"
+    }
+  ],
+  "chat_rooms": [
+    {
+      "id": "room-general",
+      "name": "General Editorial",
+      "icon": "fa-comments",
+      "type": "channel",
+      "description": "General discussion & shift updates"
+    },
+    {
+      "id": "room-culture",
+      "name": "Culture & Heritage Desk",
+      "icon": "fa-landmark",
+      "type": "channel",
+      "description": "Coverage for Heritage, Culture & Arts"
+    },
+    {
+      "id": "room-news",
+      "name": "News & Events Desk",
+      "icon": "fa-newspaper",
+      "type": "channel",
+      "description": "Daily cultural news & event summits"
+    }
   ]
 }

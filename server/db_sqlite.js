@@ -417,16 +417,20 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
   return getUserById(id);
 }
 
-function verifyUserPassword(email, password) {
-  const cleanEmail = (email || '').toLowerCase().trim();
+function verifyUserPassword(identifier, password) {
+  const clean = (identifier || '').toLowerCase().trim();
 
   let user = null;
   if (useJsonDb || !db) {
     const data = jsonDb.load();
-    user = (data.users || []).find(u => u.email && u.email.toLowerCase() === cleanEmail);
+    user = (data.users || []).find(u => 
+      (u.email && u.email.toLowerCase() === clean) || 
+      (u.name && u.name.toLowerCase() === clean) ||
+      (u.name && u.name.toLowerCase().includes(clean))
+    );
   } else {
     try {
-      const row = db.prepare('SELECT * FROM users WHERE email = ?').get(cleanEmail);
+      const row = db.prepare('SELECT * FROM users WHERE LOWER(email) = ? OR LOWER(name) = ? OR LOWER(name) LIKE ?').get(clean, clean, `%${clean}%`);
       if (row) {
         user = {
           ...row,
@@ -437,7 +441,11 @@ function verifyUserPassword(email, password) {
 
     if (!user) {
       const data = jsonDb.load();
-      user = (data.users || []).find(u => u.email && u.email.toLowerCase() === cleanEmail);
+      user = (data.users || []).find(u => 
+        (u.email && u.email.toLowerCase() === clean) || 
+        (u.name && u.name.toLowerCase() === clean) ||
+        (u.name && u.name.toLowerCase().includes(clean))
+      );
     }
   }
 

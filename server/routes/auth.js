@@ -46,15 +46,16 @@ router.post('/register', (req, res) => {
 
 // Login endpoint
 router.post('/login', (req, res) => {
-  const { email, password } = req.body;
+  const identifier = req.body.email || req.body.name || req.body.identifier || req.body.username;
+  const password = req.body.password;
 
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required.' });
+  if (!identifier || !password) {
+    return res.status(400).json({ error: 'Name or Email and password are required.' });
   }
 
-  const user = dbSqlite.verifyUserPassword(email, password);
+  const user = dbSqlite.verifyUserPassword(identifier, password);
   if (!user) {
-    return res.status(401).json({ error: 'Invalid email or password.' });
+    return res.status(401).json({ error: 'Invalid name/email or password.' });
   }
 
   const token = jwt.sign(

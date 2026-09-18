@@ -45,18 +45,18 @@
 
   <h2>Attached Media Assets (1)</h2>
   
-    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; text-align: center;">
+      <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80" style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto 10px auto; border-radius: 4px;" alt="kasu-mala-gold-closeup.jpg"/>
       <p style="font-weight: bold; margin: 0 0 4px 0; color: #1e293b;">Image Asset 1: kasu-mala-gold-closeup.jpg</p>
       <p style="margin: 0; color: #475569; font-size: 10pt;"><em>Caption:</em> Antique 22-carat gold Kasu Mala featuring Goddess Lakshmi coins.</p>
       <p style="margin: 0; color: #64748b; font-size: 9pt;"><em>Credit:</em> Studio Photo / Heritage Pulse Jewellery Bureau</p>
-      <p style="margin: 4px 0 0 0; font-size: 9pt; color: #2563eb;">File Asset: https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80</p>
     </div>
   
 
   <h2>Reference Sources & Links</h2><ul><li><a href="https://ipindia.gov.in">Geographical Indications (GI) Registry of India</a></li><li>Reference: <a href="https://ipindia.gov.in/gi.htm">https://ipindia.gov.in/gi.htm</a></li></ul>
 
   <div class="footer">
-    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-008 · Generated on 9/4/2026, 2:41:01 PM</p>
+    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-008 · Generated on 9/18/2026, 4:14:11 PM</p>
   </div>
 </body>
 </html>

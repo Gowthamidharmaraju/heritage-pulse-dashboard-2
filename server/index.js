@@ -246,6 +246,70 @@ app.get('/api/test-drive', async (req, res) => {
   }
 });
 
+// --- TEAM CHAT & REAL-TIME DISCUSSION API ENDPOINTS ---
+const chatService = require('./chatService');
+
+// Get available chat channels / rooms
+app.get('/api/chat/rooms', (req, res) => {
+  try {
+    const rooms = chatService.getRooms();
+    res.json(rooms);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get messages for a channel or article
+app.get('/api/chat/messages', (req, res) => {
+  try {
+    const { room_id, article_id, limit } = req.query;
+    const msgs = chatService.getMessages(room_id, article_id, limit ? parseInt(limit) : 100);
+    res.json(msgs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Send a new chat message
+app.post('/api/chat/messages', (req, res) => {
+  try {
+    const { room_id, article_id, recipient_id, message } = req.body;
+    const userId = req.headers['x-user-id'] || 'usr-admin-1';
+    
+    // Resolve user details
+    const users = db.getUsers ? db.getUsers() : [];
+    const sender = users.find(u => u.id === userId) || { id: userId, name: 'Team Member', role: 'Staff' };
+
+    const newMsg = chatService.sendMessage({
+      sender_id: sender.id,
+      sender_name: sender.name,
+      sender_role: sender.role,
+      room_id: room_id || 'room-general',
+      article_id: article_id || null,
+      recipient_id: recipient_id || null,
+      message
+    });
+
+    res.json(newMsg);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Real-Time SSE Stream for Instant Messages
+app.get('/api/chat/stream', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders();
+
+  chatService.addSseClient(res);
+
+  req.on('close', () => {
+    chatService.removeSseClient(res);
+  });
+});
+
 // Endpoint to quickly save Google Drive Credentials (OAuth OR Service Account) into server/.env
 app.all('/api/save-drive-keys', (req, res) => {
   const clientId = req.query.client_id || req.body.client_id || req.body.GOOGLE_DRIVE_CLIENT_ID;

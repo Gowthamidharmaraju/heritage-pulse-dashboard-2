@@ -530,6 +530,11 @@ class App {
       case 'drive':
         FoldersView.render(container, this.viewParams);
         break;
+      case 'chat':
+      case 'team-chat':
+      case 'discussion':
+        ChatView.render(container, this.viewParams);
+        break;
       case 'trash':
       case 'recycle-bin':
         FoldersView.render(container, { trash: true });

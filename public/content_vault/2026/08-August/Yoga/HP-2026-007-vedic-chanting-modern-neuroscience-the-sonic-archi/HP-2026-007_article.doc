@@ -41,24 +41,24 @@
   <h2>Article Content</h2>
   <div class="article-content">
     
-                <h2>The Resonance of Consciousness</h2><p>In 2003, UNESCO proclaimed the tradition of Vedic Chanting as a Masterpiece of the Oral and Intangible Heritage of Humanity.</p>
+                <h2 rtrvr-ls="5~hs,6~hs,8~hs,9~hs" rtrvr-ro="42">The Resonance of Consciousness</h2><p>In 2003, UNESCO proclaimed the tradition of Vedic Chanting as a Masterpiece of the Oral and Intangible Heritage of Humanity.</p>
               
   </div>
 
   <h2>Attached Media Assets (1)</h2>
   
-    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+    <div style="margin: 15px 0; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; text-align: center;">
+      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto 10px auto; border-radius: 4px;" alt="vedic-recitation-gurukul.jpg"/>
       <p style="font-weight: bold; margin: 0 0 4px 0; color: #1e293b;">Image Asset 1: vedic-recitation-gurukul.jpg</p>
       <p style="margin: 0; color: #475569; font-size: 10pt;"><em>Caption:</em> Students practicing breath synchronized Vedic recitation at sunrise.</p>
       <p style="margin: 0; color: #64748b; font-size: 9pt;"><em>Credit:</em> Heritage Pulse Photo Collection / Sasanka</p>
-      <p style="margin: 4px 0 0 0; font-size: 9pt; color: #2563eb;">File Asset: https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80</p>
     </div>
   
 
   <h2>Reference Sources & Links</h2><ul><li><a href="https://ich.unesco.org">UNESCO Intangible Cultural Heritage Dossier</a></li><li>Reference: <a href="https://ich.unesco.org/en/RL/tradition-of-vedic-chanting-00062">https://ich.unesco.org/en/RL/tradition-of-vedic-chanting-00062</a></li></ul>
 
   <div class="footer">
-    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-007 · Generated on 9/4/2026, 2:41:01 PM</p>
+    <p>Heritage Pulse Editorial Operations & Content Vault · Document ID: HP-2026-007 · Generated on 9/18/2026, 4:14:11 PM</p>
   </div>
 </body>
 </html>
