@@ -25,14 +25,20 @@ global.waClient = new Client({
   }
 });
 
+const QRCodeNode = require('qrcode');
+
 // Global WhatsApp QR state
 global.currentQrCodeUrl = '';
 global.currentRawQr = '';
 
-global.waClient.on('qr', (qr) => {
+global.waClient.on('qr', async (qr) => {
   console.log('\n📲 New WhatsApp QR Code Generated!\n');
   global.currentRawQr = qr;
-  global.currentQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(qr)}`;
+  try {
+    global.currentQrCodeUrl = await QRCodeNode.toDataURL(qr, { width: 320, margin: 2 });
+  } catch (e) {
+    global.currentQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(qr)}`;
+  }
 });
 
 global.waClient.on('ready', () => {
