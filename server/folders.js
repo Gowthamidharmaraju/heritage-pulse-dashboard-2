@@ -255,7 +255,7 @@ function syncPhysicalDiskVault(contentList) {
     }
   });
 
-  return { count: synced, total: publishedList.length };
+  return { count: synced, total: targetList.length };
 }
 
 // Build Google Drive hierarchical tree
