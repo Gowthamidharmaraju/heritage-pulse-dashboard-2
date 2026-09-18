@@ -15,86 +15,6 @@
       "created_at": "2026-01-10T09:00:00Z"
     },
     {
-      "id": "usr-writer-1",
-      "name": "Pavitra",
-      "email": "pavitra@heritagepulse.org",
-      "role": "Writer",
-      "title": "Senior Culture & Heritage Writer",
-      "avatar": "P",
-      "status": "Active",
-      "phone": "+91 98441 22334",
-      "assignedCategories": [
-        "Heritage",
-        "Culture",
-        "Dance",
-        "Jewellery"
-      ],
-      "created_at": "2026-02-01T10:00:00Z"
-    },
-    {
-      "id": "usr-writer-2",
-      "name": "Nikitha",
-      "email": "nikitha@heritagepulse.org",
-      "role": "Writer",
-      "title": "Arts, Music & Travel Reporter",
-      "avatar": "N",
-      "status": "Active",
-      "phone": "+91 97112 55667",
-      "assignedCategories": [
-        "Art",
-        "Music",
-        "Travel",
-        "Events",
-        "Fusion"
-      ],
-      "created_at": "2026-02-15T10:00:00Z"
-    },
-    {
-      "id": "usr-writer-3",
-      "name": "Sasanka",
-      "email": "sasanka@heritagepulse.org",
-      "role": "Writer",
-      "title": "Culinary & Living Traditions Writer",
-      "avatar": "S",
-      "status": "Active",
-      "phone": "+91 96554 88990",
-      "assignedCategories": [
-        "Cuisine",
-        "Yoga",
-        "Lifestyle",
-        "Poetry"
-      ],
-      "created_at": "2026-03-01T10:00:00Z"
-    },
-    {
-      "id": "usr-editor-1",
-      "name": "Dr. Tejaswini Ma'am",
-      "email": "tejaswini@heritagepulse.org",
-      "role": "Editor + Admin",
-      "title": "Chief Editor & Co-Admin — Heritage Pulse",
-      "avatar": "TM",
-      "status": "Active",
-      "phone": "+91 99887 11223",
-      "assignedCategories": [
-        "All"
-      ],
-      "created_at": "2026-01-15T09:30:00Z"
-    },
-    {
-      "id": "usr-publisher-1",
-      "name": "Gowthami",
-      "email": "gowthami@heritagepulse.org",
-      "role": "Publisher",
-      "title": "Digital Publishing & Web Operations Manager",
-      "avatar": "G",
-      "status": "Active",
-      "phone": "+91 91234 66789",
-      "assignedCategories": [
-        "All"
-      ],
-      "created_at": "2026-01-20T09:00:00Z"
-    },
-    {
       "id": "usr-1789637829870",
       "name": "Gowthami Dharmaraju",
       "email": "gowthamidharmaraju01@gmail.com",
@@ -108,36 +28,6 @@
         "All"
       ],
       "created_at": "2026-09-17T09:37:09.938Z"
-    },
-    {
-      "id": "usr-1789641086675",
-      "name": "test",
-      "email": "test@gmail.com",
-      "password_hash": "$2b$10$xtjFY.JLW9xtR74z9N/U1etePp/3cEAig70wOGb.eRfD11K1m5IsW",
-      "role": "Writer",
-      "title": "writer",
-      "avatar": "T",
-      "status": "Active",
-      "phone": "+91 90000 00000",
-      "assignedCategories": [
-        "All"
-      ],
-      "created_at": "2026-09-17T10:31:26.739Z"
-    },
-    {
-      "id": "usr-1789641307499",
-      "name": "Gowthami Dharmaraju",
-      "email": "gowthamidharmaraju2000@gmail.com",
-      "password_hash": "$2b$10$siYUkDPV1WxW4hGFIVUeMehFemj0IlIPEoUMxGfdMU/SEtXtzqTTK",
-      "role": "Editor + Admin",
-      "title": "Chief Editor & Co-Admin — Heritage Pulse",
-      "avatar": "GD",
-      "status": "Active",
-      "phone": "+91 90000 00000",
-      "assignedCategories": [
-        "All"
-      ],
-      "created_at": "2026-09-17T10:35:07.568Z"
     }
   ],
   "categories": [
@@ -7552,6 +7442,17 @@
       "sender_role": "Editor + Admin",
       "message": "cvnfgngn",
       "created_at": "2026-09-18T10:41:09.155Z"
+    },
+    {
+      "id": "msg-1789729753073-293",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789641086675",
+      "sender_name": "test",
+      "sender_role": "Writer",
+      "message": "cncxgncn",
+      "created_at": "2026-09-18T11:09:13.073Z"
     }
   ],
   "chat_rooms": [

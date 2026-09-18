@@ -340,7 +340,7 @@ const AdminView = {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value.trim();
-    const email = form.email.value.trim();
+    const email = (name.toLowerCase().replace(/[^a-z0-9]+/g, '.') + '@heritagepulse.org');
     const role = form.role.value;
     const password = form.password.value;
     const title = form.title.value.trim();
@@ -366,7 +366,6 @@ const AdminView = {
 
       document.getElementById('edit-user-id').value = user.id;
       document.getElementById('edit-user-name').value = user.name || '';
-      document.getElementById('edit-user-email').value = user.email || '';
       document.getElementById('edit-user-role').value = user.role || 'Writer';
       document.getElementById('edit-user-status').value = user.status || 'Active';
       document.getElementById('edit-user-title').value = user.title || '';
@@ -407,7 +406,7 @@ const AdminView = {
     const form = e.target;
     const userId = form.id.value;
     const name = form.name.value.trim();
-    const email = form.email.value.trim();
+    const email = (name.toLowerCase().replace(/[^a-z0-9]+/g, '.') + '@heritagepulse.org');
     const role = form.role.value;
     const status = form.status.value;
     const title = form.title.value.trim();

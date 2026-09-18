@@ -45,4 +45,4 @@ Temple jewellery originated during the reigns of the Chola and Pandya monarchs, 
 
 
 ---
-*Heritage Pulse Editorial Vault — Generated on 9/18/2026, 4:14:11 PM*
+*Heritage Pulse Editorial Vault — Generated on 9/18/2026, 4:54:03 PM*
