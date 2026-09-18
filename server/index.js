@@ -25,7 +25,12 @@ global.waClient = new Client({
   }
 });
 
-const QRCodeNode = require('qrcode');
+let QRCodeNode = null;
+try {
+  QRCodeNode = require('qrcode');
+} catch (e) {
+  console.log('[QR Engine] Local qrcode package not installed, using api.qrserver fallback');
+}
 
 // Global WhatsApp QR state
 global.currentQrCodeUrl = '';
@@ -34,11 +39,13 @@ global.currentRawQr = '';
 global.waClient.on('qr', async (qr) => {
   console.log('\n📲 New WhatsApp QR Code Generated!\n');
   global.currentRawQr = qr;
-  try {
-    global.currentQrCodeUrl = await QRCodeNode.toDataURL(qr, { width: 320, margin: 2 });
-  } catch (e) {
-    global.currentQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(qr)}`;
+  if (QRCodeNode && typeof QRCodeNode.toDataURL === 'function') {
+    try {
+      global.currentQrCodeUrl = await QRCodeNode.toDataURL(qr, { width: 320, margin: 2 });
+      return;
+    } catch (e) {}
   }
+  global.currentQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(qr)}`;
 });
 
 global.waClient.on('ready', () => {
