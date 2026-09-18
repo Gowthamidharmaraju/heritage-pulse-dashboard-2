@@ -170,61 +170,47 @@ class GoogleDriveService {
     try {
       console.log(`🚀 [Google Drive Sync] Starting upload for published article "${articleItem.title}" (${articleItem.id})...`);
 
-      const pubDate = articleItem.publishing_date || articleItem.updated_at || '2026-09-15';
-      const d = new Date(pubDate);
-      const year = isNaN(d.getFullYear()) ? '2026' : String(d.getFullYear());
-      const monthNum = isNaN(d.getMonth()) ? 9 : (d.getMonth() + 1);
-      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      const monthName = `${String(monthNum).padStart(2, '0')}-${months[monthNum - 1] || 'September'}`;
-      const category = (articleItem.category || 'General').trim();
+      const folders = require('./folders');
+      const folderInfo = folders.getArticleFolderInfo(articleItem);
+      
+      // 1. Generate Word (.doc), Markdown (.md), JSON (.json), and copy attached images to local vault disk folder
+      folders.syncPhysicalDiskVault([articleItem]);
+
       const folderName = `${articleItem.id}_${(articleItem.title || 'Article').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40)}`;
 
-      // Create article folder directly inside root Google Drive folder
+      // 2. Create article folder directly inside root Google Drive folder
       const articleFolderId = await this.findOrCreateFolder(folderName, this.rootFolderId);
 
-      // 1. Save & Upload metadata.json
-      const localVaultPath = path.join(__dirname, '..', 'public', 'content_vault', year, monthName, category, articleItem.id);
-      if (!fs.existsSync(localVaultPath)) {
-        fs.mkdirSync(localVaultPath, { recursive: true });
+      // 3. Scan disk vault folder and upload ALL files (Word doc, Markdown, JSON, images, PDFs, attachments) to Google Drive
+      if (fs.existsSync(folderInfo.absoluteDiskPath)) {
+        const vaultFiles = fs.readdirSync(folderInfo.absoluteDiskPath);
+        for (const f of vaultFiles) {
+          const fullFilePath = path.join(folderInfo.absoluteDiskPath, f);
+          if (fs.statSync(fullFilePath).isFile()) {
+            const ext = path.extname(f).toLowerCase();
+            let mime = 'application/octet-stream';
+            if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) mime = 'image/jpeg';
+            else if (['.doc', '.docx'].includes(ext)) mime = 'application/msword';
+            else if (['.pdf'].includes(ext)) mime = 'application/pdf';
+            else if (['.md', '.markdown'].includes(ext)) mime = 'text/markdown';
+            else if (['.json'].includes(ext)) mime = 'application/json';
+            
+            console.log(`[Google Drive Sync] Uploading asset "${f}" to Google Drive...`);
+            await this.uploadFile(fullFilePath, f, mime, articleFolderId);
+          }
+        }
       }
 
-      const metaPath = path.join(localVaultPath, `${articleItem.id}_metadata.json`);
-      fs.writeFileSync(metaPath, JSON.stringify(articleItem, null, 2), 'utf8');
-      await this.uploadFile(metaPath, `${articleItem.id}_metadata.json`, 'application/json', articleFolderId);
-
-      // 2. Save & Upload Markdown article
-      const mdContent = `# ${articleItem.title}\n\n**Category**: ${articleItem.category} | **Status**: ${articleItem.status}\n**Writer**: ${articleItem.writer ? articleItem.writer.name : 'Heritage Pulse Bureau'}\n\n${articleItem.body || ''}`;
-      const mdPath = path.join(localVaultPath, `${articleItem.id}_content.md`);
-      fs.writeFileSync(mdPath, mdContent, 'utf8');
-      await this.uploadFile(mdPath, `${articleItem.id}_content.md`, 'text/markdown', articleFolderId);
-
-      // 3. Upload featured image & attached images if present
+      // 4. Also upload any attached images from /uploads/ directory if present
       if (articleItem.images && Array.isArray(articleItem.images)) {
         for (const img of articleItem.images) {
           if (img.file_url) {
             const relPath = img.file_url.startsWith('/') ? img.file_url.slice(1) : img.file_url;
             const imgLocalPath = path.join(__dirname, '..', 'public', relPath);
             if (fs.existsSync(imgLocalPath)) {
-              await this.uploadFile(imgLocalPath, img.filename || path.basename(imgLocalPath), 'image/jpeg', articleFolderId);
+              const imgName = img.filename || path.basename(imgLocalPath);
+              await this.uploadFile(imgLocalPath, imgName, 'image/jpeg', articleFolderId);
             }
-          }
-        }
-      }
-
-      // 4. Scan physical disk vault for any additional uploaded files, Word docs, photos, or audio
-      if (fs.existsSync(localVaultPath)) {
-        const vaultFiles = fs.readdirSync(localVaultPath);
-        for (const f of vaultFiles) {
-          if (f.endsWith('_metadata.json') || f.endsWith('_content.md')) continue;
-          const fullFilePath = path.join(localVaultPath, f);
-          if (fs.statSync(fullFilePath).isFile()) {
-            const ext = path.extname(f).toLowerCase();
-            let mime = 'application/octet-stream';
-            if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) mime = 'image/jpeg';
-            else if (['.doc', '.docx'].includes(ext)) mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-            else if (['.pdf'].includes(ext)) mime = 'application/pdf';
-            
-            await this.uploadFile(fullFilePath, f, mime, articleFolderId);
           }
         }
       }
