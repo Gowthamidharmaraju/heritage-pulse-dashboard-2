@@ -85,12 +85,15 @@
         <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="app.toggleTheme()" title="Switch Light / Dark Theme">
           <i class="fa-solid fa-sun" id="theme-toggle-icon"></i>
         </button>        
-        <!-- Active User Profile Pill -->
+        <!-- Role Switcher Quick Bar -->
         <div class="role-switcher-dropdown">
-          <button class="role-pill-btn" id="role-pill-trigger" style="cursor: default;">
-            <span class="role-badge-indicator" id="current-role-badge">Writer</span>
-            <span class="user-display-name hide-on-tablet" id="current-user-name">Staff</span>
+          <button class="role-pill-btn" id="role-pill-trigger" title="Switch Active Perspective">
+            <span class="role-badge-indicator" id="current-role-badge">Super Admin</span>
+            <span class="user-display-name hide-on-tablet" id="current-user-name">Jitendra</span>
+            <i class="fa-solid fa-chevron-down role-caret hide-on-small-tablet"></i>
           </button>
+          <div class="role-menu hidden" id="role-menu-dropdown">
+            <div class="role-menu-header">Switch Active Perspective</div>
             
             <!-- DEMO ROLE SWITCHER ITEMS (HIDDEN FOR PRODUCTION PRODUCTION AUTH)
             <div class="role-menu-item" onclick="app.switchUser('usr-admin-1')">

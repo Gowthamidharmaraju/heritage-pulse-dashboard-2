@@ -1188,6 +1188,9 @@ const ContentDetailView = {
             <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px;">
               Only Chief Editor Dr. Tejaswini Ma'am can approve this article to the next stage.
             </div>
+            <button class="btn btn-xs btn-outline-light mt-2" onclick="app.switchUser('usr-editor-1')">
+              Switch to Dr. Tejaswini Ma'am <i class="fa-solid fa-right-left"></i>
+            </button>
           </div>
         `;
       }
@@ -1221,6 +1224,9 @@ const ContentDetailView = {
             <div style="font-size: 0.8rem; font-weight: 700; color: var(--saffron-dark);">
               ⏳ Waiting for Final Approval (Dr. Tejaswini Ma'am Only)
             </div>
+            <button class="btn btn-xs btn-outline-light mt-2" onclick="app.switchUser('usr-editor-1')">
+              Switch to Dr. Tejaswini Ma'am <i class="fa-solid fa-right-left"></i>
+            </button>
           </div>
         `;
       }
