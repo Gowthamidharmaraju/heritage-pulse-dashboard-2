@@ -246,6 +246,57 @@ app.get('/api/test-drive', async (req, res) => {
   }
 });
 
+// Endpoint to quickly save Google Drive Credentials into server/.env
+app.all('/api/save-drive-keys', (req, res) => {
+  const clientId = req.query.client_id || req.body.client_id || req.body.GOOGLE_DRIVE_CLIENT_ID;
+  const clientSecret = req.query.client_secret || req.body.client_secret || req.body.GOOGLE_DRIVE_CLIENT_SECRET;
+  const refreshToken = req.query.refresh_token || req.body.refresh_token || req.body.GOOGLE_DRIVE_REFRESH_TOKEN;
+  const folderId = req.query.folder_id || req.body.folder_id || '1fyOaEebMIdQN1Ke2oLXhtl_tca8auuvb';
+
+  if (!clientId || !clientSecret || !refreshToken) {
+    return res.status(400).json({
+      error: 'Missing parameters. Please provide client_id, client_secret, and refresh_token.',
+      exampleUrl: 'https://dashboard.heritejindia.com/api/save-drive-keys?client_id=YOUR_ID&client_secret=YOUR_SECRET&refresh_token=YOUR_TOKEN'
+    });
+  }
+
+  const envPath = path.join(__dirname, '.env');
+  let envContent = '';
+  if (fs.existsSync(envPath)) {
+    envContent = fs.readFileSync(envPath, 'utf8');
+  }
+
+  const keysMap = {
+    GOOGLE_DRIVE_CLIENT_ID: clientId.trim(),
+    GOOGLE_DRIVE_CLIENT_SECRET: clientSecret.trim(),
+    GOOGLE_DRIVE_REFRESH_TOKEN: refreshToken.trim(),
+    GOOGLE_DRIVE_FOLDER_ID: folderId.trim()
+  };
+
+  Object.entries(keysMap).forEach(([k, v]) => {
+    const regex = new RegExp(`^${k}=.*$`, 'm');
+    if (regex.test(envContent)) {
+      envContent = envContent.replace(regex, `${k}=${v}`);
+    } else {
+      envContent += `\n${k}=${v}`;
+    }
+    process.env[k] = v;
+  });
+
+  fs.writeFileSync(envPath, envContent, 'utf8');
+
+  // Re-init Drive Service
+  const driveService = require('./googleDriveService');
+  driveService.init();
+
+  res.json({
+    success: true,
+    message: '✅ Google Drive credentials saved into .env successfully and service re-initialized!',
+    savedKeys: Object.keys(keysMap),
+    testUrl: 'https://dashboard.heritejindia.com/api/test-drive'
+  });
+});
+
 // Users
 app.get('/api/users', (req, res) => {
   res.json(dbSqlite.getAllUsers());

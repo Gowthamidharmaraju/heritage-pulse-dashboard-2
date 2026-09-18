@@ -11,6 +11,9 @@ class GoogleDriveService {
 
   init() {
     try {
+      require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+      require('dotenv').config({ path: path.join(__dirname, '.env') });
+
       const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
       const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
       const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN;
