@@ -14,7 +14,9 @@ class GoogleDriveService {
       require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
       require('dotenv').config({ path: path.join(__dirname, '.env') });
 
-      const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID || '764086051850-6qr4p6gfd6eeac8359b5628bb0ae6102.apps.googleusercontent.com';
+      const clientId = (process.env.GOOGLE_DRIVE_CLIENT_ID && !process.env.GOOGLE_DRIVE_CLIENT_ID.includes('764086051850'))
+        ? process.env.GOOGLE_DRIVE_CLIENT_ID
+        : '292085223830-caeaae7ji312sikkuh5id2opr9sm95ke.apps.googleusercontent.com';
       const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET || 'd-qtwZuq5_f0nB_128-4061-';
       const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN;
 
