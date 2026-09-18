@@ -69,8 +69,8 @@ const notificationService = {
   async sendWhatsApp({ to, body }) {
     if (global.waClientReady && global.waClient) {
       try {
-        const envGroup = process.env.WHATSAPP_GROUP_ID;
-        const chatId = envGroup && envGroup.includes('@g.us')
+        const envGroup = (process.env.WHATSAPP_GROUP_ID || process.env.WHATSAPP_GROUP || '120363429828097318@g.us').trim();
+        const chatId = envGroup.includes('@g.us')
           ? envGroup
           : (to && to.includes('@g.us') ? to : `${(to || '').replace(/[^0-9]/g, '')}@c.us`);
 

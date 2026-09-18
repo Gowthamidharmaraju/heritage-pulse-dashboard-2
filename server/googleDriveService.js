@@ -5,7 +5,7 @@ const { google } = require('googleapis');
 class GoogleDriveService {
   constructor() {
     this.drive = null;
-    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || null;
+    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || process.env.GOOGLE_DRIVE_ROOT_FOLDER_ID || '1fyOaEebMIdQN1Ke2oLXhtl_tca8auuvb';
     this.init();
   }
 
@@ -158,7 +158,7 @@ class GoogleDriveService {
       this.init();
     }
 
-    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || this.rootFolderId;
+    this.rootFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID || process.env.GOOGLE_DRIVE_ROOT_FOLDER_ID || this.rootFolderId || '1fyOaEebMIdQN1Ke2oLXhtl_tca8auuvb';
 
     if (!this.drive || !this.rootFolderId) {
       throw new Error('Google Drive API not authenticated or missing GOOGLE_DRIVE_FOLDER_ID in .env');
@@ -176,11 +176,8 @@ class GoogleDriveService {
       const category = (articleItem.category || 'General').trim();
       const folderName = `${articleItem.id}_${(articleItem.title || 'Article').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40)}`;
 
-      // Create nested folder hierarchy in Google Drive: Root -> Year -> Month -> Category -> Article Folder
-      const yearFolderId = await this.findOrCreateFolder(year, this.rootFolderId);
-      const monthFolderId = await this.findOrCreateFolder(monthName, yearFolderId);
-      const categoryFolderId = await this.findOrCreateFolder(category, monthFolderId);
-      const articleFolderId = await this.findOrCreateFolder(folderName, categoryFolderId);
+      // Create article folder directly inside root Google Drive folder
+      const articleFolderId = await this.findOrCreateFolder(folderName, this.rootFolderId);
 
       // 1. Save & Upload metadata.json
       const localVaultPath = path.join(__dirname, '..', 'public', 'content_vault', year, monthName, category, articleItem.id);
