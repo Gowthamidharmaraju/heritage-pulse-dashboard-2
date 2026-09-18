@@ -2,27 +2,9 @@ const db = require('./db');
 const os = require('os');
 
 function getClickableDashboardUrl(contentId) {
-  let networkIp = '127.0.0.1';
-  try {
-    const nets = os.networkInterfaces();
-    for (const name of Object.keys(nets)) {
-      for (const net of nets[name]) {
-        if ((net.family === 'IPv4' || net.family === 4) && !net.internal) {
-          networkIp = net.address;
-          break;
-        }
-      }
-    }
-  } catch (e) {}
-
-  const port = global.activePort || process.env.PORT || 80;
-  const portSuffix = (port == 80) ? '' : `:${port}`;
-  const baseUrl = process.env.DASHBOARD_URL
-    ? process.env.DASHBOARD_URL.replace(/localhost|127\.0\.0\.1/g, networkIp)
-    : `http://${networkIp}${portSuffix}`;
-
+  const baseUrl = process.env.DASHBOARD_URL || 'https://dashboard.heritejindia.com';
   if (contentId) {
-    return `${baseUrl}/review/${contentId}`;
+    return `${baseUrl}/#content-detail?id=${contentId}`;
   }
   return baseUrl;
 }
