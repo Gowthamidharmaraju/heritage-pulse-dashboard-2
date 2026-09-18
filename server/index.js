@@ -260,20 +260,16 @@ app.all('/api/save-drive-keys', (req, res) => {
     GOOGLE_DRIVE_FOLDER_ID: folderId.trim()
   };
 
-  if (clientId && clientSecret && refreshToken) {
-    keysMap.GOOGLE_DRIVE_CLIENT_ID = clientId.trim();
-    keysMap.GOOGLE_DRIVE_CLIENT_SECRET = clientSecret.trim();
+  if (refreshToken) {
     keysMap.GOOGLE_DRIVE_REFRESH_TOKEN = refreshToken.trim();
+    if (clientId) keysMap.GOOGLE_DRIVE_CLIENT_ID = clientId.trim();
+    if (clientSecret) keysMap.GOOGLE_DRIVE_CLIENT_SECRET = clientSecret.trim();
   } else if (clientEmail && privateKey) {
     keysMap.GOOGLE_DRIVE_CLIENT_EMAIL = clientEmail.trim();
     keysMap.GOOGLE_DRIVE_PRIVATE_KEY = privateKey.trim();
   } else {
     return res.status(400).json({
-      error: 'Missing Google Drive credentials.',
-      options: {
-        oauth2: 'Provide client_id, client_secret, and refresh_token',
-        serviceAccount: 'Provide client_email and private_key'
-      }
+      error: 'Missing Google Drive credentials. Please provide refresh_token (or client_email and private_key).'
     });
   }
 
