@@ -188,6 +188,21 @@ class App {
       this.handleRoute();
       this.startLiveClock();
       this.startRealtimeSync();
+
+      // Auto-trigger assigned task kickoff popup for Writers on application load
+      if (this.currentUser && (this.currentUser.role === 'Writer' || (this.currentUser.role && this.currentUser.role.includes('Writer')))) {
+        try {
+          const allItems = await this.apiGet('/api/content');
+          const targetTask = allItems.find(i => i.writer_id === this.currentUser.id && ['TOPIC_CREATED', 'ASSIGNED', 'WRITING', 'CHANGES_REQUIRED'].includes(i.status));
+          if (targetTask) {
+            setTimeout(() => {
+              this.showWriterKickoffPopup(targetTask);
+            }, 300);
+          }
+        } catch (e) {
+          console.error('Kickoff popup load check failed:', e);
+        }
+      }
     } catch (err) {
       console.error("Data bootstrap error:", err);
       this.showToast("Error loading user workspace.", "error");
