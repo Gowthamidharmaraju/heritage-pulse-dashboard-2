@@ -88,30 +88,13 @@ const notificationService = {
     if (global.waClientReady && global.waClient) {
       try {
         const envGroup = process.env.WHATSAPP_GROUP_ID;
-        const groupChatId = envGroup && envGroup.includes('@g.us') ? envGroup : null;
-        
-        let targetChats = [];
-        if (groupChatId) targetChats.push(groupChatId);
-        if (to) {
-          const directChat = to.includes('@g.us') ? to : `${to.replace(/[^0-9]/g, '')}@c.us`;
-          if (!targetChats.includes(directChat)) targetChats.push(directChat);
-        }
+        const chatId = envGroup && envGroup.includes('@g.us')
+          ? envGroup
+          : (to && to.includes('@g.us') ? to : `${(to || '').replace(/[^0-9]/g, '')}@c.us`);
 
-        if (targetChats.length === 0 && global.detectedWaGroups && global.detectedWaGroups.size > 0) {
-          targetChats = Array.from(global.detectedWaGroups.keys());
-        }
-
-        console.log(`[Notification Service] Dispatching WhatsApp messages to:`, targetChats);
-
-        for (const chatId of targetChats) {
-          try {
-            await global.waClient.sendMessage(chatId, body);
-            console.log(`[Notification Service] Silent WhatsApp delivered to ${chatId}!`);
-          } catch (e) {
-            console.error(`[Notification Service Error] Message failed for ${chatId}:`, e.message);
-          }
-        }
-
+        console.log(`[Notification Service] Sending silent background WhatsApp via whatsapp-web.js to ${chatId}...`);
+        await global.waClient.sendMessage(chatId, body);
+        console.log(`[Notification Service] Silent WhatsApp sent via whatsapp-web.js to ${chatId}!`);
         return { success: true, method: 'whatsapp-web.js' };
       } catch (err) {
         console.error(`[Notification Service Error] whatsapp-web.js send failed:`, err.message);
