@@ -78,13 +78,21 @@ class WorkflowEngine {
       if (!content.checklist) content.checklist = {};
       content.checklist.website_published = true;
 
-      // Automated Google Drive Cloud Sync Trigger
+      // Automated Google Drive Cloud Sync Trigger for Published articles
       try {
         const driveService = require('./googleDriveService');
         driveService.syncArticleToDrive(content).catch(e => console.error('[Google Drive Sync Error]', e));
       } catch (e) {
         console.warn('[Google Drive Sync Trigger Warning]', e.message);
       }
+    }
+
+    if (targetStatus === 'WRITER_SUBMITTED') {
+      // Trigger Google Drive sync on 60% Writer Submission as well
+      try {
+        const driveService = require('./googleDriveService');
+        driveService.syncArticleToDrive(content).catch(e => console.error('[Google Drive Sync Error on 60% Submission]', e));
+      } catch (e) {}
     }
 
     if (targetStatus === 'CHANGES_REQUIRED') {
