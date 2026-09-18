@@ -153,7 +153,6 @@ class GoogleDriveService {
       console.error(`[Google Drive Service] Error uploading file "${fileName}":`, err.message);
       throw new Error(`Failed to upload file "${fileName}": ${err.message}`);
     }
-    }
   }
 
   async syncArticleToDrive(articleItem) {
