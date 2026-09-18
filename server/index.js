@@ -15,13 +15,7 @@ global.waClient = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
     headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu',
-      '--unhandled-rejections=strict'
-    ]
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   }
 });
 
