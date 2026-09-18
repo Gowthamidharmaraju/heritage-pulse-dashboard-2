@@ -89,7 +89,7 @@ class GoogleDriveService {
       return folder.data.id;
     } catch (err) {
       console.error(`[Google Drive Service] Error creating folder "${name}":`, err.message);
-      return parentFolderId;
+      throw new Error(`Failed to create folder "${name}": ${err.message}`);
     }
   }
 
@@ -151,7 +151,8 @@ class GoogleDriveService {
       return file.data;
     } catch (err) {
       console.error(`[Google Drive Service] Error uploading file "${fileName}":`, err.message);
-      return null;
+      throw new Error(`Failed to upload file "${fileName}": ${err.message}`);
+    }
     }
   }
 
