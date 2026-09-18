@@ -52,8 +52,8 @@ class WorkflowEngine {
 
     // Specific business rules for transitions
     if (targetStatus === 'PUBLISHED') {
-      if (!options.published_url) {
-        options.published_url = `https://heritagepulse.org/${(content.category || 'culture').toLowerCase()}/${content.id.toLowerCase()}-${encodeURIComponent(content.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40))}`;
+      if (!options.published_url || options.published_url.includes('heritagepulse.org')) {
+        options.published_url = getClickableDashboardUrl(contentId);
       }
       content.published_url = options.published_url;
       content.publishing_date = options.publishing_date || "2026-08-24";
