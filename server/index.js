@@ -304,7 +304,9 @@ app.get('/api/connect-google-drive', (req, res) => {
   const { google } = require('googleapis');
   const clientId = req.query.client_id || process.env.GOOGLE_DRIVE_CLIENT_ID;
   const clientSecret = req.query.client_secret || process.env.GOOGLE_DRIVE_CLIENT_SECRET;
-  const redirectUri = `${req.protocol}://${req.get('host')}/api/connect-google-drive/callback`;
+  const host = req.get('host');
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const redirectUri = `${protocol}://${host}/api/connect-google-drive/callback`;
 
   if (!clientId || !clientSecret) {
     return res.status(400).send(`
@@ -338,7 +340,9 @@ app.get('/api/connect-google-drive/callback', async (req, res) => {
   const code = req.query.code;
   const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
-  const redirectUri = `${req.protocol}://${req.get('host')}/api/connect-google-drive/callback`;
+  const host = req.get('host');
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const redirectUri = `${protocol}://${host}/api/connect-google-drive/callback`;
 
   if (!code) {
     return res.status(400).send('Authorization code missing.');
