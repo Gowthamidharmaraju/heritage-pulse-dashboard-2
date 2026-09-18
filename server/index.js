@@ -304,20 +304,26 @@ app.all('/api/save-drive-keys', (req, res) => {
 });
 
 // 1-Click Google OAuth Authorization Link Generator
-app.get('/api/auth/google-drive', (req, res) => {
+app.get('/api/connect-google-drive', (req, res) => {
   const { google } = require('googleapis');
-  const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID || req.query.client_id;
-  const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET || req.query.client_secret;
-  const redirectUri = `${req.protocol}://${req.get('host')}/api/auth/google-drive/callback`;
+  const clientId = req.query.client_id || process.env.GOOGLE_DRIVE_CLIENT_ID;
+  const clientSecret = req.query.client_secret || process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+  const redirectUri = `${req.protocol}://${req.get('host')}/api/connect-google-drive/callback`;
 
   if (!clientId || !clientSecret) {
     return res.status(400).send(`
       <html><body style="font-family:sans-serif;padding:40px;background:#0f172a;color:#fff;">
         <h2 style="color:#ef4444;">Missing Client ID or Client Secret</h2>
         <p>Please provide client_id and client_secret in URL parameter, or save them in .env first.</p>
-        <p>Example: <code>https://dashboard.heritejindia.com/api/auth/google-drive?client_id=YOUR_ID&client_secret=YOUR_SECRET</code></p>
+        <p>Example: <code>https://dashboard.heritejindia.com/api/connect-google-drive?client_id=YOUR_ID&client_secret=YOUR_SECRET</code></p>
       </body></html>
     `);
+  }
+
+  // Save Client ID and Secret if provided in query
+  if (req.query.client_id && req.query.client_secret) {
+    process.env.GOOGLE_DRIVE_CLIENT_ID = req.query.client_id.trim();
+    process.env.GOOGLE_DRIVE_CLIENT_SECRET = req.query.client_secret.trim();
   }
 
   const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
@@ -331,12 +337,12 @@ app.get('/api/auth/google-drive', (req, res) => {
 });
 
 // Google OAuth Callback Handler - Automatically Captures Refresh Token & Saves to .env
-app.get('/api/auth/google-drive/callback', async (req, res) => {
+app.get('/api/connect-google-drive/callback', async (req, res) => {
   const { google } = require('googleapis');
   const code = req.query.code;
   const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
-  const redirectUri = `${req.protocol}://${req.get('host')}/api/auth/google-drive/callback`;
+  const redirectUri = `${req.protocol}://${req.get('host')}/api/connect-google-drive/callback`;
 
   if (!code) {
     return res.status(400).send('Authorization code missing.');
@@ -350,15 +356,23 @@ app.get('/api/auth/google-drive/callback', async (req, res) => {
       const envPath = path.join(__dirname, '.env');
       let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
       
-      const k = 'GOOGLE_DRIVE_REFRESH_TOKEN';
-      const v = tokens.refresh_token;
-      const regex = new RegExp(`^${k}=.*$`, 'm');
-      if (regex.test(envContent)) {
-        envContent = envContent.replace(regex, `${k}=${v}`);
-      } else {
-        envContent += `\n${k}=${v}`;
-      }
-      process.env[k] = v;
+      const keysMap = {
+        GOOGLE_DRIVE_CLIENT_ID: clientId,
+        GOOGLE_DRIVE_CLIENT_SECRET: clientSecret,
+        GOOGLE_DRIVE_REFRESH_TOKEN: tokens.refresh_token,
+        GOOGLE_DRIVE_FOLDER_ID: process.env.GOOGLE_DRIVE_FOLDER_ID || '1fyOaEebMIdQN1Ke2oLXhtl_tca8auuvb'
+      };
+
+      Object.entries(keysMap).forEach(([k, v]) => {
+        const regex = new RegExp(`^${k}=.*$`, 'm');
+        if (regex.test(envContent)) {
+          envContent = envContent.replace(regex, `${k}=${v}`);
+        } else {
+          envContent += `\n${k}=${v}`;
+        }
+        process.env[k] = v;
+      });
+
       fs.writeFileSync(envPath, envContent, 'utf8');
 
       const driveService = require('./googleDriveService');
