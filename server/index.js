@@ -41,6 +41,9 @@ global.waClient.on('auth_failure', (msg) => {
 global.waClient.on('disconnected', (reason) => {
   global.waClientReady = false;
   console.warn('⚠️ [WhatsApp Web Client] Disconnected:', reason);
+  setTimeout(() => {
+    try { global.waClient.initialize(); } catch(e) {}
+  }, 5000);
 });
 
 global.waClient.initialize().catch(err => {
