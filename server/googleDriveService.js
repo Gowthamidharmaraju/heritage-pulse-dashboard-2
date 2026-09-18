@@ -14,12 +14,12 @@ class GoogleDriveService {
       require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
       require('dotenv').config({ path: path.join(__dirname, '.env') });
 
-      const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID;
-      const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
+      const clientId = process.env.GOOGLE_DRIVE_CLIENT_ID || '764086051850-6qr4p6gfd6eeac8359b5628bb0ae6102.apps.googleusercontent.com';
+      const clientSecret = process.env.GOOGLE_DRIVE_CLIENT_SECRET || 'd-qtwZuq5_f0nB_128-4061-';
       const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN;
 
       // 1. Prefer OAuth 2.0 Client credentials (User's personal Gmail quota)
-      if (clientId && clientSecret && refreshToken && !clientId.includes('your_client_id')) {
+      if (refreshToken) {
         const oauth2Client = new google.auth.OAuth2(clientId, clientSecret);
         oauth2Client.setCredentials({ refresh_token: refreshToken });
         this.auth = oauth2Client;
