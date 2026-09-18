@@ -164,12 +164,15 @@ const notificationService = {
       `
     });
 
-    // 2. Send WhatsApp
+    // 2. Send WhatsApp Notification to Group & Recipient
     let waResult = { success: false };
-    if (recipientPhone) {
+    const envGroup = process.env.WHATSAPP_GROUP_ID;
+    const targetWa = recipientPhone || envGroup || 'group';
+
+    if (targetWa) {
       const waBody = waBodyText || `⏳ *Waiting for Editorial Review*\n\n📄 *Title:* ${contentTitle}\n🆔 *Content ID:* ${contentId}\n🏷️ *Category:* ${catLabel}${subCatLabel}\n📅 *Publishing Date:* ${pubDateLabel}\n✍️ *Submitted By:* ${byUser}\n\n🔗 *Click to Open & Review:*\n${reviewUrl}`;
       waResult = await this.sendWhatsApp({
-        to: recipientPhone,
+        to: targetWa,
         body: waBody
       });
     }
