@@ -203,15 +203,15 @@ function formatArticleWordDocument(item) {
 </html>`;
 }
 
-// Synchronize published articles to physical disk folders (Only Clean Published Data)
+// Synchronize published & active articles to physical disk folders
 function syncPhysicalDiskVault(contentList) {
   if (!Array.isArray(contentList)) return { count: 0 };
   let synced = 0;
 
-  // Filter to keep ONLY clean, fully published final data (no incomplete drafts)
-  const publishedList = contentList.filter(item => item.status === 'PUBLISHED' || item.progress >= 100);
+  // Include active working articles (progress >= 10) so folders data vault builds for all active topics
+  const targetList = contentList.filter(item => item && !item.is_deleted);
 
-  publishedList.forEach(item => {
+  targetList.forEach(item => {
     try {
       const info = getArticleFolderInfo(item);
       if (!fs.existsSync(info.absoluteDiskPath)) {
