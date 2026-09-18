@@ -22,14 +22,18 @@ global.waClient = new Client({
 // Global WhatsApp QR state
 global.currentQrCodeUrl = '';
 
+global.currentRawQr = '';
+
 global.waClient.on('qr', (qr) => {
-  console.log('\n📲 New WhatsApp QR Code Generated! Open http://localhost:3000/qr to scan!\n');
+  console.log('\n📲 New WhatsApp QR Code Generated!\n');
+  global.currentRawQr = qr;
   global.currentQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(qr)}`;
 });
 
 global.waClient.on('ready', () => {
   global.waClientReady = true;
   global.currentQrCodeUrl = '';
+  global.currentRawQr = '';
   console.log('✅ [WhatsApp Web Client] Background session is CONNECTED & READY!');
 });
 
@@ -54,7 +58,8 @@ const PORT = process.env.PORT || 3000;
 app.get('/api/wa-status', (req, res) => {
   res.json({
     ready: !!global.waClientReady,
-    qrUrl: global.currentQrCodeUrl || ''
+    qrUrl: global.currentQrCodeUrl || '',
+    rawQr: global.currentRawQr || ''
   });
 });
 
@@ -120,12 +125,12 @@ app.get('/qr', (req, res) => {
         <head><title>WhatsApp Connected</title></head>
         <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff;">
           <h1 style="color: #10b981;">✅ WhatsApp Connected &amp; Authenticated!</h1>
-          <p style="color: #cbd5e1; font-size: 1.1rem;">Automated silent WhatsApp messages are active!</p>
+          <p style="color: #cbd5e1; font-size: 1.1rem;">Automated silent WhatsApp group messages are active!</p>
         </body>
       </html>
     `);
   }
-  if (!global.currentQrCodeUrl) {
+  if (!global.currentRawQr && !global.currentQrCodeUrl) {
     return res.send(`
       <html>
         <head><title>Generating QR...</title><meta http-equiv="refresh" content="3"></head>
@@ -140,15 +145,31 @@ app.get('/qr', (req, res) => {
     <html>
       <head>
         <title>Scan WhatsApp QR Code</title>
-        <meta http-equiv="refresh" content="4">
+        <meta http-equiv="refresh" content="6">
+        <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
       </head>
       <body style="font-family: sans-serif; text-align: center; padding: 30px; background: #0f172a; color: #fff;">
-        <h1 style="color: #f59e0b;">📲 Scan QR Code with Sender Phone (Pavitra / System)</h1>
-        <p style="color: #cbd5e1; font-size: 1.1rem;">Open WhatsApp on the <strong>Sender Phone</strong> &rarr; tap <strong>Settings / Menu</strong> &rarr; <strong>Linked Devices</strong> &rarr; <strong>Link a Device</strong> &rarr; Scan below:</p>
+        <h1 style="color: #f59e0b;">📲 Scan QR Code with Sender Phone (WhatsApp)</h1>
+        <p style="color: #cbd5e1; font-size: 1.1rem;">Open WhatsApp on your mobile phone &rarr; tap <strong>Settings / Menu (3 dots)</strong> &rarr; <strong>Linked Devices</strong> &rarr; <strong>Link a Device</strong> &rarr; Scan QR below:</p>
         <div style="background: #fff; padding: 20px; display: inline-block; border-radius: 16px; margin: 20px 0; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
-          <img src="${global.currentQrCodeUrl}" alt="WhatsApp QR Code" style="width: 320px; height: 320px; display: block;">
+          <canvas id="qr-canvas" style="width: 320px; height: 320px; display: block;"></canvas>
+          <img id="qr-img" src="${global.currentQrCodeUrl}" alt="WhatsApp QR Code" style="width: 320px; height: 320px; display: none;">
         </div>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Auto-refreshes every 4 seconds until scanned.</p>
+        <script>
+          const raw = ${JSON.stringify(global.currentRawQr || '')};
+          if (raw && typeof QRCode !== 'undefined') {
+            QRCode.toCanvas(document.getElementById('qr-canvas'), raw, { width: 320, margin: 2 }, function (error) {
+              if (error) {
+                document.getElementById('qr-canvas').style.display = 'none';
+                document.getElementById('qr-img').style.display = 'block';
+              }
+            });
+          } else {
+            document.getElementById('qr-canvas').style.display = 'none';
+            document.getElementById('qr-img').style.display = 'block';
+          }
+        </script>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Auto-refreshes every 6 seconds until scanned.</p>
       </body>
     </html>
   `);
