@@ -1070,7 +1070,12 @@
             </div>
             <div class="form-group">
               <label class="form-label">Initial Password <span class="required">*</span></label>
-              <input type="password" name="password" class="form-control" value="heritage2026" required>
+              <div class="password-input-wrapper" style="position: relative;">
+                <input type="password" id="add-user-password" name="password" class="form-control" value="heritage2026" required style="padding-right: 40px;">
+                <button type="button" class="btn-toggle-pw" onclick="LoginView.togglePasswordVisibility('add-user-password', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-dim); cursor: pointer; padding: 4px;">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -1197,12 +1202,12 @@
   <script src="/js/views/workload.js?v=200"></script>
   <script src="/js/views/calendar.js?v=200"></script>
   <script src="/js/views/analytics.js?v=200"></script>
-  <script src="/js/views/admin.js?v=200"></script>
-  <script src="/js/views/aiMonitor.js?v=200"></script>
-  <script src="/js/views/foldersView.js?v=200"></script>
-  <script src="/js/views/chatView.js?v=200"></script>
-  <script src="/js/views/loginView.js?v=200"></script>
+  <script src="/js/views/admin.js?v=205"></script>
+  <script src="/js/views/aiMonitor.js?v=205"></script>
+  <script src="/js/views/foldersView.js?v=205"></script>
+  <script src="/js/views/chatView.js?v=205"></script>
+  <script src="/js/views/loginView.js?v=205"></script>
   <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
-  <script src="/js/app.js?v=200"></script>
+  <script src="/js/app.js?v=205"></script>
 </body>
 </html>

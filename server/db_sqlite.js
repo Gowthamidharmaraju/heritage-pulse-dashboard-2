@@ -451,12 +451,16 @@ function verifyUserPassword(identifier, password) {
 
   if (!user) return null;
 
-  // If password_hash exists, verify password with bcrypt (or allow direct login if password provided)
+  // Verify password with bcrypt
   if (user.password_hash && password) {
     try {
       const valid = bcrypt.compareSync(password, user.password_hash);
-      if (!valid && password.length < 4) return null;
-    } catch (e) {}
+      if (!valid) return null;
+    } catch (e) {
+      return null;
+    }
+  } else if (!password) {
+    return null;
   }
 
   const { password_hash, ...userWithoutPassword } = user;
