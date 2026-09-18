@@ -15,13 +15,23 @@ global.waClient = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    executablePath: process.env.CHROME_BIN || undefined,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process',
+      '--disable-gpu',
+      '--disable-extensions'
+    ]
   }
 });
 
 // Global WhatsApp QR state
 global.currentQrCodeUrl = '';
-
 global.currentRawQr = '';
 
 global.waClient.on('qr', (qr) => {
@@ -119,57 +129,72 @@ app.get('/api/wa-groups', async (req, res) => {
 
 // QR Code Authentication Page for WhatsApp
 app.get('/qr', (req, res) => {
-  if (global.waClientReady) {
-    return res.send(`
-      <html>
-        <head><title>WhatsApp Connected</title></head>
-        <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff;">
-          <h1 style="color: #10b981;">✅ WhatsApp Connected &amp; Authenticated!</h1>
-          <p style="color: #cbd5e1; font-size: 1.1rem;">Automated silent WhatsApp group messages are active!</p>
-        </body>
-      </html>
-    `);
-  }
-  if (!global.currentRawQr && !global.currentQrCodeUrl) {
-    return res.send(`
-      <html>
-        <head><title>Generating QR...</title><meta http-equiv="refresh" content="3"></head>
-        <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #0f172a; color: #fff;">
-          <h2>Generating WhatsApp QR Code...</h2>
-          <p>Please wait 3 seconds for the QR code to load.</p>
-        </body>
-      </html>
-    `);
-  }
   res.send(`
+    <!DOCTYPE html>
     <html>
       <head>
         <title>Scan WhatsApp QR Code</title>
-        <meta http-equiv="refresh" content="6">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+        <style>
+          body { font-family: system-ui, -apple-system, sans-serif; text-align: center; padding: 30px 15px; background: #0f172a; color: #fff; margin: 0; }
+          .card { background: #1e293b; max-width: 480px; margin: 0 auto; padding: 24px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #334155; }
+          .qr-box { background: #fff; padding: 16px; border-radius: 16px; display: inline-block; margin: 20px 0; min-width: 280px; min-height: 280px; }
+          .status { font-weight: bold; font-size: 1.1rem; padding: 10px 16px; border-radius: 30px; display: inline-block; margin-top: 10px; }
+          .status-loading { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+          .status-ready { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        </style>
       </head>
-      <body style="font-family: sans-serif; text-align: center; padding: 30px; background: #0f172a; color: #fff;">
-        <h1 style="color: #f59e0b;">📲 Scan QR Code with Sender Phone (WhatsApp)</h1>
-        <p style="color: #cbd5e1; font-size: 1.1rem;">Open WhatsApp on your mobile phone &rarr; tap <strong>Settings / Menu (3 dots)</strong> &rarr; <strong>Linked Devices</strong> &rarr; <strong>Link a Device</strong> &rarr; Scan QR below:</p>
-        <div style="background: #fff; padding: 20px; display: inline-block; border-radius: 16px; margin: 20px 0; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
-          <canvas id="qr-canvas" style="width: 320px; height: 320px; display: block;"></canvas>
-          <img id="qr-img" src="${global.currentQrCodeUrl}" alt="WhatsApp QR Code" style="width: 320px; height: 320px; display: none;">
+      <body>
+        <div class="card">
+          <h2 style="color: #f59e0b; margin-top: 0;">📲 Scan WhatsApp QR Code</h2>
+          <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">
+            Open <strong>WhatsApp</strong> on your mobile phone &rarr;<br>
+            Tap <strong>Settings / Menu (3 dots)</strong> &rarr; <strong>Linked Devices</strong> &rarr; <strong>Link a Device</strong> &rarr; Scan below:
+          </p>
+
+          <div class="qr-box">
+            <div id="loading-spinner" style="padding: 100px 0; color: #64748b; font-weight: bold;">
+              ⏳ Initializing WhatsApp Engine...<br>
+              <small style="font-weight: normal; font-size: 0.8rem;">(Takes ~3 to 5 seconds)</small>
+            </div>
+            <canvas id="qr-canvas" style="width: 280px; height: 280px; display: none;"></canvas>
+          </div>
+
+          <div id="status-badge" class="status status-loading">Initializing...</div>
         </div>
+
         <script>
-          const raw = ${JSON.stringify(global.currentRawQr || '')};
-          if (raw && typeof QRCode !== 'undefined') {
-            QRCode.toCanvas(document.getElementById('qr-canvas'), raw, { width: 320, margin: 2 }, function (error) {
-              if (error) {
+          let isConnected = false;
+          async function checkQrStatus() {
+            if (isConnected) return;
+            try {
+              const res = await fetch('/api/wa-status');
+              const data = await res.json();
+              
+              if (data.ready) {
+                isConnected = true;
+                document.getElementById('loading-spinner').style.display = 'none';
                 document.getElementById('qr-canvas').style.display = 'none';
-                document.getElementById('qr-img').style.display = 'block';
+                document.getElementById('status-badge').className = 'status status-ready';
+                document.getElementById('status-badge').innerHTML = '✅ Connected & Active!';
+                document.querySelector('.card').innerHTML = '<h1 style="color:#10b981;">✅ WhatsApp Connected!</h1><p style="color:#cbd5e1;">Automated 60% group notifications are active!</p>';
+                return;
               }
-            });
-          } else {
-            document.getElementById('qr-canvas').style.display = 'none';
-            document.getElementById('qr-img').style.display = 'block';
+
+              if (data.rawQr) {
+                document.getElementById('loading-spinner').style.display = 'none';
+                document.getElementById('qr-canvas').style.display = 'block';
+                document.getElementById('status-badge').className = 'status status-loading';
+                document.getElementById('status-badge').innerHTML = '⚡ Ready to Scan!';
+                QRCode.toCanvas(document.getElementById('qr-canvas'), data.rawQr, { width: 280, margin: 2 });
+              }
+            } catch(e) {}
           }
+
+          checkQrStatus();
+          setInterval(checkQrStatus, 1000);
         </script>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Auto-refreshes every 6 seconds until scanned.</p>
       </body>
     </html>
   `);
