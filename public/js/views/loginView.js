@@ -28,6 +28,33 @@ const LoginView = {
           <!-- ERROR / ALERT MESSAGE -->
           <div id="login-alert-box" class="login-alert hidden"></div>
 
+          <!-- GOOGLE SINGLE SIGN-ON (SSO) BUTTON -->
+          <div style="margin-bottom: 20px;">
+            <div id="g_id_onload"
+                 data-client_id="372916208432-kclu724omf9hm9dpbglue2vgqikghmb0.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="filled_blue"
+                 data-text="signin_with"
+                 data-size="large"
+                 data-logo_alignment="left"
+                 data-width="100%">
+            </div>
+
+            <div style="display: flex; align-items: center; margin: 18px 0;">
+              <div style="flex: 1; height: 1px; background: var(--border-color);"></div>
+              <span style="padding: 0 10px; font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Or Staff Login</span>
+              <div style="flex: 1; height: 1px; background: var(--border-color);"></div>
+            </div>
+          </div>
+
           <!-- SIGN IN FORM -->
           <form id="login-form" class="login-form" onsubmit="LoginView.handleLogin(event)">
             <div class="form-group-login">
@@ -309,6 +336,18 @@ const LoginView = {
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = `<span>Reset Password &amp; Sign In</span> <i class="fa-solid fa-rotate"></i>`;
+    }
+  }
+};
+
+// Global callback for Google SSO login response
+window.handleGoogleCredentialResponse = async function(response) {
+  if (response && response.credential) {
+    try {
+      LoginView.showAlert('Verifying Google Identity...', 'info');
+      await app.loginWithGoogle(response.credential);
+    } catch (err) {
+      LoginView.showAlert(err.message || 'Google Sign-In failed. Contact Super Admin to authorize your account.');
     }
   }
 };

@@ -71,6 +71,66 @@ router.post('/login', (req, res) => {
   });
 });
 
+// Google OAuth 2.0 Single Sign-On (SSO) Endpoint
+router.post('/google', async (req, res) => {
+  const credential = req.body.credential || req.body.token || req.body.idToken;
+
+  if (!credential) {
+    return res.status(400).json({ error: 'Google authentication credential is required.' });
+  }
+
+  try {
+    let googleUserEmail = null;
+    let googleUserName = null;
+
+    // Verify Google ID token via OAuth2 tokeninfo endpoint or Google Auth Library
+    try {
+      const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`);
+      if (response.ok) {
+        const payload = await response.json();
+        googleUserEmail = (payload.email || '').toLowerCase().trim();
+        googleUserName = payload.name || payload.given_name || 'Google User';
+      }
+    } catch (e) {
+      console.warn('Google tokeninfo fetch error:', e.message);
+    }
+
+    if (!googleUserEmail) {
+      return res.status(401).json({ error: 'Invalid Google Identity token credential.' });
+    }
+
+    // Match Google email with existing staff members in SQLite / JSON database
+    let user = dbSqlite.verifyUserPassword(googleUserEmail, 'password123');
+    if (!user) {
+      // Fallback email search
+      const allUsers = dbSqlite.getAllUsers();
+      user = allUsers.find(u => u.email && u.email.toLowerCase() === googleUserEmail);
+    }
+
+    // Security Guard: Restrict access to authorized staff members only
+    if (!user) {
+      return res.status(403).json({
+        error: `Access Restricted: Google account (${googleUserEmail}) is not authorized. Please contact Super Admin to assign your staff account.`
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      message: 'Google Sign-In successful!',
+      token,
+      user
+    });
+  } catch (err) {
+    console.error('Google Auth Route Error:', err);
+    res.status(500).json({ error: 'Google authentication failed: ' + err.message });
+  }
+});
+
 // Get currently authenticated user profile
 router.get('/me', (req, res) => {
   const authHeader = req.headers['authorization'];

@@ -124,6 +124,18 @@ class App {
     await this.bootstrapAppData();
   }
 
+  async loginWithGoogle(credential) {
+    const res = await this.apiPost('/api/auth/google', { credential });
+    if (!res.token || !res.user) throw new Error("Invalid Google response from server.");
+
+    this.authToken = res.token;
+    this.currentUser = res.user;
+    localStorage.setItem('hp_auth_token', res.token);
+
+    this.showToast(`✨ Google Sign-In Successful! Welcome, ${res.user.name}!`, "success");
+    await this.bootstrapAppData();
+  }
+
   async register({ name, email, role, password }) {
     const res = await this.apiPost('/api/auth/register', { name, email, role, password });
     if (!res.user) throw new Error("Registration failed.");
