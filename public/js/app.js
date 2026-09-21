@@ -662,16 +662,6 @@ class App {
     this.updateSidebarForRole();
   }
 
-  updateSidebarForRole() {
-    if (!this.currentUser) return;
-    const role = (this.currentUser.role || '').toLowerCase();
-    const isWriter = role === 'writer';
-    const isPublisher = role === 'publisher';
-    const isAdmin = this.isAdmin();
-    const isEditor = role.includes('editor') || this.currentUser.id === 'usr-editor-1';
-    const isAdminOrEditor = isAdmin || isEditor;
-    const isAdminOrTejaswini = this.isAdminOrTejaswini();
-
   startGuidedTour() {
     if (typeof TutorialView !== 'undefined') {
       const role = this.currentUser ? this.currentUser.role : 'Editor';
@@ -689,7 +679,17 @@ class App {
     }
   }
 
-  // 1. Management & Intel Section (Workload, Analytics, Categories, Team & Permissions)
+  updateSidebarForRole() {
+    if (!this.currentUser) return;
+    const role = (this.currentUser.role || '').toLowerCase();
+    const isWriter = role === 'writer';
+    const isPublisher = role === 'publisher';
+    const isAdmin = this.isAdmin();
+    const isEditor = role.includes('editor') || this.currentUser.id === 'usr-editor-1';
+    const isAdminOrEditor = isAdmin || isEditor;
+    const isAdminOrTejaswini = this.isAdminOrTejaswini();
+
+    // 1. Management & Intel Section (Workload, Analytics, Categories, Team & Permissions)
     const adminMgmtSection = document.getElementById('admin-management-nav-section');
     if (adminMgmtSection) {
       adminMgmtSection.style.display = 'block';
