@@ -634,34 +634,84 @@ function formatArticleFolderItem(item, info) {
   };
 }
 
-// Generate ZIP export package containing JSON, MD, HTML and images
+// Generate ZIP export package containing JSON, MD, HTML, DOC and images
 function createFolderZipArchive(item) {
   const info = getArticleFolderInfo(item);
   syncPhysicalDiskVault([item]);
 
   const zipFilename = `HeritagePulse_${item.id}_${info.titleSlug}.zip`;
   const zipFilePath = path.join(DOWNLOADS_DIR, zipFilename);
+  const sourceFolder = info.absoluteDiskPath;
 
+  if (!fs.existsSync(sourceFolder)) {
+    throw new Error(`Folder path does not exist: ${sourceFolder}`);
+  }
+
+  let created = false;
+
+  // Method 1: Linux/Unix standard 'zip' CLI
   try {
-    // Use system zip utility on macOS/Linux
-    const cmd = `cd "${path.dirname(info.absoluteDiskPath)}" && zip -r -q "${zipFilePath}" "${path.basename(info.absoluteDiskPath)}"`;
-    execSync(cmd);
+    const parentDir = path.dirname(sourceFolder);
+    const folderName = path.basename(sourceFolder);
+    execSync(`cd "${parentDir}" && zip -r -q "${zipFilePath}" "${folderName}"`, { stdio: 'ignore' });
+    if (fs.existsSync(zipFilePath) && fs.statSync(zipFilePath).size > 0) {
+      created = true;
+    }
+  } catch (err) {
+    // Suppress error and try fallbacks
+  }
+
+  // Method 2: Windows PowerShell Compress-Archive
+  if (!created && process.platform === 'win32') {
+    try {
+      if (fs.existsSync(zipFilePath)) fs.unlinkSync(zipFilePath);
+      const psCmd = `powershell -NoProfile -Command "Compress-Archive -Path '${sourceFolder}\\*' -DestinationPath '${zipFilePath}' -Force"`;
+      execSync(psCmd, { stdio: 'ignore' });
+      if (fs.existsSync(zipFilePath) && fs.statSync(zipFilePath).size > 0) {
+        created = true;
+      }
+    } catch (err) {}
+  }
+
+  // Method 3: System tar (available on Windows 10/11 & Linux)
+  if (!created) {
+    try {
+      if (fs.existsSync(zipFilePath)) fs.unlinkSync(zipFilePath);
+      const parentDir = path.dirname(sourceFolder);
+      const folderName = path.basename(sourceFolder);
+      execSync(`tar -a -c -f "${zipFilePath}" -C "${parentDir}" "${folderName}"`, { stdio: 'ignore' });
+      if (fs.existsSync(zipFilePath) && fs.statSync(zipFilePath).size > 0) {
+        created = true;
+      }
+    } catch (err) {}
+  }
+
+  if (created) {
     return {
       success: true,
       filename: zipFilename,
       downloadUrl: `/downloads/${zipFilename}`,
       path: zipFilePath
     };
-  } catch (err) {
-    console.error("ZIP creation error:", err);
-    // Fallback: create simple export file
+  }
+
+  // Fallback: Return primary Word doc or Markdown file if ZIP binary tools are unavailable
+  const docPath = path.join(sourceFolder, `${item.id}_article.doc`);
+  if (fs.existsSync(docPath)) {
     return {
       success: true,
-      filename: `${item.id}_export.md`,
-      downloadUrl: `/api/folders/file/${item.id}/md`,
-      path: path.join(info.absoluteDiskPath, `${item.id}_content.md`)
+      filename: `${item.id}_article.doc`,
+      downloadUrl: `/api/folders/file/${item.id}/doc`,
+      path: docPath
     };
   }
+
+  return {
+    success: true,
+    filename: `${item.id}_content.md`,
+    downloadUrl: `/api/folders/file/${item.id}/md`,
+    path: path.join(sourceFolder, `${item.id}_content.md`)
+  };
 }
 
 module.exports = {
