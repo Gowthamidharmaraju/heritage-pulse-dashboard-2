@@ -104,6 +104,27 @@ router.get('/me', (req, res) => {
   }
 });
 
+// Reset Password endpoint
+router.post('/reset-password', (req, res) => {
+  const identifier = req.body.identifier || req.body.email || req.body.name || req.body.username;
+  const newPassword = req.body.newPassword || req.body.password;
+
+  if (!identifier || !newPassword) {
+    return res.status(400).json({ error: 'Staff name or email and new password are required.' });
+  }
+
+  if (newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters long.' });
+  }
+
+  try {
+    dbSqlite.resetUserPassword(identifier, newPassword);
+    res.json({ message: 'Password reset successfully! Please sign in with your new password.' });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 // Logout endpoint
 router.post('/logout', (req, res) => {
   res.json({ message: 'Logged out successfully' });

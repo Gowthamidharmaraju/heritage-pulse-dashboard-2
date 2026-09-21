@@ -45,6 +45,13 @@ const LoginView = {
               </div>
             </div>
 
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: -4px; margin-bottom: 16px;">
+              <span></span>
+              <a href="javascript:void(0)" onclick="LoginView.switchTab('reset')" style="font-size: 0.82rem; color: var(--saffron); font-weight: 600; text-decoration: none;">
+                <i class="fa-solid fa-key" style="font-size: 0.75rem;"></i> Forgot Password?
+              </a>
+            </div>
+
             <button type="submit" id="login-submit-btn" class="btn-login-submit">
               <span>Sign In to Dashboard</span>
               <i class="fa-solid fa-arrow-right"></i>
@@ -84,6 +91,50 @@ const LoginView = {
             </button>
           </form>
 
+          <!-- RESET PASSWORD FORM (HIDDEN BY DEFAULT) -->
+          <form id="reset-form" class="login-form hidden" onsubmit="LoginView.handleResetPassword(event)">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Reset Account Password</h3>
+              <p style="font-size: 0.8rem; color: var(--text-dim);">Enter your staff name or email address to set a new password.</p>
+            </div>
+
+            <div class="form-group-login">
+              <label for="reset-email"><i class="fa-solid fa-user"></i> Staff Name or Email</label>
+              <input type="text" id="reset-email" class="form-input-login" placeholder="e.g. Pavitra or pavitra@heritagepulse.org" required>
+            </div>
+
+            <div class="form-group-login">
+              <label for="reset-new-password"><i class="fa-solid fa-lock"></i> New Password (min 6 chars)</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="reset-new-password" class="form-input-login" placeholder="••••••••" required minlength="6">
+                <button type="button" class="btn-toggle-pw" onclick="LoginView.togglePasswordVisibility('reset-new-password', this)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group-login">
+              <label for="reset-confirm-password"><i class="fa-solid fa-lock"></i> Confirm New Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="reset-confirm-password" class="form-input-login" placeholder="••••••••" required minlength="6">
+                <button type="button" class="btn-toggle-pw" onclick="LoginView.togglePasswordVisibility('reset-confirm-password', this)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" id="reset-submit-btn" class="btn-login-submit">
+              <span>Reset Password &amp; Sign In</span>
+              <i class="fa-solid fa-rotate"></i>
+            </button>
+
+            <div style="text-align: center; margin-top: 14px;">
+              <a href="javascript:void(0)" onclick="LoginView.switchTab('login')" style="font-size: 0.82rem; color: var(--text-dim); text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> Return to Sign In
+              </a>
+            </div>
+          </form>
+
           <div class="login-footer text-center">
             <small>© 2026 Heritage Pulse Content Operations • Secure Auth API</small>
           </div>
@@ -96,20 +147,30 @@ const LoginView = {
   switchTab(tab) {
     const loginForm = document.getElementById('login-form');
     const regForm = document.getElementById('register-form');
+    const resetForm = document.getElementById('reset-form');
     const loginTab = document.getElementById('tab-btn-login');
     const regTab = document.getElementById('tab-btn-register');
     this.hideAlert();
 
-    if (tab === 'login') {
+    if (loginForm) loginForm.classList.add('hidden');
+    if (regForm) regForm.classList.add('hidden');
+    if (resetForm) resetForm.classList.add('hidden');
+
+    if (tab === 'login' && loginForm) {
       loginForm.classList.remove('hidden');
-      regForm.classList.add('hidden');
-      loginTab.classList.add('active');
-      regTab.classList.remove('active');
-    } else {
-      loginForm.classList.add('hidden');
+      if (loginTab) loginTab.classList.add('active');
+      if (regTab) regTab.classList.remove('active');
+    } else if (tab === 'register' && regForm) {
       regForm.classList.remove('hidden');
-      loginTab.classList.remove('active');
-      regTab.classList.add('active');
+      if (regTab) regTab.classList.add('active');
+      if (loginTab) loginTab.classList.remove('active');
+    } else if (tab === 'reset' && resetForm) {
+      resetForm.classList.remove('hidden');
+      const resetEmail = document.getElementById('reset-email');
+      const loginEmail = document.getElementById('login-email');
+      if (resetEmail && loginEmail && loginEmail.value) {
+        resetEmail.value = loginEmail.value;
+      }
     }
   },
 
@@ -205,6 +266,49 @@ const LoginView = {
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = `<span>Create Account</span> <i class="fa-solid fa-user-check"></i>`;
+    }
+  },
+
+  async handleResetPassword(event) {
+    event.preventDefault();
+    this.hideAlert();
+
+    const identifier = document.getElementById('reset-email').value.trim();
+    const newPassword = document.getElementById('reset-new-password').value;
+    const confirmPassword = document.getElementById('reset-confirm-password').value;
+    const submitBtn = document.getElementById('reset-submit-btn');
+
+    if (!identifier || !newPassword || !confirmPassword) {
+      this.showAlert('Please fill in all required fields.');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      this.showAlert('New password and confirm password do not match.');
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      this.showAlert('New password must be at least 6 characters long.');
+      return;
+    }
+
+    try {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Resetting Password...`;
+
+      await app.resetPassword(identifier, newPassword);
+
+      this.switchTab('login');
+      document.getElementById('login-email').value = identifier;
+      document.getElementById('login-password').value = newPassword;
+
+      this.showAlert(`✨ Password reset successfully for ${identifier}! Click Sign In below.`, 'success');
+    } catch (err) {
+      this.showAlert(err.message || 'Password reset failed. Please check the staff name/email.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<span>Reset Password &amp; Sign In</span> <i class="fa-solid fa-rotate"></i>`;
     }
   }
 };

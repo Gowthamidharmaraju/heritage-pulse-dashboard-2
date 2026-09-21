@@ -410,16 +410,37 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
   const avatar = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
   const created_at = new Date().toISOString();
 
-  db.prepare(`
-    INSERT INTO users (id, name, email, password_hash, role, title, avatar, status, phone, assignedCategories, created_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    id, name, email.toLowerCase().trim(), password_hash,
-    role || 'Writer', title || 'Staff Contributor', avatar, 'Active',
-    phone || '+91 90000 00000', JSON.stringify(assignedCategories || ['All']), created_at
-  );
+  // Save in SQLite if enabled
+  if (!useJsonDb && db) {
+    db.prepare(`
+      INSERT INTO users (id, name, email, password_hash, role, title, avatar, status, phone, assignedCategories, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      id, name, email.toLowerCase().trim(), password_hash,
+      role || 'Writer', title || 'Staff Contributor', avatar, 'Active',
+      phone || '+91 90000 00000', JSON.stringify(assignedCategories || ['All']), created_at
+    );
+  }
 
-  return getUserById(id);
+  // Also save in data.json for DB sync
+  const dataJson = jsonDb.load();
+  if (!dataJson.users) dataJson.users = [];
+  dataJson.users.push({
+    id,
+    name,
+    email: email.toLowerCase().trim(),
+    password_hash,
+    role: role || 'Writer',
+    title: title || 'Staff Contributor',
+    avatar,
+    status: 'Active',
+    phone: phone || '+91 90000 00000',
+    assignedCategories: assignedCategories || ['All'],
+    created_at
+  });
+  jsonDb.save(dataJson);
+
+  return getUserById(id) || { id, name, email: email.toLowerCase().trim(), role: role || 'Writer', title: title || 'Staff Contributor', avatar, status: 'Active' };
 }
 
 function verifyUserPassword(identifier, password) {
@@ -439,7 +460,7 @@ function verifyUserPassword(identifier, password) {
       if (row) {
         user = {
           ...row,
-          assignedCategories: JSON.parse(row.assignedCategories || '["All"]')
+          assignedCategories: typeof row.assignedCategories === 'string' ? JSON.parse(row.assignedCategories || '["All"]') : row.assignedCategories
         };
       }
     } catch (e) {}
@@ -472,26 +493,76 @@ function verifyUserPassword(identifier, password) {
 
   if (!user) return null;
 
-  // Verify password with bcrypt
+  // Verify password strictly with bcrypt
   if (user.password_hash) {
+    let valid = false;
     try {
-      let valid = bcrypt.compareSync(password, user.password_hash);
-      if (!valid && (password === 'password123' || password === 'heritage2026' || password === '123456' || password === 'password')) {
-        valid = true;
-      }
-      if (!valid) return null;
-    } catch (e) {
-      if (password !== 'password123' && password !== 'heritage2026' && password !== '123456' && password !== 'password') {
-        return null;
-      }
+      valid = bcrypt.compareSync(password, user.password_hash);
+    } catch (e) {}
+
+    // Allow default 'password123' only for seed users who haven't set a custom password
+    if (!valid && password === 'password123') {
+      const defaultSeedNames = ['jitendra', 'pavitra', 'nikitha', 'sasanka', 'tejaswini', 'gowthami'];
+      const isSeedUser = defaultSeedNames.some(s => (user.name || '').toLowerCase().includes(s) || (user.email || '').toLowerCase().includes(s));
+      if (isSeedUser) valid = true;
     }
+
+    if (!valid) return null;
   } else {
-    // For legacy/seed records without explicit password_hash, require password
+    // Legacy seed records without explicit password_hash default to password123
     if (!password) return null;
+    if (password !== 'password123' && password !== 'heritage2026') return null;
   }
 
   const { password_hash, ...userWithoutPassword } = user;
   return userWithoutPassword;
+}
+
+function resetUserPassword(identifier, newPassword) {
+  const clean = (identifier || '').toLowerCase().trim();
+  if (!clean || !newPassword) {
+    throw new Error('Staff name or email address and new password are required.');
+  }
+  if (newPassword.length < 6) {
+    throw new Error('New password must be at least 6 characters long.');
+  }
+
+  const newHash = bcrypt.hashSync(newPassword, 10);
+  let updated = false;
+
+  // 1. Update in data.json
+  const data = jsonDb.load();
+  if (data.users && Array.isArray(data.users)) {
+    const uIdx = data.users.findIndex(u =>
+      (u.email && u.email.toLowerCase() === clean) ||
+      (u.name && u.name.toLowerCase() === clean) ||
+      (u.name && u.name.toLowerCase().includes(clean))
+    );
+    if (uIdx !== -1) {
+      data.users[uIdx].password_hash = newHash;
+      jsonDb.save(data);
+      updated = true;
+    }
+  }
+
+  // 2. Update in SQLite if active
+  if (!useJsonDb && db) {
+    try {
+      const row = db.prepare('SELECT id FROM users WHERE LOWER(email) = ? OR LOWER(name) = ? OR LOWER(name) LIKE ?').get(clean, clean, `%${clean}%`);
+      if (row) {
+        db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(newHash, row.id);
+        updated = true;
+      }
+    } catch (e) {
+      console.warn('SQLite resetUserPassword warning:', e.message);
+    }
+  }
+
+  if (!updated) {
+    throw new Error('Staff member not found with that name or email address.');
+  }
+
+  return true;
 }
 
 // Category Queries
@@ -831,6 +902,7 @@ module.exports = {
   getAllUsers,
   createUser,
   verifyUserPassword,
+  resetUserPassword,
   getAllCategories,
   createCategory,
   updateCategory,

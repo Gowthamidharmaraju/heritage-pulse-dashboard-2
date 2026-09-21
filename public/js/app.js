@@ -130,6 +130,11 @@ class App {
     return res.user;
   }
 
+  async resetPassword(identifier, newPassword) {
+    const res = await this.apiPost('/api/auth/reset-password', { identifier, newPassword });
+    return res;
+  }
+
   logout() {
     this.authToken = null;
     this.currentUser = null;
