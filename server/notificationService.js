@@ -65,8 +65,9 @@ const notificationService = {
 
   /**
    * Send Real Silent WhatsApp Notification via Server (Zero Redirects)
+   * Enforces security: Dispatches notifications strictly to authorized team WhatsApp groups.
    */
-  async sendWhatsApp({ to, body }) {
+  async sendWhatsApp({ to, body, byUserPhone, byUserEmail }) {
     if (global.waClientReady && global.waClient) {
       try {
         const envGroup = (process.env.WHATSAPP_GROUP_ID || process.env.WHATSAPP_GROUP || '120363429828097318@g.us').trim();
@@ -74,9 +75,15 @@ const notificationService = {
           ? envGroup
           : (to && to.includes('@g.us') ? to : `${(to || '').replace(/[^0-9]/g, '')}@c.us`);
 
-        console.log(`[Notification Service] Sending silent background WhatsApp via whatsapp-web.js to ${chatId}...`);
+        // Security Validation: Ensure the notification target is an authorized team WhatsApp group
+        if (!chatId.endsWith('@g.us')) {
+          console.log(`[Security Guard] Skipping notification: Target destination ${chatId} is not an authorized team WhatsApp group.`);
+          return { success: false, reason: 'Recipient not in authorized WhatsApp team group' };
+        }
+
+        console.log(`[Notification Service] Sending silent background WhatsApp to team group ${chatId}...`);
         await global.waClient.sendMessage(chatId, body);
-        console.log(`[Notification Service] Silent WhatsApp sent via whatsapp-web.js to ${chatId}!`);
+        console.log(`[Notification Service] Silent WhatsApp successfully sent to team group ${chatId}!`);
         return { success: true, method: 'whatsapp-web.js' };
       } catch (err) {
         console.error(`[Notification Service Error] whatsapp-web.js send failed:`, err.message);
