@@ -208,6 +208,16 @@ class App {
           console.error('Kickoff popup load check failed:', e);
         }
       }
+
+      // Auto-prompt first-time users for Role-Based Guided Tour
+      if (this.currentUser && typeof TutorialView !== 'undefined') {
+        const tourKey = `hp_tour_seen_${this.currentUser.id || 'guest'}`;
+        if (!localStorage.getItem(tourKey)) {
+          setTimeout(() => {
+            TutorialView.showFirstTimeWelcomeModal(this.currentUser);
+          }, 800);
+        }
+      }
     } catch (err) {
       console.error("Data bootstrap error:", err);
       this.showToast("Error loading user workspace.", "error");

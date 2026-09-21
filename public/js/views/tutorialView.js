@@ -228,5 +228,55 @@ const TutorialView = {
       modal.classList.add('hidden');
       modal.style.display = 'none';
     }
+  },
+
+  // 3. Auto First-Time Welcome Modal Prompt
+  showFirstTimeWelcomeModal(user) {
+    const userId = user ? (user.id || 'guest') : 'guest';
+    const tourKey = `hp_tour_seen_${userId}`;
+    if (localStorage.getItem(tourKey)) return;
+
+    let modal = document.getElementById('first-time-tour-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'first-time-tour-modal';
+      modal.className = 'modal-backdrop';
+      document.body.appendChild(modal);
+    }
+
+    const userName = user ? (user.name || 'Team Member') : 'Team Member';
+    const userRole = user ? (user.role || 'Staff') : 'Staff';
+
+    modal.innerHTML = `
+      <div class="modal-card" style="max-width: 520px; padding: 28px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6);">
+        <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(245, 158, 11, 0.18); display: inline-flex; align-items: center; justify-content: center; color: var(--saffron); font-size: 1.8rem; margin-bottom: 16px;">
+          <i class="fa-solid fa-sparkles"></i>
+        </div>
+        <h2 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 8px 0; color: var(--text-primary);">Welcome to Heritage Pulse, ${userName}!</h2>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px;">
+          You are logged in as <strong>${userRole}</strong>. Would you like a 1-minute interactive tour of your role workspace and key features?
+        </p>
+
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-primary btn-sm" onclick="localStorage.setItem('${tourKey}', 'true'); TutorialView.closeFirstTimeWelcomeModal(); TutorialView.startDriverTour('${userRole}');" style="padding: 10px 20px; font-weight: 600;">
+            <i class="fa-solid fa-compass"></i> Take Interactive Tour Now
+          </button>
+          <button class="btn btn-outline-light btn-sm" onclick="localStorage.setItem('${tourKey}', 'true'); TutorialView.closeFirstTimeWelcomeModal();" style="padding: 10px 18px;">
+            Explore on My Own
+          </button>
+        </div>
+      </div>
+    `;
+
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+  },
+
+  closeFirstTimeWelcomeModal() {
+    const modal = document.getElementById('first-time-tour-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    }
   }
 };
