@@ -258,7 +258,7 @@ const TutorialView = {
     const userRole = user ? (user.role || 'Staff') : 'Staff';
 
     modal.innerHTML = `
-      <div class="modal-card" style="max-width: 520px; padding: 28px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6);">
+      <div class="modal-card" style="max-width: 520px; padding: 28px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); position: relative; z-index: 1000000; pointer-events: auto;">
         <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(245, 158, 11, 0.18); display: inline-flex; align-items: center; justify-content: center; color: var(--saffron); font-size: 1.8rem; margin-bottom: 16px;">
           <i class="fa-solid fa-wand-magic-sparkles"></i>
         </div>
@@ -268,10 +268,10 @@ const TutorialView = {
         </p>
 
         <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-          <button class="btn btn-primary btn-sm" onclick="localStorage.setItem('${tourKey}', 'true'); TutorialView.closeFirstTimeWelcomeModal(); TutorialView.startDriverTour('${userRole}');" style="padding: 10px 20px; font-weight: 600;">
+          <button id="btn-take-interactive-tour" class="btn btn-primary btn-sm" style="padding: 10px 20px; font-weight: 600; cursor: pointer; pointer-events: auto;">
             <i class="fa-solid fa-compass"></i> Take Interactive Tour Now
           </button>
-          <button class="btn btn-outline-light btn-sm" onclick="localStorage.setItem('${tourKey}', 'true'); TutorialView.closeFirstTimeWelcomeModal();" style="padding: 10px 18px;">
+          <button id="btn-explore-on-my-own" class="btn btn-outline-light btn-sm" style="padding: 10px 18px; cursor: pointer; pointer-events: auto;">
             Explore on My Own
           </button>
         </div>
@@ -290,6 +290,27 @@ const TutorialView = {
     modal.style.justifyContent = 'center';
     modal.style.background = 'rgba(10, 15, 30, 0.8)';
     modal.style.backdropFilter = 'blur(8px)';
+    modal.style.pointerEvents = 'auto';
+
+    // Direct event listener bindings to guarantee click execution
+    const btnTour = document.getElementById('btn-take-interactive-tour');
+    if (btnTour) {
+      btnTour.onclick = (e) => {
+        e.stopPropagation();
+        localStorage.setItem(tourKey, 'true');
+        TutorialView.closeFirstTimeWelcomeModal();
+        TutorialView.startDriverTour(userRole);
+      };
+    }
+
+    const btnSkip = document.getElementById('btn-explore-on-my-own');
+    if (btnSkip) {
+      btnSkip.onclick = (e) => {
+        e.stopPropagation();
+        localStorage.setItem(tourKey, 'true');
+        TutorialView.closeFirstTimeWelcomeModal();
+      };
+    }
   },
 
   closeFirstTimeWelcomeModal() {
