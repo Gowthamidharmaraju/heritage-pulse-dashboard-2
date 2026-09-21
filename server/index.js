@@ -516,10 +516,8 @@ app.delete('/api/users/:id', (req, res) => {
 
 // Categories
 app.get('/api/categories', (req, res) => {
-  const allowed = ['News', 'Events', 'Featured', 'Books'];
   const all = dbSqlite.getAllCategories() || [];
-  const filtered = all.filter(c => allowed.includes(c.name));
-  res.json(filtered.length ? filtered : [
+  res.json(all.length ? all : [
     { id: "cat-news", name: "News", slug: "news", description: "Daily national & regional cultural news and policy updates", color: "#e11d48", icon: "newspaper", active: true, subcategories: ["Editor's Picks", "Ancient Civilisations", "World Heritage", "Archaeology", "Culture", "Arts", "Fashion Fusion", "Food Fusion", "Ancient Spirituality", "Cultural Heritage"] },
     { id: "cat-events", name: "Events", slug: "events", description: "Cultural festivals, conferences, exhibitions and summits", color: "#ea580c", icon: "calendar-event", active: true, subcategories: ["Festivals", "Heritage Walks", "Workshops", "Talks", "Exhibitions", "Performances", "Museum Events", "Virtual Events", "Conferences & Summits"] },
     { id: "cat-featured", name: "Featured", slug: "featured", description: "In-depth editorial spotlight stories and investigative pieces", color: "#d97706", icon: "sparkles", active: true, subcategories: ["Art & Iconography", "Classical Dance", "Sacred Music", "Master Craft", "Sacred Architecture", "Handloom & Textiles", "Culinary Arts", "Yoga & Wellness", "Jewellery & Adornment", "Poetry & Verses", "Sanskrit Theatre", "Living Festivals", "World Heritage", "Literature & Epics", "Visual Chronicles", "Editorial Spotlight"] },
@@ -528,8 +526,7 @@ app.get('/api/categories', (req, res) => {
 });
 
 app.get('/api/subcategories', (req, res) => {
-  const allowed = ['News', 'Events', 'Featured', 'Books'];
-  const categories = (dbSqlite.getAllCategories() || []).filter(c => allowed.includes(c.name));
+  const categories = dbSqlite.getAllCategories() || [];
   const map = {};
   categories.forEach(c => {
     map[c.name] = c.subcategories || ['General'];
@@ -538,35 +535,21 @@ app.get('/api/subcategories', (req, res) => {
 });
 
 app.post('/api/categories', (req, res) => {
-  const raw = db.load();
-  const slug = (req.body.name || 'cat').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const newCat = {
-    id: `cat-${slug}-${Date.now()}`,
-    name: req.body.name,
-    slug: slug,
-    description: req.body.description || '',
-    color: req.body.color || '#d97706',
-    icon: req.body.icon || 'bookmark',
-    active: true
-  };
-  raw.categories.push(newCat);
-  db.save(raw);
+  if (!req.body || !req.body.name) {
+    return res.status(400).json({ error: 'Category name is required' });
+  }
+  const newCat = dbSqlite.createCategory(req.body);
   res.status(201).json(newCat);
 });
 
 app.put('/api/categories/:id', (req, res) => {
-  const raw = db.load();
-  const idx = raw.categories.findIndex(c => c.id === req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Category not found' });
-  raw.categories[idx] = { ...raw.categories[idx], ...req.body };
-  db.save(raw);
-  res.json(raw.categories[idx]);
+  const updated = dbSqlite.updateCategory(req.params.id, req.body);
+  if (!updated) return res.status(404).json({ error: 'Category not found' });
+  res.json(updated);
 });
 
 app.delete('/api/categories/:id', (req, res) => {
-  const raw = db.load();
-  raw.categories = raw.categories.filter(c => c.id !== req.params.id);
-  db.save(raw);
+  dbSqlite.deleteCategory(req.params.id);
   res.json({ success: true });
 });
 

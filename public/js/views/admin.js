@@ -317,6 +317,16 @@ const AdminView = {
         app.showToast(`✨ Category "${name}" created successfully!`, 'success');
       }
 
+      app.categories = await app.apiGet('/api/categories');
+      if (typeof app.populateCreateModalSelects === 'function') {
+        app.populateCreateModalSelects();
+      }
+      const navCatLink = document.getElementById('admin-categories-link');
+      if (navCatLink && Array.isArray(app.categories)) {
+        navCatLink.innerHTML = `<i class="fa-solid fa-tags nav-icon"></i><span>Categories (${app.categories.length})</span>`;
+        navCatLink.setAttribute('data-tooltip', `Categories (${app.categories.length})`);
+      }
+
       this.closeCategoryModal();
       this.render(document.getElementById('main-content-view'));
     } catch (err) {

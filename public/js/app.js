@@ -683,6 +683,12 @@ class App {
       adminUsersLink.style.display = isAdmin ? 'flex' : 'none';
     }
 
+    const catLink = document.getElementById('admin-categories-link');
+    if (catLink && this.categories && Array.isArray(this.categories)) {
+      catLink.innerHTML = `<i class="fa-solid fa-tags nav-icon"></i><span>Categories (${this.categories.length})</span>`;
+      catLink.setAttribute('data-tooltip', `Categories (${this.categories.length})`);
+    }
+
     // 2. Admin Intelligence Section (AI Content Monitor, Notification Settings)
     const adminIntel = document.getElementById('admin-intel-nav-section');
     if (adminIntel) {

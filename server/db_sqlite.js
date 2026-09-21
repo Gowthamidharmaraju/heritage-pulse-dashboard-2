@@ -47,9 +47,13 @@ function initDb() {
       description TEXT,
       color TEXT DEFAULT '#d97706',
       icon TEXT DEFAULT 'bookmark',
+      subcategories TEXT,
       active INTEGER DEFAULT 1
     );
   `);
+  try {
+    db.exec(`ALTER TABLE categories ADD COLUMN subcategories TEXT;`);
+  } catch (e) {}
 
   // 3. Content Items & Assigned Tasks Table
   db.exec(`
@@ -192,8 +196,8 @@ function seedDataFromJson() {
   if (catCount === 0 && Array.isArray(rawData.categories)) {
     console.log('Migrating categories to SQLite...');
     const stmt = db.prepare(`
-      INSERT INTO categories (id, name, slug, description, color, icon, active)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO categories (id, name, slug, description, color, icon, subcategories, active)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `);
     for (const c of rawData.categories) {
       stmt.run(
@@ -203,6 +207,7 @@ function seedDataFromJson() {
         c.description || '',
         c.color || '#d97706',
         c.icon || 'bookmark',
+        JSON.stringify(c.subcategories || ['General']),
         c.active !== false ? 1 : 0
       );
     }
@@ -494,10 +499,118 @@ function getAllCategories() {
   if (useJsonDb) {
     return jsonDb.getCategories();
   }
-  return db.prepare('SELECT * FROM categories ORDER BY name ASC').all().map(c => ({
-    ...c,
-    active: Boolean(c.active)
-  }));
+  return db.prepare('SELECT * FROM categories ORDER BY name ASC').all().map(c => {
+    let subcategories = ['General'];
+    if (c.subcategories) {
+      try {
+        subcategories = typeof c.subcategories === 'string' ? JSON.parse(c.subcategories) : c.subcategories;
+      } catch (e) {
+        subcategories = ['General'];
+      }
+    }
+    return {
+      ...c,
+      subcategories,
+      active: Boolean(c.active)
+    };
+  });
+}
+
+function createCategory(data) {
+  const slug = (data.name || 'cat').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const newCat = {
+    id: data.id || `cat-${slug}-${Date.now()}`,
+    name: data.name,
+    slug: slug,
+    description: data.description || '',
+    color: data.color || '#d97706',
+    icon: data.icon || 'bookmark',
+    subcategories: Array.isArray(data.subcategories) ? data.subcategories : ['General'],
+    active: true
+  };
+
+  const raw = jsonDb.load();
+  if (!raw.categories) raw.categories = [];
+  raw.categories.push(newCat);
+  jsonDb.save(raw);
+
+  if (!useJsonDb && db) {
+    try {
+      db.prepare(`
+        INSERT INTO categories (id, name, slug, description, color, icon, subcategories, active)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `).run(
+        newCat.id,
+        newCat.name,
+        newCat.slug,
+        newCat.description,
+        newCat.color,
+        newCat.icon,
+        JSON.stringify(newCat.subcategories),
+        1
+      );
+    } catch (e) {
+      console.warn('SQLite createCategory warning:', e.message);
+    }
+  }
+
+  return newCat;
+}
+
+function updateCategory(id, fields) {
+  const raw = jsonDb.load();
+  const idx = raw.categories ? raw.categories.findIndex(c => c.id === id) : -1;
+  let updatedCat = null;
+  if (idx !== -1) {
+    raw.categories[idx] = { ...raw.categories[idx], ...fields };
+    jsonDb.save(raw);
+    updatedCat = raw.categories[idx];
+  }
+
+  if (!useJsonDb && db) {
+    try {
+      const all = getAllCategories();
+      const cat = all.find(c => c.id === id);
+      if (cat) {
+        updatedCat = { ...cat, ...fields };
+        db.prepare(`
+          UPDATE categories SET name = ?, slug = ?, description = ?, color = ?, icon = ?, subcategories = ?, active = ?
+          WHERE id = ?
+        `).run(
+          updatedCat.name,
+          updatedCat.slug || updatedCat.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          updatedCat.description || '',
+          updatedCat.color || '#d97706',
+          updatedCat.icon || 'bookmark',
+          JSON.stringify(updatedCat.subcategories || ['General']),
+          updatedCat.active !== false ? 1 : 0,
+          id
+        );
+      }
+    } catch (e) {
+      console.warn('SQLite updateCategory warning:', e.message);
+    }
+  }
+
+  return updatedCat || fields;
+}
+
+function deleteCategory(id) {
+  const raw = jsonDb.load();
+  if (raw.categories) {
+    raw.categories = raw.categories.filter(c => c.id !== id);
+    jsonDb.save(raw);
+  }
+
+  if (!useJsonDb && db) {
+    try {
+      db.prepare('DELETE FROM categories WHERE id = ?').run(id);
+    } catch (e) {
+      console.warn('SQLite deleteCategory warning:', e.message);
+    }
+  }
+
+  return true;
 }
 
 // Content & Assigned Tasks Queries
@@ -719,6 +832,9 @@ module.exports = {
   createUser,
   verifyUserPassword,
   getAllCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
   getAllContent,
   getContentById,
   createContent,
