@@ -30,22 +30,16 @@ const LoginView = {
 
           <!-- GOOGLE SINGLE SIGN-ON (SSO) BUTTON -->
           <div style="margin-bottom: 20px;">
-            <div id="g_id_onload"
-                 data-client_id="372916208432-kclu724omf9hm9dpbglue2vgqikghmb0.apps.googleusercontent.com"
-                 data-context="signin"
-                 data-ux_mode="popup"
-                 data-callback="handleGoogleCredentialResponse"
-                 data-auto_prompt="false">
-            </div>
-
-            <div class="g_id_signin"
-                 data-type="standard"
-                 data-shape="rectangular"
-                 data-theme="filled_blue"
-                 data-text="signin_with"
-                 data-size="large"
-                 data-logo_alignment="left"
-                 data-width="100%">
+            <div id="google-sso-btn-container" style="display: flex; justify-content: center; width: 100%;">
+              <button type="button" onclick="LoginView.promptGoogleSignIn()" class="btn-custom-google-sso" style="width: 100%; padding: 12px 18px; border-radius: 10px; background: #ffffff; color: #1f2937; border: 1px solid #cbd5e1; font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s ease;">
+                <svg width="20" height="20" viewBox="0 0 48 48">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
+                <span>Sign in with Google</span>
+              </button>
             </div>
 
             <div style="display: flex; align-items: center; margin: 18px 0;">
@@ -336,6 +330,26 @@ const LoginView = {
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = `<span>Reset Password &amp; Sign In</span> <i class="fa-solid fa-rotate"></i>`;
+    }
+  },
+  promptGoogleSignIn() {
+    this.hideAlert();
+    const clientId = "372916208432-kclu724omf9hm9dpbglue2vgqikghmb0.apps.googleusercontent.com";
+
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      try {
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: window.handleGoogleCredentialResponse,
+          auto_select: false
+        });
+        window.google.accounts.id.prompt();
+      } catch (err) {
+        console.error('Google ID Prompt Error:', err);
+        this.showAlert('Opening Google Sign-In prompt failed. Please retry.');
+      }
+    } else {
+      this.showAlert('Google Identity Services SDK loading... Please wait 2 seconds and click again.', 'info');
     }
   }
 };
