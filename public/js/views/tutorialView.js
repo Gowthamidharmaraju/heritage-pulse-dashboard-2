@@ -58,6 +58,14 @@ const TutorialView = {
           }
         },
         {
+          element: '#sidebar-folders-link',
+          popover: {
+            title: '📁 Folders Data Vault (Month-Wise Storage)',
+            description: 'Explore all system articles stored automatically in a structured Year/Month folder hierarchy (e.g., `2026/08-August/News/`) with direct Google Drive cloud sync.',
+            side: 'right'
+          }
+        },
+        {
           element: '#sidebar-publishing-link',
           popover: {
             title: '🌐 Publishing Hub & Google Drive Storage',
@@ -85,10 +93,10 @@ const TutorialView = {
           }
         },
         {
-          element: '#admin-categories-link',
+          element: '#sidebar-folders-link',
           popover: {
-            title: '🏷️ Categories & Subcategories',
-            description: 'View active topic categories and add new custom categories or subcategories for your articles.',
+            title: '📁 Folders Data Vault',
+            description: 'Browse articles organized by Year/Month and category with direct file previews.',
             side: 'right'
           }
         },
@@ -103,6 +111,14 @@ const TutorialView = {
       ];
     } else {
       steps = [
+        {
+          element: '#sidebar-folders-link',
+          popover: {
+            title: '📁 Folders Data Vault',
+            description: 'Browse articles organized by Year/Month and category with Google Drive cloud export links.',
+            side: 'right'
+          }
+        },
         {
           element: '#sidebar-publishing-link',
           popover: {
@@ -226,8 +242,17 @@ const TutorialView = {
           </div>
 
           <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px;">
+            <div style="font-weight: 700; color: #ec4899; font-size: 0.9rem; margin-bottom: 4px;">
+              5️⃣ Folders Data Vault (Month-Wise Archiving)
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+              Open <strong>"Folders Data"</strong> in the sidebar. All system content is automatically organized and stored by Year and Month (e.g., <code>2026/08-August/News/</code>) with direct Google Drive links and file previews.
+            </p>
+          </div>
+
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px;">
             <div style="font-weight: 700; color: #ef4444; font-size: 0.9rem; margin-bottom: 4px;">
-              5️⃣ Categories & Subcategories Control
+              6️⃣ Categories & Subcategories Control
             </div>
             <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">
               Open <strong>"Categories"</strong> in the sidebar menu. Click <strong>"+ New Category"</strong> to add custom categories and subcategories anytime.
@@ -264,6 +289,9 @@ const TutorialView = {
     if (modal) {
       modal.classList.add('hidden');
       modal.style.display = 'none';
+      if (modal.parentNode) {
+        modal.parentNode.removeChild(modal);
+      }
     }
   },
 
@@ -345,6 +373,9 @@ const TutorialView = {
     if (modal) {
       modal.classList.add('hidden');
       modal.style.display = 'none';
+      if (modal.parentNode) {
+        modal.parentNode.removeChild(modal);
+      }
     }
   }
 };
