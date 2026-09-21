@@ -672,7 +672,24 @@ class App {
     const isAdminOrEditor = isAdmin || isEditor;
     const isAdminOrTejaswini = this.isAdminOrTejaswini();
 
-    // 1. Management & Intel Section (Workload, Analytics, Categories, Team & Permissions)
+  startGuidedTour() {
+    if (typeof TutorialView !== 'undefined') {
+      const role = this.currentUser ? this.currentUser.role : 'Editor';
+      TutorialView.startDriverTour(role);
+    } else {
+      this.showToast('Tutorial module loading...', 'info');
+    }
+  }
+
+  showWorkflowGuide() {
+    if (typeof TutorialView !== 'undefined') {
+      TutorialView.showCheatSheetModal();
+    } else {
+      this.showToast('Tutorial module loading...', 'info');
+    }
+  }
+
+  // 1. Management & Intel Section (Workload, Analytics, Categories, Team & Permissions)
     const adminMgmtSection = document.getElementById('admin-management-nav-section');
     if (adminMgmtSection) {
       adminMgmtSection.style.display = 'block';
