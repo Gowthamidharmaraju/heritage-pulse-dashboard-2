@@ -241,7 +241,7 @@ class WorkflowEngine {
       });
 
       // Dispatch Real Automated Email & WhatsApp Notifications (Group + Direct)
-      const isActionableStage = ['WRITER_SUBMITTED', 'CHANGES_REQUIRED', 'PUBLISHED'].includes(targetStatus);
+      const isActionableStage = ['TOPIC_CREATED', 'ASSIGNED', 'WRITER_SUBMITTED', 'CHANGES_REQUIRED', 'EDITOR_APPROVED', 'READY_TO_PUBLISH', 'PUBLISHED'].includes(targetStatus);
       if (notificationService && isActionableStage && idx === 0) {
         notificationService.dispatchWorkflowNotification({
           recipientEmail: recipEmail || adminEmail,

@@ -569,6 +569,22 @@ app.post('/api/content', (req, res) => {
   const userId = req.headers['x-user-id'] || req.body.created_by || 'usr-admin-1';
   try {
     const newItem = dbSqlite.createContent(req.body, userId);
+
+    // Trigger WhatsApp notification for new topic creation
+    try {
+      const notificationService = require('./notificationService');
+      const creator = dbSqlite.getUserById(userId) || { name: 'Team Member' };
+      const dashboardUrl = `${process.env.DASHBOARD_URL || 'https://dashboard.heritejindia.com'}/#/content-detail?id=${newItem.id}`;
+      const waMessage = `✨ *New Topic Created on Heritage Pulse*\n\n📄 *Title:* ${newItem.title}\n🆔 *Content ID:* ${newItem.id}\n🏷️ *Category:* ${newItem.category}${newItem.subcategory ? ' -> ' + newItem.subcategory : ''}\n📅 *Publishing Date:* ${newItem.publishing_date || 'N/A'}\n✍️ *Created By:* ${creator.name}\n\n🔗 *Click to Open & Start Writing:*\n${dashboardUrl}`;
+
+      notificationService.sendWhatsApp({
+        to: process.env.WHATSAPP_GROUP_ID || '120363429828097318@g.us',
+        body: waMessage
+      }).catch(e => console.error('[WhatsApp Topic Creation Dispatch Error]', e));
+    } catch (e) {
+      console.error('[Notification Trigger Error]', e);
+    }
+
     res.status(201).json(newItem);
   } catch (err) {
     res.status(400).json({ error: err.message });
