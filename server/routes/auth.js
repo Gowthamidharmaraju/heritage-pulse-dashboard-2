@@ -83,16 +83,26 @@ router.post('/google', async (req, res) => {
     let googleUserEmail = null;
     let googleUserName = null;
 
-    // Verify Google ID token via OAuth2 tokeninfo endpoint or Google Auth Library
+    // Verify Google ID token or Access Token via Google API
     try {
       const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`);
       if (response.ok) {
         const payload = await response.json();
         googleUserEmail = (payload.email || '').toLowerCase().trim();
         googleUserName = payload.name || payload.given_name || 'Google User';
+      } else {
+        // Fallback: Check as access_token via userinfo
+        const userinfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${credential}` }
+        });
+        if (userinfoRes.ok) {
+          const payload = await userinfoRes.json();
+          googleUserEmail = (payload.email || '').toLowerCase().trim();
+          googleUserName = payload.name || payload.given_name || 'Google User';
+        }
       }
     } catch (e) {
-      console.warn('Google tokeninfo fetch error:', e.message);
+      console.warn('Google token verification error:', e.message);
     }
 
     if (!googleUserEmail) {

@@ -336,20 +336,64 @@ const LoginView = {
     this.hideAlert();
     const clientId = "372916208432-kclu724omf9hm9dpbglue2vgqikghmb0.apps.googleusercontent.com";
 
-    if (window.google && window.google.accounts && window.google.accounts.id) {
+    if (window.google && window.google.accounts) {
       try {
-        window.google.accounts.id.initialize({
-          client_id: clientId,
-          callback: window.handleGoogleCredentialResponse,
-          auto_select: false
-        });
-        window.google.accounts.id.prompt();
+        if (window.google.accounts.id) {
+          window.google.accounts.id.initialize({
+            client_id: clientId,
+            callback: window.handleGoogleCredentialResponse,
+            auto_select: false
+          });
+        }
+
+        // Method 1: Google Identity One-Tap / Prompt
+        if (window.google.accounts.id && typeof window.google.accounts.id.prompt === 'function') {
+          window.google.accounts.id.prompt((notification) => {
+            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+              // Method 2 Fallback: Popup Token Client if prompt is suppressed
+              this.triggerGoogleOAuth2Popup(clientId);
+            }
+          });
+        } else {
+          this.triggerGoogleOAuth2Popup(clientId);
+        }
       } catch (err) {
         console.error('Google ID Prompt Error:', err);
-        this.showAlert('Opening Google Sign-In prompt failed. Please retry.');
+        this.triggerGoogleOAuth2Popup(clientId);
       }
     } else {
       this.showAlert('Google Identity Services SDK loading... Please wait 2 seconds and click again.', 'info');
+    }
+  },
+
+  triggerGoogleOAuth2Popup(clientId) {
+    if (window.google && window.google.accounts && window.google.accounts.oauth2) {
+      const client = window.google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: 'email profile openid',
+        callback: async (tokenResponse) => {
+          if (tokenResponse && tokenResponse.access_token) {
+            try {
+              LoginView.showAlert('Verifying Google Identity Token...', 'info');
+              // Fetch Google user profile directly
+              const userInfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+              });
+              if (userInfoRes.ok) {
+                const info = await userInfoRes.json();
+                await app.loginWithGoogle(info.sub || tokenResponse.access_token);
+              } else {
+                await app.loginWithGoogle(tokenResponse.access_token);
+              }
+            } catch (e) {
+              LoginView.showAlert('Google login failed: ' + e.message);
+            }
+          }
+        }
+      });
+      client.requestAccessToken();
+    } else {
+      window.open(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(window.location.origin)}&response_type=token&scope=email%20profile`, '_blank', 'width=500,height=600');
     }
   }
 };
