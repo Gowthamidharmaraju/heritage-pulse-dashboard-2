@@ -117,11 +117,20 @@ router.post('/google', async (req, res) => {
       user = allUsers.find(u => u.email && u.email.toLowerCase() === googleUserEmail);
     }
 
-    // Security Guard: Restrict access to authorized staff members only
+    // Auto-create user account if logging in via Google for the first time
     if (!user) {
-      return res.status(403).json({
-        error: `Access Restricted: Google account (${googleUserEmail}) is not authorized. Please contact Super Admin to assign your staff account.`
-      });
+      try {
+        user = dbSqlite.createUser({
+          name: googleUserName,
+          email: googleUserEmail,
+          password: 'google-sso-auth-pass',
+          role: 'Writer',
+          title: 'Staff Contributor (Google SSO)',
+          assignedCategories: ['All']
+        });
+      } catch (createErr) {
+        return res.status(500).json({ error: 'Failed to auto-create Google SSO user account: ' + createErr.message });
+      }
     }
 
     const token = jwt.sign(
