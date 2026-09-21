@@ -334,7 +334,7 @@ const LoginView = {
   },
   promptGoogleSignIn() {
     this.hideAlert();
-    const clientId = "372916208432-kclu724omf9hm9dpbglue2vgqikghmb0.apps.googleusercontent.com";
+    const clientId = "918040258174-a1def6cee74d01elo2k9druofjf40adk.apps.googleusercontent.com";
 
     if (window.google && window.google.accounts) {
       try {
