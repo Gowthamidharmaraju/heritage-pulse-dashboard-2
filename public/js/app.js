@@ -209,6 +209,9 @@ class App {
         }
       }
 
+      // Check WhatsApp integration status & prompt QR modal if disconnected
+      this.checkWhatsAppStatusPrompt();
+
       // Auto-prompt first-time users for Role-Based Guided Tour
       if (this.currentUser && typeof TutorialView !== 'undefined') {
         const tourKey = `hp_tour_seen_${this.currentUser.id || 'guest'}`;
@@ -221,6 +224,23 @@ class App {
     } catch (err) {
       console.error("Data bootstrap error:", err);
       this.showToast("Error loading user workspace.", "error");
+    }
+  }
+
+  async checkWhatsAppStatusPrompt() {
+    try {
+      const waStatus = await this.apiGet('/api/wa-status');
+      if (!waStatus.ready) {
+        if (window.ContentDetailView && typeof ContentDetailView.showWhatsAppQrModal === 'function') {
+          setTimeout(() => {
+            ContentDetailView.showWhatsAppQrModal(() => {
+              this.showToast("✅ WhatsApp Connected! Group notifications active.", "success");
+            });
+          }, 1500);
+        }
+      }
+    } catch (e) {
+      console.warn("WhatsApp status check warning:", e);
     }
   }
 
