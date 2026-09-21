@@ -6,25 +6,15 @@
 const TutorialView = {
   // 1. Role-Tailored Driver.js Guided Tour
   startDriverTour(role = 'Editor') {
-    if (typeof driver === 'undefined' || !driver.js || typeof driver.js.driver !== 'function') {
+    const driverFactory = (typeof driver !== 'undefined' && driver.js && typeof driver.js.driver === 'function')
+      ? driver.js.driver
+      : (typeof driver === 'function' ? driver : (typeof window.driver === 'function' ? window.driver : null));
+
+    if (!driverFactory) {
       console.warn('Driver.js library not loaded; falling back to cheat-sheet modal.');
       this.showCheatSheetModal();
       return;
     }
-
-    const driverObj = driver.js.driver({
-      showProgress: true,
-      animate: true,
-      allowClose: true,
-      doneBtnText: 'Finish Guide',
-      nextBtnText: 'Next &rarr;',
-      prevBtnText: '&larr; Back',
-      onDestroyed: () => {
-        if (window.app && typeof window.app.showToast === 'function') {
-          window.app.showToast('✨ Guided Tour completed! Click "Guided Tour" anytime to replay.', 'info');
-        }
-      }
-    });
 
     const roleLower = (role || '').toLowerCase();
     const isWriter = roleLower.includes('writer');
@@ -119,8 +109,33 @@ const TutorialView = {
     const validSteps = steps.filter(s => document.querySelector(s.element));
 
     if (validSteps.length > 0) {
-      driverObj.setSteps(validSteps);
-      driverObj.drive();
+      try {
+        const driverObj = driverFactory({
+          showProgress: true,
+          animate: true,
+          allowClose: true,
+          doneBtnText: 'Finish Guide',
+          nextBtnText: 'Next &rarr;',
+          prevBtnText: '&larr; Back',
+          steps: validSteps,
+          onDestroyed: () => {
+            if (window.app && typeof window.app.showToast === 'function') {
+              window.app.showToast('✨ Guided Tour completed! Click "Guided Tour" anytime to replay.', 'info');
+            }
+          }
+        });
+
+        if (typeof driverObj.drive === 'function') {
+          driverObj.drive();
+        } else if (typeof driverObj.start === 'function') {
+          driverObj.start();
+        } else {
+          this.showCheatSheetModal();
+        }
+      } catch (err) {
+        console.error('Driver tour launch error:', err);
+        this.showCheatSheetModal();
+      }
     } else {
       this.showCheatSheetModal();
     }
