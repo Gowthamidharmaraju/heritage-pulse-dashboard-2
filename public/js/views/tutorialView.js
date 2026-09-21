@@ -58,6 +58,14 @@ const TutorialView = {
           }
         },
         {
+          element: '#sidebar-publishing-link',
+          popover: {
+            title: '🌐 Publishing Hub & Google Drive Storage',
+            description: 'View articles approved by Chief Editor. When published, formatted `.doc` and `.md` files are saved to VPS storage and auto-synced to your Google Drive folder.',
+            side: 'right'
+          }
+        },
+        {
           element: '#admin-workload-link',
           popover: {
             title: '📊 Team Workload & Analytics',
@@ -98,7 +106,7 @@ const TutorialView = {
         {
           element: '#sidebar-publishing-link',
           popover: {
-            title: '🌐 Publishing Hub',
+            title: '🌐 Publishing Hub & Google Drive Storage',
             description: 'View articles approved by Chief Editor ready for web publishing and Google Drive cloud export.',
             side: 'right'
           }
@@ -107,6 +115,10 @@ const TutorialView = {
     }
 
     const validSteps = steps.filter(s => document.querySelector(s.element));
+
+    // Ensure welcome modal is completely closed before Driver.js highlights elements
+    this.closeFirstTimeWelcomeModal();
+    this.closeCheatSheetModal();
 
     if (validSteps.length > 0) {
       try {
