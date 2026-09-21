@@ -3,7 +3,11 @@ const AdminView = {
   activeTab: 'categories', // 'categories' or 'users'
 
   async render(container, params = {}) {
+    const isSuperAdmin = app.isAdmin();
     if (params.tab) this.activeTab = params.tab;
+    if (this.activeTab === 'users' && !isSuperAdmin) {
+      this.activeTab = 'categories';
+    }
 
     container.innerHTML = `
       <div class="view-loading">
@@ -26,23 +30,25 @@ const AdminView = {
             <p>Manage Heritage Pulse topic taxonomies, writer/editor permissions, and system access.</p>
           </div>
           <div class="view-actions">
-            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: 6px; padding: 2px; display: flex;">
-              <button class="btn btn-xs ${this.activeTab === 'categories' ? 'btn-primary' : 'btn-text'}" onclick="AdminView.setTab('categories')">
-                <i class="fa-solid fa-tags"></i> Categories (${categories.length})
-              </button>
-              <button class="btn btn-xs ${this.activeTab === 'users' ? 'btn-primary' : 'btn-text'}" onclick="AdminView.setTab('users')">
-                <i class="fa-solid fa-users-gear"></i> Team & Roles (${users.length})
-              </button>
-            </div>
+            ${isSuperAdmin ? `
+              <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: 6px; padding: 2px; display: flex;">
+                <button class="btn btn-xs ${this.activeTab === 'categories' ? 'btn-primary' : 'btn-text'}" onclick="AdminView.setTab('categories')">
+                  <i class="fa-solid fa-tags"></i> Categories (${categories.length})
+                </button>
+                <button class="btn btn-xs ${this.activeTab === 'users' ? 'btn-primary' : 'btn-text'}" onclick="AdminView.setTab('users')">
+                  <i class="fa-solid fa-users-gear"></i> Team & Roles (${users.length})
+                </button>
+              </div>
+            ` : ''}
             ${this.activeTab === 'categories' ? `
               <button class="btn btn-primary btn-sm" onclick="AdminView.promptAddCategory()">
                 <i class="fa-solid fa-plus"></i> New Category
               </button>
-            ` : `
+            ` : (isSuperAdmin ? `
               <button class="btn btn-primary btn-sm" onclick="AdminView.promptAddUser()">
                 <i class="fa-solid fa-user-plus"></i> Add Team Member
               </button>
-            `}
+            ` : '')}
           </div>
         </div>
 
@@ -193,6 +199,10 @@ const AdminView = {
   },
 
   setTab(tab) {
+    if (tab === 'users' && !app.isAdmin()) {
+      app.showToast('Super Admin clearance required to access Team Members directory.', 'error');
+      return;
+    }
     this.activeTab = tab;
     this.render(document.getElementById('main-content-view'));
   },

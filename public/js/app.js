@@ -545,11 +545,7 @@ class App {
         FoldersView.render(container, { trash: true });
         break;
       case 'categories':
-        if (!this.currentUser || this.currentUser.role === 'Writer') {
-          container.innerHTML = `<div class="card-panel" style="text-align:center;padding:40px;"><i class="fa-solid fa-lock" style="font-size:3rem;color:#ef4444;margin-bottom:16px;"></i><h3 style="color:var(--text-primary);">Access Restricted</h3><p style="color:var(--text-dim);">Category taxonomy management is restricted to Editors and Administrators.</p></div>`;
-        } else {
-          AdminView.render(container, { tab: 'categories' });
-        }
+        AdminView.render(container, { tab: 'categories' });
         break;
       case 'users':
         if (this.isAdmin()) {
@@ -679,19 +675,33 @@ class App {
     // 1. Management & Intel Section (Workload, Analytics, Categories, Team & Permissions)
     const adminMgmtSection = document.getElementById('admin-management-nav-section');
     if (adminMgmtSection) {
-      adminMgmtSection.style.display = (isAdminOrEditor || isPublisher) ? 'block' : 'none';
+      adminMgmtSection.style.display = 'block';
+    }
+
+    const workloadLink = document.getElementById('admin-workload-link');
+    if (workloadLink) {
+      workloadLink.style.display = (isAdminOrEditor || isPublisher) ? 'flex' : 'none';
+    }
+
+    const analyticsLink = document.getElementById('admin-analytics-link');
+    if (analyticsLink) {
+      analyticsLink.style.display = (isAdminOrEditor || isPublisher) ? 'flex' : 'none';
+    }
+
+    // Categories link - Available to Writers, Editors, Admin, Publishers
+    const catLink = document.getElementById('admin-categories-link');
+    if (catLink) {
+      catLink.style.display = 'flex';
+      if (this.categories && Array.isArray(this.categories)) {
+        catLink.innerHTML = `<i class="fa-solid fa-tags nav-icon"></i><span>Categories (${this.categories.length})</span>`;
+        catLink.setAttribute('data-tooltip', `Categories (${this.categories.length})`);
+      }
     }
 
     // Team & Permissions link specifically for Super Admin
     const adminUsersLink = document.getElementById('admin-users-link');
     if (adminUsersLink) {
       adminUsersLink.style.display = isAdmin ? 'flex' : 'none';
-    }
-
-    const catLink = document.getElementById('admin-categories-link');
-    if (catLink && this.categories && Array.isArray(this.categories)) {
-      catLink.innerHTML = `<i class="fa-solid fa-tags nav-icon"></i><span>Categories (${this.categories.length})</span>`;
-      catLink.setAttribute('data-tooltip', `Categories (${this.categories.length})`);
     }
 
     // 2. Admin Intelligence Section (AI Content Monitor, Notification Settings)
