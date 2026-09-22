@@ -493,30 +493,7 @@ const LoginView = {
     const clientId = "918040258174-a1def6cee74d01elo2k9druofjf40adk.apps.googleusercontent.com";
 
     if (window.google && window.google.accounts) {
-      try {
-        if (window.google.accounts.id) {
-          window.google.accounts.id.initialize({
-            client_id: clientId,
-            callback: window.handleGoogleCredentialResponse,
-            auto_select: false
-          });
-        }
-
-        // Method 1: Google Identity One-Tap / Prompt
-        if (window.google.accounts.id && typeof window.google.accounts.id.prompt === 'function') {
-          window.google.accounts.id.prompt((notification) => {
-            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-              // Method 2 Fallback: Popup Token Client if prompt is suppressed
-              this.triggerGoogleOAuth2Popup(clientId);
-            }
-          });
-        } else {
-          this.triggerGoogleOAuth2Popup(clientId);
-        }
-      } catch (err) {
-        console.error('Google ID Prompt Error:', err);
-        this.triggerGoogleOAuth2Popup(clientId);
-      }
+      this.triggerGoogleOAuth2Popup(clientId);
     } else {
       this.showAlert('Google Identity Services SDK loading... Please wait 2 seconds and click again.', 'info');
     }
