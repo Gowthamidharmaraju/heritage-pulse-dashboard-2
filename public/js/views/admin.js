@@ -133,14 +133,70 @@ const AdminView = {
   },
 
   renderUsersTab(users, contentList) {
+    const pendingUsers = users.filter(u => u.status === 'Pending');
+    const activeUsers = users.filter(u => u.status !== 'Pending');
+
     return `
+      ${pendingUsers.length > 0 ? `
+        <div class="card-panel" style="border: 2px solid var(--saffron); background: rgba(245, 158, 11, 0.05); margin-bottom: 24px; border-radius: var(--radius-lg);">
+          <div class="card-panel-header" style="border-bottom: 1px solid rgba(245, 158, 11, 0.2);">
+            <div class="card-panel-title text-saffron" style="font-weight: 700;">
+              <i class="fa-solid fa-user-clock"></i>
+              <span>Pending Access Requests (${pendingUsers.length})</span>
+            </div>
+            <span style="font-size: 0.78rem; color: var(--saffron); font-weight: 600;">Action Required by Super Admin</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Applicant Name</th>
+                  <th>Google Account / Email</th>
+                  <th>Requested Date</th>
+                  <th>Assign Role &amp; Approve Access</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${pendingUsers.map(u => `
+                  <tr>
+                    <td>
+                      <div style="font-weight: 700; color: var(--text-primary); font-size: 0.88rem;">${app.escapeHtml(u.name || 'Applicant')}</div>
+                      <div style="font-size: 0.7rem; color: var(--text-dim); font-family: monospace;">${u.id}</div>
+                    </td>
+                    <td style="font-family: monospace; font-size: 0.82rem; color: var(--saffron-dark);">${app.escapeHtml(u.email || 'No Email')}</td>
+                    <td style="font-size: 0.78rem; color: var(--text-dim);">${new Date(u.created_at || Date.now()).toLocaleDateString()}</td>
+                    <td>
+                      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <select id="approve-role-${u.id}" class="form-control" style="width: auto; padding: 5px 10px; font-size: 0.8rem; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--saffron);">
+                          <option value="Writer">Writer</option>
+                          <option value="Editor + Admin">Editor + Admin</option>
+                          <option value="Publisher">Publisher</option>
+                          <option value="Super Admin">Super Admin</option>
+                        </select>
+                        <button class="btn btn-sm btn-primary" onclick="AdminView.approveUserAccess('${u.id}')" style="background: #10b981; border: none; color: #fff; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+                          <i class="fa-solid fa-check"></i> Approve &amp; Activate
+                        </button>
+                        <button class="btn btn-sm" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4); font-weight: 600;" onclick="AdminView.deleteUser('${u.id}', '${app.escapeHtml(u.name || 'User')}')">
+                          <i class="fa-solid fa-xmark"></i> Reject
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ` : ''}
+
       <div class="card-panel">
         <div class="card-panel-header">
           <div class="card-panel-title">
             <i class="fa-solid fa-users-gear text-indigo"></i>
-            <span>Editorial Team Directory & Role Permissions</span>
+            <span>Editorial Team Directory &amp; Role Permissions</span>
           </div>
-          <span style="font-size: 0.8rem; color: var(--text-dim);">${users.length} Registered Staff</span>
+          <span style="font-size: 0.8rem; color: var(--text-dim);">${activeUsers.length} Active Staff Members</span>
         </div>
 
         <div class="table-responsive">
@@ -157,7 +213,7 @@ const AdminView = {
               </tr>
             </thead>
             <tbody>
-              ${users.map(u => `
+              ${activeUsers.map(u => `
                 <tr>
                   <td>
                     <div style="display: flex; align-items: center; gap: 10px;">
@@ -196,6 +252,21 @@ const AdminView = {
         </div>
       </div>
     `;
+  },
+
+  async approveUserAccess(userId) {
+    const roleSelect = document.getElementById(`approve-role-${userId}`);
+    const selectedRole = roleSelect ? roleSelect.value : 'Writer';
+    try {
+      await app.apiPut(`/api/users/${userId}`, {
+        status: 'Active',
+        role: selectedRole
+      });
+      app.showToast(`🎉 User access approved and activated as ${selectedRole}!`, 'success');
+      this.render(document.getElementById('main-content-view'));
+    } catch (err) {
+      app.showToast('Approval failed: ' + err.message, 'error');
+    }
   },
 
   setTab(tab) {

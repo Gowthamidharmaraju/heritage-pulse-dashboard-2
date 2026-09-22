@@ -58,6 +58,12 @@ router.post('/login', (req, res) => {
     return res.status(401).json({ error: 'Invalid name/email or password.' });
   }
 
+  if (user.status === 'Pending') {
+    return res.status(403).json({
+      error: `⏳ Access Pending Approval: Account for ${user.name} is awaiting Super Admin activation.`
+    });
+  }
+
   const token = jwt.sign(
     { id: user.id, email: user.email, role: user.role },
     JWT_SECRET,
@@ -150,7 +156,7 @@ router.post('/google', async (req, res) => {
       }
     }
 
-    // 3. Fallback: If brand new team member unknown to database, auto-create profile
+    // 3. Fallback: If brand new team member unknown to database, auto-create request as Pending
     if (!user) {
       try {
         user = dbSqlite.createUser({
@@ -158,12 +164,20 @@ router.post('/google', async (req, res) => {
           email: cleanGoogleEmail,
           password: 'google-sso-auth-pass',
           role: 'Writer',
-          title: 'Staff Contributor (Google SSO)',
+          status: 'Pending',
+          title: 'Pending Staff Contributor',
           assignedCategories: ['All']
         });
       } catch (createErr) {
-        return res.status(500).json({ error: 'Failed to auto-create Google SSO user account: ' + createErr.message });
+        return res.status(500).json({ error: 'Failed to create Google SSO request: ' + createErr.message });
       }
+    }
+
+    // Security Gate: Check if account status is Pending Admin Approval
+    if (user.status === 'Pending') {
+      return res.status(403).json({
+        error: `⏳ Access Pending Approval: Account for ${user.email} has been registered. Super Admin Jitendra must approve your access request before you can log in.`
+      });
     }
 
     const token = jwt.sign(
