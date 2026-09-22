@@ -161,6 +161,61 @@ const LoginView = {
             </div>
           </form>
 
+          <!-- OTP EMAIL REQUEST & VERIFICATION INLINE FORMS -->
+          <form id="otp-request-form" class="login-form hidden" onsubmit="LoginView.handleSendOtp(event)">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Sign In with Email OTP</h3>
+              <p style="font-size: 0.8rem; color: var(--text-dim);">Enter your email address to receive a 6-digit login code.</p>
+            </div>
+
+            <div class="form-group-login">
+              <label for="otp-email-input"><i class="fa-solid fa-envelope"></i> Email Address</label>
+              <input type="email" id="otp-email-input" class="form-input-login" placeholder="e.g. yourname@gmail.com" required>
+            </div>
+
+            <button type="submit" id="otp-send-submit-btn" class="btn-login-submit">
+              <span>Send 6-Digit OTP Code</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+
+            <div style="text-align: center; margin-top: 14px;">
+              <a href="javascript:void(0)" onclick="LoginView.switchTab('login')" style="font-size: 0.82rem; color: var(--text-dim); text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> Return to Staff Sign In
+              </a>
+            </div>
+          </form>
+
+          <form id="otp-verify-form" class="login-form hidden" onsubmit="LoginView.handleVerifyOtp(event)">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); color: var(--saffron); display: inline-flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 8px;">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Enter 6-Digit Verification Code</h3>
+              <p style="font-size: 0.82rem; color: var(--text-dim);">
+                Code sent to <strong id="otp-sent-email-display" style="color: var(--saffron);">email@domain.com</strong>
+              </p>
+            </div>
+
+            <div class="form-group-login" style="margin-bottom: 20px;">
+              <label for="otp-code-input" style="text-align: center; display: block;"><i class="fa-solid fa-key"></i> 6-Digit Verification Code</label>
+              <input type="text" id="otp-code-input" class="form-input-login" placeholder="123456" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required style="text-align: center; font-size: 1.6rem; letter-spacing: 12px; font-weight: 800; padding: 12px; font-family: monospace;">
+            </div>
+
+            <button type="submit" id="otp-verify-submit-btn" class="btn-login-submit">
+              <span>Verify &amp; Sign In</span>
+              <i class="fa-solid fa-check-circle"></i>
+            </button>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px;">
+              <a href="javascript:void(0)" onclick="LoginView.resendOtp()" style="font-size: 0.82rem; color: var(--saffron); font-weight: 600; text-decoration: none;">
+                <i class="fa-solid fa-rotate"></i> Resend Code
+              </a>
+              <a href="javascript:void(0)" onclick="LoginView.switchTab('login')" style="font-size: 0.82rem; color: var(--text-dim); text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> Cancel
+              </a>
+            </div>
+          </form>
+
           <div class="login-footer text-center">
             <small>© 2026 Heritage Pulse Content Operations • Secure Auth API</small>
           </div>
@@ -174,22 +229,22 @@ const LoginView = {
     const loginForm = document.getElementById('login-form');
     const regForm = document.getElementById('register-form');
     const resetForm = document.getElementById('reset-form');
-    const loginTab = document.getElementById('tab-btn-login');
-    const regTab = document.getElementById('tab-btn-register');
+    const otpReqForm = document.getElementById('otp-request-form');
+    const otpVerForm = document.getElementById('otp-verify-form');
+    const googleBtnContainer = document.getElementById('google-sso-btn-container');
+
     this.hideAlert();
 
     if (loginForm) loginForm.classList.add('hidden');
     if (regForm) regForm.classList.add('hidden');
     if (resetForm) resetForm.classList.add('hidden');
+    if (otpReqForm) otpReqForm.classList.add('hidden');
+    if (otpVerForm) otpVerForm.classList.add('hidden');
 
     if (tab === 'login' && loginForm) {
       loginForm.classList.remove('hidden');
-      if (loginTab) loginTab.classList.add('active');
-      if (regTab) regTab.classList.remove('active');
     } else if (tab === 'register' && regForm) {
       regForm.classList.remove('hidden');
-      if (regTab) regTab.classList.add('active');
-      if (loginTab) loginTab.classList.remove('active');
     } else if (tab === 'reset' && resetForm) {
       resetForm.classList.remove('hidden');
       const resetEmail = document.getElementById('reset-email');
@@ -197,6 +252,116 @@ const LoginView = {
       if (resetEmail && loginEmail && loginEmail.value) {
         resetEmail.value = loginEmail.value;
       }
+    } else if (tab === 'otp-request' && otpReqForm) {
+      otpReqForm.classList.remove('hidden');
+    } else if (tab === 'otp-verify' && otpVerForm) {
+      otpVerForm.classList.remove('hidden');
+    }
+  },
+
+  showOtpVerificationStep(email, name = '') {
+    this.currentOtpEmail = email;
+    this.currentOtpName = name;
+    this.switchTab('otp-verify');
+    const displaySpan = document.getElementById('otp-sent-email-display');
+    if (displaySpan) displaySpan.textContent = email;
+
+    const input = document.getElementById('otp-code-input');
+    if (input) {
+      input.value = '';
+      setTimeout(() => input.focus(), 100);
+    }
+  },
+
+  async handleSendOtp(event) {
+    if (event) event.preventDefault();
+    this.hideAlert();
+
+    const emailInput = document.getElementById('otp-email-input');
+    const email = (emailInput ? emailInput.value : '').trim();
+    if (!email || !email.includes('@')) {
+      this.showAlert('Please enter a valid email address.');
+      return;
+    }
+
+    const submitBtn = document.getElementById('otp-send-submit-btn');
+    try {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending OTP...`;
+      }
+
+      const res = await app.sendOtp(email);
+      this.showOtpVerificationStep(email);
+
+      if (res.testCode) {
+        this.showAlert(`📩 Code sent to ${email}! (Dev Code: ${res.testCode})`, 'success');
+      } else {
+        this.showAlert(`📩 6-Digit OTP Code sent to ${email}! Check your inbox.`, 'success');
+      }
+    } catch (err) {
+      this.showAlert(err.message || 'Failed to send OTP code.');
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Send 6-Digit OTP Code</span> <i class="fa-solid fa-paper-plane"></i>`;
+      }
+    }
+  },
+
+  async handleVerifyOtp(event) {
+    if (event) event.preventDefault();
+    this.hideAlert();
+
+    const codeInput = document.getElementById('otp-code-input');
+    const code = (codeInput ? codeInput.value : '').trim();
+    const email = this.currentOtpEmail;
+    const name = this.currentOtpName;
+
+    if (!email) {
+      this.showAlert('Session missing email address. Please start over.');
+      this.switchTab('login');
+      return;
+    }
+
+    if (!code || code.length !== 6) {
+      this.showAlert('Please enter the 6-digit numeric verification code.');
+      return;
+    }
+
+    const submitBtn = document.getElementById('otp-verify-submit-btn');
+    try {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Verifying...`;
+      }
+
+      await app.verifyOtp(email, code, name);
+    } catch (err) {
+      this.showAlert(err.message || 'OTP Verification failed.');
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Verify &amp; Sign In</span> <i class="fa-solid fa-check-circle"></i>`;
+      }
+    }
+  },
+
+  async resendOtp() {
+    if (!this.currentOtpEmail) {
+      this.switchTab('otp-request');
+      return;
+    }
+    this.showAlert(`Resending code to ${this.currentOtpEmail}...`, 'info');
+    try {
+      const res = await app.sendOtp(this.currentOtpEmail);
+      if (res.testCode) {
+        this.showAlert(`✨ New OTP sent to ${this.currentOtpEmail}! (Dev Code: ${res.testCode})`, 'success');
+      } else {
+        this.showAlert(`✨ New 6-digit OTP code sent to ${this.currentOtpEmail}!`, 'success');
+      }
+    } catch (err) {
+      this.showAlert(err.message || 'Failed to resend OTP.');
     }
   },
 
@@ -384,11 +549,15 @@ const LoginView = {
               const userInfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
                 headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
               });
+              let res;
               if (userInfoRes.ok) {
                 const info = await userInfoRes.json();
-                await app.loginWithGoogle(info.sub || tokenResponse.access_token);
+                res = await app.loginWithGoogle(info.sub || tokenResponse.access_token);
               } else {
-                await app.loginWithGoogle(tokenResponse.access_token);
+                res = await app.loginWithGoogle(tokenResponse.access_token);
+              }
+              if (res && res.requiresOtp) {
+                LoginView.handleGoogleResponse(res);
               }
             } catch (e) {
               LoginView.showAlert('Google login failed: ' + e.message);
@@ -404,29 +573,22 @@ const LoginView = {
 
   promptEmailOtpLogin() {
     this.hideAlert();
-    const email = prompt("📩 Enter your Email Address to receive a 6-digit Verification OTP code:");
-    if (!email || !email.trim() || !email.includes('@')) return;
-
-    this.sendAndPromptOtp(email.trim());
+    this.switchTab('otp-request');
+    const input = document.getElementById('otp-email-input');
+    if (input) {
+      input.value = '';
+      setTimeout(() => input.focus(), 100);
+    }
   },
 
-  async sendAndPromptOtp(email) {
-    try {
-      this.showAlert(`📩 Sending 6-digit OTP code to ${email}...`, 'info');
-      const res = await app.sendOtp(email);
-
-      let testNotice = '';
+  async handleGoogleResponse(res) {
+    if (res && res.requiresOtp) {
       if (res.testCode) {
-        testNotice = `\n\n(Dev OTP Code: ${res.testCode})`;
+        this.showAlert(`🔑 Google verification code dispatched to ${res.email}! (Dev Code: ${res.testCode})`, 'info');
+      } else {
+        this.showAlert(`📩 6-digit verification code sent to ${res.email}! Please enter code below to complete Google Sign-In.`, 'info');
       }
-
-      const inputCode = prompt(`🔑 Enter 6-Digit Verification OTP Code sent to ${email}:${testNotice}`);
-      if (!inputCode || !inputCode.trim()) return;
-
-      this.showAlert('Verifying 6-digit OTP code...', 'info');
-      await app.verifyOtp(email, inputCode.trim());
-    } catch (err) {
-      this.showAlert(err.message || 'OTP verification failed. Please try again.', 'error');
+      this.showOtpVerificationStep(res.email, res.name);
     }
   }
 };
@@ -436,7 +598,10 @@ window.handleGoogleCredentialResponse = async function(response) {
   if (response && response.credential) {
     try {
       LoginView.showAlert('Verifying Google Identity...', 'info');
-      await app.loginWithGoogle(response.credential);
+      const res = await app.loginWithGoogle(response.credential);
+      if (res && res.requiresOtp) {
+        LoginView.handleGoogleResponse(res);
+      }
     } catch (err) {
       LoginView.showAlert(err.message || 'Google Sign-In failed. Contact Super Admin to authorize your account.');
     }

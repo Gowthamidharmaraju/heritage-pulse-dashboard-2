@@ -126,6 +126,9 @@ class App {
 
   async loginWithGoogle(credential) {
     const res = await this.apiPost('/api/auth/google', { credential });
+    if (res.requiresOtp) {
+      return res;
+    }
     if (!res.token || !res.user) throw new Error("Invalid Google response from server.");
 
     this.authToken = res.token;
@@ -134,6 +137,7 @@ class App {
 
     this.showToast(`✨ Google Sign-In Successful! Welcome, ${res.user.name}!`, "success");
     await this.bootstrapAppData();
+    return res;
   }
 
   async sendOtp(email) {

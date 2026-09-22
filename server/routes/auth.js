@@ -294,23 +294,36 @@ router.post('/google', async (req, res) => {
       }
     }
 
-    // Security Gate: Check if account status is Pending Admin Approval
-    if (user.status === 'Pending') {
-      return res.status(403).json({
-        error: `⏳ Access Pending Approval: Account for ${user.email} has been registered. Super Admin Jitendra must approve your access request before you can log in.`
-      });
-    }
+    // Generate and send 6-digit OTP to Google Email for verification
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const expires = Date.now() + (10 * 60 * 1000);
+    otpStore[cleanGoogleEmail] = { code, expires, attempts: 0 };
 
-    const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+    const emailResult = await notificationService.sendEmail({
+      to: cleanGoogleEmail,
+      subject: `🔐 Your Heritage Pulse Google Verification OTP: ${code}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 24px; border: 1px solid #334155; border-radius: 12px; background: #0f172a; color: #ffffff;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <h2 style="color: #f59e0b; margin: 0; font-size: 1.4rem;">Heritage Pulse Dashboard</h2>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 4px;">Google Sign-In OTP Verification</p>
+          </div>
+          <p style="color: #cbd5e1; font-size: 0.95rem;">Hello ${googleUserName || 'Team Member'},</p>
+          <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;">Your 6-digit verification code to complete your Google Sign-In to Heritage Pulse is:</p>
+          <div style="background: rgba(245, 158, 11, 0.15); border: 2px dashed #f59e0b; border-radius: 8px; padding: 16px; text-align: center; font-size: 2.4rem; font-weight: 800; letter-spacing: 8px; color: #f59e0b; margin: 20px 0;">
+            ${code}
+          </div>
+          <p style="color: #94a3b8; font-size: 0.8rem; line-height: 1.4;">This code is valid for <strong>10 minutes</strong>. Please enter this code in the Heritage Pulse login form.</p>
+        </div>
+      `
+    });
 
-    res.json({
-      message: 'Google Sign-In successful!',
-      token,
-      user
+    return res.json({
+      requiresOtp: true,
+      email: cleanGoogleEmail,
+      name: googleUserName || (user ? user.name : 'Team Member'),
+      message: `Verification code sent to ${cleanGoogleEmail}`,
+      testCode: emailResult.success ? undefined : code
     });
   } catch (err) {
     console.error('Google Auth Route Error:', err);
