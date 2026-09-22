@@ -293,12 +293,7 @@ const LoginView = {
 
       const res = await app.sendOtp(email);
       this.showOtpVerificationStep(email);
-
-      if (res.testCode) {
-        this.showAlert(`📩 Code sent to ${email}! (Dev Code: ${res.testCode})`, 'success');
-      } else {
-        this.showAlert(`📩 6-Digit OTP Code sent to ${email}! Check your inbox.`, 'success');
-      }
+      this.showAlert(`📩 6-Digit OTP Code sent to ${email}! Check your inbox.`, 'success');
     } catch (err) {
       this.showAlert(err.message || 'Failed to send OTP code.');
     } finally {
@@ -355,11 +350,7 @@ const LoginView = {
     this.showAlert(`Resending code to ${this.currentOtpEmail}...`, 'info');
     try {
       const res = await app.sendOtp(this.currentOtpEmail);
-      if (res.testCode) {
-        this.showAlert(`✨ New OTP sent to ${this.currentOtpEmail}! (Dev Code: ${res.testCode})`, 'success');
-      } else {
-        this.showAlert(`✨ New 6-digit OTP code sent to ${this.currentOtpEmail}!`, 'success');
-      }
+      this.showAlert(`✨ New 6-digit OTP code sent to ${this.currentOtpEmail}! Check your inbox.`, 'success');
     } catch (err) {
       this.showAlert(err.message || 'Failed to resend OTP.');
     }
@@ -583,11 +574,7 @@ const LoginView = {
 
   async handleGoogleResponse(res) {
     if (res && res.requiresOtp) {
-      if (res.testCode) {
-        this.showAlert(`🔑 Google verification code dispatched to ${res.email}! (Dev Code: ${res.testCode})`, 'info');
-      } else {
-        this.showAlert(`📩 6-digit verification code sent to ${res.email}! Please enter code below to complete Google Sign-In.`, 'info');
-      }
+      this.showAlert(`📩 6-digit verification code sent to ${res.email}! Check your email inbox to enter code below.`, 'info');
       this.showOtpVerificationStep(res.email, res.name);
     }
   }
