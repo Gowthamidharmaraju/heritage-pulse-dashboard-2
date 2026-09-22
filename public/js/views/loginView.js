@@ -28,8 +28,8 @@ const LoginView = {
           <!-- ERROR / ALERT MESSAGE -->
           <div id="login-alert-box" class="login-alert hidden"></div>
 
-          <!-- GOOGLE SINGLE SIGN-ON (SSO) BUTTON -->
-          <div style="margin-bottom: 20px;">
+          <!-- GOOGLE & EMAIL OTP LOGIN BUTTONS -->
+          <div style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
             <div id="google-sso-btn-container" style="display: flex; justify-content: center; width: 100%;">
               <button type="button" onclick="LoginView.promptGoogleSignIn()" class="btn-custom-google-sso" style="width: 100%; padding: 12px 18px; border-radius: 10px; background: #ffffff; color: #1f2937; border: 1px solid #cbd5e1; font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s ease;">
                 <svg width="20" height="20" viewBox="0 0 48 48">
@@ -42,7 +42,12 @@ const LoginView = {
               </button>
             </div>
 
-            <div style="display: flex; align-items: center; margin: 18px 0;">
+            <button type="button" onclick="LoginView.promptEmailOtpLogin()" style="width: 100%; padding: 11px 18px; border-radius: 10px; background: rgba(245, 158, 11, 0.12); color: var(--saffron-dark); border: 1px solid rgba(245, 158, 11, 0.35); font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s;">
+              <i class="fa-solid fa-envelope-open-text" style="font-size: 1.05rem;"></i>
+              <span>Sign in with Email OTP Code</span>
+            </button>
+
+            <div style="display: flex; align-items: center; margin: 12px 0 6px;">
               <div style="flex: 1; height: 1px; background: var(--border-color);"></div>
               <span style="padding: 0 10px; font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Or Staff Login</span>
               <div style="flex: 1; height: 1px; background: var(--border-color);"></div>
@@ -394,6 +399,34 @@ const LoginView = {
       client.requestAccessToken();
     } else {
       window.open(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(window.location.origin)}&response_type=token&scope=email%20profile`, '_blank', 'width=500,height=600');
+    }
+  },
+
+  promptEmailOtpLogin() {
+    this.hideAlert();
+    const email = prompt("📩 Enter your Email Address to receive a 6-digit Verification OTP code:");
+    if (!email || !email.trim() || !email.includes('@')) return;
+
+    this.sendAndPromptOtp(email.trim());
+  },
+
+  async sendAndPromptOtp(email) {
+    try {
+      this.showAlert(`📩 Sending 6-digit OTP code to ${email}...`, 'info');
+      const res = await app.sendOtp(email);
+
+      let testNotice = '';
+      if (res.testCode) {
+        testNotice = `\n\n(Dev OTP Code: ${res.testCode})`;
+      }
+
+      const inputCode = prompt(`🔑 Enter 6-Digit Verification OTP Code sent to ${email}:${testNotice}`);
+      if (!inputCode || !inputCode.trim()) return;
+
+      this.showAlert('Verifying 6-digit OTP code...', 'info');
+      await app.verifyOtp(email, inputCode.trim());
+    } catch (err) {
+      this.showAlert(err.message || 'OTP verification failed. Please try again.', 'error');
     }
   }
 };

@@ -136,6 +136,24 @@ class App {
     await this.bootstrapAppData();
   }
 
+  async sendOtp(email) {
+    const res = await this.apiPost('/api/auth/send-otp', { email });
+    return res;
+  }
+
+  async verifyOtp(email, code, name) {
+    const res = await this.apiPost('/api/auth/verify-otp', { email, code, name });
+    if (!res.token || !res.user) throw new Error("Invalid OTP verification response.");
+
+    this.authToken = res.token;
+    this.currentUser = res.user;
+    localStorage.setItem('hp_auth_token', res.token);
+
+    this.showToast(`✨ Welcome back, ${res.user.name}! Access verified via Email OTP.`, "success");
+    await this.bootstrapAppData();
+    return res.user;
+  }
+
   async register({ name, email, role, password }) {
     const res = await this.apiPost('/api/auth/register', { name, email, role, password });
     if (!res.user) throw new Error("Registration failed.");
