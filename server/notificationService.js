@@ -70,20 +70,38 @@ const notificationService = {
   async sendWhatsApp({ to, body, byUserPhone, byUserEmail }) {
     if (global.waClientReady && global.waClient) {
       try {
-        const envGroup = (process.env.WHATSAPP_GROUP_ID || process.env.WHATSAPP_GROUP || '120363429828097318@g.us').trim();
-        const chatId = envGroup.includes('@g.us')
-          ? envGroup
-          : (to && to.includes('@g.us') ? to : `${(to || '').replace(/[^0-9]/g, '')}@c.us`);
+        const envGroup = (process.env.WHATSAPP_GROUP_ID || process.env.WHATSAPP_GROUP || '').trim();
+        let chatId = to;
 
-        // Security Validation: Ensure the notification target is an authorized team WhatsApp group
-        if (!chatId.endsWith('@g.us')) {
-          console.log(`[Security Guard] Skipping notification: Target destination ${chatId} is not an authorized team WhatsApp group.`);
-          return { success: false, reason: 'Recipient not in authorized WhatsApp team group' };
+        if (!chatId && envGroup) {
+          chatId = envGroup;
         }
 
-        console.log(`[Notification Service] Sending silent background WhatsApp to team group ${chatId}...`);
+        if (!chatId) {
+          chatId = '120363429828097318@g.us';
+        }
+
+        // Format raw phone number into WhatsApp @c.us target if not group @g.us
+        if (!chatId.endsWith('@g.us') && !chatId.endsWith('@c.us')) {
+          const digits = chatId.replace(/[^0-9]/g, '');
+          if (digits) {
+            chatId = `${digits}@c.us`;
+          }
+        }
+
+        console.log(`[Notification Service] Sending background WhatsApp to ${chatId}...`);
         await global.waClient.sendMessage(chatId, body);
-        console.log(`[Notification Service] Silent WhatsApp successfully sent to team group ${chatId}!`);
+
+        // Also broadcast to team group if sending to an individual user
+        if (envGroup && chatId !== envGroup && envGroup.endsWith('@g.us')) {
+          try {
+            await global.waClient.sendMessage(envGroup, body);
+          } catch (gErr) {
+            console.warn('[Notification Service] Group broadcast warning:', gErr.message);
+          }
+        }
+
+        console.log(`[Notification Service] Silent WhatsApp successfully delivered to ${chatId}!`);
         return { success: true, method: 'whatsapp-web.js' };
       } catch (err) {
         console.error(`[Notification Service Error] whatsapp-web.js send failed:`, err.message);
