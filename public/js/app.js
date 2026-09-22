@@ -313,6 +313,7 @@ class App {
   markChatAsRead() {
     if (!this.currentUser) return;
     const userId = this.currentUser.id;
+    this._unreadCount = 0;
     localStorage.setItem('hp_last_chat_read_' + userId, new Date().toISOString());
     this.updateChatUnreadBadge(0);
   }
@@ -328,16 +329,13 @@ class App {
 
       const userId = this.currentUser.id;
       let lastRead = localStorage.getItem('hp_last_chat_read_' + userId);
-      if (!lastRead) {
-        // Default to current time for new sessions so historical messages don't bloat initial count
-        lastRead = new Date().toISOString();
-        localStorage.setItem('hp_last_chat_read_' + userId, lastRead);
-      }
-      const lastReadTime = new Date(lastRead).getTime();
+      // If user has never opened chat on this device, check unread messages from last 24h
+      const lastReadTime = lastRead ? new Date(lastRead).getTime() : (Date.now() - (24 * 3600 * 1000));
 
       const msgs = await this.apiGet('/api/chat/messages?limit=100');
       const unreadMsgs = msgs.filter(m => m.sender_id !== userId && new Date(m.created_at).getTime() > lastReadTime);
-      this.updateChatUnreadBadge(unreadMsgs.length);
+      this._unreadCount = unreadMsgs.length;
+      this.updateChatUnreadBadge(this._unreadCount);
     } catch (e) {
       console.warn("Failed to check unread chat count:", e);
     }
@@ -381,7 +379,8 @@ class App {
             if (isViewingChat) {
               this.markChatAsRead();
             } else {
-              this.checkChatUnreadCount();
+              this._unreadCount = (this._unreadCount || 0) + 1;
+              this.updateChatUnreadBadge(this._unreadCount);
               if (window.ChatView && typeof ChatView.playChatChime === 'function') {
                 ChatView.playChatChime();
               }
