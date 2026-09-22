@@ -43,11 +43,14 @@ router.post('/send-otp', async (req, res) => {
     `
   });
 
+  if (!emailResult.success) {
+    return res.status(500).json({ error: `Failed to dispatch email: ${emailResult.error || emailResult.reason || 'Check server SMTP config'}` });
+  }
+
   res.json({
     success: true,
     message: `Verification code sent to ${email}`,
-    email,
-    testCode: emailResult.success ? undefined : code
+    email
   });
 });
 
