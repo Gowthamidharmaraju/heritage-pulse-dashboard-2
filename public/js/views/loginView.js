@@ -538,7 +538,7 @@ const LoginView = {
               let res;
               if (userInfoRes.ok) {
                 const info = await userInfoRes.json();
-                res = await app.loginWithGoogle(info.sub || tokenResponse.access_token);
+                res = await app.loginWithGoogle({ token: tokenResponse.access_token, email: info.email, name: info.name });
               } else {
                 res = await app.loginWithGoogle(tokenResponse.access_token);
               }

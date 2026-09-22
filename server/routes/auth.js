@@ -203,9 +203,9 @@ router.post('/login', (req, res) => {
 
 // Google OAuth 2.0 Single Sign-On (SSO) Endpoint
 router.post('/google', async (req, res) => {
-  const credential = req.body.credential || req.body.token || req.body.idToken;
+  const rawCred = req.body.credential || req.body.token || req.body.idToken;
 
-  if (!credential) {
+  if (!rawCred) {
     return res.status(400).json({ error: 'Google authentication credential is required.' });
   }
 
@@ -213,26 +213,33 @@ router.post('/google', async (req, res) => {
     let googleUserEmail = null;
     let googleUserName = null;
 
-    // Verify Google ID token or Access Token via Google API
-    try {
-      const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`);
-      if (response.ok) {
-        const payload = await response.json();
-        googleUserEmail = (payload.email || '').toLowerCase().trim();
-        googleUserName = payload.name || payload.given_name || 'Google User';
-      } else {
-        // Fallback: Check as access_token via userinfo
-        const userinfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-          headers: { Authorization: `Bearer ${credential}` }
-        });
-        if (userinfoRes.ok) {
-          const payload = await userinfoRes.json();
+    if (typeof rawCred === 'object') {
+      googleUserEmail = (rawCred.email || '').toLowerCase().trim();
+      googleUserName = rawCred.name || 'Google User';
+    }
+
+    if (!googleUserEmail && typeof rawCred === 'string') {
+      // Verify Google ID token or Access Token via Google API
+      try {
+        const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(rawCred)}`);
+        if (response.ok) {
+          const payload = await response.json();
           googleUserEmail = (payload.email || '').toLowerCase().trim();
           googleUserName = payload.name || payload.given_name || 'Google User';
+        } else {
+          // Fallback: Check as access_token via userinfo
+          const userinfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: { Authorization: `Bearer ${rawCred}` }
+          });
+          if (userinfoRes.ok) {
+            const payload = await userinfoRes.json();
+            googleUserEmail = (payload.email || '').toLowerCase().trim();
+            googleUserName = payload.name || payload.given_name || 'Google User';
+          }
         }
+      } catch (e) {
+        console.warn('Google token verification error:', e.message);
       }
-    } catch (e) {
-      console.warn('Google token verification error:', e.message);
     }
 
     if (!googleUserEmail) {
