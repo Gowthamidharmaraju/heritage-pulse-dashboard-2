@@ -892,6 +892,28 @@ function getNotifications(userId) {
   }));
 }
 
+function updateUserEmail(id, newEmail) {
+  const cleanEmail = (newEmail || '').toLowerCase().trim();
+  if (!cleanEmail) return;
+
+  if (!useJsonDb && db) {
+    try {
+      db.prepare('UPDATE users SET email = ? WHERE id = ?').run(cleanEmail, id);
+    } catch (e) {
+      console.warn('SQLite updateUserEmail warning:', e.message);
+    }
+  }
+
+  const dataJson = jsonDb.load();
+  if (dataJson.users) {
+    const user = dataJson.users.find(u => u.id === id);
+    if (user) {
+      user.email = cleanEmail;
+      jsonDb.save(dataJson);
+    }
+  }
+}
+
 // Initialize tables and seed
 initDb();
 
@@ -901,6 +923,7 @@ module.exports = {
   getUserById,
   getAllUsers,
   createUser,
+  updateUserEmail,
   verifyUserPassword,
   resetUserPassword,
   getAllCategories,

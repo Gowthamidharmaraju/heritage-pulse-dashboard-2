@@ -109,20 +109,53 @@ router.post('/google', async (req, res) => {
       return res.status(401).json({ error: 'Invalid Google Identity token credential.' });
     }
 
-    // Match Google email with existing staff members in SQLite / JSON database
-    let user = dbSqlite.verifyUserPassword(googleUserEmail, 'password123');
+    // Smart User Matching: Match by Email OR Name against existing team members
+    const allUsers = dbSqlite.getAllUsers();
+    const cleanGoogleEmail = (googleUserEmail || '').toLowerCase().trim();
+    const cleanGoogleName = (googleUserName || '').toLowerCase().trim();
+
+    // 1. Try exact email match
+    let user = allUsers.find(u => u.email && u.email.toLowerCase().trim() === cleanGoogleEmail);
+
+    // 2. Try matching by Name / First Name keywords (e.g. "Jitendra", "Tejaswini", "Pavitra", "Nikitha", "Sasanka", "Gowthami")
     if (!user) {
-      // Fallback email search
-      const allUsers = dbSqlite.getAllUsers();
-      user = allUsers.find(u => u.email && u.email.toLowerCase() === googleUserEmail);
+      user = allUsers.find(u => {
+        if (!u.name) return false;
+        const uNameLower = u.name.toLowerCase().trim();
+        const uCleanName = uNameLower.replace('dr.', '').replace('ma\'am', '').trim();
+        const uFirstName = uCleanName.split(' ')[0];
+
+        // Match full name or first name
+        if (cleanGoogleName && (uNameLower === cleanGoogleName || cleanGoogleName.includes(uNameLower) || uNameLower.includes(cleanGoogleName))) {
+          return true;
+        }
+
+        // Match first name in Google Name or Personal Google Email prefix
+        if (uFirstName && uFirstName.length >= 3) {
+          if (cleanGoogleName.includes(uFirstName) || cleanGoogleEmail.includes(uFirstName)) {
+            return true;
+          }
+        }
+        return false;
+      });
+
+      // If matched by name, link their personal Google email to their database profile for future logins
+      if (user) {
+        try {
+          dbSqlite.updateUserEmail(user.id, cleanGoogleEmail);
+          user.email = cleanGoogleEmail;
+        } catch (e) {
+          console.warn('Email linking warning:', e.message);
+        }
+      }
     }
 
-    // Auto-create user account if logging in via Google for the first time
+    // 3. Fallback: If brand new team member unknown to database, auto-create profile
     if (!user) {
       try {
         user = dbSqlite.createUser({
-          name: googleUserName,
-          email: googleUserEmail,
+          name: googleUserName || 'Team Member',
+          email: cleanGoogleEmail,
           password: 'google-sso-auth-pass',
           role: 'Writer',
           title: 'Staff Contributor (Google SSO)',
