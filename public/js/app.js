@@ -309,13 +309,91 @@ class App {
     `;
   }
 
+  // ── UNREAD TEAM CHAT COUNT BADGE CONTROLLER ────────────────────────────
+  markChatAsRead() {
+    if (!this.currentUser) return;
+    const userId = this.currentUser.id;
+    localStorage.setItem('hp_last_chat_read_' + userId, new Date().toISOString());
+    this.updateChatUnreadBadge(0);
+  }
+
+  async checkChatUnreadCount() {
+    if (!this.currentUser) return;
+    try {
+      const isViewingChat = ['chat', 'team-chat', 'discussion'].includes(this.currentView);
+      if (isViewingChat) {
+        this.markChatAsRead();
+        return;
+      }
+
+      const msgs = await this.apiGet('/api/chat/messages?limit=100');
+      const userId = this.currentUser.id;
+      const lastRead = localStorage.getItem('hp_last_chat_read_' + userId) || '1970-01-01T00:00:00.000Z';
+      const lastReadTime = new Date(lastRead).getTime();
+
+      const unreadMsgs = msgs.filter(m => m.sender_id !== userId && new Date(m.created_at).getTime() > lastReadTime);
+      this.updateChatUnreadBadge(unreadMsgs.length);
+    } catch (e) {
+      console.warn("Failed to check unread chat count:", e);
+    }
+  }
+
+  updateChatUnreadBadge(count) {
+    const badge = document.getElementById('sidebar-chat-count');
+    if (!badge) return;
+
+    if (count > 0) {
+      badge.innerText = `${count} New`;
+      badge.style.background = '#ef4444';
+      badge.style.color = '#ffffff';
+      badge.style.fontWeight = '800';
+      badge.style.boxShadow = '0 2px 8px rgba(239, 68, 68, 0.4)';
+    } else {
+      badge.innerText = 'Live';
+      badge.style.background = 'rgba(245, 158, 11, 0.2)';
+      badge.style.color = '#f59e0b';
+      badge.style.fontWeight = '600';
+      badge.style.boxShadow = 'none';
+    }
+  }
+
+  setupGlobalChatStream() {
+    if (this._globalChatSse) return;
+    try {
+      this._globalChatSse = new EventSource('/api/chat/stream');
+      this._globalChatSse.onmessage = (e) => {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg && this.currentUser && msg.sender_id !== this.currentUser.id) {
+            const isViewingChat = ['chat', 'team-chat', 'discussion'].includes(this.currentView);
+            if (isViewingChat) {
+              this.markChatAsRead();
+            } else {
+              this.checkChatUnreadCount();
+              if (window.ChatView && typeof ChatView.playChatChime === 'function') {
+                ChatView.playChatChime();
+              }
+            }
+          }
+        } catch (err) {}
+      };
+    } catch (e) {
+      console.warn("Global SSE stream setup failed:", e);
+    }
+  }
+
   // Real-Time Background Data Synchronization
   startRealtimeSync() {
     if (this.realtimeTimer) clearInterval(this.realtimeTimer);
     
-    // Poll lightly every 30 seconds for background notifications and updates
+    this.setupGlobalChatStream();
+    this.checkChatUnreadCount();
+
+    // Poll lightly every 15 seconds for background notifications, chat unread, and updates
     this.realtimeTimer = setInterval(async () => {
       if (!this.currentUser) return;
+
+      this.checkChatUnreadCount();
 
       // Don't interrupt if user is actively writing in text fields
       const isWritingArticle = document.activeElement && (
@@ -338,7 +416,7 @@ class App {
       } catch (e) {
         // quiet fail on background sync
       }
-    }, 30000);
+    }, 15000);
   }
 
   // Theme Management (Google Light / AI Dark mode)
@@ -620,6 +698,12 @@ class App {
       default:
         DashboardView.render(container);
         break;
+    }
+
+    if (['chat', 'team-chat', 'discussion'].includes(this.currentView)) {
+      this.markChatAsRead();
+    } else {
+      this.checkChatUnreadCount();
     }
   }
 
