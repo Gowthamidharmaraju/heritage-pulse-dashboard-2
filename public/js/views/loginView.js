@@ -28,7 +28,7 @@ const LoginView = {
           <!-- ERROR / ALERT MESSAGE -->
           <div id="login-alert-box" class="login-alert hidden"></div>
 
-          <!-- GOOGLE & EMAIL OTP LOGIN BUTTONS -->
+          <!-- GOOGLE LOGIN BUTTON -->
           <div style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
             <div id="google-sso-btn-container" style="display: flex; justify-content: center; width: 100%;">
               <button type="button" onclick="LoginView.promptGoogleSignIn()" class="btn-custom-google-sso" style="width: 100%; padding: 12px 18px; border-radius: 10px; background: #ffffff; color: #1f2937; border: 1px solid #cbd5e1; font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s ease;">
@@ -41,11 +41,6 @@ const LoginView = {
                 <span>Sign in with Google</span>
               </button>
             </div>
-
-            <button type="button" onclick="LoginView.promptEmailOtpLogin()" style="width: 100%; padding: 11px 18px; border-radius: 10px; background: rgba(245, 158, 11, 0.12); color: var(--saffron-dark); border: 1px solid rgba(245, 158, 11, 0.35); font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s;">
-              <i class="fa-solid fa-envelope-open-text" style="font-size: 1.05rem;"></i>
-              <span>Sign in with Email OTP Code</span>
-            </button>
 
             <div style="display: flex; align-items: center; margin: 12px 0 6px;">
               <div style="flex: 1; height: 1px; background: var(--border-color);"></div>
