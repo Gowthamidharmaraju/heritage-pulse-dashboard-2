@@ -371,7 +371,8 @@ function getAllUsers() {
   }));
 }
 
-function createUser({ name, email, password, role, title, phone, assignedCategories }) {
+function createUser({ name, email, password, role, title, phone, assignedCategories, status }) {
+  const userStatus = status || 'Pending';
   if (useJsonDb) {
     const data = jsonDb.load();
     const cleanEmail = (email || '').toLowerCase().trim();
@@ -390,7 +391,7 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
       role: role || 'Writer',
       title: title || 'Staff Contributor',
       avatar,
-      status: 'Active',
+      status: userStatus,
       phone: phone || '+91 90000 00000',
       assignedCategories: assignedCategories || ['All'],
       created_at: new Date().toISOString()
@@ -406,8 +407,8 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
   if (existing) throw new Error('User with this email already exists');
 
   const id = `usr-${Date.now()}`;
-  const password_hash = bcrypt.hashSync(password, 10);
-  const avatar = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
+  const password_hash = bcrypt.hashSync(password || 'password123', 10);
+  const avatar = (name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
   const created_at = new Date().toISOString();
 
   // Save in SQLite if enabled
@@ -417,7 +418,7 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       id, name, email.toLowerCase().trim(), password_hash,
-      role || 'Writer', title || 'Staff Contributor', avatar, 'Active',
+      role || 'Writer', title || 'Staff Contributor', avatar, userStatus,
       phone || '+91 90000 00000', JSON.stringify(assignedCategories || ['All']), created_at
     );
   }
@@ -433,14 +434,14 @@ function createUser({ name, email, password, role, title, phone, assignedCategor
     role: role || 'Writer',
     title: title || 'Staff Contributor',
     avatar,
-    status: 'Active',
+    status: userStatus,
     phone: phone || '+91 90000 00000',
     assignedCategories: assignedCategories || ['All'],
     created_at
   });
   jsonDb.save(dataJson);
 
-  return getUserById(id) || { id, name, email: email.toLowerCase().trim(), role: role || 'Writer', title: title || 'Staff Contributor', avatar, status: 'Active' };
+  return getUserById(id) || { id, name, email: email.toLowerCase().trim(), role: role || 'Writer', title: title || 'Staff Contributor', avatar, status: userStatus };
 }
 
 function verifyUserPassword(identifier, password) {

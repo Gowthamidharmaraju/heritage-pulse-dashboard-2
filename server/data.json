@@ -12,13 +12,14 @@
       "assignedCategories": [
         "All"
       ],
-      "created_at": "2026-01-10T09:00:00Z"
+      "created_at": "2026-01-10T09:00:00Z",
+      "password_hash": "$2b$10$ruIvhVW1Vu2MsoWWk2wEOOR/oVhovVxseT/1Bez9cxBKrKA7g01aC"
     },
     {
       "id": "usr-1789637829870",
       "name": "Gowthami Dharmaraju",
-      "email": "gowthamidharmaraju01@gmail.com",
-      "password_hash": "$2b$10$gj97V6m3DMKxfLh5/503UuWNPpIsiaZdcLzPVz2NNfYRwyMuTRqC2",
+      "email": "gowthamidharmaraju2000@gmail.com",
+      "password_hash": "$2b$10$iMlp1U4cpbD1ZhazjtK3gudKDu.2aN4yow9lDGUJR8Edc2oWHYd7.",
       "role": "Editor + Admin",
       "title": "Staff Contributor",
       "avatar": "GD",
@@ -28,6 +29,51 @@
         "All"
       ],
       "created_at": "2026-09-17T09:37:09.938Z"
+    },
+    {
+      "id": "usr-1789974567802",
+      "name": "Pavitra",
+      "email": "pavitra@heritagepulse.org",
+      "password_hash": "$2b$10$aEcUfPAtPLUpT7OMtN4NEeg6klTmV7P31pBvSOwybt6XTo/r1W1Re",
+      "role": "Writer",
+      "title": "Staff Contributor",
+      "avatar": "P",
+      "status": "Active",
+      "phone": "+91 90000 00000",
+      "assignedCategories": [
+        "All"
+      ],
+      "created_at": "2026-09-21T07:09:27.861Z"
+    },
+    {
+      "id": "usr-1789974609969",
+      "name": "Nikitha",
+      "email": "nikitha@heritagepulse.org",
+      "password_hash": "$2b$10$OzCpDKlhn3fb.YmA5KkjwuzPg4BhmEBwP0.ZKYa3xFpQ/3LitK.nW",
+      "role": "Writer",
+      "title": "Staff Contributor",
+      "avatar": "N",
+      "status": "Active",
+      "phone": "+91 90000 00000",
+      "assignedCategories": [
+        "All"
+      ],
+      "created_at": "2026-09-21T07:10:10.031Z"
+    },
+    {
+      "id": "usr-1789983469761",
+      "name": "Dr. Tejaswini",
+      "email": "dr.tejaswini@heritagepulse.org",
+      "password_hash": "$2b$10$SeULf1sB5OtSEPJp2LXqWeEFqW5IakBtNLsYKsRwcGTJELvfEISqq",
+      "role": "Writer",
+      "title": "Staff Contributor",
+      "avatar": "DT",
+      "status": "Active",
+      "phone": "+91 90000 00000",
+      "assignedCategories": [
+        "All"
+      ],
+      "created_at": "2026-09-21T09:37:49.824Z"
     }
   ],
   "categories": [
@@ -131,9 +177,180 @@
         "test"
       ],
       "active": true
+    },
+    {
+      "id": "cat-visual-stories-1789973159696",
+      "name": "Visual Stories",
+      "slug": "visual-stories",
+      "description": "",
+      "color": "#06dbcd",
+      "icon": "bookmark",
+      "subcategories": [
+        "General"
+      ],
+      "active": true
     }
   ],
   "content": [
+    {
+      "id": "HP-2026-031",
+      "title": "xfbdfb",
+      "subtitle": "",
+      "topic": "xfbdfb",
+      "category": "News",
+      "subcategory": "General",
+      "content_type": "Featured Article",
+      "frequency": "Daily",
+      "writer_id": "usr-admin-1",
+      "editor_id": "usr-admin-1",
+      "final_approver_id": "usr-1789983469761",
+      "publisher_id": "usr-publisher-1",
+      "created_by": "usr-1789974609969",
+      "created_by_name": "Nikitha",
+      "created_by_role": "Writer",
+      "priority": "High",
+      "status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "start_date": "2026-08-24",
+      "deadline": "2026-08-27",
+      "work_start_time": "2026-08-24T09:30",
+      "work_end_time": "2026-08-24T18:00",
+      "publishing_date": "2026-08-28",
+      "published_url": "",
+      "short_description": "",
+      "body": "\n                \n                <p></p>\n              \n              ",
+      "tags": [
+        "HeritagePulse"
+      ],
+      "seo_title": "xfbdfb | Heritage Pulse",
+      "seo_description": "",
+      "keywords": "",
+      "featured_image": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+      "video_url": "",
+      "reference_links": "",
+      "sources": [],
+      "notes": "",
+      "images": [],
+      "created_at": "2026-09-21T10:01:33.881Z",
+      "updated_at": "2026-09-21T10:01:40.112Z",
+      "checklist": {
+        "article_checked": false,
+        "images_checked": false,
+        "featured_image_selected": false,
+        "category_selected": true,
+        "tags_added": true,
+        "seo_completed": false,
+        "mobile_preview_checked": false,
+        "desktop_preview_checked": false,
+        "website_published": false
+      }
+    },
+    {
+      "id": "HP-2026-030",
+      "title": "fdbdfb",
+      "subtitle": "",
+      "topic": "fdbdfb",
+      "category": "News",
+      "subcategory": "General",
+      "content_type": "Featured Article",
+      "frequency": "Daily",
+      "writer_id": "usr-admin-1",
+      "editor_id": "usr-1789980805834",
+      "final_approver_id": "usr-1789980805834",
+      "publisher_id": "usr-publisher-1",
+      "created_by": "usr-1789637829870",
+      "created_by_name": "Gowthami Dharmaraju",
+      "created_by_role": "Editor + Admin",
+      "priority": "High",
+      "status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "start_date": "2026-08-24",
+      "deadline": "2026-08-27",
+      "work_start_time": "2026-08-24T09:30",
+      "work_end_time": "2026-08-24T18:00",
+      "publishing_date": "2026-08-28",
+      "published_url": "",
+      "short_description": "",
+      "body": "\n                \n                <p></p>\n              \n              ",
+      "tags": [
+        "HeritagePulse"
+      ],
+      "seo_title": "fdbdfb | Heritage Pulse",
+      "seo_description": "",
+      "keywords": "",
+      "featured_image": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+      "video_url": "",
+      "reference_links": "",
+      "sources": [],
+      "notes": "",
+      "images": [],
+      "created_at": "2026-09-21T09:21:32.710Z",
+      "updated_at": "2026-09-21T09:43:39.016Z",
+      "checklist": {
+        "article_checked": false,
+        "images_checked": false,
+        "featured_image_selected": false,
+        "category_selected": true,
+        "tags_added": true,
+        "seo_completed": false,
+        "mobile_preview_checked": false,
+        "desktop_preview_checked": false,
+        "website_published": false
+      }
+    },
+    {
+      "id": "HP-2026-029",
+      "title": "zxvzv",
+      "subtitle": "",
+      "topic": "zxvzv",
+      "category": "News",
+      "subcategory": "General",
+      "content_type": "Featured Article",
+      "frequency": "Daily",
+      "writer_id": "usr-1789974609969",
+      "editor_id": "usr-admin-1",
+      "final_approver_id": "usr-admin-1",
+      "publisher_id": "usr-publisher-1",
+      "created_by": "usr-1789974567802",
+      "created_by_name": "Pavitra",
+      "created_by_role": "Writer",
+      "priority": "High",
+      "status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "start_date": "2026-08-24",
+      "deadline": "2026-08-27",
+      "work_start_time": "2026-08-24T09:30",
+      "work_end_time": "2026-08-24T18:00",
+      "publishing_date": "2026-08-28",
+      "published_url": "",
+      "short_description": "",
+      "body": "\n                \n                <p></p>\n              \n              ",
+      "tags": [
+        "HeritagePulse"
+      ],
+      "seo_title": "zxvzv | Heritage Pulse",
+      "seo_description": "",
+      "keywords": "",
+      "featured_image": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+      "video_url": "",
+      "reference_links": "",
+      "sources": [],
+      "notes": "",
+      "images": [],
+      "created_at": "2026-09-21T08:48:11.425Z",
+      "updated_at": "2026-09-21T10:41:08.844Z",
+      "checklist": {
+        "article_checked": false,
+        "images_checked": false,
+        "featured_image_selected": false,
+        "category_selected": true,
+        "tags_added": true,
+        "seo_completed": false,
+        "mobile_preview_checked": false,
+        "desktop_preview_checked": false,
+        "website_published": false
+      }
+    },
     {
       "id": "HP-2026-028",
       "title": "efaf",
@@ -1824,6 +2041,123 @@
   ],
   "workflow_history": [
     {
+      "id": "wf-1789987270015",
+      "content_id": "HP-2026-029",
+      "user_id": "usr-1789974609969",
+      "user_name": "Nikitha",
+      "user_role": "Writer",
+      "action": "WRITER_SUBMITTED",
+      "previous_status": "WRITING",
+      "new_status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "comment": "Moved to Submitted to Editor by Nikitha (Writer).",
+      "created_at": "2026-09-21T10:41:08.844Z"
+    },
+    {
+      "id": "wf-1789987240525",
+      "content_id": "HP-2026-029",
+      "user_id": "usr-1789974609969",
+      "user_name": "Nikitha",
+      "user_role": "Writer",
+      "action": "WRITING",
+      "previous_status": "ASSIGNED",
+      "new_status": "WRITING",
+      "progress": 25,
+      "comment": "Moved to Writing In Progress by Nikitha (Writer).",
+      "created_at": "2026-09-21T10:40:40.525Z"
+    },
+    {
+      "id": "wf-1789984900123",
+      "content_id": "HP-2026-031",
+      "user_id": "usr-1789974609969",
+      "user_name": "Nikitha",
+      "user_role": "Writer",
+      "action": "WRITER_SUBMITTED",
+      "previous_status": "WRITING",
+      "new_status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "comment": "Moved to Submitted to Editor by Nikitha (Writer).",
+      "created_at": "2026-09-21T10:01:40.112Z"
+    },
+    {
+      "id": "wf-1789984896740",
+      "content_id": "HP-2026-031",
+      "user_id": "usr-1789974609969",
+      "user_name": "Nikitha",
+      "user_role": "Writer",
+      "action": "WRITING",
+      "previous_status": "ASSIGNED",
+      "new_status": "WRITING",
+      "progress": 25,
+      "comment": "Moved to Writing In Progress by Nikitha (Writer).",
+      "created_at": "2026-09-21T10:01:36.740Z"
+    },
+    {
+      "id": "wf-1789984893881-1",
+      "content_id": "HP-2026-031",
+      "user_id": "usr-1789974609969",
+      "user_name": "Nikitha",
+      "user_role": "Writer",
+      "action": "WRITER_ASSIGNED",
+      "previous_status": "NONE",
+      "new_status": "ASSIGNED",
+      "progress": 10,
+      "comment": "Topic created by Nikitha and assigned to writer.",
+      "created_at": "2026-09-21T10:01:33.881Z"
+    },
+    {
+      "id": "wf-1789983822987",
+      "content_id": "HP-2026-030",
+      "user_id": "usr-admin-1",
+      "user_name": "Jitendra",
+      "user_role": "Super Admin",
+      "action": "WRITER_SUBMITTED",
+      "previous_status": "WRITING",
+      "new_status": "WRITER_SUBMITTED",
+      "progress": 60,
+      "comment": "Moved to Submitted to Editor by Jitendra (Super Admin).",
+      "created_at": "2026-09-21T09:43:39.016Z"
+    },
+    {
+      "id": "wf-1789982495773",
+      "content_id": "HP-2026-030",
+      "user_id": "usr-1789637829870",
+      "user_name": "Gowthami Dharmaraju",
+      "user_role": "Editor + Admin",
+      "action": "WRITING",
+      "previous_status": "ASSIGNED",
+      "new_status": "WRITING",
+      "progress": 25,
+      "comment": "Moved to Writing In Progress by Gowthami Dharmaraju (Editor + Admin).",
+      "created_at": "2026-09-21T09:21:35.773Z"
+    },
+    {
+      "id": "wf-1789982492710-1",
+      "content_id": "HP-2026-030",
+      "user_id": "usr-1789637829870",
+      "user_name": "Gowthami Dharmaraju",
+      "user_role": "Editor + Admin",
+      "action": "WRITER_ASSIGNED",
+      "previous_status": "NONE",
+      "new_status": "ASSIGNED",
+      "progress": 10,
+      "comment": "Topic created by Gowthami Dharmaraju and assigned to writer.",
+      "created_at": "2026-09-21T09:21:32.710Z"
+    },
+    {
+      "id": "wf-1789980491425-1",
+      "content_id": "HP-2026-029",
+      "user_id": "usr-1789974567802",
+      "user_name": "Pavitra",
+      "user_role": "Writer",
+      "action": "WRITER_ASSIGNED",
+      "previous_status": "NONE",
+      "new_status": "ASSIGNED",
+      "progress": 10,
+      "comment": "Topic created by Pavitra and assigned to writer.",
+      "created_at": "2026-09-21T08:48:11.425Z"
+    },
+    {
       "id": "wf-1789556275834",
       "content_id": "HP-2026-006",
       "user_id": "usr-editor-1",
@@ -3097,6 +3431,126 @@
     }
   ],
   "versions": [
+    {
+      "id": "ver-HP-2026-029-15",
+      "content_id": "HP-2026-029",
+      "version_number": 15,
+      "version_label": "Version 15 — Submitted to Editor",
+      "author_name": "Nikitha (Writer)",
+      "author_avatar": "N",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "progress": 60,
+      "word_count": 0,
+      "title": "zxvzv",
+      "body": "\n                \n                <p></p>\n              \n              ",
+      "created_at": "2026-09-21T10:41:08.844Z"
+    },
+    {
+      "id": "ver-HP-2026-029-14",
+      "content_id": "HP-2026-029",
+      "version_number": 14,
+      "version_label": "Version 14 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-21T10:41:08.819Z",
+      "title": "zxvzv",
+      "body": "\n                \n                <p></p>\n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-029-13",
+      "content_id": "HP-2026-029",
+      "version_number": 13,
+      "version_label": "Version 13 — Writing In Progress",
+      "author_name": "Nikitha (Writer)",
+      "author_avatar": "N",
+      "stage": "WRITING",
+      "stage_label": "Writing In Progress",
+      "progress": 25,
+      "word_count": 0,
+      "title": "zxvzv",
+      "body": "\n                <p></p>\n              ",
+      "created_at": "2026-09-21T10:40:40.525Z"
+    },
+    {
+      "id": "ver-HP-2026-031-3",
+      "content_id": "HP-2026-031",
+      "version_number": 3,
+      "version_label": "Version 3 — Submitted to Editor",
+      "author_name": "Nikitha (Writer)",
+      "author_avatar": "N",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "progress": 60,
+      "word_count": 0,
+      "title": "xfbdfb",
+      "body": "\n                \n                <p></p>\n              \n              ",
+      "created_at": "2026-09-21T10:01:40.112Z"
+    },
+    {
+      "id": "ver-HP-2026-031-2",
+      "content_id": "HP-2026-031",
+      "version_number": 2,
+      "version_label": "Version 2 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-21T10:01:40.088Z",
+      "title": "xfbdfb",
+      "body": "\n                \n                <p></p>\n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-031-1",
+      "content_id": "HP-2026-031",
+      "version_number": 1,
+      "version_label": "Version 1 — Writing In Progress",
+      "author_name": "Nikitha (Writer)",
+      "author_avatar": "N",
+      "stage": "WRITING",
+      "stage_label": "Writing In Progress",
+      "progress": 25,
+      "word_count": 0,
+      "title": "xfbdfb",
+      "body": "\n                <p></p>\n              ",
+      "created_at": "2026-09-21T10:01:36.740Z"
+    },
+    {
+      "id": "ver-HP-2026-030-3",
+      "content_id": "HP-2026-030",
+      "version_number": 3,
+      "version_label": "Version 3 — Submitted to Editor",
+      "author_name": "Jitendra (Super Admin)",
+      "author_avatar": "J",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "progress": 60,
+      "word_count": 0,
+      "title": "fdbdfb",
+      "body": "\n                \n                <p></p>\n              \n              ",
+      "created_at": "2026-09-21T09:43:39.016Z"
+    },
+    {
+      "id": "ver-HP-2026-030-2",
+      "content_id": "HP-2026-030",
+      "version_number": 2,
+      "version_label": "Version 2 — Jitendra (Super Admin) Edit",
+      "author_name": "Jitendra (Super Admin)",
+      "created_at": "2026-09-21T09:43:38.985Z",
+      "title": "fdbdfb",
+      "body": "\n                \n                <p></p>\n              \n              "
+    },
+    {
+      "id": "ver-HP-2026-030-1",
+      "content_id": "HP-2026-030",
+      "version_number": 1,
+      "version_label": "Version 1 — Writing In Progress",
+      "author_name": "Gowthami Dharmaraju (Editor + Admin)",
+      "author_avatar": "GD",
+      "stage": "WRITING",
+      "stage_label": "Writing In Progress",
+      "progress": 25,
+      "word_count": 0,
+      "title": "fdbdfb",
+      "body": "\n                <p></p>\n              ",
+      "created_at": "2026-09-21T09:21:35.773Z"
+    },
     {
       "id": "ver-HP-2026-019-6",
       "content_id": "HP-2026-019",
@@ -4725,13 +5179,119 @@
   ],
   "notifications": [
     {
+      "id": "notif-admin-1789987270016-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-029",
+      "title": "📝 Stage Update: Submitted to Editor",
+      "message": "'zxvzv' moved to [Submitted to Editor] by Nikitha (Writer).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "by_user": "Nikitha",
+      "by_role": "Writer",
+      "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20Editorial%20Review*%0A%0A%F0%9F%93%84%20*Title%3A*%20zxvzv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-029%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Target%20Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Submission%20Time%3A*%2021%20Sept%202026%2C%2004%3A11%20PM%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Nikitha%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-029",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20zxvzv&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Nikitha%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20zxvzv%0AContent%20ID%3A%20HP-2026-029%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-029%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-21T10:41:08.844Z"
+    },
+    {
+      "id": "notif-admin-1789987240526-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-029",
+      "title": "📋 Stage Update: Writing In Progress",
+      "message": "'zxvzv' moved to [Writing In Progress] by Nikitha (Writer).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "WRITING",
+      "stage_label": "Writing In Progress",
+      "by_user": "Nikitha",
+      "by_role": "Writer",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20zxvzv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-029%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2021%20Sept%202026%2C%2004%3A10%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Nikitha%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-029",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20zxvzv%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20zxvzv%0AContent%20ID%3A%20HP-2026-029%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Nikitha%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-029%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-21T10:40:40.525Z"
+    },
+    {
+      "id": "notif-admin-1789984900123-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-031",
+      "title": "📝 Stage Update: Submitted to Editor",
+      "message": "'xfbdfb' moved to [Submitted to Editor] by Nikitha (Writer).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "by_user": "Nikitha",
+      "by_role": "Writer",
+      "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20Editorial%20Review*%0A%0A%F0%9F%93%84%20*Title%3A*%20xfbdfb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-031%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Target%20Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Submission%20Time%3A*%2021%20Sept%202026%2C%2003%3A31%20PM%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Nikitha%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-031",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20xfbdfb&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Nikitha%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20xfbdfb%0AContent%20ID%3A%20HP-2026-031%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-031%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-21T10:01:40.112Z"
+    },
+    {
+      "id": "notif-admin-1789984896740-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-031",
+      "title": "📋 Stage Update: Writing In Progress",
+      "message": "'xfbdfb' moved to [Writing In Progress] by Nikitha (Writer).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "WRITING",
+      "stage_label": "Writing In Progress",
+      "by_user": "Nikitha",
+      "by_role": "Writer",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20xfbdfb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-031%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2021%20Sept%202026%2C%2003%3A31%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Nikitha%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-031",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20xfbdfb%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20xfbdfb%0AContent%20ID%3A%20HP-2026-031%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Nikitha%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-031%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": false,
+      "created_at": "2026-09-21T10:01:36.740Z"
+    },
+    {
+      "id": "notif-1789983822993",
+      "user_id": "usr-1789980805834",
+      "content_id": "HP-2026-030",
+      "title": "📝 Article Submitted for Review",
+      "message": "Jitendra submitted 'fdbdfb' for editorial review.",
+      "type": "SUBMISSION",
+      "read": false,
+      "created_at": "2026-09-21T09:43:39.016Z"
+    },
+    {
+      "id": "notif-admin-1789983822989-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-030",
+      "title": "📝 Stage Update: Submitted to Editor",
+      "message": "'fdbdfb' moved to [Submitted to Editor] by Jitendra (Super Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "WRITER_SUBMITTED",
+      "stage_label": "Submitted to Editor",
+      "by_user": "Jitendra",
+      "by_role": "Super Admin",
+      "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20Editorial%20Review*%0A%0A%F0%9F%93%84%20*Title%3A*%20fdbdfb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-030%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Target%20Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Submission%20Time%3A*%2021%20Sept%202026%2C%2003%3A13%20PM%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Jitendra%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-030",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20fdbdfb&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Jitendra%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20fdbdfb%0AContent%20ID%3A%20HP-2026-030%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-030%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": true,
+      "created_at": "2026-09-21T09:43:39.016Z"
+    },
+    {
+      "id": "notif-admin-1789982495775-0",
+      "user_id": "usr-admin-1",
+      "content_id": "HP-2026-030",
+      "title": "📋 Stage Update: Writing In Progress",
+      "message": "'fdbdfb' moved to [Writing In Progress] by Gowthami Dharmaraju (Editor + Admin).",
+      "type": "WORKFLOW_UPDATE",
+      "stage": "WRITING",
+      "stage_label": "Writing In Progress",
+      "by_user": "Gowthami Dharmaraju",
+      "by_role": "Editor + Admin",
+      "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20fdbdfb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-030%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2021%20Sept%202026%2C%2002%3A51%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Gowthami%20Dharmaraju%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-030",
+      "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20fdbdfb%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20fdbdfb%0AContent%20ID%3A%20HP-2026-030%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Gowthami%20Dharmaraju%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2F192.168.0.63%3A3000%2F%23%2Fcontent-detail%3Fid%3DHP-2026-030%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
+      "read": true,
+      "created_at": "2026-09-21T09:21:35.773Z"
+    },
+    {
       "id": "notif-1789556275841",
       "user_id": "all",
       "content_id": "HP-2026-006",
       "title": "🎉 Article Published 100%!",
       "message": "'Kalamkari Textile Art: Hand-Painted Stories of Srikalahasti and Machilipatnam' is now live on Heritage Pulse by Gowthami at https://heritagepulse.org/culture/hp-2026-006-kalamkari-textile-art-hand-painted-stori",
       "type": "PUBLISHED",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-16T10:57:54.778Z"
     },
     {
@@ -4763,7 +5323,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-006%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Culture%20(Handlooms%20%26%20Crafts)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-16%0A%F0%9F%95%92%20*Published%20Time%3A*%2016%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fculture%2Fhp-2026-006-kalamkari-textile-art-hand-painted-stori%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-006",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%0AContent%20ID%3A%20HP-2026-006%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-006%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-16T10:57:54.778Z"
     },
     {
@@ -4795,7 +5355,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-006%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Culture%20(Handlooms%20%26%20Crafts)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-26%0A%F0%9F%95%92%20*Action%20Time%3A*%2016%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-006",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%0AContent%20ID%3A%20HP-2026-006%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-006%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-16T10:57:50.138Z"
     },
     {
@@ -4805,7 +5365,7 @@
       "title": "🎉 Article Published 100%!",
       "message": "'Traditional Temple Architecture of Andhra Pradesh: The Dravidian & Chalukyan Marvels' is now live on Heritage Pulse by Gowthami at https://heritagepulse.org/heritage/hp-2026-001-traditional-temple-architecture-of-andhr",
       "type": "PUBLISHED",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-16T10:48:49.833Z"
     },
     {
@@ -4837,7 +5397,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20Traditional%20Temple%20Architecture%20of%20Andhra%20Pradesh%3A%20The%20Dravidian%20%26%20Chalukyan%20Marvels%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-001%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Heritage%20(Temple%20Architecture)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-16%0A%F0%9F%95%92%20*Published%20Time%3A*%2016%20Sept%202026%2C%2004%3A18%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fheritage%2Fhp-2026-001-traditional-temple-architecture-of-andhr%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-001",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20Traditional%20Temple%20Architecture%20of%20Andhra%20Pradesh%3A%20The%20Dravidian%20%26%20Chalukyan%20Marvels%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Traditional%20Temple%20Architecture%20of%20Andhra%20Pradesh%3A%20The%20Dravidian%20%26%20Chalukyan%20Marvels%0AContent%20ID%3A%20HP-2026-001%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-001%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-16T10:48:49.833Z"
     },
     {
@@ -4879,7 +5439,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20dbsfb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-020%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-16%0A%F0%9F%95%92%20*Published%20Time%3A*%2016%20Sept%202026%2C%2009%3A33%20AM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-020-dbsfb%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-020",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20dbsfb%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20dbsfb%0AContent%20ID%3A%20HP-2026-020%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-020%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-16T04:03:56.810Z"
     },
     {
@@ -4911,7 +5471,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20dbsfb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-020%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2016%20Sept%202026%2C%2009%3A33%20AM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-020",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20dbsfb%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20dbsfb%0AContent%20ID%3A%20HP-2026-020%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-020%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-16T04:03:50.065Z"
     },
     {
@@ -4953,7 +5513,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20efaf%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-028%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2005%3A28%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-028-efaf%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-028",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20efaf%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20efaf%0AContent%20ID%3A%20HP-2026-028%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-028%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T11:58:21.115Z"
     },
     {
@@ -4985,7 +5545,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20efaf%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-028%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2005%3A28%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-028",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20efaf%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20efaf%0AContent%20ID%3A%20HP-2026-028%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-028%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T11:58:14.146Z"
     },
     {
@@ -5017,7 +5577,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20Editorial%20Review*%0A%0A%F0%9F%93%84%20*Title%3A*%20efaf%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-028%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Target%20Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Submission%20Time%3A*%2015%20Sept%202026%2C%2005%3A27%20PM%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-028",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20efaf&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20efaf%0AContent%20ID%3A%20HP-2026-028%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-028%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T11:57:59.992Z"
     },
     {
@@ -5049,7 +5609,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20efaf%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-028%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2005%3A27%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-028",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20efaf%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20efaf%0AContent%20ID%3A%20HP-2026-028%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-028%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T11:57:52.575Z"
     },
     {
@@ -5091,7 +5651,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20test%20task%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-021%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2005%3A13%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-021-test-task%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-021",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20test%20task%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%20task%0AContent%20ID%3A%20HP-2026-021%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-021%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T11:43:51.512Z"
     },
     {
@@ -5123,7 +5683,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20test%20task%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-021%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2005%3A13%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-021",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20test%20task%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%20task%0AContent%20ID%3A%20HP-2026-021%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-021%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T11:43:47.646Z"
     },
     {
@@ -5165,7 +5725,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20sdvsdv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-022%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-022-sdvsdv%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-022",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20sdvsdv%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:57:08.688Z"
     },
     {
@@ -5197,7 +5757,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20sdvsdv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-022%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2004%3A27%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-022",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20sdvsdv%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:57:05.004Z"
     },
     {
@@ -5239,7 +5799,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20scadcv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-024%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2004%3A15%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-024-scadcv%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-024",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20scadcv%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20scadcv%0AContent%20ID%3A%20HP-2026-024%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-024%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:45:52.598Z"
     },
     {
@@ -5271,7 +5831,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20scadcv%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-024%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2004%3A15%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-024",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20scadcv%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20scadcv%0AContent%20ID%3A%20HP-2026-024%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-024%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:45:48.613Z"
     },
     {
@@ -5313,7 +5873,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20rfgf%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-025%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2004%3A13%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-025-rfgf%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-025",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20rfgf%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20rfgf%0AContent%20ID%3A%20HP-2026-025%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-025%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:43:16.017Z"
     },
     {
@@ -5345,7 +5905,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20rfgf%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-025%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2004%3A13%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-025",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20rfgf%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20rfgf%0AContent%20ID%3A%20HP-2026-025%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-025%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:43:10.749Z"
     },
     {
@@ -5387,7 +5947,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20vbb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-026%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-15%0A%F0%9F%95%92%20*Published%20Time%3A*%2015%20Sept%202026%2C%2004%3A10%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-026-vbb%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-026",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20vbb%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20vbb%0AContent%20ID%3A%20HP-2026-026%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-026%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:40:23.017Z"
     },
     {
@@ -5419,7 +5979,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%9A%80%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20vbb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-026%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2004%3A10%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Ready%20for%20Website%20Publishing%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-026",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%9A%80%20vbb%20%E2%86%92%20Ready%20for%20Website%20Publishing&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20vbb%0AContent%20ID%3A%20HP-2026-026%0ANew%20Stage%3A%20Ready%20for%20Website%20Publishing%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-026%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:40:18.433Z"
     },
     {
@@ -5451,7 +6011,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20vbb%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-026%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2015%20Sept%202026%2C%2004%3A10%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.63%3A3000%2Freview%2FHP-2026-026",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20vbb%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20vbb%0AContent%20ID%3A%20HP-2026-026%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-026%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-15T10:40:15.271Z"
     },
     {
@@ -5493,7 +6053,7 @@
       "by_role": "Super Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20gi%20tag%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-023%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-11%0A%F0%9F%95%92%20*Published%20Time%3A*%2011%20Sept%202026%2C%2003%3A39%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Jitendra%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fnews%2Fhp-2026-023-gi-tag%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.64%3A3000%2Freview%2FHP-2026-023",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20gi%20tag%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Jitendra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-11T10:09:13.915Z"
     },
     {
@@ -5525,7 +6085,7 @@
       "by_role": "Super Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%9A%80%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20gi%20tag%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-023%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20News%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2011%20Sept%202026%2C%2003%3A39%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Ready%20for%20Website%20Publishing%0A%F0%9F%91%A4%20*By%3A*%20Jitendra%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.64%3A3000%2Freview%2FHP-2026-023",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%9A%80%20gi%20tag%20%E2%86%92%20Ready%20for%20Website%20Publishing&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0ANew%20Stage%3A%20Ready%20for%20Website%20Publishing%0AMoved%20by%3A%20Jitendra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-11T10:09:09.778Z"
     },
     {
@@ -5567,7 +6127,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Article%20Published%20Live!*%0A%0A%F0%9F%93%84%20*Title%3A*%20test%20event%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-029%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Events%20(General)%0A%F0%9F%93%86%20*Publishing%20Date%3A*%202026-09-08%0A%F0%9F%95%92%20*Published%20Time%3A*%2008%20Sept%202026%2C%2002%3A57%20PM%0A%F0%9F%91%A4%20*Published%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%F0%9F%8C%90%20*Live%20URL%3A*%20https%3A%2F%2Fheritagepulse.org%2Fevents%2Fhp-2026-029-test-event%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Dashboard%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-029",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20test%20event%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%20event%0AContent%20ID%3A%20HP-2026-029%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-029%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-08T09:27:13.506Z"
     },
     {
@@ -5599,7 +6159,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%9A%80%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20test%20event%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-029%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Events%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2008%20Sept%202026%2C%2002%3A57%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Ready%20for%20Website%20Publishing%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-029",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%9A%80%20test%20event%20%E2%86%92%20Ready%20for%20Website%20Publishing&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%20event%0AContent%20ID%3A%20HP-2026-029%0ANew%20Stage%3A%20Ready%20for%20Website%20Publishing%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-029%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-08T09:27:08.123Z"
     },
     {
@@ -5631,7 +6191,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/919133565544?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20test%20event%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-029%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Events%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2008%20Sept%202026%2C%2002%3A57%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-029",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20test%20event%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%20event%0AContent%20ID%3A%20HP-2026-029%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-029%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-08T09:27:03.420Z"
     },
     {
@@ -5663,7 +6223,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20Editorial%20Review*%0A%0A%F0%9F%93%84%20*Title%3A*%20test%20event%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-029%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Events%20(General)%0A%F0%9F%93%85%20*Target%20Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Submission%20Time%3A*%2008%20Sept%202026%2C%2002%3A56%20PM%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-029",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20test%20event&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20test%20event%0AContent%20ID%3A%20HP-2026-029%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-029%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-08T09:26:35.386Z"
     },
     {
@@ -5695,7 +6255,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20test%20event%0A%F0%9F%86%94%20*Content%20ID%3A*%20HP-2026-029%0A%F0%9F%8F%B7%EF%B8%8F%20*Category%3A*%20Events%20(General)%0A%F0%9F%93%85%20*Publishing%20Date%3A*%202026-08-28%0A%F0%9F%95%92%20*Action%20Time%3A*%2008%20Sept%202026%2C%2002%3A56%20PM%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-029",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20test%20event%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%20event%0AContent%20ID%3A%20HP-2026-029%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-029%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-08T09:26:25.972Z"
     },
     {
@@ -5727,7 +6287,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20vbb%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-026",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20vbb&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20vbb%0AContent%20ID%3A%20HP-2026-026%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-026%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T11:18:06.638Z"
     },
     {
@@ -5759,7 +6319,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20vbb%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-026",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20vbb%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20vbb%0AContent%20ID%3A%20HP-2026-026%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-026%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T09:11:58.665Z"
     },
     {
@@ -5791,7 +6351,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20rfgf%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-025",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20rfgf&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20rfgf%0AContent%20ID%3A%20HP-2026-025%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-025%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T09:07:12.272Z"
     },
     {
@@ -5823,7 +6383,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20rfgf%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2Freview%2FHP-2026-025",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20rfgf%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20rfgf%0AContent%20ID%3A%20HP-2026-025%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-025%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T09:07:08.840Z"
     },
     {
@@ -5855,7 +6415,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20scadcv%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2F%23content-detail%3Fid%3DHP-2026-024",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20scadcv&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20scadcv%0AContent%20ID%3A%20HP-2026-024%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-024%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T09:02:38.449Z"
     },
     {
@@ -5887,7 +6447,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20scadcv%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2F192.168.0.65%3A3000%2F%23content-detail%3Fid%3DHP-2026-024",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20scadcv%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20scadcv%0AContent%20ID%3A%20HP-2026-024%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-024%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T09:02:27.934Z"
     },
     {
@@ -5919,7 +6479,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20gi%20tag%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Sasanka%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20gi%20tag&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Sasanka%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:59:22.662Z"
     },
     {
@@ -5951,7 +6511,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20gi%20tag%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Sasanka%0A%F0%9F%92%AC%20*Note%3A*%20Writer%20Sasanka%20accepted%20the%20task%20and%20started%20writing.%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20gi%20tag%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gi%20tag%0AContent%20ID%3A%20HP-2026-023%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Sasanka%0AEditor%20Note%3A%20Writer%20Sasanka%20accepted%20the%20task%20and%20started%20writing.%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-023%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:59:15.917Z"
     },
     {
@@ -5983,7 +6543,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20sdvsdv%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20%26%20Review%3A*%0Ahttp%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20sdvsdv&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:58:32.136Z"
     },
     {
@@ -6015,7 +6575,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20sdvsdv%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A%F0%9F%94%97%20*Click%20to%20Open%20Article%3A*%0Ahttp%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20sdvsdv%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdvsdv%0AContent%20ID%3A%20HP-2026-022%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-022%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:58:29.439Z"
     },
     {
@@ -6047,7 +6607,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20test%20task%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Pavitra%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-021",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20test%20task&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Pavitra%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20test%20task%0AContent%20ID%3A%20HP-2026-021%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-021%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:52:19.891Z"
     },
     {
@@ -6079,7 +6639,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20test%20task%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Pavitra%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-021_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20test%20task%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%20task%0AContent%20ID%3A%20HP-2026-021%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Pavitra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-021%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:52:13.294Z"
     },
     {
@@ -6111,7 +6671,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20dbsfb%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-020",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20dbsfb&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20dbsfb%0AContent%20ID%3A%20HP-2026-020%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-020%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:48:41.658Z"
     },
     {
@@ -6143,7 +6703,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20dbsfb%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-020_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20dbsfb%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20dbsfb%0AContent%20ID%3A%20HP-2026-020%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-020%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:48:37.859Z"
     },
     {
@@ -6175,7 +6735,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20gfhnfgn%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Pavitra%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-019",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20gfhnfgn&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Pavitra%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20gfhnfgn%0AContent%20ID%3A%20HP-2026-019%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-019%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:47:07.419Z"
     },
     {
@@ -6207,7 +6767,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20gfhnfgn%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Pavitra%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-019_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20gfhnfgn%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20gfhnfgn%0AContent%20ID%3A%20HP-2026-019%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Pavitra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-019%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:47:02.602Z"
     },
     {
@@ -6239,7 +6799,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20sfafaf%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-018",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20sfafaf&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20sfafaf%0AContent%20ID%3A%20HP-2026-018%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-018%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:46:29.206Z"
     },
     {
@@ -6271,7 +6831,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20sfafaf%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-018_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20sfafaf%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sfafaf%0AContent%20ID%3A%20HP-2026-018%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-018%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T08:46:24.006Z"
     },
     {
@@ -6303,7 +6863,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20afaefef%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-017",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20afaefef&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20afaefef%0AContent%20ID%3A%20HP-2026-017%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-017%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T07:29:08.135Z"
     },
     {
@@ -6335,7 +6895,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20afaefef%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-017_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20afaefef%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20afaefef%0AContent%20ID%3A%20HP-2026-017%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-017%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T07:29:05.222Z"
     },
     {
@@ -6367,7 +6927,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20tuhy5rty%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Pavitra%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-016",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20tuhy5rty&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Pavitra%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20tuhy5rty%0AContent%20ID%3A%20HP-2026-016%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-016%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T06:43:50.121Z"
     },
     {
@@ -6399,7 +6959,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20tuhy5rty%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Pavitra%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-016_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20tuhy5rty%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20tuhy5rty%0AContent%20ID%3A%20HP-2026-016%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Pavitra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-016%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T06:43:13.030Z"
     },
     {
@@ -6431,7 +6991,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20sdsdv%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Pavitra%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-015",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20sdsdv&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Pavitra%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20sdsdv%0AContent%20ID%3A%20HP-2026-015%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-015%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T06:29:41.705Z"
     },
     {
@@ -6463,7 +7023,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20sdsdv%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Pavitra%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-015_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20sdsdv%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20sdsdv%0AContent%20ID%3A%20HP-2026-015%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Pavitra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-015%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T06:29:34.157Z"
     },
     {
@@ -6505,7 +7065,7 @@
       "by_role": "Super Admin",
       "wa_link": "https://wa.me/919133565544?text=%F0%9F%8E%89%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20Forgotten%20Grains%20of%20Ancient%20India%3A%20Millets%20in%20Vedic%20Cuisine%20and%20Sustainable%20Living%0A%F0%9F%94%84%20*Stage%3A*%20Published%20Live%20on%20Heritage%20Pulse%0A%F0%9F%91%A4%20*By%3A*%20Jitendra%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-004_",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20Forgotten%20Grains%20of%20Ancient%20India%3A%20Millets%20in%20Vedic%20Cuisine%20and%20Sustainable%20Living%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Forgotten%20Grains%20of%20Ancient%20India%3A%20Millets%20in%20Vedic%20Cuisine%20and%20Sustainable%20Living%0AContent%20ID%3A%20HP-2026-004%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Jitendra%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-004%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T06:11:58.874Z"
     },
     {
@@ -6537,7 +7097,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/919133565544?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20Vedic%20Chanting%20%26%20Modern%20Neuroscience%3A%20The%20Sonic%20Architecture%20of%20Pranayama%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-007",
       "email_link": "mailto:ramisettyjitendra@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20Vedic%20Chanting%20%26%20Modern%20Neuroscience%3A%20The%20Sonic%20Architecture%20of%20Pranayama&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20Vedic%20Chanting%20%26%20Modern%20Neuroscience%3A%20The%20Sonic%20Architecture%20of%20Pranayama%0AContent%20ID%3A%20HP-2026-007%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-007%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T05:48:39.731Z"
     },
     {
@@ -6569,7 +7129,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/918008712251?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20aegvsg%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-013",
       "email_link": "mailto:Tejaswini@pleachindia.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20aegvsg&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20aegvsg%0AContent%20ID%3A%20HP-2026-013%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-013%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T05:07:10.523Z"
     },
     {
@@ -6601,7 +7161,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/918008712251?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20aegvsg%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-013_",
       "email_link": "mailto:Tejaswini@pleachindia.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20aegvsg%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20aegvsg%0AContent%20ID%3A%20HP-2026-013%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-013%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T05:05:22.105Z"
     },
     {
@@ -6633,7 +7193,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/918008712251?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20test%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-012",
       "email_link": "mailto:Tejaswini@pleachindia.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20test&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20test%0AContent%20ID%3A%20HP-2026-012%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-012%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T04:53:55.398Z"
     },
     {
@@ -6665,7 +7225,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/918008712251?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20test%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-012_",
       "email_link": "mailto:Tejaswini@pleachindia.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20test%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20test%0AContent%20ID%3A%20HP-2026-012%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-012%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T04:53:45.083Z"
     },
     {
@@ -6697,7 +7257,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/917780484639?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20wegwergwrgg%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20test%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-011",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20wegwergwrgg&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20test%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20wegwergwrgg%0AContent%20ID%3A%20HP-2026-011%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-011%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T04:47:30.711Z"
     },
     {
@@ -6729,7 +7289,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/917780484639?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20wegwergwrgg%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20test%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-011_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20wegwergwrgg%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20wegwergwrgg%0AContent%20ID%3A%20HP-2026-011%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20test%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-011%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T04:36:53.856Z"
     },
     {
@@ -6771,7 +7331,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%F0%9F%8E%89%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%0A%F0%9F%94%84%20*Stage%3A*%20Published%20Live%20on%20Heritage%20Pulse%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-005_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%8E%89%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%20%E2%86%92%20Published%20Live%20on%20Heritage%20Pulse&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%0AContent%20ID%3A%20HP-2026-005%0ANew%20Stage%3A%20Published%20Live%20on%20Heritage%20Pulse%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-005%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T04:12:48.291Z"
     },
     {
@@ -6803,7 +7363,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%F0%9F%9A%80%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%0A%F0%9F%94%84%20*Stage%3A*%20Ready%20for%20Website%20Publishing%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-005_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%9A%80%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%20%E2%86%92%20Ready%20for%20Website%20Publishing&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%0AContent%20ID%3A%20HP-2026-005%0ANew%20Stage%3A%20Ready%20for%20Website%20Publishing%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-005%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-07T04:12:43.538Z"
     },
     {
@@ -6835,7 +7395,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-005_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Carnatic%20Symphony%3A%20How%20Fusion%20Ragas%20Are%20Captivating%20Gen-Z%20Audiences%0AContent%20ID%3A%20HP-2026-005%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-005%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-05T07:07:05.110Z"
     },
     {
@@ -6867,7 +7427,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20Traditional%20Temple%20Architecture%20of%20Andhra%20Pradesh%3A%20The%20Dravidian%20%26%20Chalukyan%20Marvels%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-001_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20Traditional%20Temple%20Architecture%20of%20Andhra%20Pradesh%3A%20The%20Dravidian%20%26%20Chalukyan%20Marvels%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Traditional%20Temple%20Architecture%20of%20Andhra%20Pradesh%3A%20The%20Dravidian%20%26%20Chalukyan%20Marvels%0AContent%20ID%3A%20HP-2026-001%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-001%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-05T06:45:22.948Z"
     },
     {
@@ -6899,7 +7459,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%E2%9C%85%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20afwef%0A%F0%9F%94%84%20*Stage%3A*%20Final%20Approval%20Stage%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-010_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%9C%85%20afwef%20%E2%86%92%20Final%20Approval%20Stage&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20afwef%0AContent%20ID%3A%20HP-2026-010%0ANew%20Stage%3A%20Final%20Approval%20Stage%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-010%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-05T06:43:30.271Z"
     },
     {
@@ -6931,7 +7491,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20afwef%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-010",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20afwef&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Dr.%20Tejaswini%20Ma'am%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20afwef%0AContent%20ID%3A%20HP-2026-010%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-010%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-05T06:43:17.808Z"
     },
     {
@@ -6963,7 +7523,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%F0%9F%93%8B%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20afwef%0A%F0%9F%94%84%20*Stage%3A*%20Writing%20In%20Progress%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-010_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%93%8B%20afwef%20%E2%86%92%20Writing%20In%20Progress&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20afwef%0AContent%20ID%3A%20HP-2026-010%0ANew%20Stage%3A%20Writing%20In%20Progress%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-010%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-05T06:43:14.452Z"
     },
     {
@@ -6995,7 +7555,7 @@
       "by_role": "Writer",
       "wa_link": "https://wa.me/917780484639?text=%E2%8F%B3%20*Waiting%20for%20your%20approval*%0A%0A%F0%9F%93%84%20*Article%20Title%3A*%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%0A%E2%9C%8D%EF%B8%8F%20*Submitted%20By%3A*%20Pavitra%0A%0A%F0%9F%94%97%20*Review%20Link%3A*%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-006",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%E2%8F%B3%20Waiting%20for%20your%20approval%3A%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AAn%20article%20has%20been%20completed%20by%20Pavitra%20and%20is%20waiting%20for%20your%20review%20and%20approval.%0A%0AArticle%20Title%3A%20Kalamkari%20Textile%20Art%3A%20Hand-Painted%20Stories%20of%20Srikalahasti%20and%20Machilipatnam%0AContent%20ID%3A%20HP-2026-006%0AStatus%3A%20%E2%8F%B3%20Waiting%20for%20Editor%20Review%0A%0APlease%20log%20in%20to%20review%20and%20approve%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-006%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-05T06:40:16.433Z"
     },
     {
@@ -7069,7 +7629,7 @@
       "by_role": "Editor + Admin",
       "wa_link": "https://wa.me/917780484639?text=%F0%9F%9A%80%20*Heritage%20Pulse%20%E2%80%94%20Workflow%20Update*%0A%F0%9F%93%84%20*Article%3A*%20Kuchipudi%20Heritage%3A%20From%20Sacred%20Bhagavata%20Mela%20to%20Global%20Classical%20Stage%0A%F0%9F%94%84%20*Stage%3A*%20Ready%20for%20Website%20Publishing%0A%F0%9F%91%A4%20*By%3A*%20Dr.%20Tejaswini%20Ma'am%0A%0A_Dashboard%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-002_",
       "email_link": "mailto:gowthamidharmaraju2000@gmail.com?subject=%5BHeritage%20Pulse%5D%20%F0%9F%9A%80%20Kuchipudi%20Heritage%3A%20From%20Sacred%20Bhagavata%20Mela%20to%20Global%20Classical%20Stage%20%E2%86%92%20Ready%20for%20Website%20Publishing&body=Hello%20Dr.%20Tejaswini%20Ma'am%2C%0A%0AA%20workflow%20stage%20update%20has%20occurred%20on%20Heritage%20Pulse%20Editorial%20Dashboard.%0A%0AArticle%3A%20Kuchipudi%20Heritage%3A%20From%20Sacred%20Bhagavata%20Mela%20to%20Global%20Classical%20Stage%0AContent%20ID%3A%20HP-2026-002%0ANew%20Stage%3A%20Ready%20for%20Website%20Publishing%0AMoved%20by%3A%20Dr.%20Tejaswini%20Ma'am%0A%0APlease%20log%20in%20to%20review%3A%20http%3A%2F%2Flocalhost%3A3000%2F%23content-detail%3Fid%3DHP-2026-002%0A%0ARegards%2C%0AHeritage%20Pulse%20Editorial%20System",
-      "read": false,
+      "read": true,
       "created_at": "2026-09-05T06:38:10.087Z"
     },
     {
@@ -7205,6 +7765,94 @@
       "sender_role": "Writer",
       "message": "cncxgncn",
       "created_at": "2026-09-18T11:09:13.073Z"
+    },
+    {
+      "id": "msg-1790051148941-501",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789974567802",
+      "sender_name": "Pavitra",
+      "sender_role": "Writer",
+      "message": "cngnhjn",
+      "created_at": "2026-09-22T04:25:48.941Z"
+    },
+    {
+      "id": "msg-1790051167468-92",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789637829870",
+      "sender_name": "Gowthami Dharmaraju",
+      "sender_role": "Editor + Admin",
+      "message": "xbdfbnfgn",
+      "created_at": "2026-09-22T04:26:07.468Z"
+    },
+    {
+      "id": "msg-1790051178041-923",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789637829870",
+      "sender_name": "Gowthami Dharmaraju",
+      "sender_role": "Editor + Admin",
+      "message": "gnfgn",
+      "created_at": "2026-09-22T04:26:18.041Z"
+    },
+    {
+      "id": "msg-1790051716559-639",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789974567802",
+      "sender_name": "Pavitra",
+      "sender_role": "Writer",
+      "message": "sdvsdv",
+      "created_at": "2026-09-22T04:35:16.559Z"
+    },
+    {
+      "id": "msg-1790051737387-684",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789974567802",
+      "sender_name": "Pavitra",
+      "sender_role": "Writer",
+      "message": "dsvsdvv",
+      "created_at": "2026-09-22T04:35:37.387Z"
+    },
+    {
+      "id": "msg-1790051891143-603",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789637829870",
+      "sender_name": "Gowthami Dharmaraju",
+      "sender_role": "Editor + Admin",
+      "message": "dvsdvsdfv",
+      "created_at": "2026-09-22T04:38:11.143Z"
+    },
+    {
+      "id": "msg-1790051904174-492",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1789637829870",
+      "sender_name": "Gowthami Dharmaraju",
+      "sender_role": "Editor + Admin",
+      "message": "fvdfbdf",
+      "created_at": "2026-09-22T04:38:24.174Z"
+    },
+    {
+      "id": "msg-1790052792641-99",
+      "room_id": "room-general",
+      "article_id": null,
+      "recipient_id": null,
+      "sender_id": "usr-1790052597825",
+      "sender_name": "Heri Tej",
+      "sender_role": "Writer",
+      "message": "cffdb",
+      "created_at": "2026-09-22T04:53:12.641Z"
     }
   ],
   "chat_rooms": [
