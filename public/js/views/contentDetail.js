@@ -1946,6 +1946,8 @@ const ContentDetailView = {
 
         if (res.qrUrl && container) {
           container.innerHTML = `<img src="${res.qrUrl}" alt="WhatsApp QR" style="width: 100%; height: 100%; object-fit: contain; display: block;">`;
+        } else if (container && !container.querySelector('iframe')) {
+          container.innerHTML = `<iframe src="/qr" style="width: 100%; height: 100%; border: none; overflow: hidden; background: #ffffff;"></iframe>`;
         }
       } catch (e) { }
     };
