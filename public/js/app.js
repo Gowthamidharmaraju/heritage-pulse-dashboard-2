@@ -326,11 +326,16 @@ class App {
         return;
       }
 
-      const msgs = await this.apiGet('/api/chat/messages?limit=100');
       const userId = this.currentUser.id;
-      const lastRead = localStorage.getItem('hp_last_chat_read_' + userId) || '1970-01-01T00:00:00.000Z';
+      let lastRead = localStorage.getItem('hp_last_chat_read_' + userId);
+      if (!lastRead) {
+        // Default to current time for new sessions so historical messages don't bloat initial count
+        lastRead = new Date().toISOString();
+        localStorage.setItem('hp_last_chat_read_' + userId, lastRead);
+      }
       const lastReadTime = new Date(lastRead).getTime();
 
+      const msgs = await this.apiGet('/api/chat/messages?limit=100');
       const unreadMsgs = msgs.filter(m => m.sender_id !== userId && new Date(m.created_at).getTime() > lastReadTime);
       this.updateChatUnreadBadge(unreadMsgs.length);
     } catch (e) {
@@ -343,16 +348,23 @@ class App {
     if (!badge) return;
 
     if (count > 0) {
-      badge.innerText = `${count} New`;
+      const displayCount = count > 99 ? '99+' : count;
+      badge.innerText = displayCount;
       badge.style.background = '#ef4444';
       badge.style.color = '#ffffff';
       badge.style.fontWeight = '800';
-      badge.style.boxShadow = '0 2px 8px rgba(239, 68, 68, 0.4)';
+      badge.style.borderRadius = '12px';
+      badge.style.padding = '2px 7px';
+      badge.style.fontSize = '0.74rem';
+      badge.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.6)';
     } else {
       badge.innerText = 'Live';
       badge.style.background = 'rgba(245, 158, 11, 0.2)';
       badge.style.color = '#f59e0b';
       badge.style.fontWeight = '600';
+      badge.style.borderRadius = '6px';
+      badge.style.padding = '2px 6px';
+      badge.style.fontSize = '0.7rem';
       badge.style.boxShadow = 'none';
     }
   }
