@@ -685,6 +685,16 @@ function deleteCategory(id) {
   return true;
 }
 
+function safeJsonParse(val, fallback) {
+  if (!val) return fallback;
+  if (typeof val === 'object') return val;
+  try {
+    return JSON.parse(val);
+  } catch (e) {
+    return fallback;
+  }
+}
+
 // Content & Assigned Tasks Queries
 function getAllContent(queryFilters = {}) {
   if (useJsonDb) {
@@ -718,7 +728,17 @@ function getAllContent(queryFilters = {}) {
   sql += ' ORDER BY created_at DESC';
 
   const rows = db.prepare(sql).all(...params);
-  return rows.map(formatContentRow);
+  return rows.map(r => {
+    const formatted = formatContentRow(r);
+    if (queryFilters.include_full_body !== 'true') {
+      let bodyPreview = formatted.short_description || '';
+      if (!bodyPreview && formatted.body) {
+        bodyPreview = formatted.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 500);
+      }
+      formatted.body = bodyPreview;
+    }
+    return formatted;
+  });
 }
 
 function getContentById(id) {
@@ -840,10 +860,10 @@ function formatContentRow(row) {
     writer: writer ? { id: writer.id, name: writer.name, avatar: writer.avatar || writer.name[0], role: writer.role } : (row.writer_id ? { id: row.writer_id, name: 'Writer (' + row.writer_id + ')', avatar: 'W', role: 'Writer' } : null),
     editor: editor ? { id: editor.id, name: editor.name, avatar: editor.avatar || editor.name[0], role: editor.role } : (row.editor_id ? { id: row.editor_id, name: 'Editor (' + row.editor_id + ')', avatar: 'E', role: 'Editor' } : null),
     publisher: publisher ? { id: publisher.id, name: publisher.name, avatar: publisher.avatar || publisher.name[0], role: publisher.role } : null,
-    tags: JSON.parse(row.tags || '[]'),
-    sources: JSON.parse(row.sources || '[]'),
-    images: JSON.parse(row.images || '[]'),
-    checklist: JSON.parse(row.checklist || '{}'),
+    tags: safeJsonParse(row.tags, []),
+    sources: safeJsonParse(row.sources, []),
+    images: safeJsonParse(row.images, []),
+    checklist: safeJsonParse(row.checklist, {}),
     edit_request_pending: Boolean(row.edit_request_pending),
     is_deleted: Boolean(row.is_deleted)
   };

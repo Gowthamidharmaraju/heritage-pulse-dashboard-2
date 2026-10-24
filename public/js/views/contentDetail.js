@@ -532,7 +532,7 @@ const ContentDetailView = {
 
             <!-- TRUE WYSIWYG CONTENTEDITABLE EDITOR WITH GRAMMARLY FLOATING WIDGET -->
             <div style="position: relative;">
-              <div id="article-body-editor" class="rich-article-editor" contenteditable="${canEdit ? 'true' : 'false'}" ${canEdit ? 'onmouseup="ContentDetailView.saveSelection()" onkeyup="ContentDetailView.saveSelection(); ContentDetailView.updateGrammarlyRealtimeWidget();" oninput="ContentDetailView.onBodyInput(); ContentDetailView.updateGrammarlyRealtimeWidget();" onkeydown="ContentDetailView.handleEditorKeydown(event)"' : 'style="cursor: not-allowed; opacity: 0.95; background: rgba(0,0,0,0.1); border-color: rgba(245,158,11,0.25); user-select: text;"'}>
+              <div id="article-body-editor" class="rich-article-editor" contenteditable="${canEdit ? 'true' : 'false'}" ${canEdit ? 'onmouseup="ContentDetailView.saveSelection()" onkeyup="ContentDetailView.saveSelection(); ContentDetailView.updateGrammarlyRealtimeWidget();" oninput="ContentDetailView.onBodyInput(); ContentDetailView.updateGrammarlyRealtimeWidget();" onkeydown="ContentDetailView.handleEditorKeydown(event)" onpaste="ContentDetailView.handleEditorPaste(event)"' : 'style="cursor: not-allowed; opacity: 0.95; background: rgba(0,0,0,0.1); border-color: rgba(245,158,11,0.25); user-select: text;"'}>
                 ${bodyHtml}
               </div>
 
@@ -599,17 +599,22 @@ const ContentDetailView = {
                     </span>
                   ` : ''}
                   <div style="background: var(--bg-card-subtle); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: var(--saffron);">
-                    Images: ${item.images ? item.images.length : 0} uploaded
+                    Images: ${item.images ? item.images.length : 0} / 5 uploaded
                   </div>
                 </div>
               </div>
 
               ${canEdit ? `
               <!-- Drag & Drop Uploader -->
-              <div class="image-dropzone" onclick="document.getElementById('image-file-input').click()">
+              <div class="image-dropzone" 
+                   id="image-dropzone-area"
+                   onclick="document.getElementById('image-file-input').click()"
+                   ondragover="ContentDetailView.handleDragOver(event)"
+                   ondragleave="ContentDetailView.handleDragLeave(event)"
+                   ondrop="ContentDetailView.handleDrop(event)">
                 <i class="fa-solid fa-cloud-arrow-up" style="font-size: 1.8rem; color: var(--saffron); margin-bottom: 8px;"></i>
                 <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary);">Drag & drop photo or click to upload</div>
-                <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">Supports JPG, PNG, WEBP up to 15MB</div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">Supports JPG, PNG, WEBP, GIF, SVG up to 500MB</div>
                 <input type="file" id="image-file-input" style="display: none;" accept="image/*" onchange="ContentDetailView.handleImageUpload(event)">
               </div>
 
@@ -1188,6 +1193,9 @@ const ContentDetailView = {
             <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px;">
               Only Chief Editor Dr. Tejaswini Ma'am can approve this article to the next stage.
             </div>
+            <button class="btn btn-xs btn-outline-light mt-2" onclick="app.switchUser('usr-editor-1')">
+              Switch to Dr. Tejaswini Ma'am <i class="fa-solid fa-right-left"></i>
+            </button>
           </div>
         `;
       }
@@ -1221,6 +1229,9 @@ const ContentDetailView = {
             <div style="font-size: 0.8rem; font-weight: 700; color: var(--saffron-dark);">
               ⏳ Waiting for Final Approval (Dr. Tejaswini Ma'am Only)
             </div>
+            <button class="btn btn-xs btn-outline-light mt-2" onclick="app.switchUser('usr-editor-1')">
+              Switch to Dr. Tejaswini Ma'am <i class="fa-solid fa-right-left"></i>
+            </button>
           </div>
         `;
       }
@@ -1728,27 +1739,82 @@ const ContentDetailView = {
     `).join('');
   },
 
+  handleDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const zone = document.getElementById('image-dropzone-area') || e.currentTarget;
+    if (zone) zone.classList.add('drag-active');
+  },
+
+  handleDragLeave(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const zone = document.getElementById('image-dropzone-area') || e.currentTarget;
+    if (zone) zone.classList.remove('drag-active');
+  },
+
+  async handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const zone = document.getElementById('image-dropzone-area') || e.currentTarget;
+    if (zone) zone.classList.remove('drag-active');
+    const files = e.dataTransfer && e.dataTransfer.files;
+    if (files && files.length > 0) {
+      await this.uploadImageFile(files[0]);
+    }
+  },
+
   async handleImageUpload(e) {
-    const file = e.target.files[0];
+    const file = e.target.files && e.target.files[0];
     if (!file) return;
+    try {
+      await this.uploadImageFile(file);
+    } finally {
+      // Always reset file input value so re-uploading the same file works
+      e.target.value = '';
+    }
+  },
+
+  async uploadImageFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      app.showToast('Please select a valid image file (JPG, PNG, WEBP, GIF, SVG).', 'error');
+      return;
+    }
 
     const formData = new FormData();
     formData.append('file', file);
 
     try {
-      app.showToast('Uploading image...', 'info');
+      app.showToast('⏳ Uploading image to server...', 'info');
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData
       });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        let errMsg = `Upload failed (HTTP ${res.status})`;
+        try {
+          const errJson = JSON.parse(errText);
+          if (errJson && errJson.error) errMsg = errJson.error;
+        } catch (_) {
+          if (errText) errMsg = errText.slice(0, 120);
+        }
+        throw new Error(errMsg);
+      }
+
       const uploadResult = await res.json();
 
-      if (uploadResult.url) {
+      if (uploadResult && uploadResult.url) {
+        const userName = (app.currentUser && app.currentUser.name) || 'Heritage Pulse Bureau';
+        const cleanName = (file.name || 'heritage-photo').replace(/\.[^/.]+$/, '');
+        
         await app.apiPost(`/api/content/${this.currentItem.id}/images`, {
           file_url: uploadResult.url,
           filename: file.name,
-          caption: `${file.name.replace(/\.[^/.]+$/, '')} at Heritage Pulse`,
-          credit: `${app.currentUser.name} / Heritage Pulse Bureau`
+          caption: `${cleanName} — Cultural Documentation`,
+          credit: `${userName} / Heritage Pulse Bureau`
         });
 
         // Fetch refreshed article data
@@ -1757,10 +1823,54 @@ const ContentDetailView = {
 
         // In-place gallery update without interrupting writing or reloading page
         this.renderGalleryInPlace();
-        app.showToast('✅ Image uploaded and gallery updated!', 'success');
+        app.showToast('✅ Image uploaded and added to article gallery!', 'success');
+      } else {
+        throw new Error('Server did not return an image URL.');
       }
     } catch (err) {
+      console.error('[Image Upload Error]', err);
       app.showToast(`Upload failed: ${err.message}`, 'error');
+    }
+  },
+
+  async handleEditorPaste(e) {
+    const clipboardData = e.clipboardData || window.clipboardData;
+    if (!clipboardData) return;
+
+    // Check if pasted item is an image file
+    const items = clipboardData.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type && items[i].type.indexOf('image') === 0) {
+          e.preventDefault();
+          const file = items[i].getAsFile();
+          if (!file) continue;
+
+          app.showToast('⏳ Uploading pasted image to server...', 'info');
+          const formData = new FormData();
+          formData.append('file', file);
+
+          try {
+            const res = await fetch('/api/upload', {
+              method: 'POST',
+              body: formData
+            });
+            if (!res.ok) throw new Error('Failed to upload pasted image');
+            const data = await res.json();
+            if (data && data.url) {
+              const imgHtml = `<p><img src="${data.url}" alt="${file.name || 'Pasted image'}" style="max-width: 100%; height: auto; border-radius: 8px; margin: 12px 0; box-shadow: 0 4px 14px rgba(0,0,0,0.25);" /></p><p></p>`;
+              document.execCommand('insertHTML', false, imgHtml);
+              this.onBodyInput();
+              this.scheduleAutosave();
+              app.showToast('✅ Pasted image uploaded to server!', 'success');
+            }
+          } catch (err) {
+            console.error('Pasted image upload error:', err);
+            app.showToast(`Pasted image upload failed: ${err.message}`, 'error');
+          }
+          return;
+        }
+      }
     }
   },
 
@@ -1946,8 +2056,6 @@ const ContentDetailView = {
 
         if (res.qrUrl && container) {
           container.innerHTML = `<img src="${res.qrUrl}" alt="WhatsApp QR" style="width: 100%; height: 100%; object-fit: contain; display: block;">`;
-        } else if (container && !container.querySelector('iframe')) {
-          container.innerHTML = `<iframe src="/qr" style="width: 100%; height: 100%; border: none; overflow: hidden; background: #ffffff;"></iframe>`;
         }
       } catch (e) { }
     };

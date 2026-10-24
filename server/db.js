@@ -8,6 +8,38 @@ if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
+/**
+ * Extracts all inline base64 images from text/HTML, saves them as static files
+ * in public/uploads/, and replaces data:image/... URIs with clean /uploads/... URLs.
+ */
+function extractAndSaveBase64Images(content) {
+  if (!content || typeof content !== 'string') return content;
+  if (!content.includes('data:image/')) return content;
+
+  if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  }
+
+  const regex = /data:image\/([a-zA-Z0-9+]+);base64,([A-Za-z0-9+/=]+)/g;
+  return content.replace(regex, (match, mimeType, base64Data) => {
+    try {
+      let ext = (mimeType || 'jpg').toLowerCase();
+      if (ext === 'jpeg') ext = 'jpg';
+      if (ext === 'svg+xml') ext = 'svg';
+      const cleanExt = ext.replace(/[^a-z0-9]/g, '');
+      const filename = `embedded-${Date.now()}-${Math.round(Math.random() * 1e9)}.${cleanExt || 'jpg'}`;
+      const filePath = path.join(UPLOADS_DIR, filename);
+      const buffer = Buffer.from(base64Data, 'base64');
+      fs.writeFileSync(filePath, buffer);
+      console.log(`[Base64 Sanitizer] Extracted base64 image (${Math.round(buffer.length / 1024)} KB) -> /uploads/${filename}`);
+      return `/uploads/${filename}`;
+    } catch (err) {
+      console.error('[Base64 Sanitizer] Error saving base64 image:', err.message);
+      return match;
+    }
+  });
+}
+
 // Initial Realistic Seed Data with updated team names
 const initialData = {
   users: [
@@ -794,35 +826,101 @@ const initialData = {
 // Database Access Helper Functions
 class Database {
   constructor() {
+    this.cache = null;
     this.init();
   }
 
   init() {
     if (!fs.existsSync(DB_FILE)) {
       this.save(initialData);
+    } else {
+      this.load();
+      this.migrateBase64();
     }
   }
 
   load() {
+    if (this.cache) {
+      return this.cache;
+    }
     try {
       if (!fs.existsSync(DB_FILE)) {
-        this.save(initialData);
-        return initialData;
+        this.cache = JSON.parse(JSON.stringify(initialData));
+        this.save(this.cache);
+        return this.cache;
       }
       const raw = fs.readFileSync(DB_FILE, 'utf8');
-      return JSON.parse(raw);
+      this.cache = JSON.parse(raw);
+      return this.cache;
     } catch (err) {
       console.error('Error loading DB, reverting to initial seed:', err);
-      return initialData;
+      this.cache = JSON.parse(JSON.stringify(initialData));
+      return this.cache;
     }
   }
 
   save(data) {
+    this.cache = data;
     try {
       fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
     } catch (err) {
       console.error('Error saving DB:', err);
     }
+  }
+
+  migrateBase64() {
+    try {
+      const data = this.load();
+      let changed = false;
+      if (Array.isArray(data.content)) {
+        for (const item of data.content) {
+          if (item.body && item.body.includes('data:image/')) {
+            const originalLength = item.body.length;
+            item.body = extractAndSaveBase64Images(item.body);
+            console.log(`[DB Migration] Cleaned item ${item.id}: body length shrunk from ${originalLength} to ${item.body.length} chars.`);
+            changed = true;
+          }
+          if (item.featured_image && item.featured_image.includes('data:image/')) {
+            item.featured_image = extractAndSaveBase64Images(item.featured_image);
+            changed = true;
+          }
+          if (Array.isArray(item.images)) {
+            for (const img of item.images) {
+              if (img.file_url && img.file_url.includes('data:image/')) {
+                img.file_url = extractAndSaveBase64Images(img.file_url);
+                changed = true;
+              }
+            }
+          }
+        }
+      }
+      if (Array.isArray(data.versions)) {
+        for (const ver of data.versions) {
+          if (ver.body && ver.body.includes('data:image/')) {
+            ver.body = extractAndSaveBase64Images(ver.body);
+            changed = true;
+          }
+        }
+      }
+      if (Array.isArray(data.trash)) {
+        for (const t of data.trash) {
+          if (t.body && t.body.includes('data:image/')) {
+            t.body = extractAndSaveBase64Images(t.body);
+            changed = true;
+          }
+        }
+      }
+      if (changed) {
+        console.log('✅ [DB Migration] Base64 migration completed. Database saved cleanly.');
+        this.save(data);
+      }
+    } catch (err) {
+      console.error('[DB Migration] Error migrating base64:', err.message);
+    }
+  }
+
+  extractAndSaveBase64Images(content) {
+    return extractAndSaveBase64Images(content);
   }
 
   // Getters
@@ -839,8 +937,16 @@ class Database {
     const today = "2026-08-24";
     items = items.map(item => {
       const isOverdue = item.deadline && item.deadline < today && item.status !== 'PUBLISHED';
+      
+      // Omit heavy HTML body and embedded base64 in list views to keep response < 50 KB
+      let bodyPreview = item.short_description || '';
+      if (!bodyPreview && item.body) {
+        bodyPreview = item.body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 500);
+      }
+
       return {
         ...item,
+        body: (filters.include_full_body === 'true') ? item.body : bodyPreview,
         is_overdue: isOverdue,
         writer: data.users.find(u => u.id === item.writer_id) || { name: "Unassigned", avatar: "?" },
         editor: data.users.find(u => u.id === item.editor_id) || { name: "Unassigned", avatar: "?" },
@@ -959,17 +1065,20 @@ class Database {
       publishing_date: itemData.publishing_date || "2026-08-29",
       published_url: "",
       short_description: itemData.short_description || "",
-      body: itemData.body || "",
+      body: extractAndSaveBase64Images(itemData.body || ""),
       tags: itemData.tags || ["HeritagePulse"],
       seo_title: itemData.seo_title || `${itemData.title || itemData.topic} | Heritage Pulse`,
       seo_description: itemData.seo_description || itemData.short_description || "",
       keywords: itemData.keywords || "",
-      featured_image: itemData.featured_image || "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80",
+      featured_image: extractAndSaveBase64Images(itemData.featured_image || "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80"),
       video_url: itemData.video_url || "",
       reference_links: itemData.reference_links || "",
       sources: itemData.sources || (itemData.reference_links ? [{ id: 'src-1', name: 'Primary Reference Source', url: itemData.reference_links }] : []),
       notes: itemData.notes || "",
-      images: itemData.images || [],
+      images: Array.isArray(itemData.images) ? itemData.images.map(img => ({
+        ...img,
+        file_url: extractAndSaveBase64Images(img.file_url)
+      })) : [],
       created_at: now,
       updated_at: now,
       checklist: {
@@ -1015,7 +1124,23 @@ class Database {
     const user = data.users.find(u => u.id === userId) || data.users[0];
     const now = new Date().toISOString();
 
-    if (updateData.body && updateData.body !== current.body && updateData.body.length > 50) {
+    const sanitizedData = { ...updateData };
+    if (sanitizedData.body) {
+      sanitizedData.body = extractAndSaveBase64Images(sanitizedData.body);
+    }
+    if (sanitizedData.featured_image) {
+      sanitizedData.featured_image = extractAndSaveBase64Images(sanitizedData.featured_image);
+    }
+    if (Array.isArray(sanitizedData.images)) {
+      sanitizedData.images = sanitizedData.images.map(img => {
+        if (img && img.file_url && img.file_url.includes('data:image/')) {
+          return { ...img, file_url: extractAndSaveBase64Images(img.file_url) };
+        }
+        return img;
+      });
+    }
+
+    if (sanitizedData.body && sanitizedData.body !== current.body && sanitizedData.body.length > 50) {
       const existingVersions = data.versions.filter(v => v.content_id === id);
       const nextVer = existingVersions.length + 1;
       data.versions.unshift({
@@ -1025,14 +1150,14 @@ class Database {
         version_label: `Version ${nextVer} — ${user.name} (${user.role}) Edit`,
         author_name: `${user.name} (${user.role})`,
         created_at: now,
-        title: updateData.title || current.title,
-        body: updateData.body
+        title: sanitizedData.title || current.title,
+        body: sanitizedData.body
       });
     }
 
     const updated = {
       ...current,
-      ...updateData,
+      ...sanitizedData,
       updated_at: now
     };
 
@@ -1079,7 +1204,7 @@ class Database {
     if (userId) {
       list = list.filter(n => n.user_id === userId || n.user_id === 'all');
     }
-    return list.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+    return list.sort((a,b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 50);
   }
 
   markNotificationRead(id) {
