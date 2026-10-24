@@ -92,6 +92,7 @@ function initDb() {
       video_url TEXT,
       reference_links TEXT,
       sources TEXT,
+      image_sources TEXT,
       notes TEXT,
       images TEXT,
       checklist TEXT,
@@ -106,6 +107,9 @@ function initDb() {
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `);
+  try {
+    db.exec(`ALTER TABLE content ADD COLUMN image_sources TEXT;`);
+  } catch (e) {}
 
   // 4. Comments & Editorial Logs Table
   db.exec(`
@@ -758,20 +762,34 @@ function createContent(data, userId) {
   const id = data.id || `HP-2026-${String(Math.floor(Math.random() * 900) + 100).padStart(3, '0')}`;
   const now = new Date().toISOString();
 
+  let body = data.body || '';
+  let featured_image = data.featured_image || '';
+  let images = Array.isArray(data.images) ? data.images : [];
+  if (jsonDb.extractAndSaveBase64Images) {
+    body = jsonDb.extractAndSaveBase64Images(body);
+    featured_image = jsonDb.extractAndSaveBase64Images(featured_image);
+    images = images.map(img => {
+      if (img && img.file_url && img.file_url.includes('data:image/')) {
+        return { ...img, file_url: jsonDb.extractAndSaveBase64Images(img.file_url) };
+      }
+      return img;
+    });
+  }
+
   const stmt = db.prepare(`
     INSERT INTO content (
       id, title, subtitle, topic, category, subcategory, content_type, frequency,
       writer_id, editor_id, final_approver_id, publisher_id, created_by, created_by_name, created_by_role,
       priority, status, progress, start_date, deadline, work_start_time, work_end_time,
       publishing_date, published_url, short_description, body, tags, seo_title, seo_description,
-      keywords, featured_image, video_url, reference_links, sources, notes, images, checklist,
+      keywords, featured_image, video_url, reference_links, sources, image_sources, notes, images, checklist,
       created_at, updated_at
     ) VALUES (
       ?, ?, ?, ?, ?, ?, ?, ?,
       ?, ?, ?, ?, ?, ?, ?,
       ?, ?, ?, ?, ?, ?, ?,
       ?, ?, ?, ?, ?, ?, ?,
-      ?, ?, ?, ?, ?, ?, ?, ?,
+      ?, ?, ?, ?, ?, ?, ?, ?, ?,
       ?, ?
     )
   `);
@@ -802,17 +820,18 @@ function createContent(data, userId) {
     data.publishing_date || '',
     data.published_url || '',
     data.short_description || '',
-    data.body || '',
+    body,
     JSON.stringify(data.tags || []),
     data.seo_title || '',
     data.seo_description || '',
     data.keywords || '',
-    data.featured_image || '',
+    featured_image,
     data.video_url || '',
     data.reference_links || '',
     JSON.stringify(data.sources || []),
+    JSON.stringify(data.image_sources || []),
     data.notes || '',
-    JSON.stringify(data.images || []),
+    JSON.stringify(images),
     JSON.stringify(data.checklist || {}),
     now,
     now
@@ -828,7 +847,23 @@ function updateContent(id, fields) {
   const item = getContentById(id);
   if (!item) return null;
 
-  const updated = { ...item, ...fields, updated_at: new Date().toISOString() };
+  const sanitized = { ...fields };
+  if (sanitized.body && jsonDb.extractAndSaveBase64Images) {
+    sanitized.body = jsonDb.extractAndSaveBase64Images(sanitized.body);
+  }
+  if (sanitized.featured_image && jsonDb.extractAndSaveBase64Images) {
+    sanitized.featured_image = jsonDb.extractAndSaveBase64Images(sanitized.featured_image);
+  }
+  if (Array.isArray(sanitized.images) && jsonDb.extractAndSaveBase64Images) {
+    sanitized.images = sanitized.images.map(img => {
+      if (img && img.file_url && img.file_url.includes('data:image/')) {
+        return { ...img, file_url: jsonDb.extractAndSaveBase64Images(img.file_url) };
+      }
+      return img;
+    });
+  }
+
+  const updated = { ...item, ...sanitized, updated_at: new Date().toISOString() };
   
   db.prepare(`
     UPDATE content SET
@@ -836,6 +871,7 @@ function updateContent(id, fields) {
       writer_id = ?, editor_id = ?, publisher_id = ?, priority = ?, status = ?, progress = ?,
       start_date = ?, deadline = ?, publishing_date = ?, published_url = ?, short_description = ?,
       body = ?, tags = ?, seo_title = ?, seo_description = ?, keywords = ?, featured_image = ?,
+      video_url = ?, reference_links = ?, sources = ?, image_sources = ?,
       notes = ?, images = ?, checklist = ?, edit_request_pending = ?, updated_at = ?
     WHERE id = ?
   `).run(
@@ -843,6 +879,7 @@ function updateContent(id, fields) {
     updated.writer_id, updated.editor_id, updated.publisher_id, updated.priority, updated.status, updated.progress,
     updated.start_date, updated.deadline, updated.publishing_date, updated.published_url, updated.short_description,
     updated.body, JSON.stringify(updated.tags || []), updated.seo_title, updated.seo_description, updated.keywords, updated.featured_image,
+    updated.video_url || '', updated.reference_links || '', JSON.stringify(updated.sources || []), JSON.stringify(updated.image_sources || []),
     updated.notes, JSON.stringify(updated.images || []), JSON.stringify(updated.checklist || {}), updated.edit_request_pending ? 1 : 0,
     updated.updated_at, id
   );
@@ -862,6 +899,7 @@ function formatContentRow(row) {
     publisher: publisher ? { id: publisher.id, name: publisher.name, avatar: publisher.avatar || publisher.name[0], role: publisher.role } : null,
     tags: safeJsonParse(row.tags, []),
     sources: safeJsonParse(row.sources, []),
+    image_sources: safeJsonParse(row.image_sources, []),
     images: safeJsonParse(row.images, []),
     checklist: safeJsonParse(row.checklist, {}),
     edit_request_pending: Boolean(row.edit_request_pending),

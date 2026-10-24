@@ -377,47 +377,74 @@ const ContentDetailView = {
             ${canEdit ? `
             <!-- TRUE WYSIWYG FORMATTING TOOLBAR WITH POP HIGHLIGHTERS & COLORS -->
             <div class="editor-toolbar">
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execFormat('bold')" title="Bold (Ctrl+B)">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execFormat('bold')" title="Bold (Ctrl+B)">
                 <i class="fa-solid fa-bold"></i> <strong>B</strong>
               </button>
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execFormat('italic')" title="Italic (Ctrl+I)">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execFormat('italic')" title="Italic (Ctrl+I)">
                 <i class="fa-solid fa-italic"></i> <em>I</em>
               </button>
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execFormat('underline')" title="Underline (Ctrl+U)">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execFormat('underline')" title="Underline (Ctrl+U)">
                 <i class="fa-solid fa-underline"></i> U
               </button>
               
               <div class="toolbar-sep"></div>
 
+              <!-- FONT FAMILY / TYPOGRAPHY SELECTOR -->
+              <div class="color-dropdown-wrapper">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.toggleFontFamilyDropdown(event)" title="Font Family / Typography">
+                  <i class="fa-solid fa-font text-saffron"></i> <span id="current-font-family-label">Font</span> <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
+                </button>
+                <div id="fontfamily-palette-menu" class="color-palette-menu hidden" style="display: none; min-width: 175px; grid-template-columns: 1fr; gap: 4px; padding: 6px;">
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontFamily('Cinzel, serif', 'Cinzel')">
+                    <span style="font-family: 'Cinzel', serif; font-size: 13px;">Cinzel (Royal)</span>
+                  </button>
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontFamily('Georgia, serif', 'Georgia')">
+                    <span style="font-family: Georgia, serif; font-size: 13px;">Georgia (Editorial)</span>
+                  </button>
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontFamily('Playfair Display, serif', 'Playfair')">
+                    <span style="font-family: 'Playfair Display', serif; font-size: 13px;">Playfair Display</span>
+                  </button>
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontFamily('Inter, sans-serif', 'Inter')">
+                    <span style="font-family: Inter, sans-serif; font-size: 13px;">Inter (Modern Sans)</span>
+                  </button>
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontFamily('Courier New, monospace', 'Courier')">
+                    <span style="font-family: 'Courier New', monospace; font-size: 13px;">Courier (Mono)</span>
+                  </button>
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontFamily('inherit', 'Default')">
+                    <span style="font-size: 12px; color: var(--text-dim);">Reset to Default</span>
+                  </button>
+                </div>
+              </div>
+
               <!-- FONT SIZE DROPDOWN & STEPPERS -->
               <div class="color-dropdown-wrapper">
-                <button type="button" class="toolbar-btn" onclick="ContentDetailView.toggleFontSizeDropdown(event)" title="Font Size">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.toggleFontSizeDropdown(event)" title="Font Size">
                   <i class="fa-solid fa-text-height text-teal-bright"></i> <span id="current-font-size-label">17px</span> <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
                 </button>
                 <div id="fontsize-palette-menu" class="color-palette-menu hidden" style="display: none; min-width: 155px; grid-template-columns: 1fr; gap: 4px; padding: 6px;">
-                  <button type="button" class="fontsize-item-btn" onclick="ContentDetailView.applyFontSize('13px', '13px')">
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontSize('13px', '13px')">
                     <span style="font-size: 13px;">Small</span> <span class="font-px-badge">13px</span>
                   </button>
-                  <button type="button" class="fontsize-item-btn active" onclick="ContentDetailView.applyFontSize('17px', '17px')">
+                  <button type="button" class="fontsize-item-btn active" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontSize('17px', '17px')">
                     <span style="font-size: 16px;">Normal</span> <span class="font-px-badge">17px</span>
                   </button>
-                  <button type="button" class="fontsize-item-btn" onclick="ContentDetailView.applyFontSize('21px', '21px')">
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontSize('21px', '21px')">
                     <span style="font-size: 19px;">Medium</span> <span class="font-px-badge">21px</span>
                   </button>
-                  <button type="button" class="fontsize-item-btn" onclick="ContentDetailView.applyFontSize('26px', '26px')">
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontSize('26px', '26px')">
                     <span style="font-size: 22px;">Large</span> <span class="font-px-badge">26px</span>
                   </button>
-                  <button type="button" class="fontsize-item-btn" onclick="ContentDetailView.applyFontSize('34px', '34px')">
+                  <button type="button" class="fontsize-item-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyFontSize('34px', '34px')">
                     <span style="font-size: 26px;">XL Headline</span> <span class="font-px-badge">34px</span>
                   </button>
                 </div>
               </div>
 
               <!-- Quick Font Size Steppers -->
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.stepFontSize(-2)" title="Decrease Font Size (A-)">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.stepFontSize(-2)" title="Decrease Font Size (A-)">
                 <i class="fa-solid fa-minus" style="font-size: 0.65rem;"></i> <span>A</span>
               </button>
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.stepFontSize(2)" title="Increase Font Size (A+)">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.stepFontSize(2)" title="Increase Font Size (A+)">
                 <i class="fa-solid fa-plus" style="font-size: 0.65rem;"></i> <span>A</span>
               </button>
 
@@ -425,18 +452,18 @@ const ContentDetailView = {
 
               <!-- POP TEXT HIGHLIGHT COLOR DROPDOWN -->
               <div class="color-dropdown-wrapper">
-                <button type="button" class="toolbar-btn" onclick="ContentDetailView.toggleHighlightDropdown(event)" title="Text Highlight Pop Colors">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.toggleHighlightDropdown(event)" title="Text Highlight Pop Colors">
                   <i class="fa-solid fa-highlighter text-saffron"></i> <span>Highlight</span> <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
                 </button>
                 <div id="highlight-palette-menu" class="color-palette-menu hidden" style="display: none;">
-                  <button type="button" class="color-swatch-btn hl-yellow" onclick="ContentDetailView.applyHighlight('hl-yellow')" title="Neon Yellow"></button>
-                  <button type="button" class="color-swatch-btn hl-saffron" onclick="ContentDetailView.applyHighlight('hl-saffron')" title="Saffron Gold"></button>
-                  <button type="button" class="color-swatch-btn hl-cyan" onclick="ContentDetailView.applyHighlight('hl-cyan')" title="Electric Cyan"></button>
-                  <button type="button" class="color-swatch-btn hl-mint" onclick="ContentDetailView.applyHighlight('hl-mint')" title="Emerald Mint"></button>
-                  <button type="button" class="color-swatch-btn hl-coral" onclick="ContentDetailView.applyHighlight('hl-coral')" title="Hot Coral"></button>
-                  <button type="button" class="color-swatch-btn hl-purple" onclick="ContentDetailView.applyHighlight('hl-purple')" title="Soft Violet"></button>
+                  <button type="button" class="color-swatch-btn hl-yellow" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyHighlight('hl-yellow')" title="Neon Yellow"></button>
+                  <button type="button" class="color-swatch-btn hl-saffron" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyHighlight('hl-saffron')" title="Saffron Gold"></button>
+                  <button type="button" class="color-swatch-btn hl-cyan" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyHighlight('hl-cyan')" title="Electric Cyan"></button>
+                  <button type="button" class="color-swatch-btn hl-mint" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyHighlight('hl-mint')" title="Emerald Mint"></button>
+                  <button type="button" class="color-swatch-btn hl-coral" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyHighlight('hl-coral')" title="Hot Coral"></button>
+                  <button type="button" class="color-swatch-btn hl-purple" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyHighlight('hl-purple')" title="Soft Violet"></button>
                   <div style="grid-column: span 4; border-top: 1px solid var(--border-color); padding-top: 6px; margin-top: 4px;">
-                    <button type="button" class="btn btn-xs btn-outline-light w-100" onclick="ContentDetailView.removeHighlight()" style="font-size: 0.72rem; padding: 4px;">
+                    <button type="button" class="btn btn-xs btn-outline-light w-100" onmousedown="event.preventDefault()" onclick="ContentDetailView.removeHighlight()" style="font-size: 0.72rem; padding: 4px;">
                       <i class="fa-solid fa-eraser text-crimson-light"></i> Clear Highlight
                     </button>
                   </div>
@@ -445,18 +472,18 @@ const ContentDetailView = {
 
               <!-- POP TEXT COLOR DROPDOWN -->
               <div class="color-dropdown-wrapper">
-                <button type="button" class="toolbar-btn" onclick="ContentDetailView.toggleTextColorDropdown(event)" title="Text Foreground Color">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.toggleTextColorDropdown(event)" title="Text Foreground Color">
                   <i class="fa-solid fa-font text-blue"></i> <span>Color</span> <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
                 </button>
                 <div id="textcolor-palette-menu" class="color-palette-menu hidden" style="display: none;">
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#f59e0b')" style="background: #f59e0b !important;" title="Gold"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#ef4444')" style="background: #ef4444 !important;" title="Crimson"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#3b82f6')" style="background: #3b82f6 !important;" title="Blue"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#10b981')" style="background: #10b981 !important;" title="Emerald"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#a855f7')" style="background: #a855f7 !important;" title="Purple"></button>
-                  <button type="button" class="color-swatch-btn" onclick="ContentDetailView.applyTextColor('#ffffff')" style="background: #ffffff !important; color: #000 !important;" title="White">A</button>
+                  <button type="button" class="color-swatch-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyTextColor('#f59e0b')" style="background: #f59e0b !important;" title="Gold"></button>
+                  <button type="button" class="color-swatch-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyTextColor('#ef4444')" style="background: #ef4444 !important;" title="Crimson"></button>
+                  <button type="button" class="color-swatch-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyTextColor('#3b82f6')" style="background: #3b82f6 !important;" title="Blue"></button>
+                  <button type="button" class="color-swatch-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyTextColor('#10b981')" style="background: #10b981 !important;" title="Emerald"></button>
+                  <button type="button" class="color-swatch-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyTextColor('#a855f7')" style="background: #a855f7 !important;" title="Purple"></button>
+                  <button type="button" class="color-swatch-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.applyTextColor('#ffffff')" style="background: #ffffff !important; color: #000 !important;" title="White">A</button>
                   <div style="grid-column: span 4; border-top: 1px solid var(--border-color); padding-top: 6px; margin-top: 4px;">
-                    <button type="button" class="btn btn-xs btn-outline-light w-100" onclick="ContentDetailView.removeTextColor()" style="font-size: 0.72rem; padding: 4px;">
+                    <button type="button" class="btn btn-xs btn-outline-light w-100" onmousedown="event.preventDefault()" onclick="ContentDetailView.removeTextColor()" style="font-size: 0.72rem; padding: 4px;">
                       <i class="fa-solid fa-rotate-left"></i> Reset Color
                     </button>
                   </div>
@@ -465,25 +492,25 @@ const ContentDetailView = {
 
               <div class="toolbar-sep"></div>
 
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execHeading('h2')" title="Heading 2">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execHeading('h2')" title="Heading 2">
                 <i class="fa-solid fa-heading"></i>2
               </button>
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execHeading('h3')" title="Heading 3">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execHeading('h3')" title="Heading 3">
                 <i class="fa-solid fa-heading"></i>3
               </button>
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execBlockquote()" title="Quote">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execBlockquote()" title="Quote">
                 <i class="fa-solid fa-quote-left"></i> Quote
               </button>
               
               <div class="toolbar-sep"></div>
 
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execFormat('insertUnorderedList')" title="Bullet List">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execFormat('insertUnorderedList')" title="Bullet List">
                 <i class="fa-solid fa-list-ul"></i>
               </button>
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.execFormat('insertOrderedList')" title="Numbered List">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.execFormat('insertOrderedList')" title="Numbered List">
                 <i class="fa-solid fa-list-ol"></i>
               </button>
-              <button type="button" class="toolbar-btn" onclick="ContentDetailView.promptInsertLink()" title="Hyperlink">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="ContentDetailView.promptInsertLink()" title="Hyperlink">
                 <i class="fa-solid fa-link"></i> Link
               </button>
 
@@ -581,6 +608,41 @@ const ContentDetailView = {
               </div>
             </div>
 
+            <!-- IMAGE SOURCES & PHOTO REFERENCE LINKS SECTION -->
+            <div class="sources-management-section" style="margin-top: 14px; border-left: 3px solid var(--teal-bright);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                <div>
+                  <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--text-primary);">
+                    <i class="fa-solid fa-camera-retro text-teal-bright"></i> Image Sources & Photo Reference Links
+                  </h4>
+                  <p style="font-size: 0.76rem; color: var(--text-muted);">
+                    Add primary photography sources, archives, and licensing links. These automatically render as clickable photo citations!
+                  </p>
+                </div>
+                ${canEdit ? `
+                  <button type="button" class="btn btn-xs btn-outline-light" onclick="ContentDetailView.insertImageSourcesIntoArticle()">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i> Insert at End of Article
+                  </button>
+                ` : ''}
+              </div>
+
+              ${canEdit ? `
+              <!-- Add Image Source Input -->
+              <div style="display: grid; grid-template-columns: 1.5fr 2fr auto; gap: 8px; margin-bottom: 12px;">
+                <input type="text" id="new-image-source-name" class="form-control" style="font-size: 0.8rem;" placeholder="Image Source / Photographer (e.g. ASI Archives, Unsplash, Reuters)">
+                <input type="url" id="new-image-source-url" class="form-control" style="font-size: 0.8rem;" placeholder="Image Source URL (https://...)">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="ContentDetailView.addImageSourceLink()">
+                  <i class="fa-solid fa-plus"></i> Add Image Source
+                </button>
+              </div>
+              ` : ''}
+
+              <!-- Image Sources List -->
+              <div id="image-sources-list-container">
+                ${this.renderImageSourcesList(item)}
+              </div>
+            </div>
+
             <!-- DEDICATED IMAGE MANAGEMENT SECTION -->
             <div class="image-management-section">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
@@ -636,6 +698,8 @@ const ContentDetailView = {
                     <div class="image-card-info">
                       <input type="text" class="image-caption-input" value="${this.escapeHtml(img.caption || '')}" placeholder="Add photo caption..." ${canEdit ? `onchange="ContentDetailView.updateImageField('${img.id}', 'caption', this.value)"` : 'readonly disabled style="cursor: not-allowed;"'}>
                       <input type="text" class="image-caption-input" value="${this.escapeHtml(img.credit || '')}" placeholder="Photographer/Source credit..." ${canEdit ? `onchange="ContentDetailView.updateImageField('${img.id}', 'credit', this.value)"` : 'readonly disabled style="cursor: not-allowed;"'}>
+                      <input type="url" class="image-caption-input" value="${this.escapeHtml(img.source_url || '')}" placeholder="Photo Source Link (https://...)" ${canEdit ? `onchange="ContentDetailView.updateImageField('${img.id}', 'source_url', this.value)"` : 'readonly disabled style="cursor: not-allowed;"'}>
+                      ${img.source_url ? `<a href="${this.escapeHtml(img.source_url)}" target="_blank" rel="noopener noreferrer" style="font-size: 0.72rem; color: var(--teal-bright); display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; margin-top: 3px;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Source Link</a>` : ''}
                       ${canEdit ? `
                       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
                         <button class="btn-text btn-xs" onclick="ContentDetailView.setFeaturedImage('${img.id}')" style="font-size: 0.7rem; color: ${img.is_featured ? 'var(--saffron)' : 'var(--text-muted)'};">
@@ -826,6 +890,7 @@ const ContentDetailView = {
         const hlMenu = document.getElementById('highlight-palette-menu');
         const tcMenu = document.getElementById('textcolor-palette-menu');
         const fsMenu = document.getElementById('fontsize-palette-menu');
+        const ffMenu = document.getElementById('fontfamily-palette-menu');
         if (hlMenu && !hlMenu.contains(e.target) && !e.target.closest('.color-dropdown-wrapper')) {
           hlMenu.classList.add('hidden');
           hlMenu.style.display = 'none';
@@ -837,6 +902,10 @@ const ContentDetailView = {
         if (fsMenu && !fsMenu.contains(e.target) && !e.target.closest('.color-dropdown-wrapper')) {
           fsMenu.classList.add('hidden');
           fsMenu.style.display = 'none';
+        }
+        if (ffMenu && !ffMenu.contains(e.target) && !e.target.closest('.color-dropdown-wrapper')) {
+          ffMenu.classList.add('hidden');
+          ffMenu.style.display = 'none';
         }
       });
 
@@ -860,13 +929,109 @@ const ContentDetailView = {
     }
   },
 
-  // FONT SIZE CONTROLS
-  toggleFontSizeDropdown(e) {
-    e.stopPropagation();
+  // FONT FAMILY / TYPOGRAPHY CONTROLS
+  toggleFontFamilyDropdown(e) {
+    if (e) e.stopPropagation();
     this.saveSelection();
-    const menu = document.getElementById('fontsize-palette-menu');
+    const menu = document.getElementById('fontfamily-palette-menu');
+    const fsMenu = document.getElementById('fontsize-palette-menu');
     const hlMenu = document.getElementById('highlight-palette-menu');
     const tcMenu = document.getElementById('textcolor-palette-menu');
+    if (fsMenu) { fsMenu.classList.add('hidden'); fsMenu.style.display = 'none'; }
+    if (hlMenu) { hlMenu.classList.add('hidden'); hlMenu.style.display = 'none'; }
+    if (tcMenu) { tcMenu.classList.add('hidden'); tcMenu.style.display = 'none'; }
+    if (menu) {
+      const isClosed = menu.style.display === 'none' || menu.classList.contains('hidden');
+      if (isClosed) {
+        menu.classList.remove('hidden');
+        menu.style.display = 'grid';
+      } else {
+        menu.classList.add('hidden');
+        menu.style.display = 'none';
+      }
+    }
+  },
+
+  applyFontFamily(fontFamily, label) {
+    const menu = document.getElementById('fontfamily-palette-menu');
+    if (menu) {
+      menu.classList.add('hidden');
+      menu.style.display = 'none';
+    }
+
+    const labelEl = document.getElementById('current-font-family-label');
+    if (labelEl) labelEl.innerText = label || 'Font';
+
+    const editor = document.getElementById('article-body-editor');
+    if (!editor) return;
+
+    let range = null;
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      const curRange = selection.getRangeAt(0);
+      if (editor.contains(curRange.commonAncestorContainer)) {
+        range = curRange;
+      }
+    }
+    if (!range && this.savedSelectionRange && editor.contains(this.savedSelectionRange.commonAncestorContainer)) {
+      range = this.savedSelectionRange;
+    }
+
+    // Selected text
+    if (range && !range.collapsed && range.toString().trim().length > 0) {
+      try {
+        const span = document.createElement('span');
+        span.style.fontFamily = fontFamily === 'inherit' ? '' : fontFamily;
+        span.appendChild(range.extractContents());
+        range.insertNode(span);
+        const newRange = document.createRange();
+        newRange.selectNodeContents(span);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+        this.savedSelectionRange = newRange.cloneRange();
+        this.onBodyInput();
+        app.showToast(`Typography set to ${label}!`, 'success');
+        return;
+      } catch (err) {
+        console.warn('Font family range error:', err);
+      }
+    }
+
+    // Cursor in block
+    let targetBlock = null;
+    if (range) {
+      let node = range.commonAncestorContainer;
+      if (node.nodeType === 3) node = node.parentElement;
+      while (node && node !== editor) {
+        if (/^(P|H1|H2|H3|H4|LI|BLOCKQUOTE|DIV|SPAN)$/i.test(node.tagName)) {
+          targetBlock = node;
+          break;
+        }
+        node = node.parentElement;
+      }
+    }
+
+    if (targetBlock && targetBlock !== editor) {
+      targetBlock.style.fontFamily = fontFamily === 'inherit' ? '' : fontFamily;
+      this.onBodyInput();
+      app.showToast(`Block font set to ${label}!`, 'success');
+      return;
+    }
+
+    editor.style.fontFamily = fontFamily === 'inherit' ? '' : fontFamily;
+    this.onBodyInput();
+    app.showToast(`Editor font set to ${label}!`, 'success');
+  },
+
+  // FONT SIZE CONTROLS
+  toggleFontSizeDropdown(e) {
+    if (e) e.stopPropagation();
+    this.saveSelection();
+    const menu = document.getElementById('fontsize-palette-menu');
+    const ffMenu = document.getElementById('fontfamily-palette-menu');
+    const hlMenu = document.getElementById('highlight-palette-menu');
+    const tcMenu = document.getElementById('textcolor-palette-menu');
+    if (ffMenu) { ffMenu.classList.add('hidden'); ffMenu.style.display = 'none'; }
     if (hlMenu) { hlMenu.classList.add('hidden'); hlMenu.style.display = 'none'; }
     if (tcMenu) { tcMenu.classList.add('hidden'); tcMenu.style.display = 'none'; }
     if (menu) {
@@ -892,39 +1057,89 @@ const ContentDetailView = {
     if (labelEl) labelEl.innerText = label || sizePx;
     this.currentFontSize = parseInt(sizePx, 10) || 17;
 
+    const editor = document.getElementById('article-body-editor');
+    if (!editor) return;
+
     let range = null;
     const selection = window.getSelection();
-    if (selection && selection.rangeCount > 0 && !selection.isCollapsed) {
-      range = selection.getRangeAt(0);
-    } else if (this.savedSelectionRange && !this.savedSelectionRange.collapsed) {
+    if (selection && selection.rangeCount > 0) {
+      const curRange = selection.getRangeAt(0);
+      if (editor.contains(curRange.commonAncestorContainer)) {
+        range = curRange;
+      }
+    }
+    if (!range && this.savedSelectionRange && editor.contains(this.savedSelectionRange.commonAncestorContainer)) {
       range = this.savedSelectionRange;
     }
 
-    if (!range || range.toString().trim().length === 0) {
-      app.showToast('Please select some text first to change its font size.', 'info');
+    // 1. User highlighted specific text
+    if (range && !range.collapsed && range.toString().trim().length > 0) {
+      try {
+        const span = document.createElement('span');
+        span.style.fontSize = sizePx;
+        span.style.lineHeight = '1.45';
+        span.appendChild(range.extractContents());
+        range.insertNode(span);
+        const newRange = document.createRange();
+        newRange.selectNodeContents(span);
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+        this.savedSelectionRange = newRange.cloneRange();
+        this.onBodyInput();
+        app.showToast(`Selection resized to ${sizePx}!`, 'success');
+        return;
+      } catch (err) {
+        console.warn('Range insertion error:', err);
+      }
+    }
+
+    // 2. Cursor inside paragraph or block
+    let targetBlock = null;
+    if (range) {
+      let node = range.commonAncestorContainer;
+      if (node.nodeType === 3) node = node.parentElement;
+      while (node && node !== editor) {
+        if (/^(P|H1|H2|H3|H4|LI|BLOCKQUOTE|DIV|SPAN)$/i.test(node.tagName)) {
+          targetBlock = node;
+          break;
+        }
+        node = node.parentElement;
+      }
+    }
+
+    if (targetBlock && targetBlock !== editor) {
+      targetBlock.style.fontSize = sizePx;
+      targetBlock.style.lineHeight = '1.45';
+      this.onBodyInput();
+      app.showToast(`Paragraph resized to ${sizePx}!`, 'success');
       return;
     }
 
-    try {
-      const span = document.createElement('span');
-      span.style.fontSize = sizePx;
-      span.style.lineHeight = '1.4';
-      span.appendChild(range.extractContents());
-      range.insertNode(span);
-
-      const editor = document.getElementById('article-body-editor');
-      if (editor) editor.focus();
-      this.savedSelectionRange = null;
-      this.onBodyInput();
-      app.showToast(`Font size set to ${sizePx}!`, 'success');
-    } catch (err) {
-      console.error(err);
-    }
+    // 3. Whole editor
+    editor.style.fontSize = sizePx;
+    this.onBodyInput();
+    app.showToast(`Editor font size set to ${sizePx}!`, 'success');
   },
 
   stepFontSize(delta) {
-    this.saveSelection();
-    let newSize = Math.max(12, Math.min(48, (this.currentFontSize || 17) + delta));
+    const editor = document.getElementById('article-body-editor');
+    let currentPx = this.currentFontSize || 17;
+
+    const sel = window.getSelection();
+    let checkNode = null;
+    if (sel && sel.rangeCount > 0) {
+      const r = sel.getRangeAt(0);
+      if (editor && editor.contains(r.commonAncestorContainer)) {
+        checkNode = r.commonAncestorContainer.nodeType === 3 ? r.commonAncestorContainer.parentElement : r.commonAncestorContainer;
+      }
+    }
+    if (checkNode) {
+      const comp = window.getComputedStyle(checkNode).fontSize;
+      const parsed = parseInt(comp, 10);
+      if (parsed && !isNaN(parsed)) currentPx = parsed;
+    }
+
+    let newSize = Math.max(12, Math.min(48, currentPx + delta));
     this.applyFontSize(`${newSize}px`, `${newSize}px`);
   },
 
@@ -1559,6 +1774,89 @@ const ContentDetailView = {
     app.showToast('Sources section inserted at the bottom of the article!', 'success');
   },
 
+  // IMAGE SOURCES & PHOTO CITATION HANDLERS
+  renderImageSourcesList(item) {
+    const imgSources = item.image_sources || [];
+    if (imgSources.length === 0) {
+      return `<div style="font-size: 0.78rem; color: var(--text-dim); font-style: italic; padding: 6px 0;">No image source links attached yet. Add photo citations above.</div>`;
+    }
+
+    return imgSources.map((s, idx) => `
+      <div class="source-tag-item" style="border-left: 2px solid var(--teal-bright);">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="background: var(--teal-bright); color: #000; font-weight: 800; font-size: 0.65rem; padding: 2px 6px; border-radius: 3px;">[Photo ${idx + 1}]</span>
+          <span class="source-tag-name">${this.escapeHtml(s.name)}</span>
+          ${s.url ? `<a href="${s.url}" target="_blank" rel="noopener noreferrer" class="source-tag-url" title="${s.url}"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${s.url}</a>` : ''}
+        </div>
+        <button class="btn-icon btn-xs text-crimson-light" onclick="ContentDetailView.removeImageSourceLink('${s.id || idx}')" title="Remove image source">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    `).join('');
+  },
+
+  async addImageSourceLink() {
+    const nameInput = document.getElementById('new-image-source-name');
+    const urlInput = document.getElementById('new-image-source-url');
+    if (!nameInput || !urlInput) return;
+    const name = nameInput.value.trim();
+    const url = urlInput.value.trim();
+
+    if (!name && !url) return;
+
+    const image_sources = this.currentItem.image_sources || [];
+    image_sources.push({
+      id: `img-src-${Date.now()}`,
+      name: name || 'Photo Reference Source',
+      url: url || '#'
+    });
+
+    try {
+      await app.apiPut(`/api/content/${this.currentItem.id}`, { image_sources });
+      this.currentItem.image_sources = image_sources;
+      nameInput.value = '';
+      urlInput.value = '';
+      const container = document.getElementById('image-sources-list-container');
+      if (container) container.innerHTML = this.renderImageSourcesList(this.currentItem);
+      app.showToast('Image source citation added!', 'success');
+    } catch (err) {
+      app.showToast(`Failed to add image source: ${err.message}`, 'error');
+    }
+  },
+
+  async removeImageSourceLink(idOrIdx) {
+    let image_sources = (this.currentItem.image_sources || []).filter((s, idx) => s.id !== idOrIdx && String(idx) !== String(idOrIdx));
+    try {
+      await app.apiPut(`/api/content/${this.currentItem.id}`, { image_sources });
+      this.currentItem.image_sources = image_sources;
+      const container = document.getElementById('image-sources-list-container');
+      if (container) container.innerHTML = this.renderImageSourcesList(this.currentItem);
+      app.showToast('Image source removed.', 'info');
+    } catch (err) {
+      app.showToast(`Failed to delete image source: ${err.message}`, 'error');
+    }
+  },
+
+  insertImageSourcesIntoArticle() {
+    const imgSources = this.currentItem.image_sources || [];
+    if (imgSources.length === 0) {
+      app.showToast('Please add at least one image source above first.', 'info');
+      return;
+    }
+
+    const editor = document.getElementById('article-body-editor');
+    if (!editor) return;
+    let sourceHtml = `<h3>Photo & Visual Media Sources</h3><ul>`;
+    imgSources.forEach(s => {
+      sourceHtml += `<li><strong>${this.escapeHtml(s.name)}:</strong> <a href="${s.url}" target="_blank" rel="noopener noreferrer">${this.escapeHtml(s.url || s.name)}</a></li>`;
+    });
+    sourceHtml += `</ul>`;
+
+    editor.innerHTML += sourceHtml;
+    this.onBodyInput();
+    app.showToast('Photo & Image sources section inserted into article!', 'success');
+  },
+
   getSubCategoriesForCategory(catName) {
     if (window.app && app.getSubCategoriesForCategory) {
       return app.getSubCategoriesForCategory(catName);
@@ -1713,6 +2011,23 @@ const ContentDetailView = {
     }
   },
 
+  async updateImageField(imgId, field, value) {
+    if (!this.currentItem || !Array.isArray(this.currentItem.images)) return;
+    const img = this.currentItem.images.find(i => String(i.id) === String(imgId));
+    if (!img) return;
+
+    img[field] = value;
+    try {
+      await app.apiPut(`/api/content/${this.currentItem.id}`, {
+        images: this.currentItem.images
+      });
+      app.showToast(`Updated image ${field}!`, 'info');
+    } catch (err) {
+      console.error(err);
+      app.showToast(`Failed to update image ${field}: ${err.message}`, 'error');
+    }
+  },
+
   renderGalleryInPlace() {
     const listEl = document.getElementById('image-gallery-list');
     if (!listEl || !this.currentItem) return;
@@ -1724,6 +2039,8 @@ const ContentDetailView = {
         <div class="image-card-info">
           <input type="text" class="image-caption-input" value="${this.escapeHtml(img.caption || '')}" placeholder="Add photo caption..." ${canEdit ? `onchange="ContentDetailView.updateImageField('${img.id}', 'caption', this.value)"` : 'readonly disabled style="cursor: not-allowed;"'}>
           <input type="text" class="image-caption-input" value="${this.escapeHtml(img.credit || '')}" placeholder="Photographer/Source credit..." ${canEdit ? `onchange="ContentDetailView.updateImageField('${img.id}', 'credit', this.value)"` : 'readonly disabled style="cursor: not-allowed;"'}>
+          <input type="url" class="image-caption-input" value="${this.escapeHtml(img.source_url || '')}" placeholder="Photo Source Link (https://...)" ${canEdit ? `onchange="ContentDetailView.updateImageField('${img.id}', 'source_url', this.value)"` : 'readonly disabled style="cursor: not-allowed;"'}>
+          ${img.source_url ? `<a href="${this.escapeHtml(img.source_url)}" target="_blank" rel="noopener noreferrer" style="font-size: 0.72rem; color: var(--teal-bright); display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; margin-top: 3px;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Source Link</a>` : ''}
           ${canEdit ? `
           <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
             <button class="btn-text btn-xs" onclick="ContentDetailView.setFeaturedImage('${img.id}')" style="font-size: 0.7rem; color: ${img.is_featured ? 'var(--saffron)' : 'var(--text-muted)'};">
@@ -2399,6 +2716,7 @@ const ContentDetailView = {
     const formattedBody = document.getElementById('article-body-editor') ? document.getElementById('article-body-editor').innerHTML : this.markdownToHtml(this.currentItem.body || '');
     const featuredImg = this.currentItem.featured_image || (this.currentItem.images && this.currentItem.images[0] ? this.currentItem.images[0].file_url : 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80');
     const sources = this.currentItem.sources || [];
+    const image_sources = this.currentItem.image_sources || [];
 
     container.innerHTML = `
       <div class="reader-masthead">
@@ -2423,6 +2741,8 @@ const ContentDetailView = {
         <img src="${featuredImg}" alt="${this.currentItem.title}" class="reader-hero-image">
         <div class="reader-image-caption">
           ${this.currentItem.images && this.currentItem.images[0] ? this.currentItem.images[0].caption : 'Photo courtesy of Heritage Pulse Archive'}
+          ${this.currentItem.images && this.currentItem.images[0] && this.currentItem.images[0].credit ? ` · <em>Credit: ${this.escapeHtml(this.currentItem.images[0].credit)}</em>` : ''}
+          ${this.currentItem.images && this.currentItem.images[0] && this.currentItem.images[0].source_url ? ` · <a href="${this.escapeHtml(this.currentItem.images[0].source_url)}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">Photo Source Link</a>` : ''}
         </div>
       </div>
 
@@ -2443,6 +2763,19 @@ const ContentDetailView = {
         </div>
       ` : ''}
 
+      ${image_sources.length > 0 ? `
+        <div style="margin-top: 24px; padding: 20px; background: rgba(20, 184, 166, 0.05); border-left: 4px solid var(--teal-bright); border-radius: 4px;">
+          <h4 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 10px;">
+            <i class="fa-solid fa-camera-retro text-teal-bright"></i> Photo Citations & Image Sources
+          </h4>
+          <ul style="margin-left: 20px; font-size: 0.95rem; line-height: 1.8;">
+            ${image_sources.map(s => `
+              <li><strong>${this.escapeHtml(s.name)}:</strong> <a href="${s.url}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">${this.escapeHtml(s.url || s.name)}</a></li>
+            `).join('')}
+          </ul>
+        </div>
+      ` : ''}
+
       ${this.currentItem.images && this.currentItem.images.length > 1 ? `
         <div style="margin: 40px 0; border-top: 1px solid #30363d; padding-top: 24px;">
           <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 16px;">Photo Gallery Documentation</h3>
@@ -2450,7 +2783,11 @@ const ContentDetailView = {
             ${this.currentItem.images.slice(1).map(img => `
               <div>
                 <img src="${img.file_url}" alt="${img.caption}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 6px;">
-                <div style="font-size: 0.78rem; color: #8b949e; margin-top: 6px;">${img.caption}</div>
+                <div style="font-size: 0.78rem; color: #8b949e; margin-top: 6px;">
+                  ${img.caption || ''}
+                  ${img.credit ? ` · <em>${this.escapeHtml(img.credit)}</em>` : ''}
+                  ${img.source_url ? ` · <a href="${this.escapeHtml(img.source_url)}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline;">Source Link</a>` : ''}
+                </div>
               </div>
             `).join('')}
           </div>
