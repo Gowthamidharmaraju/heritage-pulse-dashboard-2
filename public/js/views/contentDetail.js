@@ -2345,11 +2345,31 @@ const ContentDetailView = {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 
     let pollInterval = null;
+    let isModalClosed = false;
     const startedAt = Date.now();
+    const modal = document.getElementById('wa-qr-connect-modal');
+    const closeModal = (submitViaEmail = false) => {
+      if (isModalClosed) return;
+      isModalClosed = true;
+      clearInterval(pollInterval);
+      document.removeEventListener('keydown', handleEscape);
+      if (modal) modal.remove();
+      if (submitViaEmail) onConnectedCallback();
+    };
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') closeModal();
+    };
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', handleEscape);
 
     const updateQrCode = async () => {
+      if (isModalClosed) return;
       try {
         const res = await app.apiGet('/api/wa-status');
+        if (isModalClosed) return;
         const container = document.getElementById('wa-modal-qr-container');
         const statusTxt = document.getElementById('wa-modal-status-text');
 
@@ -2365,9 +2385,7 @@ const ContentDetailView = {
           }
           if (statusTxt) statusTxt.innerHTML = `✅ WhatsApp Connected! Sending notification...`;
           setTimeout(() => {
-            const modal = document.getElementById('wa-qr-connect-modal');
-            if (modal) modal.remove();
-            onConnectedCallback();
+            closeModal(true);
           }, 1200);
           return;
         }
@@ -2397,10 +2415,7 @@ const ContentDetailView = {
     pollInterval = setInterval(updateQrCode, 3000);
 
     document.getElementById('wa-modal-skip-btn').onclick = () => {
-      clearInterval(pollInterval);
-      const modal = document.getElementById('wa-qr-connect-modal');
-      if (modal) modal.remove();
-      onConnectedCallback();
+      closeModal(true);
     };
   },
 
