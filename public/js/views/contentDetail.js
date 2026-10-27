@@ -2345,6 +2345,7 @@ const ContentDetailView = {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 
     let pollInterval = null;
+    const startedAt = Date.now();
 
     const updateQrCode = async () => {
       try {
@@ -2373,8 +2374,23 @@ const ContentDetailView = {
 
         if (res.qrUrl && container) {
           container.innerHTML = `<img src="${res.qrUrl}" alt="WhatsApp QR" style="width: 100%; height: 100%; object-fit: contain; display: block;">`;
+          const qrImage = container.querySelector('img');
+          qrImage.onerror = () => {
+            container.innerHTML = '<div style="display:flex;height:100%;align-items:center;justify-content:center;padding:16px;color:#b91c1c;font-size:.85rem;">QR image could not be displayed. Please retry the connection.</div>';
+            if (statusTxt) statusTxt.textContent = 'WhatsApp QR image failed to load.';
+          };
+        } else if (container && res.error) {
+          container.innerHTML = `<div style="display:flex;height:100%;align-items:center;justify-content:center;padding:16px;color:#b91c1c;font-size:.85rem;">${res.error}</div>`;
+          if (statusTxt) statusTxt.textContent = 'Waiting for WhatsApp to reconnect…';
+        } else if (container && Date.now() - startedAt > 20000 && !container.querySelector('img')) {
+          container.innerHTML = '<div style="display:flex;height:100%;align-items:center;justify-content:center;padding:16px;color:#475569;font-size:.85rem;">WhatsApp is still starting. The QR code will appear here when the server is ready.</div>';
         }
-      } catch (e) { }
+      } catch (e) {
+        const container = document.getElementById('wa-modal-qr-container');
+        const statusTxt = document.getElementById('wa-modal-status-text');
+        if (container) container.innerHTML = '<div style="display:flex;height:100%;align-items:center;justify-content:center;padding:16px;color:#b91c1c;font-size:.85rem;">Could not reach the WhatsApp service. Check the server and retry.</div>';
+        if (statusTxt) statusTxt.textContent = 'Connection to the server failed.';
+      }
     };
 
     updateQrCode();

@@ -6,6 +6,7 @@ const cors = require('cors');
 const fs = require('fs');
 const multer = require('multer');
 const { Client, LocalAuth } = require('whatsapp-web.js');
+const QRCode = require('qrcode');
 const db = require('./db');
 const workflow = require('./workflow');
 
@@ -29,25 +30,37 @@ global.waClient = new Client({
 
 // Global WhatsApp QR state
 global.currentQrCodeUrl = '';
+global.waClientError = '';
 
-global.waClient.on('qr', (qr) => {
+global.waClient.on('qr', async (qr) => {
   console.log('\n📲 New WhatsApp QR Code Generated! Open http://localhost:3000/qr to scan!\n');
-  global.currentQrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(qr)}`;
+  try {
+    // Generate locally so QR display does not depend on an external image service.
+    global.currentQrCodeUrl = await QRCode.toDataURL(qr, { width: 320, margin: 2 });
+    global.waClientError = '';
+  } catch (err) {
+    global.currentQrCodeUrl = '';
+    global.waClientError = 'Could not generate the WhatsApp QR code.';
+    console.error('[WhatsApp Web Client] QR generation error:', err.message);
+  }
 });
 
 global.waClient.on('ready', () => {
   global.waClientReady = true;
   global.currentQrCodeUrl = '';
+  global.waClientError = '';
   console.log('✅ [WhatsApp Web Client] Background session is CONNECTED & READY!');
 });
 
 global.waClient.on('auth_failure', (msg) => {
   global.waClientReady = false;
+  global.waClientError = 'WhatsApp authentication failed. Restart the connection to request a new QR code.';
   console.error('❌ [WhatsApp Web Client] Auth failure:', msg);
 });
 
 global.waClient.on('disconnected', (reason) => {
   global.waClientReady = false;
+  global.waClientError = 'WhatsApp disconnected. Reconnecting…';
   console.warn('⚠️ [WhatsApp Web Client] Disconnected:', reason);
   setTimeout(() => {
     try { global.waClient.initialize(); } catch(e) {}
@@ -55,6 +68,7 @@ global.waClient.on('disconnected', (reason) => {
 });
 
 global.waClient.initialize().catch(err => {
+  global.waClientError = 'WhatsApp could not start. Check the server logs and try again.';
   console.error('❌ [WhatsApp Web Client] Initialization error:', err.message);
 });
 
@@ -65,7 +79,8 @@ const PORT = process.env.PORT || 3000;
 app.get('/api/wa-status', (req, res) => {
   res.json({
     ready: !!global.waClientReady,
-    qrUrl: global.currentQrCodeUrl || ''
+    qrUrl: global.currentQrCodeUrl || '',
+    error: global.waClientError || ''
   });
 });
 
